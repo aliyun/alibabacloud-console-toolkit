@@ -1,0 +1,75 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-styled-components-isolation",
+  "version": "1.0.0",
+  "description": "console toolkit plugin for isolating styled-components in the bundle",
+  "main": "lib/index.js",
+  "scripts": {
+    "ci": "npm run lint && npm run compile && npm run cov",
+    "lint": "tslint --project .",
+    "compile": "rm -rf ./lib && tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepare": "npm run compile"
+  },
+  "devDependencies": {
+    "@alicloud/console-toolkit-core": "^1.0.0",
+    "@types/chalk": "^2.2.0",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.121",
+    "@types/node": "^12.7.5",
+    "@types/pkg-up": "^3.1.0",
+    "@types/webpack": "^4.32.1",
+    "@types/webpack-chain": "^5.0.1",
+    "chalk": "^2.4.2",
+    "fs-extra": "^8.1.0",
+    "glob": "^7.1.4",
+    "jest": "^24.2.0-alpha.0",
+    "memory-fs": "^0.4.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.8.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0",
+    "lodash": "^4.17.11",
+    "read-pkg": "^5.2.0"
+  },
+  "peerDependencies": {
+    "webpack": ">= 4"
+  },
+  "ci": {
+    "type": "aoneci",
+    "version": "8",
+    "docker": true,
+    "tags": "",
+    "fntest": false,
+    "command": "ci",
+    "cpp": false,
+    "autoBadges": true,
+    "image": ""
+  },
+  "nyc": {
+    "include": [
+      "src/**/*.ts"
+    ],
+    "extension": [
+      ".ts"
+    ],
+    "require": [
+      "ts-node/register"
+    ],
+    "reporter": [
+      "text-summary",
+      "json",
+      "json-summary",
+      "lcov"
+    ],
+    "temp-dir": "./node_modules/.nyc_output",
+    "sourceMap": true,
+    "instrument": true
+  },
+  "author": "boelroy <boelroy@live.com>",
+  "license": "MIT"
+}

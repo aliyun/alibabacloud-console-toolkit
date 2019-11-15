@@ -1,0 +1,26 @@
+{
+  "name": "@alicloud/console-toolkit-preset-monorepo",
+  "version": "1.0.0",
+  "description": "console toolkit preset for monorepo",
+  "main": "lib/index.js",
+  "scripts": {
+    "ci": "npm run lint && npm run compile && npm run cov",
+    "lint": "tslint --project .",
+    "compile": "rimraf ./lib && tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepare": "npm run compile"
+  },
+  "author": "boelroy <boelroy@live.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "rimraf": "^2.6.3",
+    "typescript": "^3.5.2"
+  },
+  "dependencies": {
+    "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0",
+    "@alicloud/console-toolkit-core": "^1.0.0",
+    "jest-cli": "^24.8.0"
+  }
+}

@@ -1,0 +1,1 @@
+export const isRelativePath = (path: string) => /^[.a-zA-Z0-9]/i.test(path);

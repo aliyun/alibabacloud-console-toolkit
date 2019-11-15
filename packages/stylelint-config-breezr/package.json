@@ -1,0 +1,26 @@
+{
+  "name": "stylelint-config-breezr",
+  "version": "1.0.0",
+  "description": "stylelint configuration",
+  "main": "index.js",
+  "license": "MIT",
+  "keywords": [
+    "config",
+    "stylelint"
+  ],
+  "dependencies": {
+    "stylelint-config-standard": "^18.3.0",
+    "stylelint-config-styled-components": "^0.1.1",
+    "stylelint-order": "^3.0.0",
+    "stylelint-processor-styled-components": "^1.8.0"
+  },
+  "peerDependencies": {
+    "stylelint": "^10.1.0"
+  },
+  "devDependencies": {
+    "stylelint": "^10.1.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
+}

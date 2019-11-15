@@ -1,0 +1,29 @@
+{
+  "name": "babel-plugin-wind-rc",
+  "version": "1.0.0",
+  "description": "Auto import css file for wind-rc-{name}",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "keywords": [
+    "babel",
+    "plugin",
+    "wind",
+    "rc"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "@babel/helper-plugin-utils": "^7.0.0",
+    "@babel/types": "^7.3.4",
+    "lodash": "^4.17.5"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-syntax-jsx": "^7.2.0",
+    "@babel/plugin-transform-runtime": "^7.3.4",
+    "@babel/preset-env": "^7.3.4",
+    "glob": "^7.1.2",
+    "jest": "^22.4.2"
+  }
+}

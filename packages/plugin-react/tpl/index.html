@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%= head %>
+    <%= metas %>
+    <% styles.forEach(function(style){ %>
+      <%= style %>
+    <% }); %>
+    <% headscripts.forEach(function(headscript){ %>
+      <%= headscript %>
+    <% }); %>
+  </head>
+  <body>
+    <% prescripts.forEach(function(prescript, index){ %>
+      <%= prescript %>
+    <% }); %>
+    <%= body %>
+    <% scripts.forEach(function(script){ %>
+      <%= script %>
+    <% }); %>
+  </body>
+</html>

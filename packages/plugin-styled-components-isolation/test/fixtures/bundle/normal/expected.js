@@ -1,0 +1,1 @@
+exports.content = `const foo = \\\"data-isolated-styled-components-from-option-sheet-id\\\";\\nconst bar = \\\"data-isolated-styled-components-from-option-sheet-id\\\";\\nconst baz = process && (\\\"data-isolated-styled-components-from-option-sheet-id\\\" || false);`

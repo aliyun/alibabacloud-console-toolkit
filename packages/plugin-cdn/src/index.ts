@@ -1,0 +1,30 @@
+import * as Chain from 'webpack-chain';
+import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
+import { BuildType, Evnrioment } from '@alicloud/console-toolkit-shared-utils';
+import { generateCdnPath } from './generateCdnPath';
+
+export default (api: PluginAPI, options: PluginOptions) => {
+  api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
+    const {
+      buildType,
+    } = env;
+
+    const cdnPath = generateCdnPath({
+      ...env,
+      publishType: options.publishType
+    });
+
+    const { outputPublicPath } = options;
+
+    if (
+      // 用户如果已经指定了 public path , 不做任何替换避免出现不符合期望的情况
+      !outputPublicPath &&
+      // 只有 cdn path 在有效的情况下进行替换
+      cdnPath &&
+      // 只有在云构建生产环境代码时将 publicPath 替换为当前项目的 CDN 地址
+      buildType === BuildType.Prod_Cloud
+    ) {
+      return config.output.publicPath(cdnPath);
+    }
+  });
+};

@@ -1,0 +1,52 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-babel",
+  "version": "1.0.0",
+  "description": "console toolkit plugin for babel",
+  "main": "lib/index.js",
+  "directories": {
+    "example": "example",
+    "test": "test"
+  },
+  "scripts": {
+    "ci": "npm run lint && npm run compile && npm run cov",
+    "lint": "tslint --project .",
+    "compile": "tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "postinstall": "node scripts/link.js",
+    "cov": "jest  --coverage",
+    "prepare": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.116",
+    "@types/mkdirp": "^0.5.2",
+    "@types/node": "^12.7.5",
+    "@types/slash": "^3.0.0",
+    "chai": "^4.2.0",
+    "jest": "^24.2.0-alpha.0",
+    "nyc": "^14.1.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.8.0",
+    "typescript": "^3.0.3"
+  },
+  "author": "boelroy <boelroy@live.com>",
+  "dependencies": {
+    "@alicloud/console-toolkit-core": "^1.0.0",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0",
+    "@babel/core": "^7.2.2",
+    "assert": "^2.0.0",
+    "chalk": "^2.4.2",
+    "chokidar": "^3.1.0",
+    "debug": "^4.0.1",
+    "fs-readdir-recursive": "^1.1.0",
+    "lodash": "^4.17.11",
+    "mkdirp": "^0.5.1",
+    "output-file-sync": "^2.0.1",
+    "slash": "^3.0.0"
+  },
+  "license": "MIT"
+}

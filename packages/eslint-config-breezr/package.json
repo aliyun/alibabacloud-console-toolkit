@@ -1,0 +1,27 @@
+{
+  "name": "eslint-config-breezr",
+  "version": "1.0.0",
+  "description": "Eslint Config based on eslint-config-ali",
+  "main": "index.js",
+  "author": "boelroy <boelroy@live.com>",
+  "license": "MIT",
+  "keywords": [
+    "eslint",
+    "config"
+  ],
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "peerDependencies": {
+    "eslint": ">= 5"
+  },
+  "dependencies": {
+    "@typescript-eslint/eslint-plugin": "^1.9.0",
+    "eslint-config-ali": "^6.0.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-lodash": "^5.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "eslint-plugin-react-hooks": "^1.6.0"
+  }
+}
