@@ -28,13 +28,14 @@
     "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0",
     "@alicloud/console-toolkit-plugin-updator": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.0",
-    "@alicloud/console-toolkit-preset-wind": "^1.0.0",
+    "@alicloud/console-toolkit-preset-official": "^1.0.0",
     "@alicloud/console-toolkit-preset-wind-component": "^1.0.0",
     "@alicloud/console-toolkit-core": "^1.0.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.0",
     "minimist": "^1.2.0",
     "rollup-plugin-commonjs": "^9.1.3",
     "rollup-plugin-node-resolve": "^3.3.0",
+    "webpack-plugin-html-skeleton": "^1.0.0",
     "rollup-plugin-uglify": "^4.0.0",
     "webpack": "^4.29.6"
   }

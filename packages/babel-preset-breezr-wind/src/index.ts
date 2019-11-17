@@ -14,8 +14,6 @@ export default ((ctx: any, options: any) => {
     // Support IE 10
     reactHotLoader = false,
     reactCssModules = false,
-    reactCssModulesResolvePath = resolve(process.cwd(), 'node_modules'),
-    windIntl = {},
     windRc = true,
     windCherryPick = true,
     windLoadableCodeSplitting = true,
@@ -31,9 +29,9 @@ export default ((ctx: any, options: any) => {
           syntax: require.resolve('postcss-less'),
         },
       },
-      webpackHotModuleReloading: true,
+      exclude: 'node_modules',
       handleMissingStyleName: 'warn',
-      resolvePath: reactCssModulesResolvePath,
+      webpackHotModuleReloading: true,
     };
 
     plugins.push(
