@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-rollup",
-	"version": "1.0.0-rc.1",
+	"version": "1.0.0-4.0",
 	"description": "breezr plugin for rollup",
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

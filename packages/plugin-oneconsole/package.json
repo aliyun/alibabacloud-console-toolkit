@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-oneconsole",
-	"version": "1.0.0-rc.1",
+	"version": "1.0.0-4.0",
 	"description": "console toolkit for oneconsole",
 	"main": "lib/index.js",
 	"devDependencies": {

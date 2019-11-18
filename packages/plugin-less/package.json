@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-less",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-4.0",
   "description": "console toolkit plugin for less",
   "main": "lib/index.js",
   "directories": {
@@ -34,8 +34,8 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.0-rc.1",
-    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-core": "^1.0.0-4.0",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0-4.0",
     "autoprefixer": "^9.5.0",
     "copy-dir": "^1.2.0",
     "fs-extra": "^8.1.0",
