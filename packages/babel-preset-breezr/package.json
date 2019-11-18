@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-breezr",
-  "version": "1.0.0-rc.6",
+  "version": "1.0.0-rc.7",
   "description": "Babel preset used by console toolkit",
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
