@@ -46,5 +46,5 @@
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-4.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.0-4.0"
   },
-  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
+  "gitHead": "20fdbac05bba2fc309a687e82be1986bb617f724"
 }
