@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-unit-jest",
-	"version": "1.0.0-rc.4",
+	"version": "1.0.0-rc.5",
 	"description": "console toolkit plugin for jest",
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

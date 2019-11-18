@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-typescript",
-	"version": "1.0.0-rc.4",
+	"version": "1.0.0-rc.5",
 	"description": "console toolkit plugin for typescript",
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

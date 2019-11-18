@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-wind-rc",
-  "version": "1.0.0-rc.4",
+  "version": "1.0.0-rc.5",
   "description": "Auto import css file for wind-rc-{name}",
   "main": "lib/index.js",
   "scripts": {
