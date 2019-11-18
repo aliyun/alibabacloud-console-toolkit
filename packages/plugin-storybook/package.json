@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-storybook",
-	"version": "1.0.0",
+	"version": "1.0.0-rc.1",
 	"description": "console toolkit for storybook",
 	"devDependencies": {
 		"@types/chai": "^4.1.7",

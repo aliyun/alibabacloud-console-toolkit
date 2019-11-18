@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-builtin",
-  "version": "1.0.0",
+  "version": "1.0.0-rc.1",
   "description": "console toolkit plugin for build-in cmd",
   "main": "lib/index.js",
   "scripts": {
@@ -28,11 +28,11 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-plugin-babel": "^1.0.0",
-    "@alicloud/console-toolkit-plugin-generator": "^1.0.0",
-    "@alicloud/console-toolkit-plugin-webpack": "^1.0.0",
-    "@alicloud/console-toolkit-core": "^1.0.0",
-    "@alicloud/console-toolkit-shared-utils": "^1.0.0",
+    "@alicloud/console-toolkit-core": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-plugin-babel": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-plugin-generator": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.1",
     "webpack-chain": "^6.0.0"
   },
   "author": "boelroy <boelroy@live.com>",
