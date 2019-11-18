@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-official",
-  "version": "1.0.0-rc.5",
+  "version": "1.0.0-rc.6",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -29,22 +29,22 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-plugin-arms": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-browser-hint": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-builtin": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-cdn": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-console-base": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-dll": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-long-term-caching": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-mocks": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-oneconsole": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-react": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-typescript": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-updator": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-rc.5",
-    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.5"
+    "@alicloud/console-toolkit-plugin-arms": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-browser-hint": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-builtin": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-cdn": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-console-base": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-dll": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-long-term-caching": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-mocks": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-oneconsole": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-react": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-typescript": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-updator": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-rc.6",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.6"
   },
   "gitHead": "d8a332bc53434b339e4878a50562ba32905f8c0f"
 }
