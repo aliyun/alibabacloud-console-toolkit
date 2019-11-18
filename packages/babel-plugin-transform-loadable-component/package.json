@@ -1,6 +1,6 @@
 {
   "name": "babel-plugin-transform-loadable-component",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "Transform react component to loadable component",
   "main": "src/index.js",
   "license": "MIT",

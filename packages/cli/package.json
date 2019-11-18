@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-cli",
-  "version": "1.0.0-rc.1",
+  "version": "1.0.0-rc.2",
   "description": "development toolkit for aliyun",
   "bin": {
     "breezr": "./bin/breezr.js"
@@ -27,11 +27,11 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.0-rc.1",
-    "@alicloud/console-toolkit-plugin-block": "^1.0.0-rc.1",
-    "@alicloud/console-toolkit-plugin-builtin": "^1.0.0-rc.1",
-    "@alicloud/console-toolkit-plugin-generator": "^1.0.0-rc.1",
-    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.1",
+    "@alicloud/console-toolkit-core": "^1.0.0-rc.2",
+    "@alicloud/console-toolkit-plugin-block": "^1.0.0-rc.2",
+    "@alicloud/console-toolkit-plugin-builtin": "^1.0.0-rc.2",
+    "@alicloud/console-toolkit-plugin-generator": "^1.0.0-rc.2",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.2",
     "chalk": "^2.4.2",
     "commander": "^3.0.1",
     "debug": "^4.0.1",
