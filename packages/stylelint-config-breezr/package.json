@@ -1,6 +1,6 @@
 {
   "name": "stylelint-config-breezr",
-  "version": "1.0.0-4.0",
+  "version": "1.0.0-rc.4",
   "description": "stylelint configuration",
   "main": "index.js",
   "license": "MIT",

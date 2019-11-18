@@ -1,6 +1,6 @@
 {
   "name": "webpack-plugin-html-skeleton",
-  "version": "1.0.0-4.0",
+  "version": "1.0.0-rc.4",
   "description": "Generate skeleton page to spec dom node",
   "main": "src/index.js",
   "author": "boelroy <boelroy@live.com>",

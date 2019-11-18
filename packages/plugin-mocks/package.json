@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-mocks",
-  "version": "1.0.0-4.0",
+  "version": "1.0.0-rc.4",
   "description": "console toolkit plugin for mocks",
   "main": "lib/index.js",
   "directories": {
@@ -35,8 +35,8 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.0-4.0",
-    "@alicloud/console-toolkit-shared-utils": "^1.0.0-4.0",
+    "@alicloud/console-toolkit-core": "^1.0.0-rc.4",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.4",
     "body-parser": "^1.18.3",
     "string.prototype.padend": "^3.0.0",
     "webpack": "^4.29.5",
