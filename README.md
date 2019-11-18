@@ -22,7 +22,7 @@ $ mkdir consoleApp && cd consoleApp
 初始化项目代码
 
 ```
-$ npx breezr init
+$ npx @alicloud/console-toolkit-cli init
 ```
 
 调试项目
