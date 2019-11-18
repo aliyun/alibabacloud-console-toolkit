@@ -23,5 +23,5 @@
     "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0-rc.4",
     "jest-cli": "^24.8.0"
   },
-  "gitHead": "20fdbac05bba2fc309a687e82be1986bb617f724"
+  "gitHead": "67ea11c05d5d6e27bb93fe1812407aabb154bed2"
 }
