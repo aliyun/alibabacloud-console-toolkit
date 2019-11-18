@@ -45,5 +45,6 @@
     "@alicloud/console-toolkit-plugin-updator": "^1.0.0-rc.1",
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-rc.1",
     "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.1"
-  }
+  },
+  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
 }

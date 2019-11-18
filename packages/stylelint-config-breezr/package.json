@@ -22,5 +22,6 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
-  }
+  },
+  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
 }

@@ -50,5 +50,6 @@
     "yeoman-generator": "4.0.2"
   },
   "author": "boelroy <boelroy@live.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
 }

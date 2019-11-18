@@ -48,5 +48,6 @@
     "output-file-sync": "^2.0.1",
     "slash": "^3.0.0"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
 }

@@ -42,5 +42,6 @@
     "less": "^3.9.0",
     "postcss": "^7.0.14"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "3fdc9626f6615b1ecaf431fb9267df40b3fc6ef2"
 }
