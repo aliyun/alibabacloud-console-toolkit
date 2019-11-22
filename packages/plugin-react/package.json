@@ -31,6 +31,7 @@
 		"autoprefixer": "^9.6.0",
 		"babel-loader": "^8.0.5",
 		"babel-polyfill": "^6.26.0",
+		"babel-preset-breezr-wind": "^1.0.0-rc.7",
 		"cheerio": "^1.0.0-rc.3",
 		"css-loader": "^0.28.11",
 		"error-overlay-webpack-plugin": "^0.4.0",
@@ -52,6 +53,7 @@
 		"uglifyjs-webpack-plugin": "^2.1.1",
 		"url-loader": "^2.1.0",
 		"webpack-chain": "^6.0.0",
+		"webpack-plugin-html-skeleton": "^1.0.0-rc.7",
 		"webpackbar": "^4.0.0"
 	},
 	"peerDependencies": {

@@ -72,6 +72,7 @@ export default (config: any, args: any) => {
   if (config.armsId) {
     plugins.push([ '@alicloud/console-toolkit-plugin-arms', {
       armsId: config.armsId,
+      oneConsole: config.oneConsole
     }]);
   }
 
