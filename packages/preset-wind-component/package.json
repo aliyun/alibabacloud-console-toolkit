@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-wind-component",
-  "version": "1.0.0-rc.7",
+  "version": "1.0.0-rc.8",
   "description": "console toolkit preset for wind component",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -34,7 +34,7 @@
     "@alicloud/console-toolkit-plugin-babel": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-builtin": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-less": "^1.0.0-rc.7",
-    "@alicloud/console-toolkit-plugin-react": "^1.0.0-rc.7",
+    "@alicloud/console-toolkit-plugin-react": "^1.0.0-rc.8",
     "@alicloud/console-toolkit-plugin-rollup": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-storybook": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.0.0-rc.7",

@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-react",
-	"version": "1.0.0-rc.7",
+	"version": "1.0.0-rc.8",
 	"description": "console toolkit plugin for base react app",
 	"main": "lib/index.js",
 	"directories": {
