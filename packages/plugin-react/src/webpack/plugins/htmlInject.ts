@@ -60,7 +60,7 @@ class HtmlInjectPlugin {
           });
 
           this.data.prescripts.forEach((script) => {
-            body.append(script);
+            body.prepend(script);
           });
 
           this._processScripts($, publicPath);

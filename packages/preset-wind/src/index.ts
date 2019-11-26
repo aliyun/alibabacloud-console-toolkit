@@ -39,14 +39,6 @@ export default (config: any, args: any) => {
       }
     ],
     [
-      '@alicloud/console-toolkit-plugin-mocks',
-      {
-        //@ts-ignore
-        ...windConfig.mocks,
-        ...config.mocks
-      }
-    ],
-    [
       '@alicloud/console-toolkit-plugin-styled-components-isolation', {
         ...config,
       }
@@ -63,6 +55,18 @@ export default (config: any, args: any) => {
       }
     ]
   ]);
+
+  //@ts-ignore
+  if (config.mocks || windConfig.mocks) {
+    plugins.push([
+      '@ali/breezr-plugin-mocks',
+      {
+        //@ts-ignore
+        ...windConfig.mocks,
+        ...config.mocks
+      }
+    ]);
+  }
 
   // 浏览器兼容性提示
   if (config.browserCompatibility) {
