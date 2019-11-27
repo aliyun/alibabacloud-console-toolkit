@@ -15,6 +15,7 @@
 	"devDependencies": {
 		"@types/chai": "^4.1.7",
 		"@types/debug": "^4.1.5",
+		"@types/html-webpack-plugin": "^3.2.0",
 		"@types/jest": "^24.0.18",
 		"@types/lodash": "^4.14.121",
 		"@types/node": "^12.7.5",
@@ -33,7 +34,6 @@
 	},
 	"dependencies": {
 		"@alicloud/console-toolkit-core": "^1.0.0-rc.7",
-		"@types/html-webpack-plugin": "^3.2.0",
 		"lodash": "^4.17.11",
 		"query-string": "^6.4.2",
 		"request-promise-native": "^1.0.7",
