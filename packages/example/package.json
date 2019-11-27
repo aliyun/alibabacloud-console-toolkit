@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-example",
-  "version": "1.0.0-rc.8",
+  "version": "1.0.0",
   "description": "breezr example",
   "scripts": {
     "dev": "breezr"
@@ -22,14 +22,14 @@
     "@alicloud/console-toolkit-plugin-long-term-caching": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-mocks": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-oneconsole": "^1.0.0-rc.7",
-    "@alicloud/console-toolkit-plugin-react": "^1.0.0-rc.8",
+    "@alicloud/console-toolkit-plugin-react": "^1.0.0",
     "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-typescript": "^1.0.0-rc.7",
     "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.0-rc.7",
-    "@alicloud/console-toolkit-plugin-updator": "^1.0.0-rc.7",
+    "@alicloud/console-toolkit-plugin-updator": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.0-rc.7",
-    "@alicloud/console-toolkit-preset-official": "^1.0.0-rc.8",
-    "@alicloud/console-toolkit-preset-wind-component": "^1.0.0-rc.8",
+    "@alicloud/console-toolkit-preset-official": "^1.0.0",
+    "@alicloud/console-toolkit-preset-wind-component": "^1.0.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.0-rc.7",
     "babel-preset-breezr-wind": "^1.0.0-rc.7",
     "minimist": "^1.2.0",
