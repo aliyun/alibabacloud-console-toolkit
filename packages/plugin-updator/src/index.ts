@@ -1,6 +1,6 @@
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { info } from "@alicloud/console-toolkit-shared-utils";
-import { existsSync, writeFileSync } from 'fs';
+import { existsSync } from 'fs';
 import * as updateNotifier from 'update-notifier';
 import * as inquirer from 'inquirer';
 import * as rimraf from 'rimraf';
@@ -16,11 +16,6 @@ export default async (api: PluginAPI, opts: PluginOptions) => {
   const { packagePath, autoUpdate } = opts;
   if (!existsSync(packagePath)) {
     return;
-  }
-
-  const npmRcFile = resolve(api.getCwd(), '.npmrc');
-  if (!existsSync(resolve(api.getCwd(), '.npmrc'))) {
-    writeFileSync(npmRcFile, 'registry = http://registry.npmjs.org');
   }
 
   const pkg = require(packagePath);
