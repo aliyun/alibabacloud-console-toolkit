@@ -1,3 +1,9 @@
+---
+name: quick-start
+zhName: 快速上手
+sort: 1
+---
+
 # 快速上手
 
 ## 基础环境准备
@@ -21,7 +27,7 @@ $ mkdir consoleApp && cd consoleApp
 初始化项目代码
 
 ```bash
-$ npx breezr init
+$ npx @alicloud/console-toolkit-cli init
 ```
 
 ### 调试项目
