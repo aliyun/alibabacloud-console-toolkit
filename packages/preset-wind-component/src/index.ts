@@ -87,8 +87,14 @@ export default (config: IOption, cmdArgs: any) => {
           };
 
           webpackConfig.output.path = resolve(process.cwd(), 'dist');
-          webpackConfig.output.library = moduleName;
-          webpackConfig.output.libraryTarget = 'umd';
+
+          if (cmdArgs.buildMode === 'system') {
+            webpackConfig.output.libraryTarget = 'system';
+            webpackConfig.output.filename = 'index.system.js';
+          } else {
+            webpackConfig.output.library = moduleName;
+            webpackConfig.output.libraryTarget = 'umd';
+          }
 
           // @ts-ignore
           if (config.webpack) {

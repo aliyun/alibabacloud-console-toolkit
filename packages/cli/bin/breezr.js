@@ -28,7 +28,7 @@ function invokeService(cmd, args) {
     case 'inspect':
       break;
     case 'block':
-        plugins.push(require.resolve('@alicloud/console-toolkit-plugin-block'))
+      plugins.push(require.resolve('@alicloud/console-toolkit-plugin-block'))
     default:
   }
 
@@ -69,6 +69,9 @@ program
   .option('-w, --watch', 'Need watching file changing?')
   .option('--mobile', '')
   .option('--es-module', 'enable es module when build by babel')
+  // presets can use this to provide dynamic build config
+  // based on cmdArgs
+  .option('--buildMode [buildMode]', 'config webpack build behaviour')
   .option('--publishType [publishType]', 'Build engine type')
   .description('build for wind')
   .action(cmd => {
