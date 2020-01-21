@@ -42,7 +42,7 @@ export default (config: IOption, cmdArgs: any) => {
         babelOptions,
         cliOptions: {
           outDir: outputDir,
-          extensions: resolveExts(config.useTypescript),
+          extensions: resolveExts(config.useTypescript || !!config.typescript),
         },
       },
     ],
@@ -163,7 +163,7 @@ export default (config: IOption, cmdArgs: any) => {
           const pkgName = pkgJson.name;
           newJestConfig.moduleNameMapper[`^${pkgName}(.*)$`] = '<rootDir>$1';
 
-          if (config.useTypescript) {
+          if (config.useTypescript || config.typescript) {
             Object.assign(
               newJestConfig.transform,
               require('ts-jest/presets').defaults.transform
@@ -181,7 +181,7 @@ export default (config: IOption, cmdArgs: any) => {
     ],
   ];
 
-  if (config.useTypescript) {
+  if (config.useTypescript || config.typescript) {
     plugins.push([
       require.resolve('@alicloud/console-toolkit-plugin-typescript'),
       {

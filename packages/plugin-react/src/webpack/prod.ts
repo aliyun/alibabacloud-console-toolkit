@@ -16,7 +16,8 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   const env = getEnv();
 
-  config.mode('production');
+  //@ts-ignore
+  config.mode(process.env.NODE_ENV || 'production');
 
   // set common config
   common(config, {
@@ -24,7 +25,7 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
     noProgress: options.noProgress || env.isCloudBuild()
   }, api);
 
-  if (env.buildType === BuildType.Prod_Cloud && env.buildDestDir) {
+  if (env.isCloudBuild() && env.buildDestDir) {
     config.output.path(join(process.cwd(), env.buildDestDir));
   }
 

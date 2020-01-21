@@ -17,6 +17,7 @@ export default (api: PluginAPI, config: PluginOptions) => {
 
   api.registerAPI('webpack', async opts => await build(api, {
     webpack: config.webpack,
+    disableHmr: config.disableHmr,
     ...opts
   }));
   api.registerAPI('webpackServer', async opts => await server(api, {

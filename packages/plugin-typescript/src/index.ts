@@ -14,7 +14,12 @@ interface ILoader {
 export default (api: PluginAPI, opts: PluginOptions) => {
   const {
     tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
-    ignoreWebpackModuleDependencyWarning
+    ignoreWebpackModuleDependencyWarning,
+    typescript = {},
+    babelPluginWindCherryPick,
+    babelExclude,
+    babelPluginWindRc,
+    babelPluginWindIntl
   } = opts;
 
   api.on('onChainWebpack', async (config: WebpackChain) => {
@@ -31,7 +36,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     if (!opts.disablePolyfill) {
       config
         .entry('index')
-        .add(require.resolve('babel-polyfill'));
+        .prepend(require.resolve('babel-polyfill'));
     }
 
     if (!tsconfig || !existsSync(tsconfig)) {
@@ -60,26 +65,52 @@ export default (api: PluginAPI, opts: PluginOptions) => {
       return tsRule.use(loader).loader(loader).options(options);
     };
 
-
-    addLoader({
-      loader: require.resolve('cache-loader'),
-      options: {}
-    });
-
-    addLoader({
-      loader: require.resolve('thread-loader'),
-      options: {
-        workers: require('os').cpus().length - 1,
-      }
-    });
-
-    addLoader({
-      loader: require.resolve('ts-loader'),
-      options: {
-        configFile: tsconfig,
-        happyPackMode: true
-      }
-    });
+    if (!typescript.useBabel){
+      addLoader({
+        loader: require.resolve('cache-loader'),
+        options: {}
+      });
+  
+      addLoader({
+        loader: require.resolve('thread-loader'),
+        options: {
+          workers: require('os').cpus().length - 1,
+        }
+      });
+  
+      addLoader({
+        loader: require.resolve('ts-loader'),
+        options: {
+          configFile: tsconfig,
+          happyPackMode: true
+        }
+      });
+    } else {
+      addLoader({
+        loader: require.resolve('babel-loader'),
+        options: {
+          presets: [
+            [
+              require.resolve('babel-preset-breezr-wind'), {
+                exclude: babelExclude,
+                reactCssModules: true,
+                windRc: babelPluginWindRc,
+                windIntl: babelPluginWindIntl,
+                windCherryPick: babelPluginWindCherryPick
+              }
+            ]
+          ],
+          plugins: [
+            [
+              require.resolve('@babel/plugin-transform-typescript'),
+              {
+                isTSX :true
+              }
+            ]
+          ]
+        }
+      });
+    }
 
     const tslintConf = resolve(api.getCwd(), 'tslint.json');
     const disableTsLint = !existsSync(tslintConf);

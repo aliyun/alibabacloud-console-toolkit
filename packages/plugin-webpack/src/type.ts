@@ -5,6 +5,7 @@ export interface PluginAPIOpt {
   filename: string; // config filename of webpack
   config: webpack.Configuration; // webpack config passed by user
   watch: boolean; // is watch
+  disableHmr: boolean;
   webpack: Function;
   onSuccess: Function;
   onFail: Function;

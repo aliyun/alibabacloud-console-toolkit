@@ -1,6 +1,6 @@
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { isFunction } from 'lodash'; 
-import { debug, getEnv } from '@alicloud/console-toolkit-shared-utils';
+import { debug, getEnv, exit } from '@alicloud/console-toolkit-shared-utils';
 import { createCompiler, runCompiler, webpackConfigure } from './webpackUtils';
 import { PluginAPIOpt } from './type';
 
@@ -30,6 +30,9 @@ export default async (api: PluginAPI, opts: PluginAPIOpt) => {
     api.emit('onBuildFail', err);
     if (onFail) {
       onFail(err);
+    }
+    if (getEnv().isCloudBuild()) {
+      exit(1);
     }
   }
 };

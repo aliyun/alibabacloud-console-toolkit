@@ -5,6 +5,9 @@ interface IOption {
     [key: string]: string;
   };
   useTypescript?: boolean;
+  typescript: {
+    useBabel: boolean;
+  };
   external: string[];
   sourcemap?: boolean;
   formats: {

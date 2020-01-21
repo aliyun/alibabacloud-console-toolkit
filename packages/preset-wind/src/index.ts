@@ -51,7 +51,8 @@ export default (config: any, args: any) => {
             return webpack(args[0], config, args[1]);
           }
           return args[0];
-        }
+        },
+        disableHmr: config.disableHmr
       }
     ]
   ]);
@@ -73,6 +74,13 @@ export default (config: any, args: any) => {
     plugins.push('@alicloud/console-toolkit-plugin-browser-hint');
   }
 
+
+  if (config.oneConsole) {
+    plugins.push([ '@alicloud/console-toolkit-plugin-oneconsole', {
+      ...config
+    }]);
+  }
+
   if (config.armsId) {
     plugins.push([ '@alicloud/console-toolkit-plugin-arms', {
       armsId: config.armsId,
@@ -80,20 +88,15 @@ export default (config: any, args: any) => {
     }]);
   }
 
-  if (config.oneConsole) {
-    plugins.push([ '@alicloud/console-toolkit-plugin-oneconsole', {
-      ...config
-    }]);
-  }
   if (config.consoleBase) {
     plugins.push([ '@alicloud/console-toolkit-plugin-console-base', {
       product: config.product
     }]);
   }
 
-  const { useTypescript } = config;
+  const { useTypescript, typescript } = config;
 
-  if (useTypescript) {
+  if (useTypescript || typescript) {
     plugins.push([
       '@alicloud/console-toolkit-plugin-typescript', {
         ...config,

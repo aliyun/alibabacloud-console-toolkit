@@ -28,6 +28,7 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
     .host(host)
     .https(https)
     .hot(!disableHmr)
+    .inline(!disableHmr)
     .historyApiFallback({
       rewrites: [
         {

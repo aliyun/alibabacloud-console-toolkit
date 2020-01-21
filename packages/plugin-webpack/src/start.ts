@@ -7,14 +7,16 @@ import { PluginAPIOpt } from './type';
 import { webpackConfigure, createCompiler, runServer, createServer, } from './webpackUtils';
 
 export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: express.RequestHandler[]) => {
-  const { webpack } = opts;
+  const { webpack, disableHmr } = opts;
   let config = webpackConfigure(api, opts);
 
   if (isFunction(webpack)) {
     config = webpack(config, getEnv());
   }
   const { devServer = {} } = config;
-  webpackDevServer.addDevServerEntrypoints(config, devServer);
+  if (!disableHmr) {
+    webpackDevServer.addDevServerEntrypoints(config, devServer);
+  }
   const compiler = createCompiler(config);
 
   const { devServerOpt } = opts;

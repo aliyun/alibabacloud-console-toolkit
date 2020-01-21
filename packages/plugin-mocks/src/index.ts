@@ -26,7 +26,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     const defaultMatch = '^\\/api\\/';
     const defaultReplaceWith = `/mock/${product}`;
 
-    let match;
+    let match = '';
     let replaceWith = defaultReplaceWith;
 
     if (typeof pathReplace === 'string') {
@@ -42,7 +42,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
 
     let pathRewrite;
     if (match && replaceWith) {
-      pathRewrite = (path: string) => path.replace(new RegExp(path), replaceWith);
+      pathRewrite = (path: string) => path.replace(new RegExp(match), replaceWith);
     }
 
     const log = (onProxyReq: Function) => (proxyReq: any, req: Request) => {

@@ -20,7 +20,7 @@ export function getBabelOptions(
     plugins.push(['module-resolver', config.babelModuleResolve]);
   }
 
-  if (config.useTypescript) {
+  if (config.useTypescript || config.typescript) {
     // TODO: --importHelpers
     //
     plugins.push([
