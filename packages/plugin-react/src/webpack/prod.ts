@@ -1,7 +1,7 @@
 import { join } from 'path';
 import * as Chain from 'webpack-chain';
 
-import { getEnv, BuildType } from '@alicloud/console-toolkit-shared-utils';
+import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
 import { uglifyPlugin } from './plugins/uglify';
