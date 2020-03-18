@@ -60,7 +60,7 @@ export default (config: any, args: any) => {
   //@ts-ignore
   if (config.mocks || windConfig.mocks) {
     plugins.push([
-      '@ali/breezr-plugin-mocks',
+      '@alicloud/console-toolkit-plugin-mocks',
       {
         //@ts-ignore
         ...windConfig.mocks,
