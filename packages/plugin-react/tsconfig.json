@@ -10,6 +10,7 @@
           "dom",
           "es2017.string"
       ],
+      "skipLibCheck": true,
       "sourceMap": true,
       "rootDir": "src",
       /* Strict Type-Checking Option */
