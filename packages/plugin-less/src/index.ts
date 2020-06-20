@@ -55,7 +55,7 @@ export default (api: PluginAPI, config: ILessOption) => {
     return new Promise((resolve, reject) => {
       less.render(source, (error, output) => {
         if (!error) {
-          resolve(output.css);
+          resolve(output?.css);
         } else {
           reject(error);
         }
