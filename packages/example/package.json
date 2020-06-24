@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-example",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "breezr example",
   "scripts": {
     "dev": "breezr"
@@ -29,7 +29,7 @@
     "@alicloud/console-toolkit-plugin-updator": "^1.0.1",
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.3",
     "@alicloud/console-toolkit-preset-official": "^1.0.5",
-    "@alicloud/console-toolkit-preset-wind-component": "^1.0.5",
+    "@alicloud/console-toolkit-preset-wind-component": "^1.0.6",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "babel-preset-breezr-wind": "^1.0.5",
     "minimist": "^1.2.0",
