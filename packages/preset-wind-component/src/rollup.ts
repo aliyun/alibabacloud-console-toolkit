@@ -1,13 +1,14 @@
 import { existsSync } from 'fs';
 import { resolve } from 'path';
-import * as babel from 'rollup-plugin-babel';
-import * as commonJs from 'rollup-plugin-commonjs';
-import * as nodeResolve from 'rollup-plugin-node-resolve';
-import * as json from 'rollup-plugin-json';
-import * as less from 'rollup-plugin-less';
+import babel from '@rollup/plugin-babel';
+import nodeResolve from '@rollup/plugin-node-resolve';
+import commonJs from '@rollup/plugin-commonjs';
+import json from '@rollup/plugin-json';
+import typescript from '@rollup/plugin-typescript';
+import autoExternal from 'rollup-plugin-auto-external';
+import { exit, error } from '@alicloud/console-toolkit-shared-utils';
 import { getBabelOptions } from './babel';
 import { resolveExts } from './utils';
-import { exit, error } from '@alicloud/console-toolkit-shared-utils';
 
 const defaultIgnoreModules = {
   react: 'React',
@@ -16,9 +17,6 @@ const defaultIgnoreModules = {
 };
 
 function resolveEntry(useTypescript: boolean | undefined) {
-  if (useTypescript) {
-    return resolve(process.cwd(), `lib/index.js`);
-  }
   const exts = resolveExts(useTypescript);
   const filePath = exts
     .map(ext => resolve(process.cwd(), `src/index${ext}`))
@@ -32,31 +30,25 @@ function resolveEntry(useTypescript: boolean | undefined) {
 
 export function getRollupConfig(config: IOption) {
   const {
-    moduleName,
-    globals,
-    external,
+    external = [],
     useTypescript,
     sourcemap,
     formats = [],
     rollup
   } = config;
-  const extraPlugin = [require('rollup-plugin-node-builtins')()];
+  const extraPlugin = [];
+
   if (useTypescript) {
-    extraPlugin.push(require('rollup-plugin-typescript')());
+    extraPlugin.push(typescript());
+  } else {
+    extraPlugin.push(babel({
+      ...getBabelOptions(config),
+      babelHelpers: 'runtime'
+    }))
   }
   const presets = {
     input: resolveEntry(useTypescript),
     output: [
-      {
-        format: 'umd',
-        file: 'dist/index.umd.js',
-        name: moduleName,
-        globals: {
-          ...defaultIgnoreModules,
-          ...globals
-        },
-        sourcemap
-      },
       {
         format: 'cjs',
         file: 'dist/index.cjs.js',
@@ -70,24 +62,13 @@ export function getRollupConfig(config: IOption) {
       ...formats
     ],
     plugins: [
-      nodeResolve({
-        jsnext: true,
-        main: true
-      }),
-      babel({
-        ...getBabelOptions(config, {
-          useInternalRuntime: true
-        }),
-        runtimeHelpers: true
-      }),
+      nodeResolve(),
       ...extraPlugin,
       commonJs(),
       json(),
-      less({
-        output: './dist/index.css'
-      })
+      autoExternal(),
     ],
-    external: [...Object.keys(defaultIgnoreModules), ...external]
+    external: [...Object.keys(defaultIgnoreModules), ...external, /^@babel\/runtime/]
   };
   return rollup ? rollup(presets) : presets;
 }

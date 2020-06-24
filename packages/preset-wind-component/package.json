@@ -44,16 +44,15 @@
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.3",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "@babel/plugin-transform-typescript": "^7.4.0",
+    "@rollup/plugin-babel": "^5.0.3",
+    "@rollup/plugin-commonjs": "^13.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^8.0.1",
+    "@rollup/plugin-typescript": "^4.1.2",
     "babel-plugin-module-resolver": "^3.2.0",
     "babel-plugin-transform-remove-imports": "^1.0.8",
     "babel-preset-breezr": "^1.0.0-rc.7",
-    "rollup-plugin-babel": "^4.3.2",
-    "rollup-plugin-commonjs": "^9.2.3",
-    "rollup-plugin-json": "^4.0.0",
-    "rollup-plugin-less": "^1.1.2",
-    "rollup-plugin-node-builtins": "^2.1.2",
-    "rollup-plugin-node-resolve": "^4.0.1",
-    "rollup-plugin-typescript": "^1.0.1"
+    "rollup-plugin-auto-external": "^2.0.0"
   },
   "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
 }

@@ -2,7 +2,7 @@ import { resolve, join } from 'path';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { error, exit } from '@alicloud/console-toolkit-shared-utils';
 import { getBabelOptions } from './babel';
-// import { getRollupConfig } from './rollup';
+import { getRollupConfig } from './rollup';
 import { resolveExts } from './utils';
 
 export default (config: IOption, cmdArgs: any) => {
@@ -26,6 +26,8 @@ export default (config: IOption, cmdArgs: any) => {
     }
   );
 
+  const rollupConfig = getRollupConfig({ ...config });
+
   const outputDir = cmdArgs.esModule ? './es' : './lib';
 
   const plugins: any[] = [
@@ -44,6 +46,15 @@ export default (config: IOption, cmdArgs: any) => {
           outDir: outputDir,
           extensions: resolveExts(config.useTypescript || !!config.typescript),
         },
+      },
+    ],
+
+    [
+      require.resolve('@alicloud/console-toolkit-plugin-rollup'),
+      {
+        config: {
+          ...rollupConfig,
+        }
       },
     ],
 
@@ -107,7 +118,7 @@ export default (config: IOption, cmdArgs: any) => {
     ],
 
     [
-      '@alicloud/console-toolkit-plugin-styled-components-isolation',
+      require.resolve('@alicloud/console-toolkit-plugin-styled-components-isolation'),
       {
         ...config,
       },
