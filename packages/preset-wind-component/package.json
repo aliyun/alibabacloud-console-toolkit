@@ -1,7 +1,7 @@
 {
-  "name": "@alicloud/console-toolkit-preset-wind-component",
+  "name": "@alicloud/console-toolkit-preset-component",
   "version": "1.0.6",
-  "description": "console toolkit preset for wind component",
+  "description": "console toolkit preset for component",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
   "main": "lib/index.js",

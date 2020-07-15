@@ -1,4 +1,5 @@
 import * as Chain from 'webpack-chain';
+import * as webpack from 'webpack';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { BuildType, Evnrioment } from '@alicloud/console-toolkit-shared-utils';
 import { generateCdnPath } from './generateCdnPath';
@@ -24,6 +25,15 @@ export default (api: PluginAPI, options: PluginOptions) => {
       // 只有在云构建生产环境代码时将 publicPath 替换为当前项目的 CDN 地址
       buildType === BuildType.Prod_Cloud
     ) {
+      // add the cdn path
+      config.plugin('CDNDefinePlugin').use(
+        webpack.DefinePlugin, 
+        [{
+          PROJECT_PUBLIC_PATH: JSON.stringify(cdnPath)
+        }]
+      );
+      api.dispatchSync('addHtmlPrescript', `<meta data-type="oneconsole.webpack_public_config" data-publicPath="${cdnPath}">`);
+
       return config.output.publicPath(cdnPath);
     }
   });
