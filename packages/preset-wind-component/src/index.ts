@@ -3,7 +3,8 @@ import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { error, exit } from '@alicloud/console-toolkit-shared-utils';
 import { getBabelOptions } from './babel';
 import { getRollupConfig } from './rollup';
-import { resolveExts } from './utils';
+import { resolveExts, getOutputDir } from './utils';
+import { IOption } from './type/options';
 
 export default (config: IOption, cmdArgs: any) => {
   const moduleName = config.moduleName;
@@ -27,8 +28,8 @@ export default (config: IOption, cmdArgs: any) => {
   );
 
   const rollupConfig = getRollupConfig({ ...config });
-
-  const outputDir = cmdArgs.esModule ? './es' : './lib';
+  const outDirDirs = getOutputDir(config);
+  const babelOutputDir = cmdArgs.esModule ? outDirDirs.es : outDirDirs.cjs;
 
   const plugins: any[] = [
     [
@@ -43,7 +44,7 @@ export default (config: IOption, cmdArgs: any) => {
       {
         babelOptions,
         cliOptions: {
-          outDir: outputDir,
+          outDir: babelOutputDir,
           extensions: resolveExts(config.useTypescript || !!config.typescript),
         },
       },
@@ -97,15 +98,9 @@ export default (config: IOption, cmdArgs: any) => {
             ...config.externals,
           };
 
-          webpackConfig.output.path = resolve(process.cwd(), 'dist');
-
-          if (cmdArgs.buildMode === 'system') {
-            webpackConfig.output.libraryTarget = 'system';
-            webpackConfig.output.filename = 'index.system.js';
-          } else {
-            webpackConfig.output.library = moduleName;
-            webpackConfig.output.libraryTarget = 'umd';
-          }
+          webpackConfig.output.path = resolve(process.cwd(), outDirDirs.umd);
+          webpackConfig.output.library = moduleName;
+          webpackConfig.output.libraryTarget = 'umd';
 
           // @ts-ignore
           if (config.webpack) {
@@ -128,7 +123,7 @@ export default (config: IOption, cmdArgs: any) => {
       require.resolve('@alicloud/console-toolkit-plugin-less'),
       {
         src: './src/',
-        lib: outputDir,
+        lib: babelOutputDir,
       },
     ],
 
@@ -204,5 +199,13 @@ export default (config: IOption, cmdArgs: any) => {
 
   return {
     plugins,
+  };
+};
+
+export const extendConfiguration = (config: IOption) => {
+  return {
+    presets: [
+      ['@alicloud/console-preset-component', config]
+    ]
   };
 };

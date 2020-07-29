@@ -22,6 +22,7 @@ interface ICliOptions {
   extensions?: string[];
   keepFileExtension?: boolean;
   verbose?: boolean;
+  filter?: (fileName: string) => boolean;
 }
 
 
@@ -142,7 +143,8 @@ export default (api: PluginAPI, config: IBabelAPIOpt) => {
 
           const files = util.readdir(
             dirname,
-            cliOptions.includeDotfiles
+            cliOptions.includeDotfiles,
+            cliOptions.filter
           );
           for (const filename of files) {
             const src = path.join(dirname, filename);

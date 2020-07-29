@@ -1,4 +1,5 @@
 import { IOptionalOptions } from 'babel-preset-breezr/lib/types';
+import { IOption } from './type/options';
 
 export function getBabelOptions(
   config: IOption,
