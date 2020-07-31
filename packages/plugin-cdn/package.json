@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-cdn",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "console toolkit plugin for cdn",
   "main": "lib/index.js",
   "scripts": {
