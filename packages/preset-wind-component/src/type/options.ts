@@ -31,6 +31,14 @@ export interface IOption {
   babelModuleResolve?: object;
 
   bableFilter?: Function;
+
+  rollup: (rollConfig: any) => any;
+
+  formats: [{
+    format: string;
+    file: string;
+    sourcemap: boolean;
+  }];
 }
 
 export interface OutputType {

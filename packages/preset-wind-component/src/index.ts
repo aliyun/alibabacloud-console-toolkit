@@ -45,6 +45,7 @@ export default (config: IOption, cmdArgs: any) => {
         babelOptions,
         cliOptions: {
           outDir: babelOutputDir,
+          filter: config.bableFilter,
           extensions: resolveExts(config.useTypescript || !!config.typescript),
         },
       },

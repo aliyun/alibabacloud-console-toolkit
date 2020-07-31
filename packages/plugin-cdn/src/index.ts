@@ -29,7 +29,7 @@ export default (api: PluginAPI, options: PluginOptions) => {
       config.plugin('CDNDefinePlugin').use(
         webpack.DefinePlugin, 
         [{
-          PROJECT_PUBLIC_PATH: JSON.stringify(cdnPath)
+          'process.env.PROJECT_PUBLIC_PATH': JSON.stringify(cdnPath)
         }]
       );
       api.dispatchSync('addHtmlPrescript', `<meta data-type="oneconsole.webpack_public_config" data-publicPath="${cdnPath}">`);

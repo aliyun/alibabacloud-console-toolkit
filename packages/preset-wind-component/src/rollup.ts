@@ -1,3 +1,4 @@
+
 import { existsSync } from 'fs';
 import { resolve } from 'path';
 import babel from '@rollup/plugin-babel';
@@ -8,6 +9,7 @@ import typescript from '@rollup/plugin-typescript';
 import autoExternal from 'rollup-plugin-auto-external';
 import { exit, error } from '@alicloud/console-toolkit-shared-utils';
 import { getBabelOptions } from './babel';
+import { IOption } from './type/options';
 import { resolveExts } from './utils';
 
 const defaultIgnoreModules = {
@@ -30,7 +32,7 @@ function resolveEntry(useTypescript: boolean | undefined) {
 
 export function getRollupConfig(config: IOption) {
   const {
-    external = [],
+    externals = [],
     useTypescript,
     sourcemap,
     formats = [],
@@ -68,7 +70,7 @@ export function getRollupConfig(config: IOption) {
       json(),
       autoExternal(),
     ],
-    external: [...Object.keys(defaultIgnoreModules), ...external, /^@babel\/runtime/]
+    external: [...Object.keys(defaultIgnoreModules), ...externals, /^@babel\/runtime/]
   };
   return rollup ? rollup(presets) : presets;
 }
