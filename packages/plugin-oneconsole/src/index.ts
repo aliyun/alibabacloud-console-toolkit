@@ -14,6 +14,5 @@ export default (api: PluginAPI, options: PluginOptions) => {
 `;
 
   api.dispatchSync('addHtmlHeadScript', '<meta data-type="oneconsole.basic_header" />');
-  api.dispatchSync('addHtmlHeadScript', '<meta data-type="oneconsole.arms_monitor" data-containerNodeId="#app" data-topbarNodeId="#topbarAndsidebarContainer" />');
   api.dispatchSync('addHtmlPrescript', mountDom);
 };
