@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-arms",
-  "version": "1.0.3",
+  "version": "1.0.9",
   "description": "console toolkit plugin for arms",
   "main": "lib/index.js",
   "scripts": {
