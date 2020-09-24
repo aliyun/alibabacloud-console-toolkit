@@ -32,6 +32,8 @@ const defaultOptions = {
   useLegacyCssModules: false,
   babelPluginWindCherryPick: true,
 
+  analyze: false,
+
   bail: false,
   status: {
     children: false
@@ -51,6 +53,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     babelExclude,
     babelPluginWindRc,
     babelPluginWindIntl,
+    babelUseBuiltIns,
     disableExtractText,
     noProgress,
     disableHtml,
@@ -63,7 +66,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     classNamePrefix,
     babelPluginWindCherryPick,
     babel,
-    htmlXmlMode
+    htmlXmlMode,
+    useHappyPack = true,
+    es5ImcompatibleVersions = false,
   } = options;
 
   if (!cwd) {
@@ -80,24 +85,24 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   };
   const outputPath = isRelativePath(output.path) ? resolve(cwd, output.path) : output.path;
 
-  // entry
-  config
-    .context(src)
-    .entry('index')
-    .add(entry)
-    .end()
-    .output
-    .filename(output.filename)
-    .path(outputPath)
-    .publicPath(output.publicPath)
-    .chunkFilename(output.chunkFilename)
-    .end();
-
   if (!disablePolyfill) {
     config
       .entry('index')
       .add(require.resolve('babel-polyfill'));
   }
+
+  // entry
+  config
+    .context(src)
+    .entry('index')
+      .add(entry)
+      .end()
+    .output
+      .filename(output.filename)
+      .path(outputPath)
+      .publicPath(output.publicPath)
+      .chunkFilename(output.chunkFilename)
+      .end();
 
   config.resolve
     .extensions
@@ -109,9 +114,13 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactHotLoader: !disableReactHotLoader,
     reactCssModules: true,
     reactCssModulesContext: src,
-    // reactCssModulesResolvePath: nodeModules,
+
+    useHappyPack: useHappyPack,
+    // 只有在构建的时候才开启转义
+    es5ImcompatibleVersions: getEnv().isProd() && es5ImcompatibleVersions,
     exclude: babelExclude,
     windRc: babelPluginWindRc,
+    useBuiltIns: babelUseBuiltIns,
     windIntl: babelPluginWindIntl,
     windCherryPick: babelPluginWindCherryPick
   });
@@ -137,6 +146,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     const htmlData = api.dispatchSync('getHtmlData');
 
     htmlPlugin(config, {
+      minify: { // 压缩HTML文件
+        removeComments: true, // 移除HTML中的注释
+        minifyCSS: true// 压缩内联css
+      },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
       templateParameters: {
         __dev__: getEnv().isDev(),

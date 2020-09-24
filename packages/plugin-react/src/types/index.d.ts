@@ -6,6 +6,7 @@ interface BreezrReactOptions {
   port?: number;
   host?: string;
   https?: boolean;
+  publicPathOnDev?: string;
 
   cwd?: string;
 
@@ -15,8 +16,8 @@ interface BreezrReactOptions {
   output?: {
     filename: string;
     path: string;
-    publicPath: string;
-    chunkFilename: string;
+    publicPath: string,
+    chunkFilename: string,
   };
   bail?: boolean;
   status?: {
@@ -38,9 +39,12 @@ interface BreezrReactOptions {
   disableReactHotLoader?: boolean;
   babelExclude?: Webpack.RuleSetCondition;
   babelPluginWindRc?: boolean;
+  babelUseBuiltIns?: boolean;
   babelPluginWindIntl?: boolean;
   babelPluginWindCherryPick?: boolean;
   useThreads?: boolean;
+  useHappyPack?: boolean;
+  es5ImcompatibleVersions?: boolean,
 
   // file-loader 配置
   staticAssetsOutputPath?: string;
@@ -52,7 +56,7 @@ interface BreezrReactOptions {
 
   // plugins 配置
   defineGlobalConstants?: {
-    [key: string]: any;
+    [key: string]: any,
   };
   htmlFileName?: string;
   disableErrorOverlay?: boolean;
@@ -60,7 +64,7 @@ interface BreezrReactOptions {
   noProgress?: boolean;
   noOpen?: false;
   useTerserPlugin?: true;
-  uglifyOptions?: Record<string, any>;
+  uglifyOptions?: Object;
   htmlXmlMode?: boolean;
 
   // experiment
@@ -70,6 +74,8 @@ interface BreezrReactOptions {
 
   // polyfill
   disablePolyfill?: boolean;
+
+  analyze?: boolean;
 }
 
 /**
@@ -78,13 +84,16 @@ interface BreezrReactOptions {
 interface BreezrReactBabelOption {
   // babel 配置
   babel?: Function;
+  useHappyPack?: boolean;
   reactHotLoader?: boolean;
   reactCssModules?: boolean;
   reactCssModulesContext?: string;
   reactCssModulesResolvePath?: string;
   windCherryPick?: boolean;
+  useBuiltIns?: boolean;
   windRc?: boolean;
   windIntl?: boolean;
+  es5ImcompatibleVersions?: boolean;
   exclude?: Webpack.RuleSetCondition;
   include?: Webpack.RuleSetCondition;
 }
