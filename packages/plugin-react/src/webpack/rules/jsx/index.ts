@@ -65,7 +65,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   let babelConfig = {
     presets: [
       [
-        require.resolve('@ali/babel-preset-breezr-wind'),
+        require.resolve('babel-preset-breezr-wind'),
         {
           reactHotLoader,
           reactCssModules,
