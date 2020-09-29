@@ -1,0 +1,42 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-sass",
+  "version": "1.0.1",
+  "description": "breezr plugin for sass",
+  "scripts": {
+    "ci": "tnpm run lint && tnpm run compile && tnpm run cov",
+    "lint": "tslint --project .",
+    "compile": "tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepare": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/autoprefixer": "^9.7.2",
+    "@types/chai": "^4.1.7",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.0.4",
+    "@types/webpackbar": "^4.0.0",
+    "@alicloud/console-toolkit-core": "^1.0.0",
+    "chai": "^4.2.0",
+    "execa": "^2.0.4",
+    "inquirer": "^7.0.0",
+    "jest": "^24.2.0-alpha.0",
+    "nyc": "^14.1.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.8.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@types/webpack-chain": "^5.2.0",
+    "autoprefixer": "^9.7.6",
+    "css-loader": "^3.5.2",
+    "fast-sass-loader": "^1.5.0",
+    "mini-css-extract-plugin": "^0.8.0",
+    "node-sass": "^4.13.1",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.1.4"
+  },
+  "license": "MIT"
+}
