@@ -115,14 +115,17 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     const tslintConf = resolve(api.getCwd(), 'tslint.json');
     const disableTsLint = !existsSync(tslintConf);
     const { eslint } = opts;
-    config
+
+    if (!typescript.disableTypeChecker) {
+      config
       .plugin('ForkTsCheckerWebpackPlugin')
-      .use(ForkTsCheckerWebpackPlugin, [{
-        tsconfig,
-        eslint,
-        // active when eslint is false or no tslint.json
-        tslint: !eslint && disableTsLint ? undefined: tslintConf
-      }]);
+        .use(ForkTsCheckerWebpackPlugin, [{
+          tsconfig,
+          eslint,
+          // active when eslint is false or no tslint.json
+          tslint: !eslint && disableTsLint ? undefined: tslintConf
+        }]);
+    }
   });
 };
 

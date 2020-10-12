@@ -11,6 +11,9 @@
     "cov": "jest  --coverage",
     "prepare": "npm run compile"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "devDependencies": {
     "@alicloud/console-toolkit-core": "^1.0.0",
     "@types/autoprefixer": "^9.7.2",
@@ -38,5 +41,6 @@
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.1.4"
   },
-  "license": "MIT"
+  "license": "MIT",
+  "gitHead": "792beded0cd71d9c8f3c2aea77173fb0731fce8f"
 }
