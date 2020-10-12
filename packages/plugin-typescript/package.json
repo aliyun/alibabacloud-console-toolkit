@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-typescript",
-	"version": "1.0.3",
+	"version": "1.0.13",
 	"description": "console toolkit plugin for typescript",
 	"scripts": {
 		"ci": "npm run lint && npm run compile && npm run cov",

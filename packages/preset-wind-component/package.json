@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-component",
-  "version": "1.0.11",
+  "version": "1.0.13",
   "description": "console toolkit preset for component",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "@alicloud/console-toolkit-plugin-rollup": "^1.0.6",
     "@alicloud/console-toolkit-plugin-storybook": "^1.0.1",
     "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.0.3",
-    "@alicloud/console-toolkit-plugin-typescript": "^1.0.3",
+    "@alicloud/console-toolkit-plugin-typescript": "^1.0.13",
     "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.1",
     "@alicloud/console-toolkit-plugin-updator": "^1.0.1",
     "@alicloud/console-toolkit-plugin-webpack": "^1.0.10",
