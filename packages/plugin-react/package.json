@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-react",
-	"version": "1.0.11",
+	"version": "1.0.14-alpha.0",
 	"description": "console toolkit plugin for base react app",
 	"main": "lib/index.js",
 	"scripts": {
@@ -35,8 +35,8 @@
 	},
 	"author": "boelroy <boelroy@live.com>",
 	"dependencies": {
-		"@alicloud/console-toolkit-core": "^1.0.1",
-		"@alicloud/console-toolkit-shared-utils": "^1.0.1",
+		"@alicloud/console-toolkit-core": "^1.0.14-alpha.0",
+		"@alicloud/console-toolkit-shared-utils": "^1.0.14-alpha.0",
 		"@babel/core": "^7.3.3",
 		"@types/cheerio": "^0.22.13",
 		"assert": "^1.4.1",

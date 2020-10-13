@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-monorepo",
-  "version": "1.0.1",
+  "version": "1.0.14-alpha.0",
   "description": "console toolkit preset for monorepo",
   "main": "lib/index.js",
   "scripts": {
@@ -19,8 +19,8 @@
     "typescript": "^3.5.2"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.1",
-    "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.1",
+    "@alicloud/console-toolkit-core": "^1.0.14-alpha.0",
+    "@alicloud/console-toolkit-plugin-unit-jest": "^1.0.14-alpha.0",
     "jest-cli": "^24.8.0"
   },
   "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
