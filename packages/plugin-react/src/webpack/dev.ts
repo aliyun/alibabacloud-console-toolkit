@@ -12,35 +12,6 @@ import { PluginAPI } from '@alicloud/console-toolkit-core';
 
 const NODE_ENV = 'development';
 
-
-function chainDevServer(config: Chain, options: BreezrReactOptions) {
-  const {
-    port = 3333,
-    host = 'localhost',
-    https = false,
-    disableHmr
-  } = options;
-
-  config
-    .devServer
-    .stats('errors-only')
-    .port(port)
-    .host(host)
-    .https(https)
-    .disableHostCheck(true)
-    .hot(!disableHmr)
-    .inline(!disableHmr)
-    .historyApiFallback({
-      rewrites: [
-        {
-          from: /^(?!\/build|)/,
-          to: 'index.html',
-        },
-      ]
-    })
-    .end();
-}
-
 export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) => {
   const {
     port = 3333,
@@ -50,11 +21,12 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     noOpen,
     disableErrorOverlay = false,
     disableHmr = false,
+    publicPathOnDev = false,
   } = options;
 
   config.mode(NODE_ENV);
 
-  config.devtool('cheap-module-source-map');
+  config.devtool('cheap-module-eval-source-map');
 
   // set common config
   const disableExtractText = options.disableExtractText !== undefined
@@ -74,9 +46,14 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   /**
    * dynamicBundle, bundleAnalyzer
    */
+  const protocol = https ? 'https' : 'http';
+  const url = `${protocol}://${host}:${port}`;
   if (!noOpen) {
-    const protocol = https ? 'https' : 'http';
-    openBrowserPlugin(config, { url: `${protocol}://${host}:${port}` });
+    openBrowserPlugin(config, { url: url });
+  }
+
+  if (publicPathOnDev) {
+    config.output.publicPath(`//${host}:${port}`);
   }
 
   if (!disableHmr) {
@@ -89,3 +66,34 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
 
   chainDevServer(config, options);
 };
+
+function chainDevServer(config: Chain, options: BreezrReactOptions) {
+  const {
+    port = 3333,
+    host = 'localhost',
+    https = false,
+    disableHmr,
+  } = options;
+
+  config
+    .devServer
+    .stats('errors-only')
+    .headers({
+      'Access-Control-Allow-Origin': '*',
+    })
+    .disableHostCheck(true)
+    .port(port)
+    .host(host)
+    .https(https)
+    .hot(!disableHmr)
+    .inline(!disableHmr)
+    .historyApiFallback({
+      rewrites: [
+        {
+          from: /^(?!\/build|)/,
+          to: 'index.html',
+        },
+      ]
+    })
+    .end();
+}

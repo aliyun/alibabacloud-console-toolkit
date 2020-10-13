@@ -11,6 +11,7 @@ export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {
     compress: {
       collapse_vars: false
     },
+    sourceMap: !!option.sourceMap,
     ...option.uglifyOptions
   };
 
@@ -18,18 +19,20 @@ export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {
     optimization.minimizer('Uglify')
       .use(UglifyPlugin, [{
         parallel: true,
+        sourceMap: !!option.sourceMap,
         uglifyOptions,
       }]);
   } else {
     optimization.minimizer('Terser')
       .use(TerserPlugin, [{
         parallel: true,
+        sourceMap: !!option.sourceMap,
         terserOptions: uglifyOptions,
       }]);
   }
 
   config
     .optimization
-    .minimizer('OptimizeCSSAssetsPlugin')
-    .use(OptimizeCSSAssetsPlugin, [{}]);
+      .minimizer('OptimizeCSSAssetsPlugin')
+        .use(OptimizeCSSAssetsPlugin, [{}]);
 }

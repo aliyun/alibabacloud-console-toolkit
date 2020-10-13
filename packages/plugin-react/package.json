@@ -69,6 +69,7 @@
 		"uglifyjs-webpack-plugin": "^2.1.1",
 		"url-loader": "^2.1.0",
 		"webpack-chain": "^6.0.0",
+		"webpack-bundle-analyzer": "^3.7.0",
 		"webpack-plugin-html-skeleton": "^1.0.14",
 		"webpackbar": "^4.0.0"
 	},

@@ -33,6 +33,7 @@ interface BreezrReactOptions {
 
   // babel-loader 配置
   babel?: Function;
+  babelOption?: any;
   disableHmr?: boolean;
   disableExtractText?: boolean;
   disableUglify?: boolean;
@@ -44,7 +45,10 @@ interface BreezrReactOptions {
   babelPluginWindCherryPick?: boolean;
   useThreads?: boolean;
   useHappyPack?: boolean;
+
+  // 拼写错误，为了兼容一起的
   es5ImcompatibleVersions?: boolean,
+  es5IncompatibleVersions?: boolean;
 
   // file-loader 配置
   staticAssetsOutputPath?: string;
@@ -93,6 +97,7 @@ interface BreezrReactBabelOption {
   useBuiltIns?: boolean;
   windRc?: boolean;
   windIntl?: boolean;
+  babelOption?: any;
   es5ImcompatibleVersions?: boolean;
   exclude?: Webpack.RuleSetCondition;
   include?: Webpack.RuleSetCondition;

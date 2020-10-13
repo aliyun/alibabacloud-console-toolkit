@@ -12,16 +12,43 @@ interface ILoader {
   options: WebpackChain.LoaderOptions;
 }
 
+const getBabelOption = (opts: PluginOptions) => {
+  const {
+    typescript = {},
+    babelPluginWindCherryPick,
+    babelExclude,
+    babelPluginWindRc,
+    babelPluginWindIntl,
+  } = opts;
+  return {
+    presets: [
+      [
+        require.resolve('babel-preset-breezr-wind'), {
+          exclude: babelExclude,
+          reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
+          windRc: babelPluginWindRc,
+          windIntl: babelPluginWindIntl,
+          windCherryPick: babelPluginWindCherryPick
+        }
+      ]
+    ],
+    plugins: [
+      [
+        require.resolve('@babel/plugin-transform-typescript'),
+        {
+          isTSX :true
+        }
+      ]
+    ]
+  };
+}
+
 export default (api: PluginAPI, opts: PluginOptions) => {
   const {
     useHappyPack = true,
     tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
     ignoreWebpackModuleDependencyWarning,
-    typescript = {},
-    babelPluginWindCherryPick,
-    babelExclude,
-    babelPluginWindRc,
-    babelPluginWindIntl
+    typescript = {}
   } = opts;
 
   api.on('onChainWebpack', async (config: WebpackChain) => {
@@ -88,27 +115,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         }
       });
     } else {
-      const babelOption = {
-        presets: [
-          [
-            require.resolve('babel-preset-breezr-wind'), {
-              exclude: babelExclude,
-              reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
-              windRc: babelPluginWindRc,
-              windIntl: babelPluginWindIntl,
-              windCherryPick: babelPluginWindCherryPick
-            }
-          ]
-        ],
-        plugins: [
-          [
-            require.resolve('@babel/plugin-transform-typescript'),
-            {
-              isTSX :true
-            }
-          ]
-        ]
-      };
+      const babelOption = opts.babelOption ? opts.babelOption : getBabelOption(opts);
 
       if (useHappyPack) {
         tsRule

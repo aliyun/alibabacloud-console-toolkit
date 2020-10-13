@@ -1,7 +1,7 @@
 import { join } from 'path';
 import * as Chain from 'webpack-chain';
 
-import { getEnv } from '@alicloud/console-toolkit-shared-utils';
+import { getEnv, BuildType } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
 import { uglifyPlugin } from './plugins/uglify';
@@ -16,7 +16,11 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   const env = getEnv();
 
-  //@ts-ignore
+  if (!!options.sourceMap) {
+    config.devtool('source-map');
+  }
+
+  // @ts-ignore
   config.mode(process.env.NODE_ENV || 'production');
 
   // set common config
@@ -25,7 +29,8 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
     noProgress: options.noProgress || env.isCloudBuild()
   }, api);
 
-  if (env.isCloudBuild() && env.buildDestDir) {
+  if ((env.buildType === BuildType.Dev_Cloud || env.buildType === BuildType.Prod_Cloud )
+      && env.buildDestDir) {
     config.output.path(join(process.cwd(), env.buildDestDir));
   }
 
@@ -42,6 +47,6 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   config
     .optimization
-    .minimize(!options.disableUglify);
+      .minimize(!options.disableUglify);
 
 };
