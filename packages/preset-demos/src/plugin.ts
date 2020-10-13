@@ -93,7 +93,6 @@ module.exports = (api: any, opts: IParams) => {
     }
 
     if (env.isDev() && process.env.DEV_SERVE !== "true") {
-      config.devServer.open(true);
       config
         .entry("index")
         .clear()
