@@ -187,7 +187,7 @@ export interface BreezrPresetConfig {
     [key: string]: any,
   };
 
-  useTypescript: boolean;
+  useTypescript?: boolean;
 
   typescript?: {
     useBabel?: boolean,
