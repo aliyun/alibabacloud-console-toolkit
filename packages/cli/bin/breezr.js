@@ -42,6 +42,7 @@ program
   .description('start the development environment for wind')
   .option('-o, --open', 'Open browser')
   .option('-p, --port [port]', '')
+  .option('-c, --config [config]', '')
   .option('-H, --host [host]', '')
   .option('--mobile', '')
   .action(cmd => {
@@ -69,6 +70,7 @@ program
   .option('-w, --watch', 'Need watching file changing?')
   .option('--mobile', '')
   .option('--es-module', 'enable es module when build by babel')
+  .option('-c, --config [config]', '')
   // presets can use this to provide dynamic build config
   // based on cmdArgs
   .option('--buildMode [buildMode]', 'config webpack build behaviour')

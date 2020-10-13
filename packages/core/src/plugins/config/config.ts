@@ -6,6 +6,7 @@ import { warn, debug, getEnv, babelRegister, resolveModule } from "@alicloud/con
 import { PluginAPI } from "../../PluginAPI";
 import { defaultConfig } from './options';
 import { PluginConfig, PluginOptions } from '../../types/PluginAPI';
+import { CommandArgs } from '../../types/Command';
 
 const CONFIG_FILES = [
   'breezr.config.js',
@@ -52,13 +53,13 @@ const requireFile = (filePath: string) => {
 };
 
 
-export default (api: PluginAPI, opts: PluginOptions) => {
+export default (api: PluginAPI, opts: PluginOptions, args: CommandArgs) => {
 
   /**
    * register get config api 
    */
   let config: PluginConfig | null = null;
-  const absConfigPath = getConfigFile(api.getCwd());
+  const absConfigPath = args.config ? args.config : getConfigFile(api.getCwd());
 
   api.registerSyncAPI('getConfig', () => {
 
