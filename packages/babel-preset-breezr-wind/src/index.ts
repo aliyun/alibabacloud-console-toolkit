@@ -42,6 +42,13 @@ export default ((ctx: any, options: any) => {
     );
   }
 
+  if (windRc) {
+    plugins.push([
+        require.resolve('babel-plugin-wind-rc'),
+        typeof windRc === 'boolean' ? {} : windRc
+    ]);
+  }
+
   if (windCherryPick) {
     plugins.push(require.resolve('babel-plugin-wind'));
     plugins.push(
