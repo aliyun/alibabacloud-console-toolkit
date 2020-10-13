@@ -5,6 +5,7 @@ import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { warn } from '@alicloud/console-toolkit-shared-utils';
 import * as IgnoreNotFoundExportPlugin from "ignore-not-found-export-webpack-plugin";
+import * as Happypack from 'happypack';
 
 interface ILoader {
   loader: string;
@@ -13,6 +14,7 @@ interface ILoader {
 
 export default (api: PluginAPI, opts: PluginOptions) => {
   const {
+    useHappyPack = true,
     tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
     ignoreWebpackModuleDependencyWarning,
     typescript = {},
@@ -25,18 +27,18 @@ export default (api: PluginAPI, opts: PluginOptions) => {
   api.on('onChainWebpack', async (config: WebpackChain) => {
     config
       .entry('index')
-      .clear()
-      .add('./index')
-      .end()
+        .clear()
+        .add('./index')
+        .end()
       .resolve
-      .extensions
-      .merge(['.js', '.jsx', '.ts', '.tsx'])
-      .end();
+        .extensions
+        .merge(['.js', '.jsx', '.ts', '.tsx'])
+        .end();
     
     if (!opts.disablePolyfill) {
       config
-        .entry('index')
-        .prepend(require.resolve('babel-polyfill'));
+      .entry('index')
+      .prepend(require.resolve('babel-polyfill'));
     }
 
     if (!tsconfig || !existsSync(tsconfig)) {
@@ -86,30 +88,49 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         }
       });
     } else {
-      addLoader({
-        loader: require.resolve('babel-loader'),
-        options: {
-          presets: [
-            [
-              require.resolve('babel-preset-breezr-wind'), {
-                exclude: babelExclude,
-                reactCssModules: true,
-                windRc: babelPluginWindRc,
-                windIntl: babelPluginWindIntl,
-                windCherryPick: babelPluginWindCherryPick
-              }
-            ]
-          ],
-          plugins: [
-            [
-              require.resolve('@babel/plugin-transform-typescript'),
-              {
-                isTSX :true
-              }
-            ]
+      const babelOption = {
+        presets: [
+          [
+            require.resolve('babel-preset-breezr-wind'), {
+              exclude: babelExclude,
+              reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
+              windRc: babelPluginWindRc,
+              windIntl: babelPluginWindIntl,
+              windCherryPick: babelPluginWindCherryPick
+            }
           ]
-        }
-      });
+        ],
+        plugins: [
+          [
+            require.resolve('@babel/plugin-transform-typescript'),
+            {
+              isTSX :true
+            }
+          ]
+        ]
+      };
+
+      if (useHappyPack) {
+        tsRule
+          .use('happypack/loader')
+          .options({id: 'ts'})
+          .loader(require.resolve('happypack/loader'));
+        
+        config
+          .plugin('HappypackTs')
+            .use(Happypack, [{
+              id: 'ts',
+              loaders: [{
+                loader: require.resolve('babel-loader'),
+                options: babelOption
+              }]
+            }]);
+      } else {
+        addLoader({
+          loader: require.resolve('babel-loader'),
+          options: babelOption,
+        });
+      }
     }
 
     const tslintConf = resolve(api.getCwd(), 'tslint.json');

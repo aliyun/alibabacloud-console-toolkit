@@ -11,6 +11,37 @@ import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 import { getDeps } from './utils';
 
 
+export default async (api: PluginAPI, options: IOption) => {
+  const {
+    dllOutputDir = resolve(api.getCwd(), 'dll'),
+  } = options;
+
+  api.dispatchSync('registerBeforeDevStart', async () => {
+    await runDll(api, options);
+    api.dispatchSync('addMiddleware', serveStatic(dllOutputDir));
+  });
+
+  api.dispatchSync('registerBeforeBuildStart', async () => {
+    await runDll(api, options);
+  });
+
+  api.on('onBuildEnd', async () => {
+    const deps = getDeps(dllOutputDir);
+    if (!deps) {
+      return;
+    }
+    const env = getEnv();
+    const dllPath = resolve(dllOutputDir, deps.dllName);
+    if (existsSync(dllPath)) {
+      if (env.isCloudBuild() && env.buildDestDir) {
+        copyFileSync(dllPath, resolve(env.buildDestDir, deps.dllName));
+      } else {
+        copyFileSync(dllPath, resolve(api.getCwd(), `./build/${deps.dllName}`));
+      }
+    }
+  });
+};
+
 const runDll = async (api: PluginAPI, options: IOption) => {
   const {
     dllOutputDir = resolve(api.getCwd(), 'dll'),
@@ -41,36 +72,4 @@ const runDll = async (api: PluginAPI, options: IOption) => {
   <script src="/${deps.dllName}" ${scriptAttrStr}>
   </script>
   `);
-};
-
-
-export default async (api: PluginAPI, options: IOption) => {
-  const {
-    dllOutputDir = resolve(api.getCwd(), 'dll'),
-  } = options;
-
-  api.dispatchSync('registerBeforeDevStart', async () => {
-    await runDll(api, options);
-    api.dispatchSync('addMiddleware', serveStatic(dllOutputDir));
-  });
-
-  api.dispatchSync('registerBeforeBuildStart', async () => {
-    await runDll(api, options);
-  });
-
-  api.on('onBuildEnd', async () => {
-    const deps = getDeps(dllOutputDir);
-    if (!deps) {
-      return;
-    }
-    const env = getEnv();
-    const dllPath = resolve(dllOutputDir, deps.dllName);
-    if (existsSync(dllPath)) {
-      if (env.isCloudBuild() && env.buildDestDir) {
-        copyFileSync(dllPath, resolve(env.buildDestDir, deps.dllName));
-      } else {
-        copyFileSync(dllPath, resolve(api.getCwd(), `./build/${deps.dllName}`));
-      }
-    }
-  });
 };
