@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-core",
-  "version": "1.0.14",
+  "version": "1.0.16",
   "description": "console toolkit core",
   "main": "lib/index.js",
   "directories": {
@@ -33,7 +33,7 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "dependencies": {
-    "@alicloud/console-toolkit-shared-utils": "^1.0.14",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.16",
     "assert": "^2.0.0",
     "chalk": "^2.4.2",
     "debug": "^4.0.1",
