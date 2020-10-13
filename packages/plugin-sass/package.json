@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-sass",
-  "version": "1.0.14-alpha.0",
+  "version": "1.0.14",
   "description": "breezr plugin for sass",
   "scripts": {
     "ci": "tnpm run lint && tnpm run compile && tnpm run cov",
@@ -15,7 +15,7 @@
     "access": "public"
   },
   "devDependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.14-alpha.0",
+    "@alicloud/console-toolkit-core": "^1.0.14",
     "@types/autoprefixer": "^9.7.2",
     "@types/chai": "^4.1.7",
     "@types/jest": "^24.0.18",
