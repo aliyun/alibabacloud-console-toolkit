@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-updator",
-	"version": "1.0.16",
+	"version": "1.1.0",
 	"description": "console toolkit plugin for updator notify",
 	"scripts": {
 		"ci": "npm run lint && npm run compile && npm run cov",
@@ -30,7 +30,7 @@
 		"typescript": "^3.0.3"
 	},
 	"dependencies": {
-		"@alicloud/console-toolkit-core": "^1.0.16",
+		"@alicloud/console-toolkit-core": "^1.1.0",
 		"@alicloud/console-toolkit-shared-utils": "^1.0.16",
 		"execa": "^2.0.4",
 		"inquirer": "^7.0.0",

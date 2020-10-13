@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-styled-components-isolation",
-  "version": "1.0.16",
+  "version": "1.1.0",
   "description": "console toolkit plugin for isolating styled-components in the bundle",
   "main": "lib/index.js",
   "scripts": {
@@ -13,7 +13,7 @@
     "prepare": "npm run compile"
   },
   "devDependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.16",
+    "@alicloud/console-toolkit-core": "^1.1.0",
     "@types/chalk": "^2.2.0",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.121",

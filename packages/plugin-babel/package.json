@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-babel",
-  "version": "1.0.16",
+  "version": "1.1.0",
   "description": "console toolkit plugin for babel",
   "main": "lib/index.js",
   "directories": {
@@ -35,7 +35,7 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.16",
+    "@alicloud/console-toolkit-core": "^1.1.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.16",
     "@babel/core": "^7.2.2",
     "assert": "^2.0.0",
