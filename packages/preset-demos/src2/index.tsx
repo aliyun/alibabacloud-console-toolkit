@@ -5,9 +5,6 @@ import {
   mount,
 } from "@alicloud/console-os-react-portal";
 
-import "./index.less";
-// import "@alife/alicloud-components/dist/xconsole.css?fusion-prefix"
-
 import DemoLoader, { demoKeys } from "./DemoLoader";
 
 registerExposedModule("demoKeys", demoKeys);
