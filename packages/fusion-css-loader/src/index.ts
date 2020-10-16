@@ -14,10 +14,14 @@ module.exports = async function fusionCssLoader(
   const options = getOptions(this);
   const resourceQuery = qs.parse(this.resourceQuery || "");
 
-  let fusionPrefix, root;
+  let fusionPrefix, fusionVarScope, root;
 
   if (resourceQuery.fusionPrefix) {
     fusionPrefix = resourceQuery.fusionPrefix;
+  }
+
+  if (resourceQuery.fusionVarScope) {
+    fusionVarScope = resourceQuery.fusionVarScope;
   }
 
   // Reuse PostCSS AST from other loaders
@@ -36,8 +40,16 @@ module.exports = async function fusionCssLoader(
     selectorTransformers.push(options.selectorTransformer);
   }
 
+  if (fusionVarScope || typeof options.fusionVarScope === "string") {
+    selectorTransformers.push(selector => {
+      if (selector === ":root") {
+        return fusionVarScope || options.fusionVarScope;
+      }
+    });
+  }
+
   if (fusionPrefix || typeof options.fusionPrefix === "string") {
-    selectorTransformers.push((selector) => {
+    selectorTransformers.push(selector => {
       if (selector.startsWith(".next")) {
         return selector.replace(
           /\.next-/g,
@@ -49,27 +61,29 @@ module.exports = async function fusionCssLoader(
 
   if (selectorTransformers.length === 0) {
     throw new Error(
-      `Must provide at least one of the loader options: fusionPrefix or selectorTransformer`
+      `Must provide at least one of the loader options: fusionPrefix or fusionVarScope or selectorTransformer`
     );
   }
 
   const result = await postcss(
-    selectorTransformers.map((m) => modifySelectorPostcssPlugin(m))
-  ).process(root || content);
+    selectorTransformers.map(m => modifySelectorPostcssPlugin(m))
+  ).process(root || content, {
+    from: undefined
+  });
 
   const ast = {
     type: "postcss",
     version: result.processor.version,
-    root: result.root,
+    root: result.root
   };
 
   callback(null, result.css, undefined, { ast });
 };
 
 function modifySelectorPostcssPlugin(transform) {
-  return function (css) {
-    css.walkRules((rule) => {
-      const newSelectors = rule.selectors.map((selector) => {
+  return function(css) {
+    css.walkRules(rule => {
+      const newSelectors = rule.selectors.map(selector => {
         const res = transform(selector);
         if (res) return res;
         return selector;
