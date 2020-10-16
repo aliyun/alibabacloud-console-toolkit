@@ -1,0 +1,30 @@
+/* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+.my-prefix-btn {
+  position: relative;
+}
+.my-prefix-btn.my-prefix-small {
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 24px;
+  font-size: 12px;
+  border-width: 1px;
+}
+.my-prefix-btn.my-prefix-small > .my-prefix-btn-icon.my-prefix-icon-first:before,
+.my-prefix-btn.my-prefix-small > .my-prefix-btn-icon.my-prefix-icon-first .my-prefix-icon-remote {
+  width: 12px;
+  font-size: 12px;
+  line-height: inherit;
+}
+
+/* mock fusion css var https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/variables.css */
+
+.my-container {
+  /* ------------------------ color ------------------------ */
+  --color-brand1-1: #f7f9fa;
+  --color-brand1-6: #0064c8;
+  --color-brand1-9: #002850;
+  --color-data1-1: #00dccd;
+  --color-data1-2: #506fed;
+  --color-data1-3: #ae66fc;
+}
+

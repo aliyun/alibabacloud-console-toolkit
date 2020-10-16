@@ -1,0 +1,17 @@
+/* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+.next-btn {
+  position: relative;
+}
+.next-btn.next-small {
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 24px;
+  font-size: 12px;
+  border-width: 1px;
+}
+.next-btn.next-small > .next-btn-icon.next-icon-first:before,
+.next-btn.next-small > .next-btn-icon.next-icon-first .next-icon-remote {
+  width: 12px;
+  font-size: 12px;
+  line-height: inherit;
+}
