@@ -62,7 +62,7 @@ module.exports = {
 import "path/to/fusion.css?fusionPrefix=.my-prefix-";
 ```
 
-它的作用是对这个 css 文件中的 CSS 选择器进行转换，把`.next-btn`的类名修改成`.my-prefix-btn`。从而限制 fusion 组件样式作用范围，避免多份 fusion 主题同时存在时出现样式冲突。
+它的作用是对这个 css 文件中的 CSS 选择器进行转换，把`.next-btn`的类名修改成`.my-prefix-btn`。从而限制 fusion 组件样式作用范围，避免多份 fusion 同时存在时出现样式冲突。
 
 ## fusion css variable scope
 
