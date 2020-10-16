@@ -29,7 +29,7 @@
 	"dependencies": {
 		"@alicloud/console-toolkit-core": "^1.1.0",
 		"@alicloud/console-toolkit-shared-utils": "^1.0.16",
-		"@babel/plugin-transform-typescript": "^7.4.0",
+		"@babel/plugin-transform-typescript": "7.12.0",
 		"awesome-typescript-loader": "^5.2.1",
 		"babel-polyfill": "^6.26.0",
 		"cache-loader": "^4.1.0",
