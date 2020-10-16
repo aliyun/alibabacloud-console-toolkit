@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-breezr-wind",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Babel preset used by console app",
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
@@ -20,7 +20,7 @@
     "babel-plugin-react-css-modules": "^5.2.6",
     "babel-plugin-transform-loadable-component": "^1.0.14",
     "babel-plugin-wind": "^1.0.14",
-    "babel-plugin-wind-rc": "^1.0.14",
+    "babel-plugin-wind-rc": "^1.1.2",
     "babel-preset-breezr": "^1.0.14",
     "less": "^3.0.2",
     "lodash": "^4.17.10",
