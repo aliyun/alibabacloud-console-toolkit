@@ -3,17 +3,19 @@ import * as path from "path";
 import * as Chain from "webpack-chain";
 
 export interface IParams {
+  consoleOSId?: string;
+  chainWebpack?: (configChain: Chain) => void;
   getDemos: () => {
     key: string;
     path: string;
   }[];
   demoContainerPath?: string;
   demoWrapperPath?: string;
-  chainWebpack?: (configChain: Chain) => void;
-  commonModule?: string;
+  initializerPath?: string;
+  codesandboxModifierPath?: string;
 }
 
-export default (params: IParams) => {
+export default (params: IParams, args) => {
   const presetConfig = presetWind(
     {
       disablePolyfill: true,
@@ -25,22 +27,20 @@ export default (params: IParams) => {
       },
       useTerserPlugin: true,
       htmlFileName: path.resolve(__dirname, "../src2/index.html"),
-      useHappyPack: false,
+      useHappyPack: false
     },
-    {}
+    args
   );
 
   presetConfig.plugins.push(
     [
-      "@ali/breezr-plugin-os",
+      "@alicloud/console-toolkit-plugin-os",
       {
-        id: "xconsole-demos"
+        id: params.consoleOSId || "console-os-demos",
+        cssPrefix: "html"
       }
     ],
-    [
-      require.resolve("./plugin"),
-      params
-    ]
+    [require.resolve("./plugin"), params]
   );
 
   return presetConfig;

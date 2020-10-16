@@ -3,7 +3,7 @@
   border: 1px solid #d1d5d9;
   border-radius: 4px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
-  margin: 0 auto;
+  // margin: 0 auto;
   .title {
     height: 40px;
     line-height: 40px;
@@ -28,20 +28,17 @@
     }
   }
   .operation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 40px;
-    line-height: 40px;
-    text-align: center;
     color: #666666;
     font-size: 15px;
     opacity: 0.7;
-    i {
-      margin-right: 22px;
+    > svg {
+      cursor: pointer;
+      margin-right: 16px;
     }
-  }
-  .code {
-    padding: 24px;
-    border-top: 1px solid #dedede;
-    // display: none;
   }
   &:hover {
     transition: all 0.3s ease-in-out;
