@@ -1,0 +1,19 @@
+{
+  "name": "@alicloud/console-os-demo-loader",
+  "version": "1.0.3",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "prepare": "tsc"
+  },
+  "dependencies": {
+    "@alicloud/console-os-react-app": "^0.4.0-alpha.4"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.52",
+    "typescript": "^4.0.3"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

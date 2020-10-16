@@ -22,7 +22,7 @@ const Overview: React.FC<IProps> = ({ demoKey, onDemoKeyChange }) => {
       </div>
       <hr />
       <div className={styles.widgetCtn}>
-        <DemoLoader demoId={demoKey} />
+        <DemoLoader demoKey={demoKey} />
       </div>
     </div>
   );

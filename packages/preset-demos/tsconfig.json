@@ -3,7 +3,7 @@
     "module": "commonjs",
     "target": "es5",
     "outDir": "lib",
-    "lib": ["es6", "dom", "es2017.string"],
+    "lib": ["es2020", "dom"],
     "sourceMap": true,
     "rootDir": "src",
     "jsx": "react",

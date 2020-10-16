@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import { ConfigProvider } from "@alife/alicloud-components";
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
 // @ts-ignore
@@ -8,38 +7,42 @@ import DemoWrapper from "/@DemoWrapper";
 // @ts-ignore
 import demos from "/@demos-list";
 
+// @ts-ignore
+import "/@initializer";
+
 export const demoKeys = demos.map(({ key }) => key);
 
 interface IDemoInfo {
   Component: React.ComponentType;
   code: string;
-  title: string;
-  describe: string;
+  imports: string[];
+  meta?: any;
 }
 
 const DemoLoader: React.FC<{
-  demoId: string;
-}> = ({ demoId }) => {
+  demoKey: string;
+}> = ({ demoKey }) => {
   const [demo, setDemo] = useState<null | IDemoInfo>(null);
 
   useEffect(() => {
-    if (!demoId) return;
-    const found = demos.find(({ key }) => key === demoId);
+    if (!demoKey) {
+      return;
+    }
+    const found = demos.find(({ key }) => key === demoKey);
     if (found) {
       found.load().then(m => {
-        const { demo: Component, meta, code } = m;
-        const { title, describe } = meta ?? {};
-        setDemo({ Component, code, title, describe });
+        const { demo: Component, meta, code, imports } = m;
+        setDemo({ Component, code, imports, meta });
       });
     }
-  }, [demoId]);
+  }, [demoKey]);
 
   return demo ? (
     <DemoContainer
-      title={demo.title}
-      describe={demo.describe}
       code={demo.code}
+      imports={demo.imports}
       DemoWrapper={DemoWrapper}
+      meta={demo.meta}
     >
       <demo.Component />
     </DemoContainer>
