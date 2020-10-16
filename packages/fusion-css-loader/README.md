@@ -1,7 +1,7 @@
 # @alicloud/console-toolkit-fusion-css-loader
 
-这是一个 webpack loader，用来修改 fusion 的 css 的类名前缀。比如把`.next-btn`的类名修改成`.my-prefix-btn`。
-这样做的目的是，让一个页面中可以同时存在多份不同版本的 fusion，同时不会出现样式冲突。
+这是一个 webpack loader，用来修改 fusion 的 css 的选择器类名前缀。比如把`.next-btn`的类名修改成`.my-prefix-btn`。
+这样做的目的是，**控制 fusion 样式的作用范围，让一个页面中可以同时存在多份不同版本的 fusion，同时不会出现样式冲突**。
 
 ## 使用方式
 
