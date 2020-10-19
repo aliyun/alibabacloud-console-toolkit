@@ -2,10 +2,10 @@ import React, { useState } from "react";
 import Overview from "./Overview";
 
 const params = new URLSearchParams(window.location.search);
-const urlDemoKey = params.get("demoKey");
+const entryKeyFromURL = params.get("entryKey");
 
 const Component: React.FC = props => {
-  const [demoKey, setDemoKey] = useState(urlDemoKey);
+  const [entryKey, setEntryKey] = useState(entryKeyFromURL);
   return (
     <div>
       <p>
@@ -14,10 +14,10 @@ const Component: React.FC = props => {
       </p>
       <hr />
       <Overview
-        demoKey={demoKey!}
-        onDemoKeyChange={newDemoKey => {
-          setDemoKey(newDemoKey);
-          params.set("demoKey", newDemoKey);
+        entryKey={entryKey!}
+        onEntryKeyChange={newKey => {
+          setEntryKey(newKey);
+          params.set("entryKey", newKey);
           history.pushState(null, "", `?${params.toString()}`);
         }}
       />

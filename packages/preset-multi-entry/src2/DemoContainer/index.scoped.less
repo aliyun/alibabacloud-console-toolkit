@@ -1,9 +1,11 @@
 .container {
   width: 800px;
-  border: 1px solid #d1d5d9;
+  border: 1px solid #e3e4e6;
   border-radius: 4px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.16);
-  // margin: 0 auto;
+  &:hover {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
   .title {
     height: 40px;
     line-height: 40px;
@@ -39,9 +41,5 @@
       cursor: pointer;
       margin-right: 16px;
     }
-  }
-  &:hover {
-    transition: all 0.3s ease-in-out;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   }
 }

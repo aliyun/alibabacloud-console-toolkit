@@ -1,6 +1,6 @@
 {
-  "name": "@alicloud/console-toolkit-preset-demos",
-  "version": "1.0.33",
+  "name": "@alicloud/console-toolkit-preset-multi-entry",
+  "version": "1.0.47",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -31,12 +31,15 @@
   },
   "dependencies": {
     "@alicloud/console-os-react-portal": "^0.4.0-alpha.3",
-    "@alicloud/console-toolkit-fusion-css-loader": "^1.0.3",
-    "@alicloud/console-toolkit-plugin-os": "^0.3.18",
+    "@alicloud/console-toolkit-fusion-css-loader": "^1.0.4",
+    "@alicloud/console-toolkit-plugin-os": "0.2.10",
     "@alicloud/console-toolkit-preset-official": "^1.0.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "@babel/core": "^7.11.6",
+    "@mdx-js/loader": "^1.6.18",
+    "gray-matter": "^4.0.2",
     "jest-docblock": "^26.0.0",
+    "lodash.debounce": "^4.0.8",
     "react-animate-height": "^2.0.23",
     "react-syntax-highlighter": "^15.2.1",
     "webpack-virtual-modules": "^0.3.1"

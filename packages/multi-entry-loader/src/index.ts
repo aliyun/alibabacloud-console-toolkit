@@ -7,12 +7,12 @@ export interface IDeps {
 }
 
 export interface IOverviewProps {
-  demoKey?: string;
-  onDemoKeyChange?: (newDemoKey: string) => void;
+  key?: string;
+  onKeyChange?: (newKey: string) => void;
 }
 
-export interface IDemoPlayerProps {
-  demoKey: string;
+export interface IEntryLoaderProps {
+  key: string;
 }
 
 export function loadOverview(opts: {
@@ -39,11 +39,11 @@ export function loadOverview(opts: {
     .then((m: any) => m.default);
 }
 
-export function loadDemoPlayer(opts: {
+export function loadEntryLoader(opts: {
   servePath: string;
   consoleOSId: string;
   deps: IDeps;
-}): Promise<React.ComponentType<IDemoPlayerProps>> {
+}): Promise<React.ComponentType<IEntryLoaderProps>> {
   const { servePath, consoleOSId, deps } = opts;
   const consoleOSAppInfo = {
     manifest: `${servePath}${consoleOSId}.manifest.json`,
@@ -55,7 +55,7 @@ export function loadDemoPlayer(opts: {
       ...deps
     }
   };
-  return loadExposedModule(consoleOSAppInfo, "DemoLoader", {
+  return loadExposedModule(consoleOSAppInfo, "Loader", {
     sandBox: { disable: true }
   });
 }

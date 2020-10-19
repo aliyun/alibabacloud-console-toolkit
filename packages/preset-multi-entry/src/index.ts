@@ -4,15 +4,26 @@ import * as Chain from "webpack-chain";
 
 export interface IParams {
   consoleOSId?: string;
-  chainWebpack?: (configChain: Chain) => void;
-  getDemos: () => {
+  chainWebpack?: (configChain: Chain, env: any) => void;
+  getDemos?: () => {
     key: string;
     path: string;
+    staticMeta?: object;
   }[];
   demoContainerPath?: string;
   demoWrapperPath?: string;
   initializerPath?: string;
   codesandboxModifierPath?: string;
+  getMarkdownEntries?: () => {
+    key: string;
+    path: string;
+    staticMeta?: object;
+  }[];
+  getNormalEntries?: () => {
+    key: string;
+    path: string;
+    staticMeta?: object;
+  }[];
 }
 
 export default (params: IParams, args) => {
