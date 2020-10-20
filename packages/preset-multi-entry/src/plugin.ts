@@ -62,7 +62,7 @@ module.exports = (api: any, opts: IParams) => {
   }
 
   if (typeof opts.getMarkdownEntries === "function") {
-    const markdownRuntimePath = path.join(__dirname, '../src2/Markdown')
+    const markdownRuntimePath = path.join(__dirname, "../src2/Markdown");
     opts
       .getMarkdownEntries()
       .forEach(({ key, path: entryPath, staticMeta = {} }, idx) => {
@@ -199,6 +199,9 @@ module.exports = (api: any, opts: IParams) => {
       .rule("mdx-loader")
       .use("mdx-loader")
       .loader(require.resolve("@mdx-js/loader"))
+      .options({
+        rehypePlugins: [require("rehype-slug")]
+      })
       .end();
 
     config.devServer.open(false);
@@ -230,7 +233,7 @@ module.exports = (api: any, opts: IParams) => {
         "/.webpack_virtual/@alicloud/console-os-environment"
       );
     } else {
-      config.output.publicPath('');
+      config.output.publicPath("");
       config.externals({
         react: {
           root: "React",
