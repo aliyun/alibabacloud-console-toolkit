@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-multi-entry",
-  "version": "1.0.47",
+  "version": "1.0.48",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -42,6 +42,7 @@
     "lodash.debounce": "^4.0.8",
     "react-animate-height": "^2.0.23",
     "react-syntax-highlighter": "^15.2.1",
+    "rehype-slug": "^3.0.0",
     "webpack-virtual-modules": "^0.3.1"
   },
   "publishConfig": {
