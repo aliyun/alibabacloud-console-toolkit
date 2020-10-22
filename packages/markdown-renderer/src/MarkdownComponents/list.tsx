@@ -1,6 +1,7 @@
-import styled, { css } from 'styled-components'
+import React from "react";
+import styled from "styled-components";
 
-const shared = css`
+const shared = `
   margin-bottom: 16px;
   margin-top: 0;
   padding-left: 2em;
@@ -10,17 +11,17 @@ const shared = css`
   margin-inline-start: 0px;
   margin-inline-end: 0px;
   padding-inline-start: 40px;
-`
+`;
 
 const OL = styled.ol`
-  ${shared}
+  ${shared};
   list-style-type: decimal;
-`
+`;
 
 const UL = styled.ul`
-  ${shared}
+  ${shared};
   list-style-type: disc;
-`
+`;
 
 const LI = styled.li`
   word-wrap: break-all;
@@ -30,10 +31,19 @@ const LI = styled.li`
   & + & {
     margin-top: 0.25em;
   }
-`
+`;
 
-export default {
+const lists = {
+  list: ({ ordered, ...rest }) => {
+    if (ordered) {
+      return <lists.ol {...rest} />;
+    }
+    return <lists.ul {...rest} />;
+  },
+  listItem: LI,
   ul: UL,
   ol: OL,
-  li: LI,
-}
+  li: LI
+};
+
+export default lists;

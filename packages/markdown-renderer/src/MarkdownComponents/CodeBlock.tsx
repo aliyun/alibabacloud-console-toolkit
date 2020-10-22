@@ -27,7 +27,9 @@ const CodeBlock: React.FC<{
   language: 'js' | 'javascript' | 'jsx' | 'ts' | 'typescript' | 'tsx'
   style?: React.CSSProperties
   className?: string
-}> = ({ language, style, children, className }) => {
+  value?: string
+}> = ({ language, style, children, className, value }) => {
+  const code = value || children || ''
   let actualLanguage = language
   if (!actualLanguage && typeof className === 'string') {
     // try to infer language from classname like: 'language-javascript'
@@ -47,7 +49,7 @@ const CodeBlock: React.FC<{
       customStyle={{ ...SyntaxHighlighterStyle, ...style }}
       className={className}
     >
-      {children}
+      {code}
     </SyntaxHighlighter>
   )
 }
