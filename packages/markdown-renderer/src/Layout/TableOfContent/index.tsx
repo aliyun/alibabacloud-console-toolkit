@@ -45,7 +45,7 @@ const ScListItem = styled(
 )`
   && {
     padding-left: ${({ depth }) => 16 + (depth - 1) * 12}px;
-    ${({ active }) => (active ? 'font-weight: 700;' : '')}
+    ${({ active }) => (active ? 'font-weight: 700;' : '')};
     border-left: 2px solid ${({ active }) => (active ? '#25b864' : '#e8e8e8')};
     a {
       display: block;

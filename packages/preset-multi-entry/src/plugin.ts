@@ -85,9 +85,10 @@ module.exports = (api: any, opts: IParams) => {
         }
         virtualModules[virtualModulePath] = `
           import * as mdxModule from "${entryPath}";
-          import { wrapMdxModule } from "${markdownRuntimePath}";
-          const wrapped = wrapMdxModule(mdxModule);
-          export default wrapped.default;
+          import { staticMeta } from "${staticMetaVirtualModulePath}";
+          import { mdRenderer } from "${markdownRuntimePath}";
+          const wrapped = mdRenderer(mdxModule.default, staticMeta);
+          export default wrapped;
       `;
         entryListItemCode.push(
           `{key: '${key}', staticMeta: mdStaticMeta${idx}, load: () => import('${virtualModulePath}')}`
@@ -187,21 +188,13 @@ module.exports = (api: any, opts: IParams) => {
       })
       .end()
       .end()
-      .rule("mdx")
-      .test(/\.mdx?$/)
-      .rule("babel-loader")
-      .use("babel-loader")
-      .loader("babel-loader")
-      .options({
-        presets: ["@babel/env", "@babel/react"]
-      })
+      .rule("md")
+      .test(/\.md$/)
+      .rule("raw-loader")
+      .use("raw-loader")
+      .loader("raw-loader")
       .end()
-      .rule("mdx-loader")
-      .use("mdx-loader")
-      .loader(require.resolve("@mdx-js/loader"))
-      .options({
-        rehypePlugins: [require("rehype-slug")]
-      })
+      .end()
       .end();
 
     config.devServer.open(false);

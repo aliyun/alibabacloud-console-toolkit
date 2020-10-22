@@ -31,7 +31,8 @@ type IEntryInfo =
 
 const Loader: React.FC<{
   entryKey: string;
-}> = ({ entryKey }) => {
+  changeMdSource: (origin: string) => string;
+}> = ({ entryKey, changeMdSource }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -84,7 +85,7 @@ const Loader: React.FC<{
     );
   }
 
-  return <entry.Component meta={entry.meta} />;
+  return <entry.Component meta={entry.meta} changeMdSource={changeMdSource} />;
 };
 
 export default Loader;

@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-multi-entry",
-  "version": "1.0.48",
+  "version": "1.0.53",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "@types/lodash": "^4.14.116",
     "@types/node": "^12.7.5",
     "@types/react": "^16.9.52",
+    "@types/styled-components": "^5.1.4",
     "chai": "^4.2.0",
     "jest": "^24.2.0-alpha.0",
     "nyc": "^14.1.1",
@@ -32,6 +33,7 @@
   "dependencies": {
     "@alicloud/console-os-react-portal": "^0.4.0-alpha.3",
     "@alicloud/console-toolkit-fusion-css-loader": "^1.0.4",
+    "@alicloud/console-toolkit-markdown-renderer": "^1.0.6",
     "@alicloud/console-toolkit-plugin-os": "0.2.10",
     "@alicloud/console-toolkit-preset-official": "^1.0.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
@@ -39,10 +41,7 @@
     "@mdx-js/loader": "^1.6.18",
     "gray-matter": "^4.0.2",
     "jest-docblock": "^26.0.0",
-    "lodash.debounce": "^4.0.8",
     "react-animate-height": "^2.0.23",
-    "react-syntax-highlighter": "^15.2.1",
-    "rehype-slug": "^3.0.0",
     "webpack-virtual-modules": "^0.3.1"
   },
   "publishConfig": {
