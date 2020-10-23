@@ -1,0 +1,6 @@
+{
+  "name": "fixture",
+  "scripts": {
+    "start": "npx breezr start"
+  }
+}

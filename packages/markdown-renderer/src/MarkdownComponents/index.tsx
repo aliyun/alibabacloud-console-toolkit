@@ -3,6 +3,7 @@ import heading from "./heading";
 import code from "./code";
 import list from "./list";
 import table from "./table";
+import anchor from "./anchor";
 
 // 模仿github渲染markdown的样式
 // 样式参考 https://github.com/sindresorhus/github-markdown-css/blob/gh-pages/github-markdown.css
@@ -70,5 +71,6 @@ export default {
   ...heading,
   ...code,
   ...list,
-  ...table
+  ...table,
+  ...anchor
 };

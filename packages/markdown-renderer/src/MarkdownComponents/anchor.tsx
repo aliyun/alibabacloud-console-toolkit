@@ -1,26 +1,36 @@
-import {  } from "@alicloud/console-toolkit-multi-entry-loader";
+import React from "react";
+import {
+  EntryLoader,
+  getInfoFromURL
+} from "@alicloud/console-toolkit-multi-entry-loader";
 
 export default {
-  a: ({children}) => {
-    if (Array.isArray(children) && children.length === 1 && typeof children[0] === "string" && children[0].startsWith('#XView')) {
-
+  a: props => {
+    const { children, href } = props;
+    if (
+      Array.isArray(children) &&
+      children.length === 1 &&
+      typeof children[0] === "string" &&
+      children[0].startsWith("$XView")
+    ) {
+      return renderXView(href);
     }
+    return <a {...props} />;
   }
-}
+};
 
-
-export function renderXView(href, alfaConfig) {
-  const query = qs.parseUrl(href).query
-  const demoKey = (query.demoKey || '').toString()
-  const consoleOSId = (query.consoleOSId || 'xconsole-demos').toString()
+export function renderXView(href) {
+  const { consoleOSId, servePath, entryKey } = getInfoFromURL(href);
 
   return (
-    <div className="xdemo-root">
-      <ConsoleOSDemo
-        consoleOSId={consoleOSId}
-        demoKey={demoKey}
-        alfaConfig={alfaConfig}
-      />
+    <div className="XView-root">
+      <React.Suspense fallback="Loading...">
+        <EntryLoader
+          consoleOSId={consoleOSId}
+          servePath={servePath}
+          entryKey={entryKey}
+        />
+      </React.Suspense>
     </div>
-  )
+  );
 }
