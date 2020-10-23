@@ -3,7 +3,7 @@ import CodeBlock from './CodeBlock'
 
 export default {
   code: CodeBlock,
-  inlineCode: styled.code`
+  inlinecode: styled.code`
     font-family: SFMono-Regular, Consolas, Liberation Mono, Menlo, Courier,
       monospace;
     font-size: 1em;

@@ -15,9 +15,11 @@ export interface IOverviewProps {
 
 export interface IEntryLoaderProps {
   entryKey: string;
-  onLoaded?: () => void
-  markdownTOC?: boolean
-  embeddedMarkdown?: boolean
+  onLoaded?: () => void;
+  markdownOpts?: {
+    toc?: boolean;
+    embedded?: boolean;
+  };
 }
 
 export interface ConsoleOSOptions {
