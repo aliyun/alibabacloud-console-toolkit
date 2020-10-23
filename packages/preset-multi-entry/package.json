@@ -7,6 +7,7 @@
   "main": "lib/index.js",
   "scripts": {
     "dev": "cd fixture && npm run start",
+    "dev-serve": "cd fixture && npm run dev-serve",
     "ci": "npm run lint && npm run compile && npm run cov",
     "lint": "tslint --project .",
     "compile": "rimraf ./lib && tsc -d true -p ./src",

@@ -1,7 +1,6 @@
 {
   "name": "root",
   "private": true,
-  "workspaces": ["packages/*"],
   "scripts": {
     "ci": "lerna run lint && lerna run compile && npm run cov",
     "cov": "jest --coverage",
