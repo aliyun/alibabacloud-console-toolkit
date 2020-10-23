@@ -7,7 +7,7 @@ module.exports = {
       // require.resolve("./lib"),
       require.resolve("@alicloud/console-toolkit-preset-multi-entry"),
       {
-        consoleOSId: "xconsole-demos",
+        consoleOSId: "multi-entry-fixture",
         getDemos() {
           const baseDir = path.resolve(__dirname, "./src/demos/");
           const paths = globby.sync("**/*.tsx", { cwd: baseDir });
