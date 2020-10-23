@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-typescript",
-	"version": "1.0.3",
+	"version": "1.1.2",
 	"description": "console toolkit plugin for typescript",
 	"scripts": {
 		"ci": "npm run lint && npm run compile && npm run cov",
@@ -27,13 +27,14 @@
 		"tslint": "^5.8.0"
 	},
 	"dependencies": {
-		"@alicloud/console-toolkit-core": "^1.0.1",
-		"@alicloud/console-toolkit-shared-utils": "^1.0.1",
-		"@babel/plugin-transform-typescript": "^7.4.0",
+		"@alicloud/console-toolkit-core": "^1.1.0",
+		"@alicloud/console-toolkit-shared-utils": "^1.0.16",
+		"@babel/plugin-transform-typescript": "7.12.0",
 		"awesome-typescript-loader": "^5.2.1",
 		"babel-polyfill": "^6.26.0",
 		"cache-loader": "^4.1.0",
 		"fork-ts-checker-webpack-plugin": "^1.3.4",
+		"happypack": "^5.0.1",
 		"ignore-not-found-export-webpack-plugin": "1.0.0",
 		"lodash": "^4.17.11",
 		"thread-loader": "^2.1.2",

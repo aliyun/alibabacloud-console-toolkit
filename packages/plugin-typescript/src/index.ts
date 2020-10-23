@@ -5,38 +5,67 @@ import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { warn } from '@alicloud/console-toolkit-shared-utils';
 import * as IgnoreNotFoundExportPlugin from "ignore-not-found-export-webpack-plugin";
+import * as Happypack from 'happypack';
 
 interface ILoader {
   loader: string;
   options: WebpackChain.LoaderOptions;
 }
 
-export default (api: PluginAPI, opts: PluginOptions) => {
+const getBabelOption = (opts: PluginOptions) => {
   const {
-    tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
-    ignoreWebpackModuleDependencyWarning,
     typescript = {},
     babelPluginWindCherryPick,
     babelExclude,
     babelPluginWindRc,
-    babelPluginWindIntl
+    babelPluginWindIntl,
+  } = opts;
+  return {
+    presets: [
+      [
+        require.resolve('babel-preset-breezr-wind'), {
+          exclude: babelExclude,
+          reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
+          windRc: babelPluginWindRc,
+          windIntl: babelPluginWindIntl,
+          windCherryPick: babelPluginWindCherryPick
+        }
+      ]
+    ],
+    plugins: [
+      [
+        require.resolve('@babel/plugin-transform-typescript'),
+        {
+          isTSX :true
+        }
+      ]
+    ]
+  };
+}
+
+export default (api: PluginAPI, opts: PluginOptions) => {
+  const {
+    useHappyPack = true,
+    tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
+    ignoreWebpackModuleDependencyWarning,
+    typescript = {}
   } = opts;
 
   api.on('onChainWebpack', async (config: WebpackChain) => {
     config
       .entry('index')
-      .clear()
-      .add('./index')
-      .end()
+        .clear()
+        .add('./index')
+        .end()
       .resolve
-      .extensions
-      .merge(['.js', '.jsx', '.ts', '.tsx'])
-      .end();
+        .extensions
+        .merge(['.js', '.jsx', '.ts', '.tsx'])
+        .end();
     
     if (!opts.disablePolyfill) {
       config
-        .entry('index')
-        .prepend(require.resolve('babel-polyfill'));
+      .entry('index')
+      .prepend(require.resolve('babel-polyfill'));
     }
 
     if (!tsconfig || !existsSync(tsconfig)) {
@@ -86,43 +115,45 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         }
       });
     } else {
-      addLoader({
-        loader: require.resolve('babel-loader'),
-        options: {
-          presets: [
-            [
-              require.resolve('babel-preset-breezr-wind'), {
-                exclude: babelExclude,
-                reactCssModules: true,
-                windRc: babelPluginWindRc,
-                windIntl: babelPluginWindIntl,
-                windCherryPick: babelPluginWindCherryPick
-              }
-            ]
-          ],
-          plugins: [
-            [
-              require.resolve('@babel/plugin-transform-typescript'),
-              {
-                isTSX :true
-              }
-            ]
-          ]
-        }
-      });
+      const babelOption = opts.babelOption ? opts.babelOption : getBabelOption(opts);
+
+      if (useHappyPack) {
+        tsRule
+          .use('happypack/loader')
+          .options({id: 'ts'})
+          .loader(require.resolve('happypack/loader'));
+        
+        config
+          .plugin('HappypackTs')
+            .use(Happypack, [{
+              id: 'ts',
+              loaders: [{
+                loader: require.resolve('babel-loader'),
+                options: babelOption
+              }]
+            }]);
+      } else {
+        addLoader({
+          loader: require.resolve('babel-loader'),
+          options: babelOption,
+        });
+      }
     }
 
     const tslintConf = resolve(api.getCwd(), 'tslint.json');
     const disableTsLint = !existsSync(tslintConf);
     const { eslint } = opts;
-    config
+
+    if (!typescript.disableTypeChecker) {
+      config
       .plugin('ForkTsCheckerWebpackPlugin')
-      .use(ForkTsCheckerWebpackPlugin, [{
-        tsconfig,
-        eslint,
-        // active when eslint is false or no tslint.json
-        tslint: !eslint && disableTsLint ? undefined: tslintConf
-      }]);
+        .use(ForkTsCheckerWebpackPlugin, [{
+          tsconfig,
+          eslint,
+          // active when eslint is false or no tslint.json
+          tslint: !eslint && disableTsLint ? undefined: tslintConf
+        }]);
+    }
   });
 };
 

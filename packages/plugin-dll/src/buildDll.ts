@@ -9,45 +9,6 @@ import { IOption } from "./type";
 import { VENDER } from "./constants";
 import { getDeps, writeDeps, Deps } from "./utils";
 
-
-const buildDll = async (api: PluginAPI, dllOutputDir: string, deps: Deps) => {
-  const config = new Chain();
-  await api.emit('onChainWebpack', config, getEnv());
-
-  config.entryPoints.delete('index');
-  config.entryPoints.delete('vendor');
-  config.entryPoints.delete('runtime');
-
-  deps.deps.forEach((lib) => {
-    config.entry('breezr').add(lib);
-  });
-
-  config.output.filename(deps.dllName);
-  config.output.path(dllOutputDir);
-  config.output.library('[name]');
-  config.output.delete('chunkFilename');
-
-  config.plugin('DllPlugin').use(webpack.DllPlugin, [{
-    path: join(config.output.get('path'), '[name].json'),
-    name: '[name]',
-    context: config.get('context'),
-  }]);
-
-  config.optimization.delete('splitChunks');
-  config.optimization.delete('runtimeChunk');
-  config.plugins.delete('HtmlPlugin');
-  config.plugins.delete('GetherResource');
-  config.plugins.delete('Skeleton');
-
-  debug('dll', config.toConfig());
-
-  await api.dispatch('webpack', {
-    config: config.toConfig(),
-    /* 强制复写用户的 自定义 webpack */
-    webpack: () => config.toConfig()
-  });
-};
-
 export default async (api: PluginAPI, option: IOption) => {
   const { dllLib, dllOutputDir = resolve(api.getCwd(), 'dll') } = option;
 
@@ -97,3 +58,41 @@ export default async (api: PluginAPI, option: IOption) => {
   process.env.NODE_ENV = cachedEnv;
 };
 
+
+const buildDll = async (api: PluginAPI, dllOutputDir: string, deps: Deps) => {
+  const config = new Chain();
+  await api.emit('onChainWebpack', config, getEnv());
+
+  config.entryPoints.delete('index');
+  config.entryPoints.delete('vendor');
+  config.entryPoints.delete('runtime');
+
+  deps.deps.forEach((lib) => {
+    config.entry('breezr').add(lib);
+  });
+
+  config.output.filename(deps.dllName);
+  config.output.path(dllOutputDir);
+  config.output.library('[name]');
+  config.output.delete('chunkFilename');
+
+  config.plugin('DllPlugin').use(webpack.DllPlugin, [{
+    path: join(config.output.get('path'), '[name].json'),
+    name: '[name]',
+    context: config.get('context'),
+  }]);
+
+  config.optimization.delete('splitChunks');
+  config.optimization.delete('runtimeChunk');
+  config.plugins.delete('HtmlPlugin');
+  config.plugins.delete('GetherResource');
+  config.plugins.delete('Skeleton');
+
+  debug('dll', config.toConfig());
+
+  await api.dispatch('webpack', {
+    config: config.toConfig(),
+    /* 强制复写用户的 自定义 webpack */
+    webpack: () => config.toConfig()
+  });
+};

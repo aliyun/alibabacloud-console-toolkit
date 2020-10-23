@@ -118,7 +118,7 @@ export class Service extends EventEmitter {
   public async init(args: CommandArgs) {
     // init built-in plugins
     for (const plugin of this.plugins) {
-      await this.initPlugin(plugin);
+      await this.initPlugin(plugin, args);
     }
 
 
@@ -138,7 +138,7 @@ export class Service extends EventEmitter {
       }
 
       this.plugins.push(pluginId);
-      await this.initPlugin(idToPlugin(pluginId));
+      await this.initPlugin(idToPlugin(pluginId), args);
     }
   }
 
@@ -166,7 +166,7 @@ export class Service extends EventEmitter {
    *
    * @param {BreezrPlugin} plugin
    */
-  public async initPlugin(plugin: BreezrPlugin) {
+  public async initPlugin(plugin: BreezrPlugin, args?: CommandArgs) {
     const { id, pluginEntry } = plugin;
 
     if (this._pluginStateMap.get(id) === PluginState.INITED) {
@@ -186,13 +186,13 @@ export class Service extends EventEmitter {
       const depsPlugins = resolvePluginsFromPkg(pkg);
 
       for (const dep of depsPlugins) {
-        await this.initPlugin(dep);
+        await this.initPlugin(dep, args);
       }
     } catch (e) {
       // throw e;
     }
 
-    await pluginEntry(new PluginAPI(id, this), this.loadPluginOptions(id) || {});
+    await pluginEntry(new PluginAPI(id, this), this.loadPluginOptions(id) || {}, args);
 
     this._pluginStateMap.set(id, PluginState.INITED);
   }

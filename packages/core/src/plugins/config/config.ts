@@ -1,16 +1,18 @@
-import { join } from 'path';
+import { join, dirname } from 'path';
 import { existsSync } from 'fs';
-// import { extend } from 'lodash';
 
-import { warn, debug, getEnv } from "@alicloud/console-toolkit-shared-utils";
+import { warn, debug, getEnv, babelRegister, resolveModule } from "@alicloud/console-toolkit-shared-utils";
 
 import { PluginAPI } from "../../PluginAPI";
 import { defaultConfig } from './options';
 import { PluginConfig, PluginOptions } from '../../types/PluginAPI';
+import { CommandArgs } from '../../types/Command';
 
 const CONFIG_FILES = [
   'breezr.config.js',
   'config/config.js',
+  'breezr.config.ts',
+  'config/config.ts',
 ];
 
 export const getConfigFile = (cwd: string) => {
@@ -22,7 +24,7 @@ export const getConfigFile = (cwd: string) => {
 
   if (files.length > 1) {
     warn(
-      `Muitiple config files ${files.join(', ')} detected, breezr will use ${
+      `Multiple config files ${files.join(', ')} detected, breezr will use ${
         files[0]
       }.`);
   }
@@ -41,22 +43,23 @@ const requireFile = (filePath: string) => {
   };
 
   try {
+    babelRegister([dirname(filePath)]);
     const config = require(filePath) || {};
     debug('core', 'require filePath %s %j', filePath, config);
-    return config;
+    return resolveModule(config);
   } catch (e) {
     return onError(e);
   }
 };
 
 
-export default (api: PluginAPI, opts: PluginOptions) => {
+export default (api: PluginAPI, opts: PluginOptions, args: CommandArgs) => {
 
   /**
    * register get config api 
    */
   let config: PluginConfig | null = null;
-  const absConfigPath = getConfigFile(api.getCwd());
+  const absConfigPath = args.config ? args.config : getConfigFile(api.getCwd());
 
   api.registerSyncAPI('getConfig', () => {
 
@@ -64,9 +67,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     if (getEnv().isDev()) {
       try {
         devConfig = require(absConfigPath.replace(/\.js$/, `.local.js`));
-      } catch(e) {
-        // Do Nothing
-      }
+      } catch(e) {}
     }
 
     // 如果用户自己传入了配置, 那么使用传入的配置.
@@ -90,11 +91,6 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     }
 
     debug('core', 'finish process config, config is: %j', config);
-
-    // TODO: handle validate config field
-    // validate(config, (message: string) => {
-    //   debug('core', 'validate config error: %s', message);
-    // });
 
     return config;
   });

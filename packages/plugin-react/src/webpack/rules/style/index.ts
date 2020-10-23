@@ -101,9 +101,9 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     condition = 'stable'
   } = options;
   function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
-    loader?: string;
-    loaderOptions?: Chain.LoaderOptions;
-    modules?: CssModules;
+    loader?: string,
+    loaderOptions?: Chain.LoaderOptions,
+    modules?: CssModules
   }) {
     const baseRule = createRules(config, { lang, test });
 

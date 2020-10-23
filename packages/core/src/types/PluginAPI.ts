@@ -2,6 +2,7 @@
 export interface Thenable<T> extends PromiseLike<T> {}
 
 import { PluginAPI } from "../PluginAPI";
+import { CommandArgs } from "./Command";
 
 export interface PluginOptions {
   [key: string]: any;
@@ -38,4 +39,4 @@ export interface BreezrPlugin {
   pluginEntry: BreezrPluginFn;
 }
 
-export type BreezrPluginFn = (api: PluginAPI, opts?: PluginOptions) => void;
+export type BreezrPluginFn = (api: PluginAPI, opts?: PluginOptions, args?: CommandArgs) => void;

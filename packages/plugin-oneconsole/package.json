@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-oneconsole",
-	"version": "1.0.9",
+	"version": "1.1.0",
 	"description": "console toolkit for oneconsole",
 	"main": "lib/index.js",
 	"scripts": {
@@ -33,7 +33,7 @@
 		"typescript": "^3.0.3"
 	},
 	"dependencies": {
-		"@alicloud/console-toolkit-core": "^1.0.1",
+		"@alicloud/console-toolkit-core": "^1.1.0",
 		"lodash": "^4.17.11",
 		"query-string": "^6.4.2",
 		"request-promise-native": "^1.0.7",

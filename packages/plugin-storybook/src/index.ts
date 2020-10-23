@@ -7,6 +7,27 @@ import { DYNAMIC_CONFIG_PATH } from './constants';
 
 const writeFileAsync = promisify(writeFile);
 
+export default (api: PluginAPI, opts: PluginOptions) => {
+  api.registerCommand(
+    'start-storybook',
+    {
+      description: 'start story board',
+      usage: 'start story board',
+    },
+    async args => {
+      // set the env to devlopment by default
+      process.env.NODE_ENV = process.env.NODE_ENV || 'development';
+
+      await writeDynamicConfig(api, opts);
+
+      storybook({
+        mode: 'dev',
+        port: args.port || 9000,
+        configDir: resolve(__dirname, '../.storybook'),
+      });
+    }
+  );
+};
 
 async function writeDynamicConfig(api: PluginAPI, opts: PluginOptions) {
   // 从breezr实例获取配置，写入文件，提供给.storybook/webpack.config.js
@@ -35,25 +56,3 @@ async function writeDynamicConfig(api: PluginAPI, opts: PluginOptions) {
 
   await writeFileAsync(DYNAMIC_CONFIG_PATH, JSON.stringify(dynamicConfig));
 }
-
-export default (api: PluginAPI, opts: PluginOptions) => {
-  api.registerCommand(
-    'start-storybook',
-    {
-      description: 'start story board',
-      usage: 'start story board',
-    },
-    async args => {
-      // set the env to devlopment by default
-      process.env.NODE_ENV = process.env.NODE_ENV || 'development';
-
-      await writeDynamicConfig(api, opts);
-
-      storybook({
-        mode: 'dev',
-        port: args.port || 9000,
-        configDir: resolve(__dirname, '../.storybook'),
-      });
-    }
-  );
-};

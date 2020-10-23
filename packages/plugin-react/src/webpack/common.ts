@@ -8,6 +8,7 @@ import { file, jsx, style } from './rules';
 import { htmlPlugin } from './plugins/html';
 import { progressPlugin } from './plugins/progress';
 import { skeletonPlugin } from './plugins/skeleton';
+import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 
@@ -67,8 +68,11 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     babelPluginWindCherryPick,
     babel,
     htmlXmlMode,
+    babelOption,
+    analyze = false,
     useHappyPack = true,
     es5ImcompatibleVersions = false,
+    es5IncompatibleVersions = false,
   } = options;
 
   if (!cwd) {
@@ -117,12 +121,13 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
     useHappyPack: useHappyPack,
     // 只有在构建的时候才开启转义
-    es5ImcompatibleVersions: getEnv().isProd() && es5ImcompatibleVersions,
+    es5ImcompatibleVersions: getEnv().isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
     exclude: babelExclude,
     windRc: babelPluginWindRc,
     useBuiltIns: babelUseBuiltIns,
     windIntl: babelPluginWindIntl,
-    windCherryPick: babelPluginWindCherryPick
+    windCherryPick: babelPluginWindCherryPick,
+    babelOption: babelOption
   });
 
   let condition: CssConditionType = 'stable';
@@ -159,6 +164,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
       data: htmlData,
       htmlXmlMode,
     });
+  }
+  
+  if (analyze) {
+    analyzerPlugin(config);
   }
 
   if (!disableHtml && experiment && experiment.skeleton) {

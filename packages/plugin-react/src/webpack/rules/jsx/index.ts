@@ -62,7 +62,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
       .end();
   }
   
-  let babelConfig = {
+  let babelConfig = options.babelOption ? options.babelOption : {
     presets: [
       [
         require.resolve('babel-preset-breezr-wind'),

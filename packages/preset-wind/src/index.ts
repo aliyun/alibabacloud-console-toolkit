@@ -1,7 +1,8 @@
 import { getWindConfig, getEnv } from '@alicloud/console-toolkit-shared-utils';
+import { BreezrPresetConfig } from './type';
 import { resolve } from 'path';
 
-export default (config: any, args: any) => {
+export default (config: BreezrPresetConfig, args: any) => {
   const windConfig = getWindConfig(process.cwd());
   const env = getEnv();
   const webpack = config.webpack;
@@ -125,5 +126,16 @@ export default (config: any, args: any) => {
 
   return {
     plugins,
+  };
+};
+
+export { BreezrPresetConfig } from './type';
+
+export const extendConfiguration = (config: BreezrPresetConfig) => {
+  return {
+    presets: [
+      ['@ali/breezr-preset-wind', config]
+    ],
+    plugins: config.plugins,
   };
 };

@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-shared-utils",
-  "version": "1.0.1",
+  "version": "1.0.16",
   "description": "console toolkit shared utils functions",
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
@@ -12,11 +12,9 @@
     "prepare": "npm run compile"
   },
   "devDependencies": {
-    "@alicloud/console-toolkit-core": "^1.0.1",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.5",
     "@types/fs-extra": "^8.0.0",
-    "@types/hapi__joi": "^15.0.3",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.116",
     "@types/node": "^12.7.5",
@@ -29,7 +27,8 @@
     "webpack": "^4.29.6"
   },
   "dependencies": {
-    "@hapi/joi": "^15.1.1",
+    "@babel/register": "^7.11.5",
+    "@umijs/babel-preset-umi": "^3.2.19",
     "chalk": "^2.4.2",
     "chokidar": "^3.0.2",
     "debug": "^4.0.1",
