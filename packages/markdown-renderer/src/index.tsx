@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState, useCallback } from "react";
 import mdComps from "./MarkdownComponents";
 import styled from "styled-components";
 import unified from "unified";
@@ -10,14 +10,10 @@ import sanitize from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
 import rehype2react from "rehype-react";
 import visit from "unist-util-visit-parents";
+import Layout from "./Layout";
+import { useTOC } from "./utils/useTOC";
 
-const Wrapper = styled.div`
-  font-size: 14px;
-  line-height: 1.67;
-  color: #333333;
-  min-height: 200px;
-  min-width: 300px;
-`;
+export const ctx = React.createContext<any>({});
 
 /** 打包md文档得到的模块 */
 export interface IOriginalMdxModule {
@@ -31,13 +27,15 @@ export interface IProps {
   components?: any;
   remarkPlugins?: any[];
   rehypePlugins?: any[];
+  enableTOC?: boolean;
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
   source,
   remarkPlugins = [],
   rehypePlugins = [],
-  components
+  components,
+  enableTOC = false
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
@@ -70,7 +68,21 @@ export const MarkdownRenderer: React.FC<IProps> = ({
     // 仅在source更新时重新编译markdown
   }, [source]);
 
-  return <Wrapper>{compiledJSX}</Wrapper>;
+  const { ctnRef, headings, check } = useTOC(enableTOC);
+
+  const ctxValue = useMemo(() => {
+    return {
+      checkHeadings: check
+    };
+  }, [check]);
+
+  return (
+    <ctx.Provider value={ctxValue}>
+      <Layout ctnRef={ctnRef} headings={headings}>
+        {compiledJSX}
+      </Layout>
+    </ctx.Provider>
+  );
 };
 
 function debugPlugin(name: string) {

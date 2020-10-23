@@ -62,7 +62,6 @@ module.exports = (api: any, opts: IParams) => {
   }
 
   if (typeof opts.getMarkdownEntries === "function") {
-    const markdownRuntimePath = path.join(__dirname, "../src2/Markdown");
     opts
       .getMarkdownEntries()
       .forEach(({ key, path: entryPath, staticMeta = {} }, idx) => {
@@ -84,11 +83,8 @@ module.exports = (api: any, opts: IParams) => {
           throw new Error(`duplicate key "${key}"`);
         }
         virtualModules[virtualModulePath] = `
-          import * as mdxModule from "${entryPath}";
-          import { staticMeta } from "${staticMetaVirtualModulePath}";
-          import { mdRenderer } from "${markdownRuntimePath}";
-          const wrapped = mdRenderer(mdxModule.default, staticMeta);
-          export default wrapped;
+          import markdownSource from "${entryPath}";
+          export default markdownSource;
       `;
         entryListItemCode.push(
           `{key: '${key}', staticMeta: mdStaticMeta${idx}, load: () => import('${virtualModulePath}')}`

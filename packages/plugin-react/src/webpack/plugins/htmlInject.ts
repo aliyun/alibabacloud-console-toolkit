@@ -73,7 +73,7 @@ class HtmlInjectPlugin {
 
   private _processScripts($: CheerioStatic, publicPath: string) {
     const scripts = $('script');
-    
+
     scripts.each((index, script) => {
       let src = script.attribs['src'];
       if (src && src.startsWith('/') && !src.startsWith('//')) {
