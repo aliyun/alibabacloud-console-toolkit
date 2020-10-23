@@ -19,7 +19,7 @@
 /*! runtime requirements: __webpack_require__.r, __webpack_exports__, __webpack_require__.* */
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n\n\n\n\n//# sourceURL=webpack://@alicloud/console-toolkit-fusion-css-loader/./fixture/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n\n\n\n\n\n//# sourceURL=webpack://@alicloud/console-toolkit-fusion-css-loader/./fixture/index.js?");
 
 /***/ })
 
