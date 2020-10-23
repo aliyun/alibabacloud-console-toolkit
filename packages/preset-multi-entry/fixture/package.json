@@ -1,7 +1,0 @@
-{
-  "name": "fixture",
-  "scripts": {
-    "start": "npx breezr start",
-    "dev-serve": "DEV_SERVE=true npx breezr start --port 3335"
-  }
-}
