@@ -1,4 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
+import { MarkdownRenderer } from "@alicloud/console-toolkit-markdown-renderer";
+
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
 // @ts-ignore
@@ -20,7 +22,7 @@ type IEntryInfo =
     }
   | {
       type: "md";
-      Component: React.ComponentType<any>;
+      source: string;
       meta?: any;
     }
   | {
@@ -57,6 +59,11 @@ const Loader: React.FC<{
           });
           break;
         case "md":
+          found.load().then(m => {
+            const { default: markdownSource } = m;
+            setEntry({ type: staticMeta._type, source: markdownSource });
+          });
+          break;
         case "normal":
           found.load().then(m => {
             const { default: Component } = m;
@@ -91,6 +98,10 @@ const Loader: React.FC<{
         <entry.Component />
       </DemoContainer>
     );
+  }
+
+  if (entry.type === "md") {
+    return <MarkdownRenderer source={entry.source} />
   }
 
   return <entry.Component meta={entry.meta} changeMdSource={changeMdSource} />;

@@ -1,7 +1,7 @@
 import React from "react";
 import { render } from "react-dom";
 
-import { Overview } from "@alicloud/console-toolkit-multi-entry-loader";
+import { Overview } from "../../src";
 
 function App() {
   return (
