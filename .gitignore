@@ -32,6 +32,7 @@ jspm_packages/
 build/Release
 lib
 dist
+!packages/babel-plugin-wind-rc/lib/
 
 # TypeScript v1 declaration files
 typings/
