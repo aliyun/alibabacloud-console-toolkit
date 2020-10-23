@@ -28,3 +28,10 @@
   --color-data1-3: #ae66fc;
 }
 
+/* mock alicloud css var https://unpkg.com/browse/@alicloudfe/components@1.0.4/dist/xconsole-var.css */
+
+.my-own-scope {
+  /* ------------------------ color ------------------------ */
+  --xconsole-theme-var: #0064c8;
+}
+

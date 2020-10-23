@@ -36,6 +36,22 @@ module.exports = {
                 loader: path.resolve(__dirname, "../lib/index.js")
               }
             ]
+          },
+          {
+            resourceQuery: /myCustomFusionModify/,
+            use: [
+              {
+                // loader: "@alicloud/console-toolkit-fusion-css-loader"
+                loader: path.resolve(__dirname, "../lib/index.js"),
+                options: {
+                  selectorTransformer: selector => {
+                    if (selector === ".theme-xconsole") {
+                      return ".my-own-scope";
+                    }
+                  }
+                }
+              }
+            ]
           }
         ]
       }
