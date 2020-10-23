@@ -8,7 +8,7 @@ interface IProps {
   onEntryKeyChange: (newkey: string) => void;
 }
 
-const entryKeys = entries.map(({key}) => key)
+const entryKeys = entries.map(({ key }) => key);
 
 const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
   return (
@@ -22,7 +22,7 @@ const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
       </div>
       <hr />
       <div className={styles.widgetCtn}>
-        <Loader entryKey={entryKey} />
+        <Loader entryKey={entryKey} markdownOpts={{ toc: true }} />
       </div>
     </div>
   );

@@ -84,7 +84,14 @@ module.exports = (api: any, opts: IParams) => {
         }
         virtualModules[virtualModulePath] = `
           import markdownSource from "${entryPath}";
-          export default markdownSource;
+          import React from "react";
+          // 在这个模块才引入markdown-renderer，而不是在Loader引入
+          // 避免所有使用loader的用户都被迫加载markdown-renderer（他可能不需要）
+          import { MarkdownRenderer } from "@alicloud/console-toolkit-markdown-renderer";
+
+          export default (props) => {
+            return <MarkdownRenderer source={markdownSource} {...props} />
+          };
       `;
         entryListItemCode.push(
           `{key: '${key}', staticMeta: mdStaticMeta${idx}, load: () => import('${virtualModulePath}')}`

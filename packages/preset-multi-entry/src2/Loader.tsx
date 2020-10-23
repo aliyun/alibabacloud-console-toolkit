@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { MarkdownRenderer } from "@alicloud/console-toolkit-markdown-renderer";
 
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
@@ -22,7 +21,7 @@ type IEntryInfo =
     }
   | {
       type: "md";
-      source: string;
+      Component: React.ComponentType<any>;
       meta?: any;
     }
   | {
@@ -34,16 +33,11 @@ type IEntryInfo =
 const Loader: React.FC<{
   entryKey: string;
   onLoaded?: () => void;
-  changeMarkdownSource?: (origin: string) => string;
-  markdownTOC?: boolean;
-  embeddedMarkdown?: boolean;
-}> = ({
-  entryKey,
-  onLoaded,
-  changeMarkdownSource,
-  markdownTOC = false,
-  embeddedMarkdown = false
-}) => {
+  markdownOpts?: {
+    toc?: boolean;
+    embedded?: boolean;
+  };
+}> = ({ entryKey, onLoaded, markdownOpts }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -68,8 +62,8 @@ const Loader: React.FC<{
           break;
         case "md":
           found.load().then(m => {
-            const { default: markdownSource } = m;
-            setEntry({ type: staticMeta._type, source: markdownSource });
+            const { default: Component } = m;
+            setEntry({ type: staticMeta._type, Component });
           });
           break;
         case "normal":
@@ -109,18 +103,10 @@ const Loader: React.FC<{
   }
 
   if (entry.type === "md") {
-    return (
-      <MarkdownRenderer
-        source={entry.source}
-        toc={markdownTOC}
-        embedded={embeddedMarkdown}
-      />
-    );
+    return <entry.Component {...markdownOpts} />;
   }
 
-  return (
-    <entry.Component meta={entry.meta} changeMdSource={changeMarkdownSource} />
-  );
+  return <entry.Component meta={entry.meta} />;
 };
 
 export default Loader;

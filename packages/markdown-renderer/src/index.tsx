@@ -11,6 +11,8 @@ import rehype2react from "rehype-react";
 import visit from "unist-util-visit-parents";
 import Layout from "./Layout";
 import { useTOC } from "./utils/useTOC";
+// @ts-ignore
+import githubSanitizeSchema from "hast-util-sanitize/lib/github.json";
 
 export const ctx = React.createContext<any>({});
 
@@ -49,14 +51,32 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       .use(gfm)
       .use(remarkPlugins)
       .use(remark2rehype, {
-        allowDangerousHtml: true
+        allowDangerousHtml: true,
+        handlers: {
+          inlineCode(h, node) {
+            return Object.assign({}, node, {
+              type: "element",
+              tagName: "inlinecode",
+              properties: {},
+              children: [
+                {
+                  type: "text",
+                  value: node.value
+                }
+              ]
+            });
+          }
+        }
       })
       .use(rehypeRaw)
-      .use(sanitize, { clobber: [] })
+      .use(sanitize, {
+        clobber: [],
+        tagNames: [...githubSanitizeSchema.tagNames, "inlinecode"]
+      })
       .use(rehypeSlug)
       .use(rehypePlugins)
       .use(transformLinkNode)
-      // .use(debugPlugin, "re2")
+      .use(debugPlugin, "re2")
       .use(rehype2react, {
         createElement: React.createElement,
         Fragment: React.Fragment,
