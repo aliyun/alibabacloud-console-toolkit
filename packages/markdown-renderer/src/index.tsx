@@ -1,6 +1,5 @@
 import React, { useMemo, useState, useCallback } from "react";
 import mdComps from "./MarkdownComponents";
-import styled from "styled-components";
 import unified from "unified";
 import remarkParse from "remark-parse";
 import gfm from "remark-gfm";
@@ -27,7 +26,8 @@ export interface IProps {
   components?: any;
   remarkPlugins?: any[];
   rehypePlugins?: any[];
-  enableTOC?: boolean;
+  toc?: boolean;
+  embedded?: boolean;
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
@@ -35,7 +35,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   remarkPlugins = [],
   rehypePlugins = [],
   components,
-  enableTOC = false
+  toc = false,
+  embedded = false
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
@@ -68,13 +69,17 @@ export const MarkdownRenderer: React.FC<IProps> = ({
     // 仅在source更新时重新编译markdown
   }, [source]);
 
-  const { ctnRef, headings, check } = useTOC(enableTOC);
+  const { ctnRef, headings, check } = useTOC(toc);
 
   const ctxValue = useMemo(() => {
     return {
       checkHeadings: check
     };
   }, [check]);
+
+  if (embedded) {
+    return <ctx.Provider value={ctxValue}>{compiledJSX}</ctx.Provider>;
+  }
 
   return (
     <ctx.Provider value={ctxValue}>

@@ -1,9 +1,9 @@
 {
-  "name": "markdown-renderer-example",
+  "name": "multi-entry-loader-example",
   "version": "1.1.2",
   "description": "breezr example",
   "scripts": {
-    "dev": "breezr start"
+    "dev": "NODE_PATH=./node_modules breezr start"
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -32,6 +32,7 @@
     "@alicloud/console-toolkit-preset-wind-component": "^1.0.6",
     "@alicloud/console-toolkit-shared-utils": "^1.0.16",
     "@alicloud/console-toolkit-markdown-renderer": "^2.0.0",
+    "@alicloud/console-toolkit-multi-entry-loader": "2.0.0",
     "babel-preset-breezr-wind": "^1.1.2",
     "minimist": "^1.2.0",
     "rollup-plugin-commonjs": "^9.1.3",

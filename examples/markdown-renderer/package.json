@@ -3,7 +3,7 @@
   "version": "1.1.2",
   "description": "breezr example",
   "scripts": {
-    "dev": "breezr start"
+    "dev": "NODE_PATH=./node_modules breezr start"
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",

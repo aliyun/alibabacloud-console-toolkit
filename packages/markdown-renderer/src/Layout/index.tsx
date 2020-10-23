@@ -80,7 +80,27 @@ const Layout: React.FC<{
 
 export default Layout;
 
-const ScLayout = styled.div`
+const ScResetCSS = styled.div`
+  *,
+  *:before,
+  *:after {
+    box-sizing: border-box;
+  }
+  ul,
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  li {
+    margin-left: 0;
+  }
+  a {
+    text-decoration: none;
+  }
+`;
+
+const ScLayout = styled(ScResetCSS)`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

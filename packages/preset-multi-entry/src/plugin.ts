@@ -188,7 +188,7 @@ module.exports = (api: any, opts: IParams) => {
       .test(/\.md$/)
       .rule("raw-loader")
       .use("raw-loader")
-      .loader("raw-loader")
+      .loader(require.resolve("raw-loader"))
       .end()
       .end()
       .end();

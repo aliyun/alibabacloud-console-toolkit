@@ -4,9 +4,21 @@
  *    https://wind.alibaba-inc.com/docs/quickstart/quick-start
  */
 
+const path = require("path");
+
 const config = {
   // 请自己加入 wepback-merge 自定义
-  // webpack: (config) => (webpack-merge(config, {}))
+  webpack: config => {
+    config.resolve.alias.react = path.resolve(
+      __dirname,
+      "./node_modules/react"
+    );
+    config.resolve.alias["react-dom"] = path.resolve(
+      __dirname,
+      "./node_modules/react-dom"
+    );
+    return config;
+  },
   useTypescript: true
 };
 
