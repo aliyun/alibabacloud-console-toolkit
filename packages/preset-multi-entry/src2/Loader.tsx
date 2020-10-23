@@ -33,9 +33,17 @@ type IEntryInfo =
 
 const Loader: React.FC<{
   entryKey: string;
-  onLoaded: () => void;
-  changeMdSource: (origin: string) => string;
-}> = ({ entryKey, onLoaded, changeMdSource }) => {
+  onLoaded?: () => void;
+  changeMarkdownSource?: (origin: string) => string;
+  markdownTOC?: boolean;
+  embeddedMarkdown?: boolean;
+}> = ({
+  entryKey,
+  onLoaded,
+  changeMarkdownSource,
+  markdownTOC = false,
+  embeddedMarkdown = false
+}) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -101,10 +109,18 @@ const Loader: React.FC<{
   }
 
   if (entry.type === "md") {
-    return <MarkdownRenderer source={entry.source} />
+    return (
+      <MarkdownRenderer
+        source={entry.source}
+        toc={markdownTOC}
+        embedded={embeddedMarkdown}
+      />
+    );
   }
 
-  return <entry.Component meta={entry.meta} changeMdSource={changeMdSource} />;
+  return (
+    <entry.Component meta={entry.meta} changeMdSource={changeMarkdownSource} />
+  );
 };
 
 export default Loader;

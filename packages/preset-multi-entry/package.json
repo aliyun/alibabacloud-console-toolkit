@@ -6,8 +6,6 @@
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "dev": "cd fixture && npm run start",
-    "dev-serve": "cd fixture && npm run dev-serve",
     "ci": "npm run lint && npm run compile && npm run cov",
     "lint": "tslint --project .",
     "compile": "rimraf ./lib && tsc -d true -p ./src",
@@ -37,7 +35,7 @@
   "dependencies": {
     "@alicloud/console-os-react-portal": "^0.4.0-alpha.3",
     "@alicloud/console-toolkit-fusion-css-loader": "^1.0.4",
-    "@alicloud/console-toolkit-markdown-renderer": "^1.0.6",
+    "@alicloud/console-toolkit-markdown-renderer": "^2.0.0",
     "@alicloud/console-toolkit-plugin-os": "0.2.10",
     "@alicloud/console-toolkit-preset-official": "^1.0.0",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
@@ -45,6 +43,7 @@
     "@mdx-js/loader": "^1.6.18",
     "gray-matter": "^4.0.2",
     "jest-docblock": "^26.0.0",
+    "raw-loader": "^4.0.2",
     "react-animate-height": "^2.0.23",
     "webpack-virtual-modules": "^0.3.1"
   },

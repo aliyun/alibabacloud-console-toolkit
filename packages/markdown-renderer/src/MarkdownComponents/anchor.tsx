@@ -37,6 +37,7 @@ export function renderXView(href, checkHeadings) {
               checkHeadings();
             }
           }}
+          embeddedMarkdown
         />
       </React.Suspense>
     </div>

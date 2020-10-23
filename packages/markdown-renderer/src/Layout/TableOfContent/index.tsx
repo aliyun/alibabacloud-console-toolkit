@@ -44,6 +44,7 @@ const ScListItem = styled(
   ({ depth: number, active: boolean, ...restProps }) => <li {...restProps} />
 )`
   && {
+    font-size: 14px;
     padding-left: ${({ depth }) => 16 + (depth - 1) * 12}px;
     ${({ active }) => (active ? 'font-weight: 700;' : '')};
     border-left: 2px solid ${({ active }) => (active ? '#25b864' : '#e8e8e8')};
