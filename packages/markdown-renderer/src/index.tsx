@@ -9,6 +9,7 @@ import rehypeRaw from "rehype-raw";
 import sanitize from "rehype-sanitize";
 import rehypeSlug from "rehype-slug";
 import rehype2react from "rehype-react";
+import visit from "unist-util-visit-parents";
 
 const Wrapper = styled.div`
   font-size: 14px;
@@ -29,21 +30,19 @@ export interface IProps {
   source: string;
   components?: any;
   remarkPlugins?: any[];
+  rehypePlugins?: any[];
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
   source,
   remarkPlugins = [],
+  rehypePlugins = [],
   components
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
       ...mdComps,
-      ...components,
-      a: (props) => {
-        debugger
-        return <a {...props}></a>
-      }
+      ...components
     };
 
     const jsx = unified()
@@ -56,6 +55,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       .use(rehypeRaw)
       .use(sanitize, { clobber: [] })
       .use(rehypeSlug)
+      .use(rehypePlugins)
+      .use(transformLinkNode)
       // .use(debugPlugin, "re2")
       .use(rehype2react, {
         createElement: React.createElement,
@@ -75,5 +76,37 @@ export const MarkdownRenderer: React.FC<IProps> = ({
 function debugPlugin(name: string) {
   return (tree, vfile) => {
     debugger;
+  };
+}
+
+function transformLinkNode() {
+  return (tree, vfile) => {
+    visit(
+      tree,
+      (node =>
+        node.type === "element" &&
+        node.tagName === "a" &&
+        !node.transformLinkNodeFlag) as any,
+      (node: any, ancestors: any[]) => {
+        if (Array.isArray(node.children) && node.children.length === 1) {
+          const linkTextNode = node.children[0];
+          if (
+            linkTextNode.type === "text" &&
+            linkTextNode.value.startsWith("$XView")
+          ) {
+            const parent = ancestors[ancestors.length - 1];
+            const root = ancestors[0];
+            parent.children.splice(parent.children.indexOf(node), 1);
+            node.transformLinkNodeFlag = true;
+            root.children.splice(
+              root.children.indexOf(ancestors[1]) + 1,
+              0,
+              node
+            );
+          }
+        }
+        return visit.CONTINUE;
+      }
+    );
   };
 }

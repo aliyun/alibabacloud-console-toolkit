@@ -1,9 +1,10 @@
 import { loadExposedModule } from "@alicloud/console-os-react-app";
-import React, { useState } from "react";
+import { useState } from "react";
+import * as React from "react";
+import * as ReactDOM from "react-dom";
+import qs from "query-string";
 
 export interface IDeps {
-  react: any;
-  "react-dom": any;
   [depName: string]: any;
 }
 
@@ -14,12 +15,13 @@ export interface IOverviewProps {
 
 export interface IEntryLoaderProps {
   entryKey: string;
+  onLoaded?: () => void
 }
 
 export interface ConsoleOSOptions {
   servePath: string;
   consoleOSId: string;
-  deps: IDeps;
+  deps?: IDeps;
 }
 
 export function load(
@@ -32,6 +34,8 @@ export function load(
     manifest: `${servePath}${consoleOSId}.manifest.json`,
     id: consoleOSId,
     deps: {
+      react: React,
+      "react-dom": ReactDOM,
       "@alicloud/console-os-environment": {
         publicPath: servePath
       },
@@ -113,3 +117,15 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
   // 会响应entryKey的变化
   return <ActualEntryLoader {...overviewProps} />;
 };
+
+export function getInfoFromURL(url: string) {
+  const query = qs.parseUrl(url).query;
+  const entryKey = (query.entryKey || query.demoKey) as string;
+  const consoleOSId = query.consoleOSId as string;
+  const servePath = query.servePath as string;
+  return {
+    servePath,
+    consoleOSId,
+    entryKey
+  };
+}

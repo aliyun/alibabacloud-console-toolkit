@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
 // @ts-ignore
@@ -31,8 +31,9 @@ type IEntryInfo =
 
 const Loader: React.FC<{
   entryKey: string;
+  onLoaded: () => void;
   changeMdSource: (origin: string) => string;
-}> = ({ entryKey, changeMdSource }) => {
+}> = ({ entryKey, onLoaded, changeMdSource }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -67,6 +68,13 @@ const Loader: React.FC<{
       }
     }
   }, [entryKey]);
+
+  const previousEntryRef = useRef(entry);
+  useEffect(() => {
+    if (previousEntryRef.current !== entry) {
+      if (typeof onLoaded === "function") onLoaded();
+    }
+  }, [entry]);
 
   if (!entry) {
     return null;
