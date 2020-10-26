@@ -1,10 +1,11 @@
 {
   "name": "@alicloud/console-toolkit-markdown-renderer",
-  "version": "2.0.0",
+  "version": "2.0.8",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
-    "prepare": "rm -rf lib && babel src -d lib --extensions \".ts,.tsx\" && tsc --emitDeclarationOnly",
+    "prepare": "rm -rf lib && tsc",
+    "babel": "rm -rf lib && babel src -d lib --extensions \".ts,.tsx\" && tsc --emitDeclarationOnly",
     "dev": "cd fixture && npm run start"
   },
   "devDependencies": {

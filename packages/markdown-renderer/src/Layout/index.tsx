@@ -56,8 +56,8 @@ const Layout: React.FC<{
   // }, [headings, autoPadding, scrollContainer])
 
   return (
-    <ScLayout>
-      <ScLayoutLeft>
+    <ScLayout className="markdown-layout">
+      <ScLayoutLeft className="markdown-layout-left">
         <ScDocStyle className="auto-padding-container">
           <div ref={ctnRef}>{children}</div>
           {/* {autoPadding && (
@@ -70,7 +70,7 @@ const Layout: React.FC<{
         </ScDocStyle>
       </ScLayoutLeft>
       {Array.isArray(headings) && headings.length > 0 && (
-        <ScLayoutRight>
+        <ScLayoutRight className="markdown-layout-right">
           <TOC headings={headings} />
         </ScLayoutRight>
       )}
@@ -80,27 +80,7 @@ const Layout: React.FC<{
 
 export default Layout;
 
-const ScResetCSS = styled.div`
-  *,
-  *:before,
-  *:after {
-    box-sizing: border-box;
-  }
-  ul,
-  ol {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
-  li {
-    margin-left: 0;
-  }
-  a {
-    text-decoration: none;
-  }
-`;
-
-const ScLayout = styled(ScResetCSS)`
+const ScLayout = styled.div`
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;

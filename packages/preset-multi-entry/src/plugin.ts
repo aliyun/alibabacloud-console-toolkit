@@ -21,6 +21,10 @@ module.exports = (api: any, opts: IParams) => {
     "/@DemoWrapper"
   ] = `export { default } from '${demoWrapperPath}';`;
 
+  const demoOptsPath =
+    opts.demoOptsPath || path.resolve(__dirname, "../src2/demoOpts");
+  virtualModules["/@demoOpts"] = `export { default } from '${demoOptsPath}';`;
+
   virtualModules["/@initializer"] = opts.initializerPath
     ? `import "${opts.initializerPath}"`
     : "";
@@ -90,7 +94,7 @@ module.exports = (api: any, opts: IParams) => {
           import { MarkdownRenderer } from "@alicloud/console-toolkit-markdown-renderer";
 
           export default (props) => {
-            return <MarkdownRenderer source={markdownSource} {...props} />
+            return React.createElement(MarkdownRenderer, Object.assign({ source: markdownSource }, props));
           };
       `;
         entryListItemCode.push(

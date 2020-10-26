@@ -29,7 +29,8 @@ module.exports = {
             };
           });
           return res;
-        }
+        },
+        demoOptsPath: path.resolve(__dirname, "./demoOpts")
       }
     ]
   ]
