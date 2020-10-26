@@ -1,25 +1,25 @@
-import React, { useEffect, useState } from 'react'
-import styled from 'styled-components'
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 // import { useDocMetaCtx } from '../../utils/context'
-import getScrollParent from '../../utils/getScrollParent'
+import getScrollParent from "../../utils/getScrollParent";
 
 export interface ITocHeading {
-  id: string
-  text: string
-  depth: number
+  id: string;
+  text: string;
+  depth: number;
 }
 
 interface IProps {
-  headings: ITocHeading[]
+  headings: ITocHeading[];
 }
 
 const TOC: React.FC<IProps> = ({ headings }) => {
   // TODO: 支持用户指定 scrollContainer
   // const { scrollContainer } = useDocMetaCtx()
-  const activeId = useActiveHeading(headings, undefined)
+  const activeId = useActiveHeading(headings, undefined);
   return (
-    <ScList>
-      {headings.map((heading) => {
+    <ScList className="markdown-toc">
+      {headings.map(heading => {
         return (
           <ScListItem
             depth={heading.depth}
@@ -28,17 +28,20 @@ const TOC: React.FC<IProps> = ({ headings }) => {
           >
             <a href={`#${heading.id}`}>{heading.text}</a>
           </ScListItem>
-        )
+        );
       })}
     </ScList>
-  )
-}
+  );
+};
 
-export default TOC
+export default TOC;
 
 const ScList = styled.ol`
+  list-style: none;
+  margin: 0;
+  padding: 0;
   line-height: 24px;
-`
+`;
 
 const ScListItem = styled(
   ({ depth: number, active: boolean, ...restProps }) => <li {...restProps} />
@@ -46,9 +49,10 @@ const ScListItem = styled(
   && {
     font-size: 14px;
     padding-left: ${({ depth }) => 16 + (depth - 1) * 12}px;
-    ${({ active }) => (active ? 'font-weight: 700;' : '')};
-    border-left: 2px solid ${({ active }) => (active ? '#25b864' : '#e8e8e8')};
+    ${({ active }) => (active ? "font-weight: 700;" : "")};
+    border-left: 2px solid ${({ active }) => (active ? "#25b864" : "#e8e8e8")};
     a {
+      text-decoration: none;
       display: block;
       white-space: nowrap;
       overflow: hidden;
@@ -63,10 +67,10 @@ const ScListItem = styled(
       }
     }
   }
-`
+`;
 
 interface IHeadingWithDomEl extends ITocHeading {
-  el: HTMLElement
+  el: HTMLElement;
 }
 
 function useActiveHeading(
@@ -75,68 +79,75 @@ function useActiveHeading(
 ) {
   const [headingWithDomEl, setHeadingWithDomEl] = useState<
     Array<IHeadingWithDomEl>
-  >([])
+  >([]);
 
-  const [activeId, setActiveId] = useState<string>('')
+  const [activeId, setActiveId] = useState<string>("");
 
   useEffect(() => {
     setHeadingWithDomEl(
       headings
-        .map((heading) => {
-          const el = document.getElementById(heading.id)
-          if (!el) return (null as unknown) as IHeadingWithDomEl
-          return { el, ...heading }
+        .map(heading => {
+          const el = document.getElementById(heading.id);
+          if (!el) return (null as unknown) as IHeadingWithDomEl;
+          return { el, ...heading };
         })
         .filter(Boolean)
-    )
-  }, [headings])
+    );
+  }, [headings]);
 
   useEffect(() => {
-    const scrollContainerEl: Element | Window =
+    let scrollContainerEl: Element | Window =
       (scrollContainer && document.querySelector(scrollContainer)) ||
       getScrollParent(headingWithDomEl[0]?.el) ||
-      window
+      window;
+
+    if (
+      scrollContainerEl === document.body ||
+      scrollContainerEl === document.documentElement
+    ) {
+      scrollContainerEl = window;
+    }
 
     const handle = () => {
-      if (!headingWithDomEl.length) return
-      const scrollParent = scrollContainerEl
+      if (!headingWithDomEl.length) return;
+      const scrollParent = scrollContainerEl;
       const found = headingWithDomEl.find((heaidng, idx) => {
         // 如果第一个heading都还没有滚动过去，那么高亮第一个heading
         if (idx === 0 && !isHeadingScrolled(heaidng.el, scrollParent))
-          return true
-        const nextHeading = headingWithDomEl[idx + 1]
+          return true;
+        const nextHeading = headingWithDomEl[idx + 1];
         if (nextHeading) {
           return (
             isHeadingScrolled(heaidng.el, scrollParent) &&
             !isHeadingScrolled(nextHeading.el, scrollParent)
-          )
+          );
         }
-        return isHeadingScrolled(heaidng.el, scrollParent)
-      })
-      setActiveId(found?.id ?? '')
-    }
+        return isHeadingScrolled(heaidng.el, scrollParent);
+      });
+      setActiveId(found?.id ?? "");
+    };
 
-    handle()
+    handle();
 
-    scrollContainerEl.addEventListener('resize', handle)
-    scrollContainerEl.addEventListener('scroll', handle)
+    scrollContainerEl.addEventListener("resize", handle);
+    scrollContainerEl.addEventListener("scroll", handle);
 
     return () => {
-      scrollContainerEl.removeEventListener('resize', handle)
-      scrollContainerEl.removeEventListener('scroll', handle)
-    }
-  }, [headingWithDomEl, scrollContainer])
+      scrollContainerEl.removeEventListener("resize", handle);
+      scrollContainerEl.removeEventListener("scroll", handle);
+    };
+  }, [headingWithDomEl, scrollContainer]);
 
-  return activeId
+  return activeId;
 
   function isHeadingScrolled(el: HTMLElement, scrollParent: Element | Window) {
-    if ('document' in scrollParent) {
-      return el.getBoundingClientRect().top <= 30
+    if ("document" in scrollParent) {
+      return el.getBoundingClientRect().top <= 30;
     }
     return (
       el.getBoundingClientRect().top -
         scrollParent.getBoundingClientRect().top <=
       30
-    )
+    );
   }
 }

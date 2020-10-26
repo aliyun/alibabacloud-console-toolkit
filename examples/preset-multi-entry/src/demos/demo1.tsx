@@ -1,6 +1,7 @@
 /**
  * @title demo1
  * @describe demo1 description.
+ * @myCustomOperation myCustomOperationContent
  */
 
 import React from "react";

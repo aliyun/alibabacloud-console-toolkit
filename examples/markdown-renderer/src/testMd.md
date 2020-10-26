@@ -13,8 +13,7 @@
 
 # <a name="Headings"></a>Headings
 
-
-[$XView](https://pre-xconsole.aliyun-inc.com/demos-viewer?entryKey=docs%2Fmd2.md&consoleOSId=multi-entry-fixture&servePath=http%3A%2F%2Flocalhost%3A3335%2F)
+[$XView](https://xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Ftree%2Fdemo2.tsx)
 
 # Heading one
 

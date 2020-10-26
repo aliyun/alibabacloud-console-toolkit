@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { IDemoOpts } from "./DemoContainer";
 
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
@@ -37,7 +38,8 @@ const Loader: React.FC<{
     toc?: boolean;
     embedded?: boolean;
   };
-}> = ({ entryKey, onLoaded, markdownOpts }) => {
+  demoOpts?: IDemoOpts;
+}> = ({ entryKey, onLoaded, markdownOpts, demoOpts }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -96,6 +98,7 @@ const Loader: React.FC<{
         imports={entry.imports}
         DemoWrapper={DemoWrapper}
         meta={entry.meta}
+        opts={demoOpts}
       >
         <entry.Component />
       </DemoContainer>

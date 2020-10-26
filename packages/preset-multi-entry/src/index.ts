@@ -12,6 +12,7 @@ export interface IParams {
   }[];
   demoContainerPath?: string;
   demoWrapperPath?: string;
+  demoOptsPath?: string;
   initializerPath?: string;
   codesandboxModifierPath?: string;
   getMarkdownEntries?: () => {

@@ -9,35 +9,42 @@ import { ctx } from "../index";
 export default {
   a: props => {
     const { children, href } = props;
-    const { checkHeadings } = useContext(ctx);
+    const { checkHeadings, xViewAppInfo } = useContext(ctx);
     if (
       Array.isArray(children) &&
       children.length === 1 &&
       typeof children[0] === "string" &&
-      children[0].startsWith("$XView")
+      (children[0].startsWith("$XView") || children[0].startsWith("$XDemo"))
     ) {
-      return renderXView(href, checkHeadings);
+      return renderXView(href, checkHeadings, xViewAppInfo);
     }
     return <a {...props} />;
   }
 };
 
-export function renderXView(href, checkHeadings) {
-  const { consoleOSId, servePath, entryKey } = getInfoFromURL(href);
+export function renderXView(href, checkHeadings, xViewAppInfo = {}) {
+  const {
+    consoleOSId = "xconsole-demos",
+    servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/",
+    entryKey
+  } = getInfoFromURL(href);
+
+  const resolved = xViewAppInfo[consoleOSId] ?? {};
 
   return (
     <div className="XView-root">
       <React.Suspense fallback="Loading...">
         <EntryLoader
           consoleOSId={consoleOSId}
-          servePath={servePath}
+          servePath={resolved.servePath ?? servePath}
           entryKey={entryKey}
+          deps={resolved.deps}
           onLoaded={() => {
             if (typeof checkHeadings === "function") {
               checkHeadings();
             }
           }}
-          embeddedMarkdown
+          markdownOpts={{ embedded: true }}
         />
       </React.Suspense>
     </div>

@@ -1,30 +1,52 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { IDemoOpts, ICodeSandboxFiles } from "..";
 import { createCodesandbox } from "./createCodesandbox";
 
 // @ts-ignore
-import codesandboxModifier from "/@codesandboxModifier";
+import buildTimeDemoOpts from "/@demoOpts";
 
 interface IProps {
-  codesandboxUrl: string;
-  setUrl: (url: string) => void;
   code: string;
   imports: string[];
   meta: any;
+  modifyCodeSandbox?: IDemoOpts["modifyCodeSandbox"];
 }
 
 const CodeSandbox: React.FC<IProps> = ({
-  codesandboxUrl,
-  setUrl,
   code,
   imports,
-  meta
+  meta,
+  modifyCodeSandbox
 }) => {
+  const [codesandboxUrl, setUrl] = useState("");
+
+  useEffect(() => {
+    // 切换demo的时候，重置 codesandboxUrl
+    setUrl("");
+  }, [code]);
+
   useEffect(() => {
     if (!codesandboxUrl) {
       createCodesandbox({
         code,
         imports,
-        modifyCode: files => codesandboxModifier(files, meta)
+        modifyCode: files => {
+          let res: ICodeSandboxFiles = files;
+          // 构建者提供的 codesandboxModifier
+          if (buildTimeDemoOpts.modifyCodeSandbox) {
+            res = buildTimeDemoOpts.modifyCodeSandbox({
+              code,
+              meta,
+              imports,
+              files
+            });
+          }
+          // 加载者提供的 codesandboxModifier
+          if (modifyCodeSandbox) {
+            res = modifyCodeSandbox({ code, meta, imports, files: res });
+          }
+          return res;
+        }
       }).then(({ url }) => {
         setUrl(url);
       });

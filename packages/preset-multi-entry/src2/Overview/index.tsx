@@ -22,7 +22,11 @@ const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
       </div>
       <hr />
       <div className={styles.widgetCtn}>
-        <Loader entryKey={entryKey} markdownOpts={{ toc: true }} />
+        <Loader
+          key={entryKey}
+          entryKey={entryKey}
+          markdownOpts={{ toc: true }}
+        />
       </div>
     </div>
   );

@@ -30,6 +30,7 @@ export interface IProps {
   rehypePlugins?: any[];
   toc?: boolean;
   embedded?: boolean;
+  xViewAppInfo?: any;
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
@@ -38,7 +39,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   rehypePlugins = [],
   components,
   toc = false,
-  embedded = false
+  embedded = false,
+  xViewAppInfo
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
@@ -76,7 +78,7 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       .use(rehypeSlug)
       .use(rehypePlugins)
       .use(transformLinkNode)
-      .use(debugPlugin, "re2")
+      // .use(debugPlugin, "re2")
       .use(rehype2react, {
         createElement: React.createElement,
         Fragment: React.Fragment,
@@ -93,9 +95,10 @@ export const MarkdownRenderer: React.FC<IProps> = ({
 
   const ctxValue = useMemo(() => {
     return {
-      checkHeadings: check
+      checkHeadings: check,
+      xViewAppInfo
     };
-  }, [check]);
+  }, [check, xViewAppInfo]);
 
   if (embedded) {
     return <ctx.Provider value={ctxValue}>{compiledJSX}</ctx.Provider>;
@@ -129,7 +132,8 @@ function transformLinkNode() {
           const linkTextNode = node.children[0];
           if (
             linkTextNode.type === "text" &&
-            linkTextNode.value.startsWith("$XView")
+            (linkTextNode.value.startsWith("$XView") ||
+              linkTextNode.value.startsWith("$XDemo"))
           ) {
             const parent = ancestors[ancestors.length - 1];
             const root = ancestors[0];
