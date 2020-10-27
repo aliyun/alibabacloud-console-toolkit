@@ -13,13 +13,11 @@ const entryKeys = entries.map(({ key }) => key);
 const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
   return (
     <div className={styles.container}>
-      <div>
-        <DemoList
-          entryKeys={entryKeys}
-          currentEntryKey={entryKey}
-          onChange={onEntryKeyChange}
-        />
-      </div>
+      <DemoList
+        entryKeys={entryKeys}
+        currentEntryKey={entryKey}
+        onChange={onEntryKeyChange}
+      />
       <hr />
       <div className={styles.widgetCtn}>
         <Loader
