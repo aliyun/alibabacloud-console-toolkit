@@ -20,7 +20,7 @@ function App() {
         servePath="http://localhost:3335/"
         consoleOSId="multi-entry-fixture"
         entryKey={entryKey}
-        markdownTOC
+        markdownOpts={{ toc: true }}
       />
 
       {/* <hr style={{ margin: "40px 0" }} />
