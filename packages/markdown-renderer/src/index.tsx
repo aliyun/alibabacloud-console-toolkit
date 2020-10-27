@@ -73,7 +73,11 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       .use(rehypeRaw)
       .use(sanitize, {
         clobber: [],
-        tagNames: [...githubSanitizeSchema.tagNames, "inlinecode"]
+        tagNames: [...githubSanitizeSchema.tagNames, "inlinecode"],
+        attributes: {
+          ...githubSanitizeSchema.attributes,
+          "*": ["className", ...githubSanitizeSchema.attributes["*"]]
+        }
       })
       .use(rehypeSlug)
       .use(rehypePlugins)
