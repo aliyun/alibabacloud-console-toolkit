@@ -28,6 +28,7 @@ export default {
               ></path>
             </svg>
           ),
+          // View可以不传，表示点击该操作图标不展开面板
           View: () => {
             return null;
           }
