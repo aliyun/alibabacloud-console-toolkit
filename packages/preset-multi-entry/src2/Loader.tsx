@@ -39,7 +39,16 @@ const Loader: React.FC<{
     embedded?: boolean;
   };
   demoOpts?: IDemoOpts;
-}> = ({ entryKey, onLoaded, markdownOpts, demoOpts }) => {
+  resolveAppServePath?: (consoleOSId: string) => string;
+  resolveAppDeps?: (consoleOSId: string) => any;
+}> = ({
+  entryKey,
+  onLoaded,
+  markdownOpts,
+  demoOpts,
+  resolveAppServePath,
+  resolveAppDeps
+}) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
   useEffect(() => {
@@ -83,7 +92,9 @@ const Loader: React.FC<{
   const previousEntryRef = useRef(entry);
   useEffect(() => {
     if (previousEntryRef.current !== entry) {
-      if (typeof onLoaded === "function") onLoaded();
+      if (typeof onLoaded === "function") {
+        onLoaded();
+      }
     }
   }, [entry]);
 
@@ -106,7 +117,13 @@ const Loader: React.FC<{
   }
 
   if (entry.type === "md") {
-    return <entry.Component {...markdownOpts} />;
+    return (
+      <entry.Component
+        {...markdownOpts}
+        resolveAppServePath={resolveAppServePath}
+        resolveAppDeps={resolveAppDeps}
+      />
+    );
   }
 
   return <entry.Component meta={entry.meta} />;

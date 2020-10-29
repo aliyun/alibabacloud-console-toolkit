@@ -14,7 +14,7 @@
 # <a name="Headings"></a>Headings
 
 
-[$XView](https://pre-xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Fbadge%2Fdemo1.tsx&consoleOSId=xconsole-demos&servePath=https%3A%2F%2Fdev.g.alicdn.com%2Fxconsole%2Fdemos%2F0.1.1%2F)
+[$XView](http://localhost:3333/?entryKey=demos%2Fdemo2&consoleOSId=multi-entry-fixture)
 
 # Heading one
 

@@ -9,42 +9,64 @@ import { ctx } from "../index";
 export default {
   a: props => {
     const { children, href } = props;
-    const { checkHeadings, xViewAppInfo } = useContext(ctx);
+    const { checkHeadings, resolveAppServePath, resolveAppDeps } = useContext(
+      ctx
+    );
     if (
       Array.isArray(children) &&
       children.length === 1 &&
       typeof children[0] === "string" &&
       (children[0].startsWith("$XView") || children[0].startsWith("$XDemo"))
     ) {
-      return renderXView(href, checkHeadings, xViewAppInfo);
+      return renderXView(
+        href,
+        checkHeadings,
+        resolveAppServePath,
+        resolveAppDeps
+      );
     }
     return <a {...props} />;
   }
 };
 
-export function renderXView(href, checkHeadings, xViewAppInfo = {}) {
-  const {
-    consoleOSId = "xconsole-demos",
-    servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/",
-    entryKey
-  } = getInfoFromURL(href);
+function renderXView(
+  href,
+  checkHeadings,
+  resolveAppServePath?: (consoleOSId: string) => string,
+  resolveAppDeps?: (consoleOSId: string) => any
+) {
+  let { consoleOSId, servePath, entryKey } = getInfoFromURL(href);
 
-  const resolved = xViewAppInfo[consoleOSId] ?? {};
+  if (!consoleOSId) consoleOSId = "xconsole-demos";
+  if (!servePath) {
+    if (typeof resolveAppServePath === "function") {
+      servePath = resolveAppServePath(consoleOSId);
+    } else {
+      servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
+    }
+  }
+
+  let deps;
+  if (typeof resolveAppDeps === "function") {
+    deps = resolveAppDeps(consoleOSId);
+  }
 
   return (
     <div className="XView-root">
       <React.Suspense fallback="Loading...">
         <EntryLoader
           consoleOSId={consoleOSId}
-          servePath={resolved.servePath ?? servePath}
+          servePath={servePath}
           entryKey={entryKey}
-          deps={resolved.deps}
+          deps={deps}
           onLoaded={() => {
             if (typeof checkHeadings === "function") {
               checkHeadings();
             }
           }}
           markdownOpts={{ embedded: true }}
+          resolveAppServePath={resolveAppServePath}
+          resolveAppDeps={resolveAppDeps}
         />
       </React.Suspense>
     </div>

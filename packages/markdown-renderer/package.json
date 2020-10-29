@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "rm -rf lib && tsc",
     "babel": "rm -rf lib && babel src -d lib --extensions \".ts,.tsx\" && tsc --emitDeclarationOnly",
-    "dev": "cd fixture && npm run start"
+    "watch": "tsc -w"
   },
   "devDependencies": {
     "@alicloud/console-toolkit-cli": "^1.1.0",

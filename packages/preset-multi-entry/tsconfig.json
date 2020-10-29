@@ -7,6 +7,7 @@
     "sourceMap": true,
     "rootDir": "src",
     "jsx": "react",
+    "declaration": true,
     /* Strict Type-Checking Option */
     "strict": true /* enable all strict type-checking options */,
     "noImplicitAny": false,

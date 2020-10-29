@@ -5,12 +5,19 @@ import DemoList from "./DemoList";
 
 interface IProps {
   entryKey: string;
-  onEntryKeyChange: (newkey: string) => void;
+  onEntryKeyChange?: (newkey: string) => void;
+  resolveAppServePath?: (consoleOSId: string) => string;
+  resolveAppDeps?: (consoleOSId: string) => any;
 }
 
 const entryKeys = entries.map(({ key }) => key);
 
-const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
+const Overview: React.FC<IProps> = ({
+  entryKey,
+  onEntryKeyChange,
+  resolveAppServePath,
+  resolveAppDeps
+}) => {
   return (
     <div className={styles.container}>
       <DemoList
@@ -24,6 +31,8 @@ const Overview: React.FC<IProps> = ({ entryKey, onEntryKeyChange }) => {
           key={entryKey}
           entryKey={entryKey}
           markdownOpts={{ toc: true }}
+          resolveAppServePath={resolveAppServePath}
+          resolveAppDeps={resolveAppDeps}
         />
       </div>
     </div>

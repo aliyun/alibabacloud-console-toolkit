@@ -1,10 +1,16 @@
 import * as Chain from "webpack-chain";
 import { Evnrioment } from "@alicloud/console-toolkit-shared-utils";
+import * as cp from "child_process";
 import * as path from "path";
 import VirtualModulesPlugin from "webpack-virtual-modules";
+import historyFallback from "connect-history-api-fallback";
+import createProxyMiddleware from "http-proxy-middleware";
+import open from "open";
+import { createWriteStream } from "fs";
+
 import { IParams } from "./index";
 
-module.exports = (api: any, opts: IParams) => {
+module.exports = (api: any, opts: IParams, args: any) => {
   const virtualModules: { [path: string]: string } = {};
   const entryListItemCode = [] as string[];
   const entryListImportCode = [] as string[];
@@ -204,16 +210,31 @@ module.exports = (api: any, opts: IParams) => {
       .end()
       .end();
 
-    config.devServer.open(false);
-    if (env.isDev() && process.env.DEV_SERVE === "true") {
+    config.output.publicPath("");
+    config.externals({
+      react: {
+        root: "React",
+        commonjs2: "react",
+        commonjs: "react",
+        amd: "react"
+      },
+      "react-dom": {
+        root: "ReactDOM",
+        commonjs2: "react-dom",
+        commonjs: "react-dom",
+        amd: "react-dom"
+      },
+      "@alicloud/console-os-environment": "@alicloud/console-os-environment"
+    });
+
+    if (env.isDev()) {
+      config.plugins.delete("openBrowser");
       config.devServer.disableHostCheck(true);
       config.devServer.headers({
         "Access-Control-Allow-Origin": "*"
       });
-      config.plugins.delete("openBrowser");
-    }
+      config.devServer.open(false);
 
-    if (env.isDev() && process.env.DEV_SERVE !== "true") {
       config
         .entry("index")
         .clear()
@@ -221,35 +242,87 @@ module.exports = (api: any, opts: IParams) => {
       const port = config.devServer.get("port");
       const https = config.devServer.get("https");
       const host = config.devServer.get("host");
-      config.plugin("virtual-module").use(VirtualModulesPlugin, [
-        {
-          "/.webpack_virtual/@alicloud/console-os-environment": `export default {publicPath: "http${
-            https ? "s" : ""
-          }://${host}:${port}/"}`
-        }
-      ]);
-      config.resolve.alias.set(
-        "@alicloud/console-os-environment",
-        "/.webpack_virtual/@alicloud/console-os-environment"
-      );
-    } else {
-      config.output.publicPath("");
-      config.externals({
-        react: {
-          root: "React",
-          commonjs2: "react",
-          commonjs: "react",
-          amd: "react"
-        },
-        "react-dom": {
-          root: "ReactDOM",
-          commonjs2: "react-dom",
-          commonjs: "react-dom",
-          amd: "react-dom"
-        },
-        "@alicloud/console-os-environment": "@alicloud/console-os-environment"
+      const servePath = `http${https ? "s" : ""}://${host}:${port}/`;
+
+      let childPort;
+      config.devServer.before(function(app, server, compiler) {
+        // webpack dev server自带的fallback和proxy一起使用时，
+        // 在这种情况下会有bug，因此我们自己配置fallback和proxy
+        app.use(
+          historyFallback({
+            index: "/host/index.html"
+          })
+        );
+        app.use(
+          "/host",
+          createProxyMiddleware({
+            target: "http://localhost:8889",
+            router: req => {
+              if (!childPort) {
+                throw new Error("childProcess is not ready yet");
+              }
+              return `http://localhost:${childPort}`;
+            }
+          })
+        );
       });
+
+      let childProcess: cp.ChildProcess = cp.fork(
+        path.resolve(__dirname, "./start-host-dev-server.js"),
+        {
+          cwd: api.getCwd(),
+          env: {
+            SERVE_PATH: servePath,
+            CONSOLEOS_ID: opts.consoleOSId
+          },
+          silent: true
+        }
+      );
+
+      childProcess.on("message", msg => {
+        if (msg && msg.type === "server_started") {
+          childPort = msg.port;
+          open(servePath);
+        }
+      });
+
+      const logStream = createWriteStream(
+        path.join(__dirname, "child_server_log.log")
+      );
+      childProcess.stdout?.pipe(logStream);
     }
+
+    // if (env.isDev() && process.env.DEV_SERVE !== "true") {
+
+    //   config.plugin("virtual-module").use(VirtualModulesPlugin, [
+    //     {
+    //       "/.webpack_virtual/@alicloud/console-os-environment": `export default {publicPath: "http${
+    //         https ? "s" : ""
+    //       }://${host}:${port}/", consoleOSId: "${opts.consoleOSId}"}`
+    //     }
+    //   ]);
+    //   config.resolve.alias.set(
+    //     "@alicloud/console-os-environment",
+    //     "/.webpack_virtual/@alicloud/console-os-environment"
+    //   );
+    // } else {
+    //   config.output.publicPath("");
+    //   config.externals({
+    //     react: {
+    //       root: "React",
+    //       commonjs2: "react",
+    //       commonjs: "react",
+    //       amd: "react"
+    //     },
+    //     "react-dom": {
+    //       root: "ReactDOM",
+    //       commonjs2: "react-dom",
+    //       commonjs: "react-dom",
+    //       amd: "react-dom"
+    //     },
+    //     "@alicloud/console-os-environment": "@alicloud/console-os-environment"
+    //   });
+    // }
     if (typeof opts.chainWebpack === "function") {
       opts.chainWebpack(config, env);
     }
@@ -257,8 +330,9 @@ module.exports = (api: any, opts: IParams) => {
 };
 
 function generateVirtualPath(category: string, key: string) {
-  if (!["static-meta", "entry"].includes(category))
+  if (!["static-meta", "entry"].includes(category)) {
     throw new Error(`invalid category "${category}"`);
+  }
   return path.resolve(
     __dirname,
     "_virtual_module_",

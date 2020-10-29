@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+// @ts-ignore
+import env from "@alicloud/console-os-environment";
+
 import Overview from "./Overview";
 
 const params = new URLSearchParams(window.location.search);
@@ -13,6 +16,7 @@ const Component: React.FC = props => {
         onEntryKeyChange={newKey => {
           setEntryKey(newKey);
           params.set("entryKey", newKey);
+          params.set("consoleOSId", env.consoleOSId);
           history.pushState(null, "", `?${params.toString()}`);
         }}
       />
