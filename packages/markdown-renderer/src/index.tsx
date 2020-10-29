@@ -30,7 +30,8 @@ export interface IProps {
   rehypePlugins?: any[];
   toc?: boolean;
   embedded?: boolean;
-  xViewAppInfo?: any;
+  resolveAppServePath?: (consoleOSId: string) => string;
+  resolveAppDeps?: (consoleOSId: string) => any;
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
@@ -40,7 +41,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   components,
   toc = false,
   embedded = false,
-  xViewAppInfo
+  resolveAppServePath,
+  resolveAppDeps
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
@@ -100,9 +102,10 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   const ctxValue = useMemo(() => {
     return {
       checkHeadings: check,
-      xViewAppInfo
+      resolveAppServePath,
+      resolveAppDeps
     };
-  }, [check, xViewAppInfo]);
+  }, [check, resolveAppServePath, resolveAppDeps]);
 
   if (embedded) {
     return <ctx.Provider value={ctxValue}>{compiledJSX}</ctx.Provider>;

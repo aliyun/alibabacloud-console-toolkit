@@ -4,7 +4,7 @@ import styles from "./index.scoped.less";
 interface IProps {
   entryKeys: string[];
   currentEntryKey?: string;
-  onChange: (newKey: string) => void;
+  onChange?: (newKey: string) => void;
 }
 
 const DemoList: React.FC<IProps> = ({
@@ -23,7 +23,9 @@ const DemoList: React.FC<IProps> = ({
               styles.item
             }
             onClick={() => {
-              onChange(oneKey);
+              if (typeof onChange === "function") {
+                onChange(oneKey);
+              }
             }}
             key={oneKey}
           >

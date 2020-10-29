@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "dev": "cd fixture && npm run start"
+    "watch": "tsc -w"
   },
   "dependencies": {
     "@alicloud/console-os-react-app": "^0.4.0-alpha.4",

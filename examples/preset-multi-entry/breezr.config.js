@@ -13,7 +13,7 @@ module.exports = {
           const paths = globby.sync("**/*.tsx", { cwd: baseDir });
           const res = paths.map(relativePath => {
             return {
-              key: "demos/" + relativePath,
+              key: "demos/" + path.parse(relativePath).name,
               path: path.resolve(baseDir, relativePath)
             };
           });
@@ -24,7 +24,7 @@ module.exports = {
           const paths = globby.sync("**/*.md", { cwd: baseDir });
           const res = paths.map(relativePath => {
             return {
-              key: "docs/" + relativePath,
+              key: "docs/" + path.parse(relativePath).name,
               path: path.resolve(baseDir, relativePath)
             };
           });

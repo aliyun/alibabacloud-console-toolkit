@@ -8,14 +8,15 @@
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
     "lint": "tslint --project .",
-    "compile": "rimraf ./lib && tsc -d true -p ./src",
-    "watch": "tsc -watch -d true -p ./src",
+    "compile": "rimraf ./lib && tsc -p ./src",
+    "watch": "tsc -watch -p ./src",
     "test": "jest",
     "cov": "jest  --coverage",
     "prepare": "npm run compile"
   },
   "devDependencies": {
     "@alicloud/console-toolkit-cli": "^1.1.0",
+    "@alicloud/console-toolkit-multi-entry-loader": "^2.0.1",
     "@types/chai": "^4.1.7",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.116",
@@ -41,8 +42,10 @@
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "@babel/core": "^7.11.6",
     "@mdx-js/loader": "^1.6.18",
+    "get-port": "^5.1.1",
     "gray-matter": "^4.0.2",
     "jest-docblock": "^26.0.0",
+    "open": "^7.3.0",
     "raw-loader": "^4.0.2",
     "react-animate-height": "^2.0.23",
     "webpack-virtual-modules": "^0.3.1"
