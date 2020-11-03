@@ -4,8 +4,8 @@
   "description": "breezr example",
   "scripts": {
     "dev": "NODE_PATH=./node_modules npx breezr start",
-    "debug": "NODE_PATH=./node_modules npx --node-arg=--inspect breezr start",
-    "dev-serve": "DEV_SERVE=true NODE_PATH=./node_modules npx breezr start --port 3335"
+    "build": "NODE_PATH=./node_modules npx breezr build",
+    "debug": "NODE_PATH=./node_modules npx --node-arg=--inspect breezr start"
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",

@@ -12,6 +12,12 @@ import entries from "/@entry-list";
 // @ts-ignore
 import "/@initializer";
 
+// @ts-ignore
+import resolveAppServePathForLocalDev from "/@resolveAppServePathForLocalDev";
+
+// @ts-ignore
+import resolveAppServePathFromDeveloper from "/@resolveAppServePathFromDeveloper";
+
 type IEntryInfo =
   | {
       type: "demo";
@@ -46,7 +52,7 @@ const Loader: React.FC<{
   onLoaded,
   markdownOpts,
   demoOpts,
-  resolveAppServePath,
+  resolveAppServePath: resolveAppServePathFromLoader,
   resolveAppDeps
 }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
@@ -120,7 +126,26 @@ const Loader: React.FC<{
     return (
       <entry.Component
         {...markdownOpts}
-        resolveAppServePath={resolveAppServePath}
+        resolveAppServePath={appId => {
+          let result = "";
+          // 微应用加载者提供的配置
+          if (typeof resolveAppServePathFromLoader === "function") {
+            result = resolveAppServePathFromLoader(appId);
+          }
+          // 微应用开发者提供的配置
+          if (
+            !result &&
+            typeof resolveAppServePathFromDeveloper === "function"
+          ) {
+            result = resolveAppServePathFromDeveloper(appId);
+          }
+          // 仅用于本地开发的 id => ServePath 解析逻辑
+          // 以便本地开发的时候能够从本地加载当前微应用
+          if (!result && typeof resolveAppServePathForLocalDev === "function") {
+            result = resolveAppServePathForLocalDev(appId);
+          }
+          return result;
+        }}
         resolveAppDeps={resolveAppDeps}
       />
     );

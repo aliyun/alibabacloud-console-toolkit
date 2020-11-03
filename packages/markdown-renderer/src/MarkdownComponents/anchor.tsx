@@ -41,9 +41,9 @@ function renderXView(
   if (!servePath) {
     if (typeof resolveAppServePath === "function") {
       servePath = resolveAppServePath(consoleOSId);
-    } else {
-      servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
     }
+    if (!servePath)
+      servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
   }
 
   let deps;

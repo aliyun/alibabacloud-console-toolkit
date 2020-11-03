@@ -1,6 +1,8 @@
 import React, { Suspense, useState } from "react";
 import ReactDom from "react-dom";
 import { Overview } from "@alicloud/console-toolkit-multi-entry-loader";
+// @ts-ignore
+import deps from "/@externaled-deps";
 
 declare const __servePath: string;
 declare const __consoleOSId: string;
@@ -22,12 +24,7 @@ function Host() {
           params.set("consoleOSId", __consoleOSId);
           history.pushState(null, "", `?${params.toString()}`);
         }}
-        resolveAppServePath={appId => {
-          if (appId === __consoleOSId) {
-            return __servePath;
-          }
-          return "";
-        }}
+        deps={deps}
       />
     </Suspense>
   );

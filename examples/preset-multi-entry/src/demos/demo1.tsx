@@ -6,6 +6,11 @@
 
 import React from "react";
 
+// @ts-ignore
+import("test-external-module").then(testExternal => {
+  console.log("testExternal", testExternal);
+});
+
 interface IProps {}
 
 const Demo1: React.FC<IProps> = props => {
