@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-builtin",
-  "version": "1.1.0",
+  "version": "1.1.3",
   "description": "console toolkit plugin for build-in cmd",
   "main": "lib/index.js",
   "scripts": {
@@ -28,10 +28,10 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-core": "^1.1.0",
-    "@alicloud/console-toolkit-plugin-babel": "^1.1.0",
-    "@alicloud/console-toolkit-plugin-generator": "^1.1.0",
-    "@alicloud/console-toolkit-plugin-webpack": "^1.1.0",
+    "@alicloud/console-toolkit-core": "^1.1.3",
+    "@alicloud/console-toolkit-plugin-babel": "^1.1.3",
+    "@alicloud/console-toolkit-plugin-generator": "^1.1.3",
+    "@alicloud/console-toolkit-plugin-webpack": "^1.1.3",
     "@alicloud/console-toolkit-shared-utils": "^1.0.16",
     "webpack-chain": "^6.0.0"
   },
