@@ -30,7 +30,17 @@ module.exports = {
           });
           return res;
         },
-        demoOptsPath: path.resolve(__dirname, "./demoOpts")
+        demoOptsPath: path.resolve(__dirname, "./demoOpts"),
+        externals: [
+          {
+            moduleName: "test-external-module",
+            usePathInDev: path.resolve(
+              __dirname,
+              "./src/test-external-module-in-dev.ts"
+            )
+          }
+        ],
+        resolveAppServePath: path.resolve(__dirname, "./resolveAppServePath.ts")
       }
     ]
   ]

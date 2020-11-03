@@ -2,6 +2,13 @@ import presetWind from "@alicloud/console-toolkit-preset-official";
 import * as path from "path";
 import * as Chain from "webpack-chain";
 
+export type IExternalItem =
+  | string
+  | {
+      moduleName: string;
+      usePathInDev?: string;
+    };
+
 export interface IParams {
   consoleOSId?: string;
   chainWebpack?: (configChain: Chain, env: any) => void;
@@ -25,6 +32,8 @@ export interface IParams {
     path: string;
     staticMeta?: object;
   }[];
+  externals?: IExternalItem[];
+  resolveAppServePath?: string;
 }
 
 export default (params: IParams, args) => {
@@ -52,7 +61,8 @@ export default (params: IParams, args) => {
         cssPrefix: "html"
       }
     ],
-    [require.resolve("./plugin"), params]
+    [require.resolve("./main-plugin"), params],
+    require.resolve("./config-ts-exclude-plugin")
   );
 
   return presetConfig;

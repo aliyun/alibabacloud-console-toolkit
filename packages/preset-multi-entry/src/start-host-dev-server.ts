@@ -41,7 +41,17 @@ getPort().then(port => {
           } as BreezrPresetConfig
         ]
       ],
-      plugins: []
+      plugins: [
+        require.resolve("./config-ts-exclude-plugin"),
+        [
+          require.resolve("./host-dev-server-plugin"),
+          {
+            externals: process.env.EXTERNALS
+              ? JSON.parse(process.env.EXTERNALS)
+              : undefined
+          }
+        ]
+      ]
     }
   });
   service.run("start");

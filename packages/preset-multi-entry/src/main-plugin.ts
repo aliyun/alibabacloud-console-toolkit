@@ -144,6 +144,23 @@ module.exports = (api: any, opts: IParams, args: any) => {
   ${entryListImportCode.join("\n")}
   export default [${entryListItemCode.join(",")}];`;
 
+  // 仅用于本地开发的 id => ServePath 解析逻辑
+  // 以便本地开发的时候能够从本地加载当前微应用
+  virtualModules[
+    "/@resolveAppServePathForLocalDev"
+  ] = `export default undefined;`;
+
+  // 开发者配置微应用的 id => ServePath 解析逻辑
+  if (opts.resolveAppServePath) {
+    virtualModules[
+      "/@resolveAppServePathFromDeveloper"
+    ] = `export {default} from "${opts.resolveAppServePath}";`;
+  } else {
+    virtualModules[
+      "/@resolveAppServePathFromDeveloper"
+    ] = `export default undefined;`;
+  }
+
   api.on("onChainWebpack", (config: Chain, env: Evnrioment) => {
     config
       .entry("index")
@@ -152,7 +169,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
       .end()
       .context(path.resolve(__dirname, "../src2"))
       .plugin("demos-module")
-      .use(new VirtualModulesPlugin(virtualModules))
+      .use(VirtualModulesPlugin, [virtualModules])
       .end()
       // `/@demos/${key}` 中的模块查找 raw-loader 时，
       // 按照正常的node_modules查找算法，会直接去找/node_modules然后放弃
@@ -193,14 +210,6 @@ module.exports = (api: any, opts: IParams, args: any) => {
       .end()
       .end()
       .end()
-      .rule("ts")
-      .exclude.clear()
-      .add({
-        not: [path.resolve(__dirname, "../src2")],
-        and: [/node_modules/]
-      })
-      .end()
-      .end()
       .rule("md")
       .test(/\.md$/)
       .rule("raw-loader")
@@ -211,21 +220,34 @@ module.exports = (api: any, opts: IParams, args: any) => {
       .end();
 
     config.output.publicPath("");
-    config.externals({
-      react: {
-        root: "React",
-        commonjs2: "react",
-        commonjs: "react",
-        amd: "react"
-      },
-      "react-dom": {
-        root: "ReactDOM",
-        commonjs2: "react-dom",
-        commonjs: "react-dom",
-        amd: "react-dom"
-      },
-      "@alicloud/console-os-environment": "@alicloud/console-os-environment"
-    });
+
+    config.externals(
+      (() => {
+        const externals = {
+          react: {
+            root: "React",
+            commonjs2: "react",
+            commonjs: "react",
+            amd: "react"
+          },
+          "react-dom": {
+            root: "ReactDOM",
+            commonjs2: "react-dom",
+            commonjs: "react-dom",
+            amd: "react-dom"
+          },
+          "@alicloud/console-os-environment": "@alicloud/console-os-environment"
+        };
+        opts.externals?.forEach(item => {
+          if (typeof item === "string") {
+            externals[item] = item;
+          } else {
+            externals[item.moduleName] = item.moduleName;
+          }
+        });
+        return externals;
+      })()
+    );
 
     if (env.isDev()) {
       config.plugins.delete("openBrowser");
@@ -235,10 +257,6 @@ module.exports = (api: any, opts: IParams, args: any) => {
       });
       config.devServer.open(false);
 
-      config
-        .entry("index")
-        .clear()
-        .add(path.resolve(__dirname, "../src2/dev-index.tsx"));
       const port = config.devServer.get("port");
       const https = config.devServer.get("https");
       const host = config.devServer.get("host");
@@ -273,7 +291,9 @@ module.exports = (api: any, opts: IParams, args: any) => {
           cwd: api.getCwd(),
           env: {
             SERVE_PATH: servePath,
-            CONSOLEOS_ID: opts.consoleOSId
+            CONSOLEOS_ID: opts.consoleOSId,
+            // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
+            EXTERNALS: JSON.stringify(opts.externals)
           },
           silent: true
         }
@@ -290,6 +310,15 @@ module.exports = (api: any, opts: IParams, args: any) => {
         path.join(__dirname, "child_server_log.log")
       );
       childProcess.stdout?.pipe(logStream);
+      childProcess.stderr?.pipe(logStream);
+
+      virtualModules["/@resolveAppServePathForLocalDev"] = `
+        export default function resolveAppServePath(appId) {
+          if (appId === "${opts.consoleOSId}") {
+            return "${servePath}";
+          }
+        }
+      `;
     }
 
     // if (env.isDev() && process.env.DEV_SERVE !== "true") {
