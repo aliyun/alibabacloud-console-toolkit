@@ -1,4 +1,73 @@
 /* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+
+/* css reset */
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot");
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff2")
+      format("woff2"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff")
+      format("woff"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.ttf")
+      format("truetype");
+  font-weight: 700;
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 12px;
+  font-size: var(--font-size-body-1, 12px);
+  line-height: 1.28571;
+  color: #111111;
+  color: var(--color-text1-4, #111111);
+}
+
+/* component style */
+
 .next-btn {
   position: relative;
 }

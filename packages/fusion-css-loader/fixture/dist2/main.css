@@ -1,4 +1,73 @@
 /* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+
+/* css reset */
+my-style-container {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+my-style-container {
+  margin: 0;
+}
+
+my-style-container article,
+my-style-container aside,
+my-style-container footer,
+my-style-container header,
+my-style-container nav,
+my-style-container section {
+  display: block;
+}
+
+my-style-container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+my-style-container [type="search"]::-webkit-search-cancel-button,
+my-style-container [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+my-style-container *,
+my-style-container *:before,
+my-style-container *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot");
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff2")
+      format("woff2"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff")
+      format("woff"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.ttf")
+      format("truetype");
+  font-weight: 700;
+}
+
+my-style-container {
+  font-size: 100%;
+}
+
+my-style-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 12px;
+  font-size: var(--font-size-body-1, 12px);
+  line-height: 1.28571;
+  color: #111111;
+  color: var(--color-text1-4, #111111);
+}
+
+/* component style */
+
 .my-prefix-btn {
   position: relative;
 }
@@ -18,7 +87,7 @@
 
 /* mock fusion css var https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/variables.css */
 
-.my-container {
+.my-var-container {
   /* ------------------------ color ------------------------ */
   --color-brand1-1: #f7f9fa;
   --color-brand1-6: #0064c8;
