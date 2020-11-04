@@ -24,7 +24,11 @@ function Host() {
           params.set("consoleOSId", __consoleOSId);
           history.pushState(null, "", `?${params.toString()}`);
         }}
-        deps={deps}
+        resolveAppDeps={appId => {
+          if (appId === __consoleOSId) {
+            return deps;
+          }
+        }}
       />
     </Suspense>
   );
