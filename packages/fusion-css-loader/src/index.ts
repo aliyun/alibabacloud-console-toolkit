@@ -14,15 +14,12 @@ module.exports = async function fusionCssLoader(
   const options = getOptions(this);
   const resourceQuery = qs.parse(this.resourceQuery || "");
 
-  let fusionPrefix, fusionVarScope, root;
+  let fusionPrefix = resourceQuery.fusionPrefix ?? options.fusionPrefix;
+  let fusionVarScope = resourceQuery.fusionVarScope ?? options.fusionVarScope;
+  let styleContainer = resourceQuery.styleContainer ?? options.styleContainer;
+  let selectorTransformer = options.selectorTransformer;
 
-  if (resourceQuery.fusionPrefix) {
-    fusionPrefix = resourceQuery.fusionPrefix;
-  }
-
-  if (resourceQuery.fusionVarScope) {
-    fusionVarScope = resourceQuery.fusionVarScope;
-  }
+  let root;
 
   // Reuse PostCSS AST from other loaders
   // https://github.com/webpack-contrib/postcss-loader/blob/6c9f6b5058158f5cbee81e410c94abb23b85bb56/src/index.js#L86
@@ -36,32 +33,56 @@ module.exports = async function fusionCssLoader(
   }
 
   const selectorTransformers = [] as any[];
-  if (typeof options.selectorTransformer === "function") {
-    selectorTransformers.push(options.selectorTransformer);
+  if (typeof selectorTransformer === "function") {
+    selectorTransformers.push(selectorTransformer);
   }
 
-  if (fusionVarScope || typeof options.fusionVarScope === "string") {
+  if (typeof fusionVarScope === "string") {
     selectorTransformers.push(selector => {
       if (selector === ":root") {
-        return fusionVarScope || options.fusionVarScope;
+        return fusionVarScope;
       }
     });
   }
 
-  if (fusionPrefix || typeof options.fusionPrefix === "string") {
+  if (typeof styleContainer === "string") {
+    selectorTransformers.push(function(selector: string) {
+      // 未来可以使用 postcss-selector-parser 做更精确的识别和判断
+
+      // 将明显的根容器选择器替换成styleContainer
+      if (selector === "html" || selector === "body" || selector === ":host") {
+        return styleContainer;
+      }
+      // 不能在前面插入styleContainer的选择器，不作处理
+      if (
+        selector.includes("html") ||
+        selector.includes(":root") ||
+        selector.includes(":host") ||
+        selector.includes(styleContainer)
+      ) {
+        return selector;
+      }
+      // fusion组件样式，不做处理
+      // 组件的样式隔离通过 fusionPrefix 替换来完成
+      if (selector.startsWith(".next-")) {
+        return selector;
+      }
+      // 其他选择器直接在前面插入styleContainer
+      return styleContainer + " " + selector;
+    });
+  }
+
+  if (typeof fusionPrefix === "string") {
     selectorTransformers.push(selector => {
-      if (selector.startsWith(".next")) {
-        return selector.replace(
-          /\.next-/g,
-          fusionPrefix || options.fusionPrefix
-        );
+      if (selector.startsWith(".next-")) {
+        return selector.replace(/\.next-/g, fusionPrefix);
       }
     });
   }
 
   if (selectorTransformers.length === 0) {
     throw new Error(
-      `Must provide at least one of the loader options: fusionPrefix or fusionVarScope or selectorTransformer`
+      `Must provide at least one of the loader options: fusionPrefix or fusionVarScope or selectorTransformer or styleContainer`
     );
   }
 
