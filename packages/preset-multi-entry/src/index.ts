@@ -48,7 +48,9 @@ export default (params: IParams, args) => {
       },
       useTerserPlugin: true,
       htmlFileName: path.resolve(__dirname, "../src2/index.html"),
-      useHappyPack: false
+      useHappyPack: false,
+      // @ts-ignore
+      hashPrefix: params.consoleOSId || "console-os-demos"
     },
     args
   );

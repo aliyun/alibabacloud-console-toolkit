@@ -89,7 +89,10 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
       loadEntryLoader({
         servePath,
         consoleOSId,
-        deps
+        deps: {
+          ...deps,
+          ...entryLoaderProps.resolveAppDeps?.(consoleOSId)
+        }
       }).then(comp => {
         return {
           default: comp
@@ -114,7 +117,10 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
       loadOverview({
         servePath,
         consoleOSId,
-        deps
+        deps: {
+          ...deps,
+          ...overviewProps.resolveAppDeps?.(consoleOSId)
+        }
       }).then(comp => {
         return {
           default: comp

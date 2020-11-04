@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-multi-entry",
-  "version": "2.0.9",
+  "version": "2.0.13",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -38,7 +38,7 @@
     "@alicloud/console-toolkit-fusion-css-loader": "^1.0.4",
     "@alicloud/console-toolkit-markdown-renderer": "^2.0.10",
     "@alicloud/console-toolkit-plugin-os": "0.2.10",
-    "@alicloud/console-toolkit-preset-official": "^1.0.0",
+    "@alicloud/console-toolkit-preset-official": "^1.1.4",
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "@babel/core": "^7.11.6",
     "@mdx-js/loader": "^1.6.18",
