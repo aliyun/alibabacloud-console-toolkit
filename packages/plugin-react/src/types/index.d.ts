@@ -29,6 +29,7 @@ interface BreezrReactOptions {
   useLegacyCssModules?: boolean;
   condition?: CssConditionType;
   classNamePrefix?: string;
+  hashPrefix?: string;
   theme?: string | ThemeDef;
 
   // babel-loader 配置
@@ -118,6 +119,7 @@ interface BreezrStyleOptions {
   classNamePrefix?: string;
   loaderOptions?: any;
   sourceMap?: boolean;
+  hashPrefix?: string;
   hasPostCSSConfig?: boolean;
   condition?: CssConditionType;
 }

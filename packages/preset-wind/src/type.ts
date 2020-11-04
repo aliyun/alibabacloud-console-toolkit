@@ -51,6 +51,8 @@ export interface BreezrPresetConfig {
    */
   entry?: string;
 
+  hashPrefix?: string;
+
   output?: {
     filename: string;
     path: string;

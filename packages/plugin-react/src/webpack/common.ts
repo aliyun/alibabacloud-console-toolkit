@@ -71,6 +71,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     babelOption,
     analyze = false,
     useHappyPack = true,
+    hashPrefix = '',
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
   } = options;
@@ -141,6 +142,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     shouldExtract: !disableExtractText,
     condition,
     theme,
+    hashPrefix,
     classNamePrefix
   });
 

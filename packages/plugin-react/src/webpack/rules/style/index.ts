@@ -15,6 +15,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     modules = false,
     sourceMap = false,
     classNamePrefix,
+    hashPrefix = ''
   } = options;
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
@@ -52,7 +53,8 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   if (modules === true || modules === 'local') {
     cssOptions = {
       ...cssOptions,
-      localIdentName: `${classNamePrefix ? classNamePrefix : "[path]"}___[name]__[local]___[hash:base64:5]`
+      localIdentName: `${classNamePrefix ? classNamePrefix : "[path]"}___[name]__[local]___[hash:base64:5]`,
+      hashPrefix: hashPrefix
     };
   }
 
@@ -98,7 +100,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
   const {
     cwd,
     shouldExtract,
-    condition = 'stable'
+    condition = 'stable',
   } = options;
   function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
     loader?: string,
