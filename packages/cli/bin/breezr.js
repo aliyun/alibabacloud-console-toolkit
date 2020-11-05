@@ -78,7 +78,7 @@ program
   .option('--publishType [publishType]', 'Build engine type')
   .description('build for wind')
   .action(cmd => {
-    invokeService('build', cleanArgs(cmd));
+    invokeService('build', minimist(process.argv.slice(2)));
   });
 
 program
