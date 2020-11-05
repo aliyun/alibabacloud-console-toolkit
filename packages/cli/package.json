@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-cli",
-  "version": "1.1.6",
+  "version": "1.1.7",
   "description": "development toolkit for aliyun",
   "bin": {
     "breezr": "./bin/breezr.js"
