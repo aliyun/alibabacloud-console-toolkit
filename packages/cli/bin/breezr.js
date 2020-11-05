@@ -39,6 +39,7 @@ program.version(require('../package').version).usage('<command> [options]');
 
 program
   .command('start')
+  .allowUnknownOption(true)
   .description('start the development environment for wind')
   .option('-o, --open', 'Open browser')
   .option('-p, --port [port]', '')
@@ -119,6 +120,7 @@ program
 
 program
   .command('babel')
+  .allowUnknownOption(true)
   .description('babel compile')
   .action(cmd => {
     invokeService('babel', cleanArgs(cmd));
@@ -126,6 +128,7 @@ program
 
 program
   .command('help')
+  .allowUnknownOption(true)
   .description('breezr help <cmd>')
   .action((cmd, args) => {
     invokeService('help', {
