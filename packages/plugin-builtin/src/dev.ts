@@ -1,4 +1,4 @@
-import { PluginAPI, CommandArgs } from '@alicloud/console-toolkit-core';
+import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { getConfigFile } from '@alicloud/console-toolkit-core/lib/plugins/config/config';
 import * as Chain from 'webpack-chain';
 import { getEnv, watch } from '@alicloud/console-toolkit-shared-utils';
