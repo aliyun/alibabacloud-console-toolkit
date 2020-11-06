@@ -3,9 +3,7 @@ import { getConfigFile } from '@alicloud/console-toolkit-core/lib/plugins/config
 import * as Chain from 'webpack-chain';
 import { getEnv, watch } from '@alicloud/console-toolkit-shared-utils';
 
-const callback: (() => Promise<void>)[] = [];
-
-async function server(api: PluginAPI, opts: CommandArgs) {
+async function server(api: PluginAPI, callback: (() => Promise<void>)[]) {
   const chain = new Chain();
 
   for (const fn of callback) {
@@ -20,6 +18,8 @@ async function server(api: PluginAPI, opts: CommandArgs) {
 
 export default function (api: PluginAPI) {
 
+  const callback: (() => Promise<void>)[] = [];
+
   api.registerSyncAPI('registerBeforeDevStart', (fn: () => Promise<void>) => {
     callback.push(fn);
   });
@@ -27,7 +27,7 @@ export default function (api: PluginAPI) {
   api.registerCommand('start', {
     description: 'start dev server',
     usage: 'start dev server'
-  }, async (opts) => {
+  }, async () => {
 
     const absConfigPath = getConfigFile(api.getCwd());
 
@@ -37,6 +37,6 @@ export default function (api: PluginAPI) {
       });
     }
 
-    await server(api, opts);
+    await server(api, callback);
   });
 }
