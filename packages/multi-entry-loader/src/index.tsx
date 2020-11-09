@@ -13,6 +13,7 @@ export interface IOverviewProps {
   onEntryKeyChange?: (newEnrtyKey: string) => void;
   resolveAppServePath?: (consoleOSId: string) => string;
   resolveAppDeps?: (consoleOSId: string) => any;
+  useSelfDeps?: boolean;
 }
 
 export interface IEntryLoaderProps {
@@ -24,6 +25,7 @@ export interface IEntryLoaderProps {
   };
   resolveAppServePath?: (consoleOSId: string) => string;
   resolveAppDeps?: (consoleOSId: string) => any;
+  useSelfDeps?: boolean;
 }
 
 export interface ConsoleOSOptions {
@@ -36,7 +38,7 @@ export function load(
   opts: ConsoleOSOptions & {
     exportName: string;
   }
-): Promise<React.ComponentType<any>> {
+): Promise<any> {
   const { servePath, consoleOSId, deps, exportName } = opts;
   const consoleOSAppInfo = {
     manifest: `${servePath}${consoleOSId}.manifest.json`,
@@ -85,20 +87,33 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
 }) => {
   const [ActualEntryLoader] = useState(() => {
     // 本组件不会响应 servePath, consoleOSId, deps 的变化，只会使用第一次的值
-    return React.lazy(() =>
-      loadEntryLoader({
+    return React.lazy(async () => {
+      const { resolveAppDeps, resolveAppServePath } = await wrapResolvers({
         servePath,
         consoleOSId,
-        deps: {
-          ...deps,
-          ...entryLoaderProps.resolveAppDeps?.(consoleOSId)
-        }
-      }).then(comp => {
-        return {
-          default: comp
-        };
-      })
-    );
+        deps,
+        ...entryLoaderProps
+      });
+
+      const ActualEntryLoader = await loadEntryLoader({
+        servePath,
+        consoleOSId,
+        deps: resolveAppDeps(consoleOSId)
+      });
+      // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
+      const Wrapped: React.ComponentType<IEntryLoaderProps> = entryLoaderProps => {
+        return (
+          <ActualEntryLoader
+            {...entryLoaderProps}
+            resolveAppDeps={resolveAppDeps}
+            resolveAppServePath={resolveAppServePath}
+          />
+        );
+      };
+      return {
+        default: Wrapped
+      };
+    });
   });
 
   // 会响应entryKey的变化
@@ -113,20 +128,33 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
 }) => {
   const [ActualOverview] = useState(() => {
     // 本组件不会响应 servePath, consoleOSId, deps 的变化，只会使用第一次的值
-    return React.lazy(() =>
-      loadOverview({
+    return React.lazy(async () => {
+      const { resolveAppDeps, resolveAppServePath } = await wrapResolvers({
         servePath,
         consoleOSId,
-        deps: {
-          ...deps,
-          ...overviewProps.resolveAppDeps?.(consoleOSId)
-        }
-      }).then(comp => {
-        return {
-          default: comp
-        };
-      })
-    );
+        deps,
+        ...overviewProps
+      });
+
+      const ActualOverview = await loadOverview({
+        servePath,
+        consoleOSId,
+        deps: resolveAppDeps(consoleOSId)
+      });
+      // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
+      const Wrapped: React.ComponentType<IOverviewProps> = overviewProps => {
+        return (
+          <ActualOverview
+            {...overviewProps}
+            resolveAppDeps={resolveAppDeps}
+            resolveAppServePath={resolveAppServePath}
+          />
+        );
+      };
+      return {
+        default: Wrapped
+      };
+    });
   });
 
   // 会响应entryKey的变化
@@ -143,4 +171,57 @@ export function getInfoFromURL(url: string) {
     consoleOSId,
     entryKey
   };
+}
+
+function ensureEndSlash(path: string) {
+  if (path.endsWith("/")) return path;
+  return path + "/";
+}
+
+async function wrapResolvers({
+  useSelfDeps,
+  resolveAppDeps: _resolveAppDeps,
+  resolveAppServePath: _resolveAppServePath,
+  consoleOSId,
+  servePath,
+  deps
+}: Pick<
+  IEntryLoaderProps,
+  "useSelfDeps" | "resolveAppDeps" | "resolveAppServePath"
+> &
+  ConsoleOSOptions) {
+  let loadedSelfDeps: any;
+  // 先加载微应用自己打包的依赖
+  if (useSelfDeps) {
+    loadedSelfDeps = await load({
+      consoleOSId: consoleOSId + "-deps",
+      servePath: ensureEndSlash(servePath) + "deps/",
+      exportName: "deps"
+    });
+  }
+  // 包装一下resolveAppDeps，使它能拿到loadedSelfDeps，以及deps
+  const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = appId => {
+    if (appId === consoleOSId) {
+      return {
+        ...loadedSelfDeps,
+        ..._resolveAppDeps?.(consoleOSId),
+        ...deps
+      };
+    } else {
+      return {
+        ..._resolveAppDeps?.(consoleOSId),
+        ...deps
+      };
+    }
+  };
+
+  const resolveAppServePath: IEntryLoaderProps["resolveAppServePath"] = appId => {
+    let res = _resolveAppServePath?.(appId);
+    if (!res && appId === consoleOSId) {
+      res = servePath;
+    }
+    return res ?? "";
+  };
+
+  return { resolveAppDeps, resolveAppServePath };
 }

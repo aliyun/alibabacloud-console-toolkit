@@ -10,6 +10,8 @@ declare const __consoleOSId: string;
 const params = new URLSearchParams(window.location.search);
 const entryKeyFromURL = params.get("entryKey");
 
+// TODO: 本地开发也使用 useSelfDeps，使得本地开发与线上方案完全一致
+
 function Host() {
   const [entryKey, setEntryKey] = useState(entryKeyFromURL);
   return (

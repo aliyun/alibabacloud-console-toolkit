@@ -42,9 +42,9 @@ getPort().then(port => {
         ]
       ],
       plugins: [
-        require.resolve("./config-ts-exclude-plugin"),
+        require.resolve("./config-webpack-plugin"),
         [
-          require.resolve("./host-dev-server-plugin"),
+          require.resolve("./build-external-deps"),
           {
             externals: process.env.EXTERNALS
               ? JSON.parse(process.env.EXTERNALS)

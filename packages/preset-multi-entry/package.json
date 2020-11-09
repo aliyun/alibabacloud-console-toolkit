@@ -1,10 +1,13 @@
 {
   "name": "@alicloud/console-toolkit-preset-multi-entry",
-  "version": "2.0.13",
+  "version": "2.0.25",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
   "main": "lib/index.js",
+  "bin": {
+    "oss-upload": "./bin/oss-upload.js"
+  },
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
     "lint": "tslint --project .",
@@ -42,6 +45,7 @@
     "@alicloud/console-toolkit-shared-utils": "^1.0.1",
     "@babel/core": "^7.11.6",
     "@mdx-js/loader": "^1.6.18",
+    "ali-oss": "^6.11.2",
     "get-port": "^5.1.1",
     "gray-matter": "^4.0.2",
     "jest-docblock": "^26.0.0",

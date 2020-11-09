@@ -10,7 +10,7 @@ export type IExternalItem =
     };
 
 export interface IParams {
-  consoleOSId?: string;
+  consoleOSId: string;
   chainWebpack?: (configChain: Chain, env: any) => void;
   getDemos?: () => {
     key: string;
@@ -34,9 +34,13 @@ export interface IParams {
   }[];
   externals?: IExternalItem[];
   resolveAppServePath?: string;
+  output?: string;
 }
 
 export default (params: IParams, args) => {
+  params.output = params.output || "doc-dist";
+  params.consoleOSId = params.consoleOSId || "console-os-demos";
+
   const presetConfig = presetWind(
     {
       disablePolyfill: true,
@@ -50,7 +54,11 @@ export default (params: IParams, args) => {
       htmlFileName: path.resolve(__dirname, "../src2/index.html"),
       useHappyPack: false,
       // @ts-ignore
-      hashPrefix: params.consoleOSId || "console-os-demos"
+      hashPrefix: params.consoleOSId,
+      // @ts-ignore
+      output: {
+        path: params.output
+      }
     },
     args
   );
@@ -59,12 +67,12 @@ export default (params: IParams, args) => {
     [
       "@alicloud/console-toolkit-plugin-os",
       {
-        id: params.consoleOSId || "console-os-demos",
+        id: params.consoleOSId,
         cssPrefix: "html"
       }
     ],
     [require.resolve("./main-plugin"), params],
-    require.resolve("./config-ts-exclude-plugin")
+    require.resolve("./config-webpack-plugin")
   );
 
   return presetConfig;

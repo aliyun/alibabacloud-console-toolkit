@@ -1,5 +1,5 @@
 import * as Chain from "webpack-chain";
-import { Evnrioment } from "@alicloud/console-toolkit-shared-utils";
+import { Evnrioment, getEnv } from "@alicloud/console-toolkit-shared-utils";
 import * as cp from "child_process";
 import * as path from "path";
 import VirtualModulesPlugin from "webpack-virtual-modules";
@@ -7,8 +7,9 @@ import historyFallback from "connect-history-api-fallback";
 import createProxyMiddleware from "http-proxy-middleware";
 import open from "open";
 import { createWriteStream } from "fs";
+import { Service } from "@alicloud/console-toolkit-core";
 
-import { IParams } from "./index";
+import { IParams, IExternalItem } from "./index";
 
 module.exports = (api: any, opts: IParams, args: any) => {
   const virtualModules: { [path: string]: string } = {};
@@ -161,6 +162,19 @@ module.exports = (api: any, opts: IParams, args: any) => {
     ] = `export default undefined;`;
   }
 
+  const isBuild = !getEnv().isDev();
+  if (isBuild) {
+    api.dispatchSync("registerBeforeBuildStart", async () => {
+      // 构建被微应用external掉的依赖，以便在demo-viewer上加载渲染
+      await buildExternaledDeps({
+        cwd: api.getCwd(),
+        consoleOSId: opts.consoleOSId,
+        output: opts.output!,
+        externals: opts.externals
+      });
+    });
+  }
+
   api.on("onChainWebpack", (config: Chain, env: Evnrioment) => {
     config
       .entry("index")
@@ -188,29 +202,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
       )
       .end()
       .end()
-      // 修改fusion前缀，样式隔离
-      .module.rules.delete("css")
-      .end()
-      .rule("css")
-      .test(/\.css$/)
-      .rule("style-loader")
-      .use("style-loader")
-      .loader(require.resolve("style-loader"))
-      .end()
-      .end()
-      .rule("css-loader")
-      .use("css-loader")
-      .loader(require.resolve("css-loader"))
-      .end()
-      .end()
-      .rule("fusion-css-loader")
-      .resourceQuery(/fusionPrefix/)
-      .use("fusion-css-loader")
-      .loader(require.resolve("@alicloud/console-toolkit-fusion-css-loader"))
-      .end()
-      .end()
-      .end()
-      .rule("md")
+      .module.rule("md")
       .test(/\.md$/)
       .rule("raw-loader")
       .use("raw-loader")
@@ -320,38 +312,6 @@ module.exports = (api: any, opts: IParams, args: any) => {
         }
       `;
     }
-
-    // if (env.isDev() && process.env.DEV_SERVE !== "true") {
-
-    //   config.plugin("virtual-module").use(VirtualModulesPlugin, [
-    //     {
-    //       "/.webpack_virtual/@alicloud/console-os-environment": `export default {publicPath: "http${
-    //         https ? "s" : ""
-    //       }://${host}:${port}/", consoleOSId: "${opts.consoleOSId}"}`
-    //     }
-    //   ]);
-    //   config.resolve.alias.set(
-    //     "@alicloud/console-os-environment",
-    //     "/.webpack_virtual/@alicloud/console-os-environment"
-    //   );
-    // } else {
-    //   config.output.publicPath("");
-    //   config.externals({
-    //     react: {
-    //       root: "React",
-    //       commonjs2: "react",
-    //       commonjs: "react",
-    //       amd: "react"
-    //     },
-    //     "react-dom": {
-    //       root: "ReactDOM",
-    //       commonjs2: "react-dom",
-    //       commonjs: "react-dom",
-    //       amd: "react-dom"
-    //     },
-    //     "@alicloud/console-os-environment": "@alicloud/console-os-environment"
-    //   });
-    // }
     if (typeof opts.chainWebpack === "function") {
       opts.chainWebpack(config, env);
     }
@@ -369,4 +329,82 @@ function generateVirtualPath(category: string, key: string) {
     key,
     "virtual.js"
   );
+}
+
+async function buildExternaledDeps({
+  cwd,
+  consoleOSId,
+  output,
+  externals
+}: {
+  cwd: string;
+  consoleOSId: string;
+  output: string;
+  externals?: IExternalItem[];
+}) {
+  console.log("开始构建微应用external依赖...");
+  const depsConsoleOSId = consoleOSId + "-deps";
+  const service = new Service({
+    cwd,
+    config: {
+      presets: [
+        [
+          require.resolve("@alicloud/console-toolkit-preset-official"),
+          {
+            disablePolyfill: true,
+            disableErrorOverlay: true,
+            typescript: {
+              // @ts-ignore
+              disableTypeChecker: true,
+              useBabel: true
+            },
+            useTerserPlugin: true,
+            htmlFileName: path.resolve(__dirname, "../src2/index.html"),
+            useHappyPack: false,
+            hashPrefix: depsConsoleOSId,
+            output: {
+              path: path.join(output, "deps")
+            },
+            webpack(config) {
+              config.entry = path.join(__dirname, "../src2/BuildDeps/index.ts");
+              config.output.publicPath = "";
+              config.externals = {
+                react: {
+                  root: "React",
+                  commonjs2: "react",
+                  commonjs: "react",
+                  amd: "react"
+                },
+                "react-dom": {
+                  root: "ReactDOM",
+                  commonjs2: "react-dom",
+                  commonjs: "react-dom",
+                  amd: "react-dom"
+                }
+              };
+              return config;
+            }
+          }
+        ]
+      ],
+      plugins: [
+        [
+          "@alicloud/console-toolkit-plugin-os",
+          {
+            id: depsConsoleOSId,
+            cssPrefix: "html"
+          }
+        ],
+        [require.resolve("./config-webpack-plugin")],
+        [
+          require.resolve("./build-external-deps"),
+          {
+            externals
+          }
+        ]
+      ]
+    }
+  });
+  await service.run("build");
+  console.log("成功构建微应用external依赖");
 }

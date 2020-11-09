@@ -14,21 +14,22 @@ function App() {
 
   return (
     <React.Suspense fallback="Loading...">
-      <h2>EntryLoader</h2>
+      {/* <h2>EntryLoader</h2>
 
       <EntryLoader
-        servePath="http://localhost:3335/"
+        servePath="http://localhost:5000/"
         consoleOSId="multi-entry-fixture"
         entryKey={entryKey}
         markdownOpts={{ toc: true }}
+        useSelfDeps
       />
 
-      {/* <hr style={{ margin: "40px 0" }} />
+      <hr style={{ margin: "40px 0" }} /> */}
 
       <h2>Overview</h2>
 
       <Overview
-        servePath="http://localhost:3335/"
+        servePath="http://localhost:5000/"
         consoleOSId="multi-entry-fixture"
         entryKey={entryKey}
         onEntryKeyChange={newEntryKey => {
@@ -36,7 +37,8 @@ function App() {
           params.set("entryKey", newEntryKey);
           history.pushState(null, null as any, `?${params.toString()}`);
         }}
-      /> */}
+        useSelfDeps
+      />
     </React.Suspense>
   );
 }
