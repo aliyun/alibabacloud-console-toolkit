@@ -5,11 +5,10 @@
  */
 
 import React from "react";
-
 // @ts-ignore
-import("test-external-module").then(testExternal => {
-  console.log("testExternal", testExternal);
-});
+import * as testExternal from "test-external-module";
+
+console.log("testExternal", testExternal);
 
 interface IProps {}
 
