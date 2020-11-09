@@ -5,6 +5,10 @@ import js from "react-syntax-highlighter/dist/esm/languages/prism/javascript";
 import jsx from "react-syntax-highlighter/dist/esm/languages/prism/jsx";
 import ts from "react-syntax-highlighter/dist/esm/languages/prism/typescript";
 import tsx from "react-syntax-highlighter/dist/esm/languages/prism/tsx";
+import json from "react-syntax-highlighter/dist/esm/languages/prism/json";
+import diff from "react-syntax-highlighter/dist/esm/languages/prism/diff";
+import css from "react-syntax-highlighter/dist/esm/languages/prism/css";
+
 import prism from "react-syntax-highlighter/dist/esm/styles/prism/prism";
 
 SyntaxHighlighter.registerLanguage("js", js);
@@ -13,6 +17,9 @@ SyntaxHighlighter.registerLanguage("jsx", jsx);
 SyntaxHighlighter.registerLanguage("ts", ts);
 SyntaxHighlighter.registerLanguage("typescript", ts);
 SyntaxHighlighter.registerLanguage("tsx", tsx);
+SyntaxHighlighter.registerLanguage("json", json);
+SyntaxHighlighter.registerLanguage("diff", diff);
+SyntaxHighlighter.registerLanguage("css", css);
 
 const SyntaxHighlighterStyle: React.CSSProperties = {
   padding: "16px",

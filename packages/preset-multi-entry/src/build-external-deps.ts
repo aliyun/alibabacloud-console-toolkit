@@ -2,6 +2,7 @@ import * as Chain from "webpack-chain";
 import { Evnrioment } from "@alicloud/console-toolkit-shared-utils";
 import { IExternalItem } from "./index";
 import VirtualModulesPlugin from "webpack-virtual-modules";
+import * as path from "path";
 
 module.exports = (
   api: any,
@@ -10,10 +11,21 @@ module.exports = (
 ) => {
   api.on("onChainWebpack", (config: Chain, env: Evnrioment) => {
     const virtualModules: { [path: string]: string } = {};
+    // 这个虚拟模块可能会包含对用户node_modules的import，
+    // 因此虚拟模块的路径应该在用户项目中
+    const virtualModulePath = path.join(
+      api.getCwd(),
+      "_virtual_module_",
+      "externaled-deps"
+    );
+
+    virtualModules[
+      "/@externaled-deps"
+    ] = `export {default} from "${virtualModulePath}";`;
 
     // 本地开发时，宿主应用要提供被external掉的依赖
-    if (!opts.externals) {
-      virtualModules["/@externaled-deps"] = `
+    if (!Array.isArray(opts.externals) || opts.externals.length === 0) {
+      virtualModules[virtualModulePath] = `
         export default undefined;
       `;
     } else {
@@ -30,7 +42,7 @@ module.exports = (
         importsCode.push(`import * as dep${idx} from "${importPath}";`);
         objPropertiesCode.push(`"${moduleName}": dep${idx},`);
       });
-      virtualModules["/@externaled-deps"] = `
+      virtualModules[virtualModulePath] = `
         ${importsCode.join("\n")}
         export default {
           ${objPropertiesCode.join("\n")}
