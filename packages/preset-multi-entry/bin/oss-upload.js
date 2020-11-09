@@ -3,6 +3,7 @@ let OSS = require("ali-oss");
 const fs = require("fs");
 const path = require("path");
 const globby = require("globby");
+const qs = require("query-string");
 
 const dir = process.env.OSS_DIR || `app/breezr-docs/`;
 const name = process.env.OSS_NAME;
@@ -57,6 +58,7 @@ async function main() {
   let successCount = 0;
 
   let manifestURL;
+  let consoleOSId;
 
   await Promise.all(
     files.map(async filename => {
@@ -66,16 +68,23 @@ async function main() {
       );
       console.log(`[success] [${++successCount}/${files.length}] ${filename}`);
       if (!filename.startsWith("deps/") && filename.endsWith("manifest.json")) {
-        manifestURL = res.url;
+        manifestURL = res.url.replace(/^http:/, "https:");
+        const manifest = JSON.parse(
+          fs.readFileSync(path.join(sourceDir, filename))
+        );
+        consoleOSId = manifest.name;
       }
     })
   );
 
-  console.log(
-    `[success] upload all files from "${sourceDir}" to OSS path "${targetDir}"`
-  );
+  const servePath = manifestURL.slice(0, manifestURL.lastIndexOf("/") + 1);
+  console.log(`[成功] 上传构建产物 "${sourceDir}" 到OSS路径 "${servePath}"`);
 
-  console.log(`manifest URL: ${manifestURL}`);
+  const previewURL = qs.stringifyUrl({
+    url: "http://loc-alfa.aliyun-inc.com:3333/demo-playground",
+    query: { servePath, consoleOSId }
+  });
+  console.log(`预览url: ${previewURL} \n可以将它分享给其他同学！`);
 }
 
 main();

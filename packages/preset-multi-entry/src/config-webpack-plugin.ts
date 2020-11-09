@@ -36,6 +36,7 @@ module.exports = (api: any) => {
       .end()
       .end()
       .end()
-      .end();
+      .end()
+      .node.set("fs", "empty");
   });
 };

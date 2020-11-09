@@ -1,12 +1,18 @@
-import React, { useMemo, useReducer } from "react";
+import React, { useEffect, useMemo, useReducer, useState } from "react";
 import AnimateHeight from "react-animate-height";
 
 import styles from "./index.scoped.less";
-import CodeBlock from "./CodeBlock";
+import "./codemirror.less";
+import "codemirror/mode/javascript/javascript.js";
+import "codemirror/addon/edit/matchbrackets.js";
+import { Controlled as CodeMirror } from "react-codemirror2";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+
 import Codesandbox from "./codesandbox";
 
 // @ts-ignore
 import buildTimeDemoOpts from "/@demoOpts";
+import { useEvalCode } from "./useEvalCode";
 
 interface IProps {
   meta?: any;
@@ -24,6 +30,8 @@ export interface IOperation {
   View?: React.ComponentType<{
     meta: any;
     code: string;
+    setCode: any;
+    originalCode: string;
     imports: string[];
     opts: IDemoOpts;
   }>;
@@ -50,14 +58,20 @@ const defaultOperations: IOperation[] = [
         </svg>
       );
     },
-    View: ({ code }) => {
+    View: ({ code, setCode }) => {
       return (
-        <CodeBlock
-          language="tsx"
-          style={{ borderTop: "1px solid #dedede", padding: 24 }}
-        >
-          {code}
-        </CodeBlock>
+        <CodeMirror
+          value={code}
+          className={styles.codemirror}
+          options={{
+            lineNumbers: true,
+            matchBrackets: true,
+            mode: "text/typescript"
+          }}
+          onBeforeChange={(editor, data, value) => {
+            setCode(value);
+          }}
+        />
       );
     }
   },
@@ -114,8 +128,7 @@ function reducer(
 }
 
 const DemoContainer: React.FC<IProps> = ({
-  children,
-  code,
+  code: originalCode,
   DemoWrapper,
   imports,
   meta = {},
@@ -125,22 +138,32 @@ const DemoContainer: React.FC<IProps> = ({
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const finalDisplayCode = useMemo(() => {
-    let res = code;
+  const originalCode2 = useMemo(() => {
+    let res = originalCode;
     if (typeof buildTimeDemoOpts.modifyDisplayCode === "function") {
-      res = buildTimeDemoOpts.modifyDisplayCode({ code, meta, imports });
+      res = buildTimeDemoOpts.modifyDisplayCode({
+        code: res,
+        meta,
+        imports
+      });
     }
     if (typeof opts.modifyDisplayCode === "function") {
-      res = opts.modifyDisplayCode({ code, meta, imports });
+      res = opts.modifyDisplayCode({ code: res, meta, imports });
     }
     return res;
   }, [
     opts.modifyDisplayCode,
     buildTimeDemoOpts.modifyDisplayCode,
-    code,
+    originalCode,
     meta,
     imports
   ]);
+
+  const [currentCode, setCurrentCode] = useState(originalCode2);
+
+  useEffect(() => {
+    setCurrentCode(originalCode2);
+  }, [originalCode2]);
 
   // 构建者提供的配置
   const operations = useMemo(() => {
@@ -148,21 +171,37 @@ const DemoContainer: React.FC<IProps> = ({
     if (typeof buildTimeDemoOpts.extraOperations === "function") {
       res = [
         ...res,
-        ...buildTimeDemoOpts.extraOperations({ code, meta, imports })
+        ...buildTimeDemoOpts.extraOperations({
+          code: originalCode2,
+          meta,
+          imports
+        })
       ];
     }
     // 加载者提供的配置
     if (typeof opts.extraOperations === "function") {
-      res = [...res, ...opts.extraOperations({ code, meta, imports })];
+      res = [
+        ...res,
+        ...opts.extraOperations({ code: originalCode2, meta, imports })
+      ];
     }
     return res;
   }, [
     opts.extraOperations,
     buildTimeDemoOpts.extraOperations,
-    code,
+    originalCode2,
     meta,
     imports
   ]);
+
+  const { value: evaledValue, transformedCode } = useEvalCode({
+    code: currentCode
+  });
+  const demoView = evaledValue.default ? (
+    <WrapEvaledComponent retryKey={evaledValue.default}>
+      <evaledValue.default />
+    </WrapEvaledComponent>
+  ) : null;
 
   const operation = (() => {
     if (state.current !== "none") {
@@ -180,10 +219,11 @@ const DemoContainer: React.FC<IProps> = ({
     <div
       className={[styles.container, className].filter(Boolean).join(" ")}
       style={style}
+      data-transformed-code={transformedCode}
     >
       <div className={styles.title}>{meta.title}</div>
       <div className={styles.demo}>
-        {DemoWrapper ? <DemoWrapper>{children}</DemoWrapper> : children}
+        {DemoWrapper ? <DemoWrapper>{demoView}</DemoWrapper> : demoView}
       </div>
       <div className={styles.describe}>{meta.describe || meta.description}</div>
       <div className={styles.operations}>
@@ -213,7 +253,9 @@ const DemoContainer: React.FC<IProps> = ({
       >
         {operation.View && (
           <operation.View
-            code={finalDisplayCode}
+            code={currentCode}
+            originalCode={originalCode2}
+            setCode={setCurrentCode}
             imports={imports}
             meta={meta}
             opts={opts}
@@ -248,3 +290,23 @@ export interface IDemoOpts {
 export interface ICodeSandboxFiles {
   [file: string]: string;
 }
+
+function ErrorFallback({ error }: FallbackProps) {
+  return (
+    <div role="alert">
+      <p>Error in demo:</p>
+      {error && <pre>{error.message}</pre>}
+    </div>
+  );
+}
+
+const WrapEvaledComponent: React.FC<{ retryKey: any }> = ({
+  children,
+  retryKey
+}) => {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[retryKey]}>
+      {children}
+    </ErrorBoundary>
+  );
+};

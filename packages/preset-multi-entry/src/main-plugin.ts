@@ -228,7 +228,10 @@ module.exports = (api: any, opts: IParams, args: any) => {
             commonjs: "react-dom",
             amd: "react-dom"
           },
-          "@alicloud/console-os-environment": "@alicloud/console-os-environment"
+          "@alicloud/console-os-environment":
+            "@alicloud/console-os-environment",
+          "@breezr-doc-internals/externaled-deps":
+            "@breezr-doc-internals/externaled-deps"
         };
         opts.externals?.forEach(item => {
           if (typeof item === "string") {

@@ -44,8 +44,6 @@ export function load(
     manifest: `${servePath}${consoleOSId}.manifest.json`,
     id: consoleOSId,
     deps: {
-      react: React,
-      "react-dom": ReactDOM,
       "@alicloud/console-os-environment": {
         publicPath: servePath,
         consoleOSId
@@ -95,10 +93,16 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
         ...entryLoaderProps
       });
 
+      const resolvedDeps = resolveAppDeps(consoleOSId);
+      const actualDeps = {
+        ...resolvedDeps,
+        "@breezr-doc-internals/externaled-deps": resolvedDeps
+      };
+
       const ActualEntryLoader = await loadEntryLoader({
         servePath,
         consoleOSId,
-        deps: resolveAppDeps(consoleOSId)
+        deps: actualDeps
       });
       // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
       const Wrapped: React.ComponentType<IEntryLoaderProps> = entryLoaderProps => {
@@ -136,10 +140,16 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
         ...overviewProps
       });
 
+      const resolvedDeps = resolveAppDeps(consoleOSId);
+      const actualDeps = {
+        ...resolvedDeps,
+        "@breezr-doc-internals/externaled-deps": resolvedDeps
+      };
+
       const ActualOverview = await loadOverview({
         servePath,
         consoleOSId,
-        deps: resolveAppDeps(consoleOSId)
+        deps: actualDeps
       });
       // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
       const Wrapped: React.ComponentType<IOverviewProps> = overviewProps => {
@@ -203,12 +213,16 @@ async function wrapResolvers({
   const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = appId => {
     if (appId === consoleOSId) {
       return {
+        react: React,
+        "react-dom": ReactDOM,
         ...loadedSelfDeps,
         ..._resolveAppDeps?.(consoleOSId),
         ...deps
       };
     } else {
       return {
+        react: React,
+        "react-dom": ReactDOM,
         ..._resolveAppDeps?.(consoleOSId),
         ...deps
       };
