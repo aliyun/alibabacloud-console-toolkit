@@ -1,0 +1,7 @@
+packages:
+  - "docs-provider"
+  - "docs-consumer"
+  - "fusion-css-loader"
+  - "markdown-renderer"
+  - "shared"
+  - "examples/**"

@@ -4,7 +4,7 @@ import * as cp from "child_process";
 import * as path from "path";
 import VirtualModulesPlugin from "webpack-virtual-modules";
 import historyFallback from "connect-history-api-fallback";
-import createProxyMiddleware from "http-proxy-middleware";
+import { createProxyMiddleware } from "http-proxy-middleware";
 import open from "open";
 import { createWriteStream } from "fs";
 import { Service } from "@alicloud/console-toolkit-core";
@@ -170,7 +170,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
         cwd: api.getCwd(),
         consoleOSId: opts.consoleOSId,
         output: opts.output!,
-        externals: opts.externals
+        externals: opts.externals,
       });
     });
   }
@@ -220,20 +220,20 @@ module.exports = (api: any, opts: IParams, args: any) => {
             root: "React",
             commonjs2: "react",
             commonjs: "react",
-            amd: "react"
+            amd: "react",
           },
           "react-dom": {
             root: "ReactDOM",
             commonjs2: "react-dom",
             commonjs: "react-dom",
-            amd: "react-dom"
+            amd: "react-dom",
           },
           "@alicloud/console-os-environment":
             "@alicloud/console-os-environment",
           "@breezr-doc-internals/externaled-deps":
-            "@breezr-doc-internals/externaled-deps"
+            "@breezr-doc-internals/externaled-deps",
         };
-        opts.externals?.forEach(item => {
+        opts.externals?.forEach((item) => {
           if (typeof item === "string") {
             externals[item] = item;
           } else {
@@ -248,7 +248,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
       config.plugins.delete("openBrowser");
       config.devServer.disableHostCheck(true);
       config.devServer.headers({
-        "Access-Control-Allow-Origin": "*"
+        "Access-Control-Allow-Origin": "*",
       });
       config.devServer.open(false);
 
@@ -258,24 +258,24 @@ module.exports = (api: any, opts: IParams, args: any) => {
       const servePath = `http${https ? "s" : ""}://${host}:${port}/`;
 
       let childPort;
-      config.devServer.before(function(app, server, compiler) {
+      config.devServer.before(function (app, server, compiler) {
         // webpack dev server自带的fallback和proxy一起使用时，
         // 在这种情况下会有bug，因此我们自己配置fallback和proxy
         app.use(
           historyFallback({
-            index: "/host/index.html"
+            index: "/host/index.html",
           })
         );
         app.use(
           "/host",
           createProxyMiddleware({
             target: "http://localhost:8889",
-            router: req => {
+            router: (req) => {
               if (!childPort) {
                 throw new Error("childProcess is not ready yet");
               }
               return `http://localhost:${childPort}`;
-            }
+            },
           })
         );
       });
@@ -288,13 +288,13 @@ module.exports = (api: any, opts: IParams, args: any) => {
             SERVE_PATH: servePath,
             CONSOLEOS_ID: opts.consoleOSId,
             // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
-            EXTERNALS: JSON.stringify(opts.externals)
+            EXTERNALS: JSON.stringify(opts.externals),
           },
-          silent: true
+          silent: true,
         }
       );
 
-      childProcess.on("message", msg => {
+      childProcess.on("message", (msg) => {
         if (msg && msg.type === "server_started") {
           childPort = msg.port;
           open(servePath);
@@ -338,7 +338,7 @@ async function buildExternaledDeps({
   cwd,
   consoleOSId,
   output,
-  externals
+  externals,
 }: {
   cwd: string;
   consoleOSId: string;
@@ -359,14 +359,14 @@ async function buildExternaledDeps({
             typescript: {
               // @ts-ignore
               disableTypeChecker: true,
-              useBabel: true
+              useBabel: true,
             },
             useTerserPlugin: true,
             htmlFileName: path.resolve(__dirname, "../src2/index.html"),
             useHappyPack: false,
             hashPrefix: depsConsoleOSId,
             output: {
-              path: path.join(output, "deps")
+              path: path.join(output, "deps"),
             },
             webpack(config) {
               config.entry = path.join(__dirname, "../src2/BuildDeps/index.ts");
@@ -376,37 +376,37 @@ async function buildExternaledDeps({
                   root: "React",
                   commonjs2: "react",
                   commonjs: "react",
-                  amd: "react"
+                  amd: "react",
                 },
                 "react-dom": {
                   root: "ReactDOM",
                   commonjs2: "react-dom",
                   commonjs: "react-dom",
-                  amd: "react-dom"
-                }
+                  amd: "react-dom",
+                },
               };
               return config;
-            }
-          }
-        ]
+            },
+          },
+        ],
       ],
       plugins: [
         [
           "@alicloud/console-toolkit-plugin-os",
           {
             id: depsConsoleOSId,
-            cssPrefix: "html"
-          }
+            cssPrefix: "html",
+          },
         ],
         [require.resolve("./config-webpack-plugin")],
         [
           require.resolve("./build-external-deps"),
           {
-            externals
-          }
-        ]
-      ]
-    }
+            externals,
+          },
+        ],
+      ],
+    },
   });
   await service.run("build");
   console.log("成功构建微应用external依赖");

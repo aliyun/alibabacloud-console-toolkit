@@ -1,0 +1,17 @@
+{
+  "name": "docs-consumer-example",
+  "version": "1.1.2",
+  "description": "breezr example",
+  "scripts": {
+    "dev": "NODE_PATH=./node_modules breezr start"
+  },
+  "author": "csr632 <632882184@qq.com>",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "@alicloud/console-toolkit-cli": "^1.1.0",
+    "@alicloud/console-toolkit-core": "^1.1.0",
+    "@alicloud/console-toolkit-preset-official": "^1.1.2",
+    "@alicloud/console-toolkit-docs-consumer": "workspace:*"
+  }
+}
