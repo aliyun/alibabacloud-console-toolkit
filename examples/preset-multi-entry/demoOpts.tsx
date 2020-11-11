@@ -1,5 +1,5 @@
 import React from "react";
-import { IDemoOpts } from "@alicloud/console-toolkit-preset-multi-entry/types";
+import { IDemoOpts } from "@alicloud/console-toolkit-preset-docs";
 
 export default {
   extraOperations({ code, meta, imports }) {

@@ -5,9 +5,9 @@ module.exports = {
   presets: [
     [
       // require.resolve("./lib"),
-      require.resolve("@alicloud/console-toolkit-preset-multi-entry"),
+      require.resolve("@alicloud/console-toolkit-preset-docs"),
       {
-        consoleOSId: "multi-entry-fixture",
+        consoleOSId: "breezr-docs-fixture",
         getDemos() {
           const baseDir = path.resolve(__dirname, "./src/demos/");
           const paths = globby.sync("**/*.tsx", { cwd: baseDir });

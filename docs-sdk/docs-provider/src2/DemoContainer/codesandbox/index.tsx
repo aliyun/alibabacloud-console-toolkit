@@ -1,5 +1,8 @@
 import React, { useEffect, useState } from "react";
-import { IDemoOpts, ICodeSandboxFiles } from "..";
+import {
+  IDemoOpts,
+  ICodeSandboxFiles,
+} from "@alicloud/console-toolkit-docs-shared";
 import { createCodesandbox } from "./createCodesandbox";
 
 // @ts-ignore
@@ -16,7 +19,7 @@ const CodeSandbox: React.FC<IProps> = ({
   code,
   imports,
   meta,
-  modifyCodeSandbox
+  modifyCodeSandbox,
 }) => {
   const [codesandboxUrl, setUrl] = useState("");
 
@@ -30,7 +33,7 @@ const CodeSandbox: React.FC<IProps> = ({
       createCodesandbox({
         code,
         imports,
-        modifyCode: files => {
+        modifyCode: (files) => {
           let res: ICodeSandboxFiles = files;
           // 构建者提供的 codesandboxModifier
           if (buildTimeDemoOpts.modifyCodeSandbox) {
@@ -38,7 +41,7 @@ const CodeSandbox: React.FC<IProps> = ({
               code,
               meta,
               imports,
-              files
+              files,
             });
           }
           // 加载者提供的 codesandboxModifier
@@ -46,7 +49,7 @@ const CodeSandbox: React.FC<IProps> = ({
             res = modifyCodeSandbox({ code, meta, imports, files: res });
           }
           return res;
-        }
+        },
       }).then(({ url }) => {
         setUrl(url);
       });
@@ -69,7 +72,7 @@ const CodeSandbox: React.FC<IProps> = ({
 const iframeStyle: React.CSSProperties = {
   border: 0,
   width: "100%",
-  minHeight: 520
+  minHeight: 520,
 };
 
 export default CodeSandbox;

@@ -1,6 +1,6 @@
 import React, { Suspense, useState } from "react";
 import ReactDom from "react-dom";
-import { Overview } from "@alicloud/console-toolkit-multi-entry-loader";
+import { Overview } from "@alicloud/console-toolkit-docs-consumer";
 // @ts-ignore
 import deps from "/@externaled-deps";
 

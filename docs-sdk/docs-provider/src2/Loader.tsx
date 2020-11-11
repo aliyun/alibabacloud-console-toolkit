@@ -1,5 +1,4 @@
 import React, { useEffect, useRef, useState } from "react";
-import { IDemoOpts } from "./DemoContainer";
 
 // @ts-ignore
 import DemoContainer from "/@DemoContainer";
@@ -17,6 +16,8 @@ import resolveAppServePathForLocalDev from "/@resolveAppServePathForLocalDev";
 
 // @ts-ignore
 import resolveAppServePathFromDeveloper from "/@resolveAppServePathFromDeveloper";
+
+import type { IEntryLoaderProps } from "@alicloud/console-toolkit-docs-shared";
 
 type IEntryInfo =
   | {
@@ -38,27 +39,14 @@ type IEntryInfo =
       meta?: any;
     };
 
-export interface ILoaderProps {
-  entryKey: string;
-  onLoaded?: () => void;
-  markdownOpts?: {
-    toc?: boolean;
-    embedded?: boolean;
-  };
-  demoOpts?: IDemoOpts;
-  resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
-  resolveAppServePath?: (consoleOSId: string) => string;
-  resolveAppDeps?: (consoleOSId: string) => any;
-}
-
-const Loader: React.FC<ILoaderProps> = ({
+const Loader: React.FC<IEntryLoaderProps> = ({
   entryKey,
   onLoaded,
   markdownOpts,
   demoOpts,
   resolveDemoOpts,
   resolveAppServePath: resolveAppServePathFromLoader,
-  resolveAppDeps
+  resolveAppDeps,
 }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
@@ -71,7 +59,7 @@ const Loader: React.FC<ILoaderProps> = ({
       const staticMeta = found.staticMeta;
       switch (staticMeta._type) {
         case "demo":
-          found.load().then(m => {
+          found.load().then((m) => {
             const { demo: Component, meta, code, imports, deps: demoDeps } = m;
             setEntry({
               type: staticMeta._type,
@@ -79,18 +67,18 @@ const Loader: React.FC<ILoaderProps> = ({
               code,
               imports,
               meta: { ...staticMeta, ...meta },
-              demoDeps
+              demoDeps,
             });
           });
           break;
         case "md":
-          found.load().then(m => {
+          found.load().then((m) => {
             const { default: Component } = m;
             setEntry({ type: staticMeta._type, Component });
           });
           break;
         case "normal":
-          found.load().then(m => {
+          found.load().then((m) => {
             const { default: Component } = m;
             setEntry({ type: staticMeta._type, Component });
           });
@@ -134,7 +122,7 @@ const Loader: React.FC<ILoaderProps> = ({
       <entry.Component
         {...markdownOpts}
         resolveDemoOpts={resolveDemoOpts}
-        resolveAppServePath={appId => {
+        resolveAppServePath={(appId) => {
           let result = "";
           // 微应用加载者提供的配置
           if (typeof resolveAppServePathFromLoader === "function") {

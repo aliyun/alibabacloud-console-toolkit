@@ -7,6 +7,10 @@ import "codemirror/mode/javascript/javascript.js";
 import "codemirror/addon/edit/matchbrackets.js";
 import { Controlled as CodeMirror } from "react-codemirror2";
 import { ErrorBoundary, FallbackProps } from "react-error-boundary";
+import type {
+  IDemoOpts,
+  IDemoOperation,
+} from "@alicloud/console-toolkit-docs-shared";
 
 import Codesandbox from "./codesandbox";
 
@@ -25,20 +29,7 @@ interface IProps {
   demoDeps: any;
 }
 
-export interface IOperation {
-  name: string;
-  icon: () => React.ReactNode;
-  View?: React.ComponentType<{
-    meta: any;
-    code: string;
-    setCode: any;
-    originalCode: string;
-    imports: string[];
-    opts: IDemoOpts;
-  }>;
-}
-
-const defaultOperations: IOperation[] = [
+const defaultOperations: IDemoOperation[] = [
   {
     name: "code",
     icon: () => {
@@ -67,14 +58,14 @@ const defaultOperations: IOperation[] = [
           options={{
             lineNumbers: true,
             matchBrackets: true,
-            mode: "text/typescript"
+            mode: "text/typescript",
           }}
           onBeforeChange={(editor, data, value) => {
             setCode(value);
           }}
         />
       );
-    }
+    },
   },
   {
     name: "codesandbox",
@@ -104,8 +95,8 @@ const defaultOperations: IOperation[] = [
           modifyCodeSandbox={opts.modifyCodeSandbox}
         />
       );
-    }
-  }
+    },
+  },
 ];
 
 const initialState = { current: "none", previous: "code" };
@@ -118,13 +109,13 @@ function reducer(
   if (state.current === action) {
     return {
       current: "none",
-      previous: state.current
+      previous: state.current,
     };
   }
 
   return {
     current: action,
-    previous: state.current
+    previous: state.current,
   };
 }
 
@@ -136,7 +127,7 @@ const DemoContainer: React.FC<IProps> = ({
   opts = {},
   className,
   style,
-  demoDeps
+  demoDeps,
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -146,7 +137,7 @@ const DemoContainer: React.FC<IProps> = ({
       res = buildTimeDemoOpts.modifyDisplayCode({
         code: res,
         meta,
-        imports
+        imports,
       });
     }
     if (typeof opts.modifyDisplayCode === "function") {
@@ -158,7 +149,7 @@ const DemoContainer: React.FC<IProps> = ({
     buildTimeDemoOpts.modifyDisplayCode,
     originalCode,
     meta,
-    imports
+    imports,
   ]);
 
   const [currentCode, setCurrentCode] = useState(originalCode2);
@@ -176,15 +167,15 @@ const DemoContainer: React.FC<IProps> = ({
         ...buildTimeDemoOpts.extraOperations({
           code: originalCode2,
           meta,
-          imports
-        })
+          imports,
+        }),
       ];
     }
     // 加载者提供的配置
     if (typeof opts.extraOperations === "function") {
       res = [
         ...res,
-        ...opts.extraOperations({ code: originalCode2, meta, imports })
+        ...opts.extraOperations({ code: originalCode2, meta, imports }),
       ];
     }
     return res;
@@ -193,7 +184,7 @@ const DemoContainer: React.FC<IProps> = ({
     buildTimeDemoOpts.extraOperations,
     originalCode2,
     meta,
-    imports
+    imports,
   ]);
 
   const { value: evaledValue, transformedCode } = useEvalCode({
@@ -208,10 +199,10 @@ const DemoContainer: React.FC<IProps> = ({
 
   const operation = (() => {
     if (state.current !== "none") {
-      return operations.find(item => item.name === state.current);
+      return operations.find((item) => item.name === state.current);
     } else {
       // 没有展开操作面板的时候，渲染上一个操作，撑开操作面板高度，以便高度动画能够进行
-      return operations.find(item => item.name === state.previous);
+      return operations.find((item) => item.name === state.previous);
     }
   })();
   if (!operation) {
@@ -271,29 +262,6 @@ const DemoContainer: React.FC<IProps> = ({
 
 export default DemoContainer;
 
-export interface IDemoOpts {
-  modifyDisplayCode?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-  }) => string;
-  modifyCodeSandbox?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-    files: ICodeSandboxFiles;
-  }) => ICodeSandboxFiles;
-  extraOperations?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-  }) => IOperation[];
-}
-
-export interface ICodeSandboxFiles {
-  [file: string]: string;
-}
-
 function ErrorFallback({ error }: FallbackProps) {
   return (
     <div role="alert">
@@ -305,7 +273,7 @@ function ErrorFallback({ error }: FallbackProps) {
 
 const WrapEvaledComponent: React.FC<{ retryKey: any }> = ({
   children,
-  retryKey
+  retryKey,
 }) => {
   return (
     <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[retryKey]}>

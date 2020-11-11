@@ -1,9 +1,6 @@
 {
   "npmClient": "yarn",
-  "packages": [
-    "packages/*",
-    "examples/*"
-  ],
+  "packages": ["packages/*", "examples/*", "docs-sdk/*"],
   "publish": {
     "verifyAccess": false
   },

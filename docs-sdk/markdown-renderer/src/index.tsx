@@ -14,7 +14,7 @@ import { useTOC } from "./utils/useTOC";
 // @ts-ignore
 import githubSanitizeSchema from "hast-util-sanitize/lib/github.json";
 
-import { IDemoOpts } from "@alicloud/console-toolkit-multi-entry-loader";
+import { IDemoOpts } from "@alicloud/console-toolkit-docs-consumer";
 
 export const ctx = React.createContext<any>({});
 
