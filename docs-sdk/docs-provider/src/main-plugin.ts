@@ -294,7 +294,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
         }
       );
 
-      childProcess.on("message", (msg) => {
+      childProcess.on("message", (msg: any) => {
         if (msg && msg.type === "server_started") {
           childPort = msg.port;
           open(servePath);
