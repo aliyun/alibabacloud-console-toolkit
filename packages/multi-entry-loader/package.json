@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-multi-entry-loader",
-  "version": "2.0.4",
+  "version": "2.0.8",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {

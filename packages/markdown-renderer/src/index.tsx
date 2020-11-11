@@ -14,6 +14,8 @@ import { useTOC } from "./utils/useTOC";
 // @ts-ignore
 import githubSanitizeSchema from "hast-util-sanitize/lib/github.json";
 
+import { IDemoOpts } from "@alicloud/console-toolkit-multi-entry-loader";
+
 export const ctx = React.createContext<any>({});
 
 /** 打包md文档得到的模块 */
@@ -32,6 +34,7 @@ export interface IProps {
   embedded?: boolean;
   resolveAppServePath?: (consoleOSId: string) => string;
   resolveAppDeps?: (consoleOSId: string) => any;
+  resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
 }
 
 export const MarkdownRenderer: React.FC<IProps> = ({
@@ -42,7 +45,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   toc = false,
   embedded = false,
   resolveAppServePath,
-  resolveAppDeps
+  resolveAppDeps,
+  resolveDemoOpts
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
@@ -103,9 +107,10 @@ export const MarkdownRenderer: React.FC<IProps> = ({
     return {
       checkHeadings: check,
       resolveAppServePath,
-      resolveAppDeps
+      resolveAppDeps,
+      resolveDemoOpts
     };
-  }, [check, resolveAppServePath, resolveAppDeps]);
+  }, [check, resolveAppServePath, resolveAppDeps, resolveDemoOpts]);
 
   if (embedded) {
     return <ctx.Provider value={ctxValue}>{compiledJSX}</ctx.Provider>;

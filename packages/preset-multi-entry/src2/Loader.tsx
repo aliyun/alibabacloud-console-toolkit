@@ -25,6 +25,7 @@ type IEntryInfo =
       code: string;
       imports: string[];
       meta?: any;
+      demoDeps: any;
     }
   | {
       type: "md";
@@ -37,7 +38,7 @@ type IEntryInfo =
       meta?: any;
     };
 
-const Loader: React.FC<{
+export interface ILoaderProps {
   entryKey: string;
   onLoaded?: () => void;
   markdownOpts?: {
@@ -45,13 +46,17 @@ const Loader: React.FC<{
     embedded?: boolean;
   };
   demoOpts?: IDemoOpts;
+  resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
   resolveAppServePath?: (consoleOSId: string) => string;
   resolveAppDeps?: (consoleOSId: string) => any;
-}> = ({
+}
+
+const Loader: React.FC<ILoaderProps> = ({
   entryKey,
   onLoaded,
   markdownOpts,
   demoOpts,
+  resolveDemoOpts,
   resolveAppServePath: resolveAppServePathFromLoader,
   resolveAppDeps
 }) => {
@@ -67,13 +72,14 @@ const Loader: React.FC<{
       switch (staticMeta._type) {
         case "demo":
           found.load().then(m => {
-            const { demo: Component, meta, code, imports } = m;
+            const { demo: Component, meta, code, imports, deps: demoDeps } = m;
             setEntry({
               type: staticMeta._type,
               Component,
               code,
               imports,
-              meta: { ...staticMeta, ...meta }
+              meta: { ...staticMeta, ...meta },
+              demoDeps
             });
           });
           break;
@@ -116,6 +122,7 @@ const Loader: React.FC<{
         DemoWrapper={DemoWrapper}
         meta={entry.meta}
         opts={demoOpts}
+        demoDeps={entry.demoDeps}
       >
         <entry.Component />
       </DemoContainer>
@@ -126,6 +133,7 @@ const Loader: React.FC<{
     return (
       <entry.Component
         {...markdownOpts}
+        resolveDemoOpts={resolveDemoOpts}
         resolveAppServePath={appId => {
           let result = "";
           // 微应用加载者提供的配置

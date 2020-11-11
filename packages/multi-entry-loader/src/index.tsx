@@ -8,12 +8,13 @@ export interface IDeps {
   [depName: string]: any;
 }
 
-export interface IOverviewProps {
+export interface IOverviewProps
+  extends Pick<
+    IEntryLoaderProps,
+    Exclude<keyof IEntryLoaderProps, "entryKey">
+  > {
   entryKey?: string;
   onEntryKeyChange?: (newEnrtyKey: string) => void;
-  resolveAppServePath?: (consoleOSId: string) => string;
-  resolveAppDeps?: (consoleOSId: string) => any;
-  useSelfDeps?: boolean;
 }
 
 export interface IEntryLoaderProps {
@@ -26,6 +27,7 @@ export interface IEntryLoaderProps {
   resolveAppServePath?: (consoleOSId: string) => string;
   resolveAppDeps?: (consoleOSId: string) => any;
   useSelfDeps?: boolean;
+  resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
 }
 
 export interface ConsoleOSOptions {
@@ -57,24 +59,157 @@ export function load(
   });
 }
 
-export function loadOverview(
-  opts: ConsoleOSOptions
+export async function loadOverview(
+  opts: ConsoleOSOptions &
+    Pick<
+      IOverviewProps,
+      | "useSelfDeps"
+      | "resolveAppDeps"
+      | "resolveAppServePath"
+      | "resolveDemoOpts"
+    >
 ): Promise<React.ComponentType<IOverviewProps>> {
-  return load({
-    ...opts,
+  const {
+    resolveAppDeps,
+    resolveAppServePath,
+    resolveDemoOpts
+  } = await wrapResolvers(opts);
+  const resolvedDeps = resolveAppDeps(opts.consoleOSId);
+  const actualDeps = {
+    ...resolvedDeps,
+    "@breezr-doc-internals/externaled-deps": resolvedDeps
+  };
+  const ActualOverview = await load({
+    servePath: opts.servePath,
+    consoleOSId: opts.consoleOSId,
+    deps: actualDeps,
     exportName: "Overview"
   })
     .then((m: any) => m())
     .then((m: any) => m.default);
+
+  // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
+  const Wrapped: React.ComponentType<IOverviewProps> = props => {
+    const mergedResolveAppDeps = React.useCallback(
+      consoleOSId => {
+        return {
+          ...resolveAppDeps(consoleOSId),
+          ...props.resolveAppDeps?.(consoleOSId)
+        };
+      },
+      [props.resolveAppDeps]
+    );
+
+    const mergedResolveAppServePath = React.useCallback(
+      consoleOSId => {
+        let res = props.resolveAppServePath?.(consoleOSId) ?? "";
+        if (!res) res = resolveAppServePath(consoleOSId);
+        return res;
+      },
+      [props.resolveAppDeps]
+    );
+
+    const mergedResolveDemoOpts = React.useCallback(
+      consoleOSId => {
+        return {
+          ...resolveDemoOpts?.(consoleOSId),
+          ...props.resolveDemoOpts?.(consoleOSId)
+        };
+      },
+      [props.resolveDemoOpts]
+    );
+
+    const demoOpts = React.useMemo(() => {
+      return mergedResolveDemoOpts(opts.consoleOSId);
+    }, [mergedResolveDemoOpts]);
+
+    return (
+      <ActualOverview
+        {...props}
+        resolveAppDeps={mergedResolveAppDeps}
+        resolveAppServePath={mergedResolveAppServePath}
+        resolveDemoOpts={mergedResolveDemoOpts}
+        demoOpts={demoOpts}
+      />
+    );
+  };
+
+  return Wrapped;
 }
 
-export function loadEntryLoader(
-  opts: ConsoleOSOptions
+export async function loadEntryLoader(
+  opts: ConsoleOSOptions &
+    Pick<
+      IEntryLoaderProps,
+      | "useSelfDeps"
+      | "resolveAppDeps"
+      | "resolveAppServePath"
+      | "resolveDemoOpts"
+    >
 ): Promise<React.ComponentType<IEntryLoaderProps>> {
-  return load({
-    ...opts,
+  const {
+    resolveAppDeps,
+    resolveAppServePath,
+    resolveDemoOpts
+  } = await wrapResolvers(opts);
+  const resolvedDeps = resolveAppDeps(opts.consoleOSId);
+  const actualDeps = {
+    ...resolvedDeps,
+    "@breezr-doc-internals/externaled-deps": resolvedDeps
+  };
+
+  const EntryLoader = await load({
+    servePath: opts.servePath,
+    consoleOSId: opts.consoleOSId,
+    deps: actualDeps,
     exportName: "Loader"
   });
+
+  // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
+  const Wrapped: React.ComponentType<IEntryLoaderProps> = props => {
+    const mergedResolveAppDeps = React.useCallback(
+      consoleOSId => {
+        return {
+          ...resolveAppDeps(consoleOSId),
+          ...props.resolveAppDeps?.(consoleOSId)
+        };
+      },
+      [props.resolveAppDeps]
+    );
+    const mergedResolveAppServePath = React.useCallback(
+      consoleOSId => {
+        let res = props.resolveAppServePath?.(consoleOSId) ?? "";
+        if (!res) res = resolveAppServePath(consoleOSId);
+        return res;
+      },
+      [props.resolveAppDeps]
+    );
+
+    const mergedResolveDemoOpts = React.useCallback(
+      consoleOSId => {
+        return {
+          ...resolveDemoOpts?.(consoleOSId),
+          ...props.resolveDemoOpts?.(consoleOSId)
+        };
+      },
+      [props.resolveDemoOpts]
+    );
+
+    const demoOpts = React.useMemo(() => {
+      return mergedResolveDemoOpts(opts.consoleOSId);
+    }, [mergedResolveDemoOpts]);
+
+    return (
+      <EntryLoader
+        {...props}
+        resolveAppDeps={mergedResolveAppDeps}
+        resolveAppServePath={mergedResolveAppServePath}
+        resolveDemoOpts={mergedResolveDemoOpts}
+        demoOpts={demoOpts}
+      />
+    );
+  };
+  return Wrapped;
 }
 
 export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
@@ -86,36 +221,16 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
   const [ActualEntryLoader] = useState(() => {
     // 本组件不会响应 servePath, consoleOSId, deps 的变化，只会使用第一次的值
     return React.lazy(async () => {
-      const { resolveAppDeps, resolveAppServePath } = await wrapResolvers({
-        servePath,
-        consoleOSId,
-        deps,
-        ...entryLoaderProps
-      });
-
-      const resolvedDeps = resolveAppDeps(consoleOSId);
-      const actualDeps = {
-        ...resolvedDeps,
-        "@breezr-doc-internals/externaled-deps": resolvedDeps
-      };
-
       const ActualEntryLoader = await loadEntryLoader({
         servePath,
         consoleOSId,
-        deps: actualDeps
+        deps,
+        resolveAppDeps: entryLoaderProps.resolveAppDeps,
+        resolveAppServePath: entryLoaderProps.resolveAppServePath,
+        useSelfDeps: entryLoaderProps.useSelfDeps
       });
-      // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
-      const Wrapped: React.ComponentType<IEntryLoaderProps> = entryLoaderProps => {
-        return (
-          <ActualEntryLoader
-            {...entryLoaderProps}
-            resolveAppDeps={resolveAppDeps}
-            resolveAppServePath={resolveAppServePath}
-          />
-        );
-      };
       return {
-        default: Wrapped
+        default: ActualEntryLoader
       };
     });
   });
@@ -133,36 +248,16 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
   const [ActualOverview] = useState(() => {
     // 本组件不会响应 servePath, consoleOSId, deps 的变化，只会使用第一次的值
     return React.lazy(async () => {
-      const { resolveAppDeps, resolveAppServePath } = await wrapResolvers({
-        servePath,
-        consoleOSId,
-        deps,
-        ...overviewProps
-      });
-
-      const resolvedDeps = resolveAppDeps(consoleOSId);
-      const actualDeps = {
-        ...resolvedDeps,
-        "@breezr-doc-internals/externaled-deps": resolvedDeps
-      };
-
       const ActualOverview = await loadOverview({
         servePath,
         consoleOSId,
-        deps: actualDeps
+        deps,
+        resolveAppDeps: overviewProps.resolveAppDeps,
+        resolveAppServePath: overviewProps.resolveAppServePath,
+        useSelfDeps: overviewProps.useSelfDeps
       });
-      // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
-      const Wrapped: React.ComponentType<IOverviewProps> = overviewProps => {
-        return (
-          <ActualOverview
-            {...overviewProps}
-            resolveAppDeps={resolveAppDeps}
-            resolveAppServePath={resolveAppServePath}
-          />
-        );
-      };
       return {
-        default: Wrapped
+        default: ActualOverview
       };
     });
   });
@@ -194,10 +289,11 @@ async function wrapResolvers({
   resolveAppServePath: _resolveAppServePath,
   consoleOSId,
   servePath,
-  deps
+  deps,
+  resolveDemoOpts
 }: Pick<
   IEntryLoaderProps,
-  "useSelfDeps" | "resolveAppDeps" | "resolveAppServePath"
+  "useSelfDeps" | "resolveAppDeps" | "resolveAppServePath" | "resolveDemoOpts"
 > &
   ConsoleOSOptions) {
   let loadedSelfDeps: any;
@@ -237,5 +333,41 @@ async function wrapResolvers({
     return res ?? "";
   };
 
-  return { resolveAppDeps, resolveAppServePath };
+  return { resolveAppDeps, resolveAppServePath, resolveDemoOpts };
+}
+
+// TODO: 这里的类型定义和 preset-multi-entry/src2/DemoContainer/index.tsx
+// 的重复了
+export interface IDemoOpts {
+  modifyDisplayCode?: (params: {
+    code: string;
+    meta: any;
+    imports: string[];
+  }) => string;
+  modifyCodeSandbox?: (params: {
+    code: string;
+    meta: any;
+    imports: string[];
+    files: ICodeSandboxFiles;
+  }) => ICodeSandboxFiles;
+  extraOperations?: (params: {
+    code: string;
+    meta: any;
+    imports: string[];
+  }) => IDemoOperation[];
+}
+export interface ICodeSandboxFiles {
+  [file: string]: string;
+}
+export interface IDemoOperation {
+  name: string;
+  icon: () => React.ReactNode;
+  View?: React.ComponentType<{
+    meta: any;
+    code: string;
+    setCode: any;
+    originalCode: string;
+    imports: string[];
+    opts: IDemoOpts;
+  }>;
 }

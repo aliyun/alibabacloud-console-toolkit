@@ -22,6 +22,7 @@ interface IProps {
   opts?: IDemoOpts;
   className?: string;
   style?: React.CSSProperties;
+  demoDeps: any;
 }
 
 export interface IOperation {
@@ -134,7 +135,8 @@ const DemoContainer: React.FC<IProps> = ({
   meta = {},
   opts = {},
   className,
-  style
+  style,
+  demoDeps
 }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -195,7 +197,8 @@ const DemoContainer: React.FC<IProps> = ({
   ]);
 
   const { value: evaledValue, transformedCode } = useEvalCode({
-    code: currentCode
+    code: currentCode,
+    deps: demoDeps,
   });
   const demoView = evaledValue.default ? (
     <WrapEvaledComponent retryKey={evaledValue.default}>

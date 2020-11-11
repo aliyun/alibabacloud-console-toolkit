@@ -9,9 +9,12 @@ import { ctx } from "../index";
 export default {
   a: props => {
     const { children, href } = props;
-    const { checkHeadings, resolveAppServePath, resolveAppDeps } = useContext(
-      ctx
-    );
+    const {
+      checkHeadings,
+      resolveAppServePath,
+      resolveAppDeps,
+      resolveDemoOpts
+    } = useContext(ctx);
     if (
       Array.isArray(children) &&
       children.length === 1 &&
@@ -22,7 +25,8 @@ export default {
         href,
         checkHeadings,
         resolveAppServePath,
-        resolveAppDeps
+        resolveAppDeps,
+        resolveDemoOpts
       );
     }
     return <a {...props} />;
@@ -33,7 +37,8 @@ function renderXView(
   href,
   checkHeadings,
   resolveAppServePath?: (consoleOSId: string) => string,
-  resolveAppDeps?: (consoleOSId: string) => any
+  resolveAppDeps?: (consoleOSId: string) => any,
+  resolveDemoOpts?: any
 ) {
   let { consoleOSId, servePath, entryKey } = getInfoFromURL(href);
 
@@ -45,11 +50,7 @@ function renderXView(
     if (!servePath)
       servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
   }
-
-  let deps;
-  if (typeof resolveAppDeps === "function") {
-    deps = resolveAppDeps(consoleOSId);
-  }
+  const demoOpts = resolveDemoOpts(consoleOSId);
 
   return (
     <div className="XView-root">
@@ -58,7 +59,6 @@ function renderXView(
           consoleOSId={consoleOSId}
           servePath={servePath}
           entryKey={entryKey}
-          deps={deps}
           onLoaded={() => {
             if (typeof checkHeadings === "function") {
               checkHeadings();
@@ -67,6 +67,8 @@ function renderXView(
           markdownOpts={{ embedded: true }}
           resolveAppServePath={resolveAppServePath}
           resolveAppDeps={resolveAppDeps}
+          demoOpts={demoOpts}
+          resolveDemoOpts={resolveDemoOpts}
         />
       </React.Suspense>
     </div>

@@ -1,13 +1,10 @@
 import React from "react";
-import Loader, { entries } from "../Loader";
+import Loader, { entries, ILoaderProps } from "../Loader";
 import styles from "./index.scoped.less";
 import DemoList from "./DemoList";
 
-interface IProps {
-  entryKey: string;
+interface IProps extends ILoaderProps {
   onEntryKeyChange?: (newkey: string) => void;
-  resolveAppServePath?: (consoleOSId: string) => string;
-  resolveAppDeps?: (consoleOSId: string) => any;
 }
 
 const entryKeys = entries.map(({ key }) => key);
@@ -16,7 +13,9 @@ const Overview: React.FC<IProps> = ({
   entryKey,
   onEntryKeyChange,
   resolveAppServePath,
-  resolveAppDeps
+  resolveAppDeps,
+  markdownOpts = { toc: true },
+  ...restLoaderProps
 }) => {
   return (
     <div className={styles.container}>
@@ -28,11 +27,10 @@ const Overview: React.FC<IProps> = ({
       <hr />
       <div className={styles.widgetCtn}>
         <Loader
+          {...restLoaderProps}
           key={entryKey}
           entryKey={entryKey}
-          markdownOpts={{ toc: true }}
-          resolveAppServePath={resolveAppServePath}
-          resolveAppDeps={resolveAppDeps}
+          markdownOpts={markdownOpts}
         />
       </div>
     </div>
