@@ -9,8 +9,8 @@
   },
   "dependencies": {
     "@alicloud/console-os-react-app": "^0.4.0-alpha.4",
-    "query-string": "^6.13.6",
-    "@alicloud/console-toolkit-docs-shared": "workspace:*"
+    "@alicloud/console-toolkit-docs-shared": "workspace:*",
+    "query-string": "^6.13.6"
   },
   "devDependencies": {
     "@alicloud/console-toolkit-cli": "^1.1.0",
