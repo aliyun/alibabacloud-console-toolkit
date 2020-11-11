@@ -4,7 +4,7 @@ import { render } from "react-dom";
 import {
   Overview,
   EntryLoader
-} from "@alicloud/console-toolkit-multi-entry-loader";
+} from "@alicloud/console-toolkit-docs-consumer";
 
 const params = new URLSearchParams(window.location.search);
 const urlEntryKey = params.get("entryKey");
@@ -18,7 +18,7 @@ function App() {
 
       <EntryLoader
         servePath="http://localhost:5000/"
-        consoleOSId="multi-entry-fixture"
+        consoleOSId="breezr-docs-fixture"
         entryKey={entryKey}
         markdownOpts={{ toc: true }}
         useSelfDeps
@@ -30,7 +30,7 @@ function App() {
 
       <Overview
         servePath="http://localhost:5000/"
-        consoleOSId="multi-entry-fixture"
+        consoleOSId="breezr-docs-fixture"
         entryKey={entryKey}
         onEntryKeyChange={newEntryKey => {
           setEntryKey(newEntryKey);

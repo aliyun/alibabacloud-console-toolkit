@@ -1,0 +1,15 @@
+{
+  "name": "@alicloud/console-toolkit-docs-shared",
+  "private": true,
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "scripts": {
+    "watch": "tsc -w",
+    "prepare": "tsc"
+  },
+  "devDependencies": {
+    "@types/react": "^16.9.56",
+    "typescript": "^4.0.5"
+  }
+}

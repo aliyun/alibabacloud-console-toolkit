@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import {
   EntryLoader,
   getInfoFromURL
-} from "@alicloud/console-toolkit-multi-entry-loader";
+} from "@alicloud/console-toolkit-docs-consumer";
 
 import { ctx } from "../index";
 
@@ -50,7 +50,6 @@ function renderXView(
     if (!servePath)
       servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
   }
-  const demoOpts = resolveDemoOpts(consoleOSId);
 
   return (
     <div className="XView-root">
@@ -67,7 +66,6 @@ function renderXView(
           markdownOpts={{ embedded: true }}
           resolveAppServePath={resolveAppServePath}
           resolveAppDeps={resolveAppDeps}
-          demoOpts={demoOpts}
           resolveDemoOpts={resolveDemoOpts}
         />
       </React.Suspense>

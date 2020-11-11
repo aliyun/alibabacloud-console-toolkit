@@ -26,10 +26,9 @@
     "access": "public"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-multi-entry-loader": "^2.0.0",
+    "@alicloud/console-toolkit-docs-consumer": "^1.0.0",
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
-    "buble-jsx-only": "^0.19.8",
     "classnames": "^2.2.6",
     "lodash.debounce": "^4.0.8",
     "lodash.isequal": "^4.5.0",

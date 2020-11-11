@@ -4,40 +4,18 @@ import * as React from "react";
 import * as ReactDOM from "react-dom";
 import qs from "query-string";
 
-export interface IDeps {
-  [depName: string]: any;
-}
+import type {
+  ILoadEntryLoaderOpts,
+  IEntryLoaderProps,
+  IConsoleOSOptions,
+  ILoadOverviewOpts,
+  IOverviewProps,
+} from "@alicloud/console-toolkit-docs-shared";
 
-export interface IOverviewProps
-  extends Pick<
-    IEntryLoaderProps,
-    Exclude<keyof IEntryLoaderProps, "entryKey">
-  > {
-  entryKey?: string;
-  onEntryKeyChange?: (newEnrtyKey: string) => void;
-}
+export type { IDemoOpts } from "@alicloud/console-toolkit-docs-shared";
 
-export interface IEntryLoaderProps {
-  entryKey: string;
-  onLoaded?: () => void;
-  markdownOpts?: {
-    toc?: boolean;
-    embedded?: boolean;
-  };
-  resolveAppServePath?: (consoleOSId: string) => string;
-  resolveAppDeps?: (consoleOSId: string) => any;
-  useSelfDeps?: boolean;
-  resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
-}
-
-export interface ConsoleOSOptions {
-  servePath: string;
-  consoleOSId: string;
-  deps?: IDeps;
-}
-
-export function load(
-  opts: ConsoleOSOptions & {
+function load(
+  opts: IConsoleOSOptions & {
     exportName: string;
   }
 ): Promise<any> {
@@ -48,60 +26,53 @@ export function load(
     deps: {
       "@alicloud/console-os-environment": {
         publicPath: servePath,
-        consoleOSId
+        consoleOSId,
       },
-      ...deps
-    }
+      ...deps,
+    },
   };
 
   return loadExposedModule(consoleOSAppInfo, exportName, {
-    sandBox: { disable: true }
+    sandBox: { disable: true },
   });
 }
 
 export async function loadOverview(
-  opts: ConsoleOSOptions &
-    Pick<
-      IOverviewProps,
-      | "useSelfDeps"
-      | "resolveAppDeps"
-      | "resolveAppServePath"
-      | "resolveDemoOpts"
-    >
+  opts: ILoadOverviewOpts
 ): Promise<React.ComponentType<IOverviewProps>> {
   const {
     resolveAppDeps,
     resolveAppServePath,
-    resolveDemoOpts
+    resolveDemoOpts,
   } = await wrapResolvers(opts);
   const resolvedDeps = resolveAppDeps(opts.consoleOSId);
   const actualDeps = {
     ...resolvedDeps,
-    "@breezr-doc-internals/externaled-deps": resolvedDeps
+    "@breezr-doc-internals/externaled-deps": resolvedDeps,
   };
   const ActualOverview = await load({
     servePath: opts.servePath,
     consoleOSId: opts.consoleOSId,
     deps: actualDeps,
-    exportName: "Overview"
+    exportName: "Overview",
   })
     .then((m: any) => m())
     .then((m: any) => m.default);
 
   // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
-  const Wrapped: React.ComponentType<IOverviewProps> = props => {
+  const Wrapped: React.ComponentType<IOverviewProps> = (props) => {
     const mergedResolveAppDeps = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         return {
           ...resolveAppDeps(consoleOSId),
-          ...props.resolveAppDeps?.(consoleOSId)
+          ...props.resolveAppDeps?.(consoleOSId),
         };
       },
       [props.resolveAppDeps]
     );
 
     const mergedResolveAppServePath = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         let res = props.resolveAppServePath?.(consoleOSId) ?? "";
         if (!res) res = resolveAppServePath(consoleOSId);
         return res;
@@ -110,10 +81,10 @@ export async function loadOverview(
     );
 
     const mergedResolveDemoOpts = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         return {
           ...resolveDemoOpts?.(consoleOSId),
-          ...props.resolveDemoOpts?.(consoleOSId)
+          ...props.resolveDemoOpts?.(consoleOSId),
         };
       },
       [props.resolveDemoOpts]
@@ -138,46 +109,39 @@ export async function loadOverview(
 }
 
 export async function loadEntryLoader(
-  opts: ConsoleOSOptions &
-    Pick<
-      IEntryLoaderProps,
-      | "useSelfDeps"
-      | "resolveAppDeps"
-      | "resolveAppServePath"
-      | "resolveDemoOpts"
-    >
+  opts: ILoadEntryLoaderOpts
 ): Promise<React.ComponentType<IEntryLoaderProps>> {
   const {
     resolveAppDeps,
     resolveAppServePath,
-    resolveDemoOpts
+    resolveDemoOpts,
   } = await wrapResolvers(opts);
   const resolvedDeps = resolveAppDeps(opts.consoleOSId);
   const actualDeps = {
     ...resolvedDeps,
-    "@breezr-doc-internals/externaled-deps": resolvedDeps
+    "@breezr-doc-internals/externaled-deps": resolvedDeps,
   };
 
   const EntryLoader = await load({
     servePath: opts.servePath,
     consoleOSId: opts.consoleOSId,
     deps: actualDeps,
-    exportName: "Loader"
+    exportName: "Loader",
   });
 
   // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
-  const Wrapped: React.ComponentType<IEntryLoaderProps> = props => {
+  const Wrapped: React.ComponentType<IEntryLoaderProps> = (props) => {
     const mergedResolveAppDeps = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         return {
           ...resolveAppDeps(consoleOSId),
-          ...props.resolveAppDeps?.(consoleOSId)
+          ...props.resolveAppDeps?.(consoleOSId),
         };
       },
       [props.resolveAppDeps]
     );
     const mergedResolveAppServePath = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         let res = props.resolveAppServePath?.(consoleOSId) ?? "";
         if (!res) res = resolveAppServePath(consoleOSId);
         return res;
@@ -186,10 +150,10 @@ export async function loadEntryLoader(
     );
 
     const mergedResolveDemoOpts = React.useCallback(
-      consoleOSId => {
+      (consoleOSId) => {
         return {
           ...resolveDemoOpts?.(consoleOSId),
-          ...props.resolveDemoOpts?.(consoleOSId)
+          ...props.resolveDemoOpts?.(consoleOSId),
         };
       },
       [props.resolveDemoOpts]
@@ -212,10 +176,16 @@ export async function loadEntryLoader(
   return Wrapped;
 }
 
-export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
+export const EntryLoader: React.FC<
+  ILoadEntryLoaderOpts & IEntryLoaderProps
+> = ({
   servePath,
   consoleOSId,
   deps,
+  resolveDemoOpts,
+  resolveAppServePath,
+  resolveAppDeps,
+  useSelfDeps,
   ...entryLoaderProps
 }) => {
   const [ActualEntryLoader] = useState(() => {
@@ -225,12 +195,13 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
         servePath,
         consoleOSId,
         deps,
-        resolveAppDeps: entryLoaderProps.resolveAppDeps,
-        resolveAppServePath: entryLoaderProps.resolveAppServePath,
-        useSelfDeps: entryLoaderProps.useSelfDeps
+        resolveDemoOpts,
+        resolveAppDeps,
+        resolveAppServePath,
+        useSelfDeps,
       });
       return {
-        default: ActualEntryLoader
+        default: ActualEntryLoader,
       };
     });
   });
@@ -239,10 +210,14 @@ export const EntryLoader: React.FC<ConsoleOSOptions & IEntryLoaderProps> = ({
   return <ActualEntryLoader {...entryLoaderProps} />;
 };
 
-export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
+export const Overview: React.FC<ILoadOverviewOpts & IOverviewProps> = ({
   servePath,
   consoleOSId,
   deps,
+  resolveDemoOpts,
+  resolveAppServePath,
+  resolveAppDeps,
+  useSelfDeps,
   ...overviewProps
 }) => {
   const [ActualOverview] = useState(() => {
@@ -252,12 +227,13 @@ export const Overview: React.FC<ConsoleOSOptions & IOverviewProps> = ({
         servePath,
         consoleOSId,
         deps,
-        resolveAppDeps: overviewProps.resolveAppDeps,
-        resolveAppServePath: overviewProps.resolveAppServePath,
-        useSelfDeps: overviewProps.useSelfDeps
+        resolveDemoOpts,
+        resolveAppDeps,
+        resolveAppServePath,
+        useSelfDeps,
       });
       return {
-        default: ActualOverview
+        default: ActualOverview,
       };
     });
   });
@@ -274,7 +250,7 @@ export function getInfoFromURL(url: string) {
   return {
     servePath,
     consoleOSId,
-    entryKey
+    entryKey,
   };
 }
 
@@ -290,42 +266,40 @@ async function wrapResolvers({
   consoleOSId,
   servePath,
   deps,
-  resolveDemoOpts
-}: Pick<
-  IEntryLoaderProps,
-  "useSelfDeps" | "resolveAppDeps" | "resolveAppServePath" | "resolveDemoOpts"
-> &
-  ConsoleOSOptions) {
+  resolveDemoOpts,
+}: ILoadEntryLoaderOpts | ILoadOverviewOpts) {
   let loadedSelfDeps: any;
   // 先加载微应用自己打包的依赖
   if (useSelfDeps) {
     loadedSelfDeps = await load({
       consoleOSId: consoleOSId + "-deps",
       servePath: ensureEndSlash(servePath) + "deps/",
-      exportName: "deps"
+      exportName: "deps",
     });
   }
   // 包装一下resolveAppDeps，使它能拿到loadedSelfDeps，以及deps
-  const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = appId => {
+  const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = (appId) => {
     if (appId === consoleOSId) {
       return {
         react: React,
         "react-dom": ReactDOM,
         ...loadedSelfDeps,
         ..._resolveAppDeps?.(consoleOSId),
-        ...deps
+        ...deps,
       };
     } else {
       return {
         react: React,
         "react-dom": ReactDOM,
         ..._resolveAppDeps?.(consoleOSId),
-        ...deps
+        ...deps,
       };
     }
   };
 
-  const resolveAppServePath: IEntryLoaderProps["resolveAppServePath"] = appId => {
+  const resolveAppServePath: IEntryLoaderProps["resolveAppServePath"] = (
+    appId
+  ) => {
     let res = _resolveAppServePath?.(appId);
     if (!res && appId === consoleOSId) {
       res = servePath;
@@ -334,40 +308,4 @@ async function wrapResolvers({
   };
 
   return { resolveAppDeps, resolveAppServePath, resolveDemoOpts };
-}
-
-// TODO: 这里的类型定义和 preset-multi-entry/src2/DemoContainer/index.tsx
-// 的重复了
-export interface IDemoOpts {
-  modifyDisplayCode?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-  }) => string;
-  modifyCodeSandbox?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-    files: ICodeSandboxFiles;
-  }) => ICodeSandboxFiles;
-  extraOperations?: (params: {
-    code: string;
-    meta: any;
-    imports: string[];
-  }) => IDemoOperation[];
-}
-export interface ICodeSandboxFiles {
-  [file: string]: string;
-}
-export interface IDemoOperation {
-  name: string;
-  icon: () => React.ReactNode;
-  View?: React.ComponentType<{
-    meta: any;
-    code: string;
-    setCode: any;
-    originalCode: string;
-    imports: string[];
-    opts: IDemoOpts;
-  }>;
 }
