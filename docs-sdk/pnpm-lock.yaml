@@ -51,8 +51,8 @@ importers:
       webpack-chain: 6.5.1
       webpack-virtual-modules: 0.3.2
     devDependencies:
-      '@alicloud/console-toolkit-cli': 1.1.8_@babel+core@7.12.3
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-cli': 1.1.8
+      '@alicloud/console-toolkit-core': 1.1.3
       '@types/node': 14.14.7
       '@types/react': 16.9.56
       '@types/styled-components': 5.1.4
@@ -111,10 +111,14 @@ importers:
       '@alicloud/console-toolkit-cli': 1.1.8
       '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-preset-docs': 'link:../../docs-provider'
+      react: 17.0.1
+      react-dom: 17.0.1_react@17.0.1
     specifiers:
       '@alicloud/console-toolkit-cli': ^1.1.0
       '@alicloud/console-toolkit-core': ^1.1.0
       '@alicloud/console-toolkit-preset-docs': 'workspace:*'
+      react: ^17.0.1
+      react-dom: ^17.0.1
   examples/markdown-renderer:
     dependencies:
       '@alicloud/console-toolkit-cli': 1.1.8
@@ -134,12 +138,12 @@ importers:
       semver: 7.3.2
     devDependencies:
       '@types/node': 14.14.7
-      css-loader: 5.0.1_webpack@5.4.0
-      mini-css-extract-plugin: 1.3.0_webpack@5.4.0
-      style-loader: 2.0.0_webpack@5.4.0
+      css-loader: 5.0.1_webpack@4.44.2
+      mini-css-extract-plugin: 1.3.0_webpack@4.44.2
+      style-loader: 2.0.0_webpack@4.44.2
       typescript: 4.0.5
-      webpack: 5.4.0_webpack-cli@4.2.0
-      webpack-cli: 4.2.0_webpack@5.4.0
+      webpack: 4.44.2_webpack-cli@4.2.0
+      webpack-cli: 4.2.0_webpack@4.44.2
     specifiers:
       '@types/node': ^14.14.7
       css-loader: ^5.0.0
@@ -150,7 +154,7 @@ importers:
       semver: ^7.3.2
       style-loader: ^2.0.0
       typescript: ^4.0.3
-      webpack: ^5.1.2
+      webpack: ^4.0.0
       webpack-cli: ^4.0.0
   markdown-renderer:
     dependencies:
@@ -175,7 +179,7 @@ importers:
       unified: 9.2.0
       unist-util-visit-parents: 3.1.1
     devDependencies:
-      '@alicloud/console-toolkit-cli': 1.1.8_@babel+core@7.12.3
+      '@alicloud/console-toolkit-cli': 1.1.8
       '@alicloud/console-toolkit-preset-official': 1.1.8_97c0c5a7ec46ab5389e2c5f5de9940f5
       '@babel/cli': 7.12.1_@babel+core@7.12.3
       '@babel/core': 7.12.3
@@ -289,25 +293,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-80Vyo7AzytDa/eThhga3CezBPgE6xHvwYS3vmCUk23LKabRhX7elCmt1AQxBvs45YyjzZHIYfcnw/lsml2cnOQ==
-  /@alicloud/console-toolkit-cli/1.1.8_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-block': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-builtin': 1.1.8_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-generator': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      chalk: 2.4.2
-      commander: 3.0.2
-      debug: 4.2.0
-      figlet: 1.5.0
-      inquirer: 7.3.3
-      update-notifier: 3.0.1
-    dev: true
-    hasBin: true
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-80Vyo7AzytDa/eThhga3CezBPgE6xHvwYS3vmCUk23LKabRhX7elCmt1AQxBvs45YyjzZHIYfcnw/lsml2cnOQ==
   /@alicloud/console-toolkit-core/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
@@ -338,14 +323,6 @@ packages:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
-    resolution:
-      integrity: sha512-68OCXZly622bUQ4UbpD94m5yTr5909x+nkmDjoBqY6FNgd/B6S+XYYMkjaYFLrwJHGdxWlm0TKVc+ug8wSesBg==
-  /@alicloud/console-toolkit-plugin-arms/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      lodash: 4.17.20
-    peerDependencies:
-      '@babel/core': '*'
     resolution:
       integrity: sha512-68OCXZly622bUQ4UbpD94m5yTr5909x+nkmDjoBqY6FNgd/B6S+XYYMkjaYFLrwJHGdxWlm0TKVc+ug8wSesBg==
   /@alicloud/console-toolkit-plugin-babel/1.1.3:
@@ -380,36 +357,10 @@ packages:
       yeoman-generator: 4.0.2
     resolution:
       integrity: sha512-8XYnHnRj9xh4bCtn5zZ4Rykg8LHxhBwSYRE5je2CinX1H2NU9x+G6FPkADGFP2DoxETgiIN6z1ESDPIEXCee0Q==
-  /@alicloud/console-toolkit-plugin-block/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      chalk: 2.4.2
-      execa: 2.1.0
-      lodash: 4.17.20
-      mkdirp: 0.5.5
-      ora: 3.4.0
-      package-json: 6.5.0
-      rimraf: 2.7.1
-      semver: 6.3.0
-      user-home: 2.0.0
-      yeoman-generator: 4.0.2
-    dev: true
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-8XYnHnRj9xh4bCtn5zZ4Rykg8LHxhBwSYRE5je2CinX1H2NU9x+G6FPkADGFP2DoxETgiIN6z1ESDPIEXCee0Q==
   /@alicloud/console-toolkit-plugin-browser-hint/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
-    resolution:
-      integrity: sha512-i4Ac3YvrrJffz1QvsBZoE7Qi50CG9/Bf8Dwn/YfS33NkXd47WxRvwmeEdWhmTxy5lxdnU9DwoUZ64zeSpiLaHQ==
-  /@alicloud/console-toolkit-plugin-browser-hint/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      lodash: 4.17.20
-    peerDependencies:
-      '@babel/core': '*'
     resolution:
       integrity: sha512-i4Ac3YvrrJffz1QvsBZoE7Qi50CG9/Bf8Dwn/YfS33NkXd47WxRvwmeEdWhmTxy5lxdnU9DwoUZ64zeSpiLaHQ==
   /@alicloud/console-toolkit-plugin-builtin/1.1.8:
@@ -422,32 +373,11 @@ packages:
       webpack-chain: 6.5.1
     resolution:
       integrity: sha512-Dz6G9i7xaiU0gESDt8RnI59KhMpMgp7Rqfzr9mjhV6K/3TsHt5jLteBQzLH2QQ9GHqf0KeJ220jXn+Dk19UfWg==
-  /@alicloud/console-toolkit-plugin-builtin/1.1.8_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-babel': 1.1.3
-      '@alicloud/console-toolkit-plugin-generator': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-webpack': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      webpack-chain: 6.5.1
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-Dz6G9i7xaiU0gESDt8RnI59KhMpMgp7Rqfzr9mjhV6K/3TsHt5jLteBQzLH2QQ9GHqf0KeJ220jXn+Dk19UfWg==
   /@alicloud/console-toolkit-plugin-cdn/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
-    resolution:
-      integrity: sha512-YKJL5z0Gpl0ymLOr2n5knXa+Ti1syvZ6JWLspbkEC8vBxWwlBv0KPXdPTp/ngzVABhs+tlxKBUYL2bv4bguX3w==
-  /@alicloud/console-toolkit-plugin-cdn/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      lodash: 4.17.20
-    peerDependencies:
-      '@babel/core': '*'
     resolution:
       integrity: sha512-YKJL5z0Gpl0ymLOr2n5knXa+Ti1syvZ6JWLspbkEC8vBxWwlBv0KPXdPTp/ngzVABhs+tlxKBUYL2bv4bguX3w==
   /@alicloud/console-toolkit-plugin-console-base/1.1.3:
@@ -456,30 +386,12 @@ packages:
       lodash: 4.17.20
     resolution:
       integrity: sha512-FtTG89/xSMx6Z/B0zb+rK0tnBFlNAnzvEeXh/g1hacaO4FkD8HeOvpkbA2ZDIW0RA4snPs7WLPdpvaOaikhd8Q==
-  /@alicloud/console-toolkit-plugin-console-base/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      lodash: 4.17.20
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-FtTG89/xSMx6Z/B0zb+rK0tnBFlNAnzvEeXh/g1hacaO4FkD8HeOvpkbA2ZDIW0RA4snPs7WLPdpvaOaikhd8Q==
   /@alicloud/console-toolkit-plugin-dll/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
       rimraf: 3.0.2
       serve-static: 1.14.1
-    resolution:
-      integrity: sha512-GAw/4xq7WXQh9lrJH723NlkjETjagPnRN00xzv+B2Ldqp59JNtvELlBuAu5VWHQD4HvbRg2qrXVrvF3oXIXePQ==
-  /@alicloud/console-toolkit-plugin-dll/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      lodash: 4.17.20
-      rimraf: 3.0.2
-      serve-static: 1.14.1
-    peerDependencies:
-      '@babel/core': '*'
     resolution:
       integrity: sha512-GAw/4xq7WXQh9lrJH723NlkjETjagPnRN00xzv+B2Ldqp59JNtvELlBuAu5VWHQD4HvbRg2qrXVrvF3oXIXePQ==
   /@alicloud/console-toolkit-plugin-generator/1.1.3:
@@ -498,24 +410,6 @@ packages:
       yeoman-environment: 2.10.3
     resolution:
       integrity: sha512-IpLiyUkNrPq/g44/Ypuxbl6wTMPjbz4TrsowUyadNPgFVUfZEB9wc3LAOfxHCQUlupBFLpbzoPq0dn8fvt8jPg==
-  /@alicloud/console-toolkit-plugin-generator/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      chalk: 2.4.2
-      execa: 2.1.0
-      lodash: 4.17.20
-      mkdirp: 0.5.5
-      ora: 3.4.0
-      package-json: 6.5.0
-      rimraf: 3.0.2
-      semver: 6.3.0
-      user-home: 2.0.0
-      yeoman-environment: 2.10.3
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-IpLiyUkNrPq/g44/Ypuxbl6wTMPjbz4TrsowUyadNPgFVUfZEB9wc3LAOfxHCQUlupBFLpbzoPq0dn8fvt8jPg==
   /@alicloud/console-toolkit-plugin-long-term-caching/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -526,7 +420,7 @@ packages:
       integrity: sha512-yr5EOo8Ttkeh/es3pQmAYHq4FrcHviDiLEe+o5og+GLCqemRx52jLM7tyfH0x5FNWW8JUkjKmCgIVXPricv/2A==
   /@alicloud/console-toolkit-plugin-long-term-caching/1.1.3_@babel+core@7.12.3:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
     peerDependencies:
       '@babel/core': '*'
@@ -544,19 +438,6 @@ packages:
       webpack-chain: 6.5.1
     resolution:
       integrity: sha512-SHfWw4WkjT6vle+xF91ZGcbFVehVnFRtte02/bL7cM30JNfKBJgaTnnpaAwCquFVsMkUrgmpR0Fd6XbLneycYg==
-  /@alicloud/console-toolkit-plugin-mocks/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      body-parser: 1.19.0
-      chalk: 2.4.2
-      string.prototype.padend: 3.1.0
-      webpack: 4.44.2
-      webpack-chain: 6.5.1
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-SHfWw4WkjT6vle+xF91ZGcbFVehVnFRtte02/bL7cM30JNfKBJgaTnnpaAwCquFVsMkUrgmpR0Fd6XbLneycYg==
   /@alicloud/console-toolkit-plugin-oneconsole/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -565,18 +446,6 @@ packages:
       request-promise-native: 1.0.9
       safe-require: 1.0.4
     peerDependencies:
-      html-webpack-plugin: ^3
-    resolution:
-      integrity: sha512-Otr9ruDWUKF7U7dZffLfCYC/68HDY/yFLzc5C+1mwzXvejlAIx1U6wbJn9WF1k5nuT2qU7VnA8yDXtgFOIy33Q==
-  /@alicloud/console-toolkit-plugin-oneconsole/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      lodash: 4.17.20
-      query-string: 6.13.7
-      request-promise-native: 1.0.9
-      safe-require: 1.0.4
-    peerDependencies:
-      '@babel/core': '*'
       html-webpack-plugin: ^3
     resolution:
       integrity: sha512-Otr9ruDWUKF7U7dZffLfCYC/68HDY/yFLzc5C+1mwzXvejlAIx1U6wbJn9WF1k5nuT2qU7VnA8yDXtgFOIy33Q==
@@ -598,7 +467,7 @@ packages:
       integrity: sha512-GsLcS2UKbQwXm2xkcgBjM8eFROsMyO8BXHuxpccbSfPRUpEEDd1PqV65hY9Gpaj0wGahBdKfcW/pqT7IJwJenQ==
   /@alicloud/console-toolkit-plugin-react/1.1.4:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
       '@babel/core': 7.12.3
       assert: 1.5.0
@@ -641,7 +510,7 @@ packages:
       integrity: sha512-RaFpMBgIHoD5W3LxzObFEMGB0n8bi+fwlcbfR423MYOSitV3QT1lsTa2e8O9Zizlat6Xdn+JAOeJnzgsNnfOdQ==
   /@alicloud/console-toolkit-plugin-react/1.1.4_@types+react@16.9.56:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
       '@babel/core': 7.12.3
       assert: 1.5.0
@@ -757,7 +626,7 @@ packages:
       integrity: sha512-diugrA5rCEfPncmk/KDngsWygZppF6SCDNm802MoRPHmvT0HvXu7JMtJGhJIeOFQ2m+n8y6bdgJvbImF36Xl+Q==
   /@alicloud/console-toolkit-plugin-unit-jest/1.1.3_@babel+core@7.12.3:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-core': 1.1.3
       '@babel/plugin-transform-modules-commonjs': 7.12.1_@babel+core@7.12.3
       babel-jest: 24.9.0_@babel+core@7.12.3
       enzyme: 3.11.0
@@ -782,18 +651,6 @@ packages:
       update-notifier: 3.0.1
     resolution:
       integrity: sha512-zHRcbcu7vVobnwQmHXspAxID4bTwToaupMAji/tAhC34XuSkklfCBN6+KavgHzA+haP55JMnPihPyNCIOAZ8zQ==
-  /@alicloud/console-toolkit-plugin-updator/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      execa: 2.1.0
-      inquirer: 7.3.3
-      rimraf: 3.0.2
-      update-notifier: 3.0.1
-    peerDependencies:
-      '@babel/core': '*'
-    resolution:
-      integrity: sha512-zHRcbcu7vVobnwQmHXspAxID4bTwToaupMAji/tAhC34XuSkklfCBN6+KavgHzA+haP55JMnPihPyNCIOAZ8zQ==
   /@alicloud/console-toolkit-plugin-webpack/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -808,25 +665,6 @@ packages:
       webpack-chain: 6.5.1
       webpack-dev-server: 3.11.0_webpack@4.44.2
       webpack-merge: 4.2.2
-    requiresBuild: true
-    resolution:
-      integrity: sha512-KDhe520L6gPIdyaiekWAceIwux1Lz+Sh3UuOjm8/+K/q/gxT+ZPTiDZO28WAueoJGGxlsAJBa9msx1hk/Ry2xQ==
-  /@alicloud/console-toolkit-plugin-webpack/1.1.3_@babel+core@7.12.3:
-    dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
-      assert: 2.0.0
-      chalk: 2.4.2
-      debug: 4.2.0
-      fs-extra: 8.1.0
-      lodash: 4.17.20
-      string.prototype.padend: 3.1.0
-      webpack: 4.44.2
-      webpack-chain: 6.5.1
-      webpack-dev-server: 3.11.0_webpack@4.44.2
-      webpack-merge: 4.2.2
-    peerDependencies:
-      '@babel/core': '*'
     requiresBuild: true
     resolution:
       integrity: sha512-KDhe520L6gPIdyaiekWAceIwux1Lz+Sh3UuOjm8/+K/q/gxT+ZPTiDZO28WAueoJGGxlsAJBa9msx1hk/Ry2xQ==
@@ -853,21 +691,21 @@ packages:
       integrity: sha512-54H88HGzyeApKaS+xgsFr8Y/miqypymldgClpUsrvD/PerYU6XUqw1T0h4UMTv9EhjtU5u8GA72pwJUadIusVg==
   /@alicloud/console-toolkit-preset-official/1.1.8_97c0c5a7ec46ab5389e2c5f5de9940f5:
     dependencies:
-      '@alicloud/console-toolkit-plugin-arms': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-browser-hint': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-builtin': 1.1.8_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-cdn': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-console-base': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-dll': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-plugin-arms': 1.1.3
+      '@alicloud/console-toolkit-plugin-browser-hint': 1.1.3
+      '@alicloud/console-toolkit-plugin-builtin': 1.1.8
+      '@alicloud/console-toolkit-plugin-cdn': 1.1.3
+      '@alicloud/console-toolkit-plugin-console-base': 1.1.3
+      '@alicloud/console-toolkit-plugin-dll': 1.1.3
       '@alicloud/console-toolkit-plugin-long-term-caching': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-mocks': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-oneconsole': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-plugin-mocks': 1.1.3
+      '@alicloud/console-toolkit-plugin-oneconsole': 1.1.3
       '@alicloud/console-toolkit-plugin-react': 1.1.4_@types+react@16.9.56
       '@alicloud/console-toolkit-plugin-styled-components-isolation': 1.1.3_@babel+core@7.12.3
       '@alicloud/console-toolkit-plugin-typescript': 1.1.3_@babel+core@7.12.3
       '@alicloud/console-toolkit-plugin-unit-jest': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-updator': 1.1.3_@babel+core@7.12.3
-      '@alicloud/console-toolkit-plugin-webpack': 1.1.3_@babel+core@7.12.3
+      '@alicloud/console-toolkit-plugin-updator': 1.1.3
+      '@alicloud/console-toolkit-plugin-webpack': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.3
     peerDependencies:
       '@babel/core': '*'
@@ -3322,7 +3160,7 @@ packages:
       integrity: sha512-Pzh9O3sTK8V6I1olsXpCfj2k/ygO2q1X0vhhnDrEQyYLHZesWz+zMZMVcwXLCYf0U36EtmyYaFGPfXlTtDHe3A==
   /@types/cheerio/0.22.21:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-aGI3DfswwqgKPiEOTaiHV2ZPC9KEhprpgEbJnv0fZl3SGX0cGgEva1126dGrMC6AJM6v/aihlUgJn9M5DbDZ/Q==
   /@types/cheerio/0.22.22:
@@ -3345,30 +3183,12 @@ packages:
       integrity: sha512-oeUWVaAwI+xINDUx+3F2vJkl/vVB03VChFF/Gl3iQCdbcakjuoJyMOba+3BXRtnBhxZ7uBYqQBi9EpLnvSoztA==
   /@types/cross-spawn/6.0.2:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-KuwNhp3eza+Rhu8IFI5HUXRP0LIhqH5cAjubUvGXXthh4YYBuP2ntwEX+Cz8GJoZUHlKo247wPWOfA9LYEq4cw==
   /@types/debug/4.1.5:
     resolution:
       integrity: sha512-Q1y515GcOdTHgagaVFhHnIFQ38ygs/kmxdNpvpou+raI9UO3YZcHDngBSYKQklcKlvA7iuQlmIKbzvmxcOE9CQ==
-  /@types/eslint-scope/3.7.0:
-    dependencies:
-      '@types/eslint': 7.2.4
-      '@types/estree': 0.0.45
-    dev: true
-    resolution:
-      integrity: sha512-O/ql2+rrCUe2W2rs7wMR+GqPRcgB6UiqN5RhrR5xruFlY7l9YLMn0ZkDzjoHLeiFkR8MCQZVudUuuvQ2BLC9Qw==
-  /@types/eslint/7.2.4:
-    dependencies:
-      '@types/estree': 0.0.45
-      '@types/json-schema': 7.0.6
-    dev: true
-    resolution:
-      integrity: sha512-YCY4kzHMsHoyKspQH+nwSe+70Kep7Vjt2X+dZe5Vs2vkRudqtoFoUIv1RlJmZB8Hbp7McneupoZij4PadxsK5Q==
-  /@types/estree/0.0.45:
-    dev: true
-    resolution:
-      integrity: sha512-jnqIUKDUqJbDIUxm0Uj7bnlMnRm1T/eZ9N+AVMqhPgzrba2GhGG5o/jCTwmdPK709nEZsGoMzXEDUjcXHa3W0g==
   /@types/glob/7.1.3:
     dependencies:
       '@types/minimatch': 3.0.3
@@ -3377,7 +3197,7 @@ packages:
       integrity: sha512-SEYeGAIQIQX8NN6LDKprLjbrd5dARM5EXsd8GI/A5l0apYI1fGMWgPHSe4ZKL4eozlAyI+doUE9XbYS4xCkQ1w==
   /@types/got/9.6.11:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
       '@types/tough-cookie': 4.0.0
       form-data: 2.5.1
     resolution:
@@ -3397,7 +3217,7 @@ packages:
       integrity: sha512-iMIqiko6ooLrTh1joXodJK5X9xeEALT1kM5G3ZLhD3hszxBdIEd5C75U834D9mLcINgD4OyZf5uQXjkuYydWvA==
   /@types/http-proxy/1.17.4:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     dev: false
     resolution:
       integrity: sha512-IrSHl2u6AWXduUaDLqYpt45tLVCtYv7o4Z0s1KghBCDgIIS9oW5K1H8mZG/A2CfeLdEa7rTd1ACOiHBc1EMT2Q==
@@ -3436,13 +3256,14 @@ packages:
       integrity: sha512-tHq6qdbT9U1IRSGf14CL0pUlULksvY9OZ+5eEgl1N7t+OA3tGvNpxJCzuKQlsNgCVwbAs670L1vcVQi8j9HjnA==
   /@types/mkdirp/1.0.1:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-HkGSK7CGAXncr8Qn/0VqNtExEE+PHMWb+qlR1faHMao7ng6P3tAaoWWBMdva0gL5h4zprjIO89GJOLXsMcDm1Q==
   /@types/mustache/4.0.1:
     resolution:
       integrity: sha512-wH6Tu9mbiOt0n5EvdoWy0VGQaJMHfLIxY/6wS0xLC7CV1taM6gESEzcYy0ZlWvxxiiljYvfDIvz4hHbUUDRlhw==
   /@types/node/12.19.4:
+    dev: false
     resolution:
       integrity: sha512-o3oj1bETk8kBwzz1WlO6JWL/AfAA3Vm6J1B3C9CsdxHYp7XgPiH7OEXPUbZTndHlRaIElrANkQfe6ZmfJb3H2w==
   /@types/node/14.14.7:
@@ -3483,13 +3304,13 @@ packages:
       integrity: sha512-gIkl4J44G/qxbuC6r2Xh+D3CGZpJ+NdWTItAPmZbR5mUS+JQ8Zvzpl0ea5qT/ZT3ZNTUcDKUVqV3xBE8wv/DyQ==
   /@types/resolve/1.17.1:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-yy7HuzQhj0dhGpD8RLXSZWEkLsV9ibvxvi6EiJ3bkqLAO1RGo0WbkWQiwpRlSFymTJRz0d3k5LM3kkx8ArDbLw==
   /@types/rimraf/3.0.0:
     dependencies:
       '@types/glob': 7.1.3
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-7WhJ0MdpFgYQPXlF4Dx+DhgvlPCfz/x5mHaeDQAKhcenvQP1KCpLQ18JklAqeGMYSAT2PxLpzd0g2/HE7fj7hQ==
   /@types/semver/7.3.3:
@@ -3497,7 +3318,7 @@ packages:
       integrity: sha512-jQxClWFzv9IXdLdhSaTf16XI3NYe6zrEbckSpb5xhKfPbWgIyAY0AFyWWWfaiDcBuj3UHmMkCIwSRqpKMTZL2Q==
   /@types/signale/1.4.1:
     dependencies:
-      '@types/node': 12.19.4
+      '@types/node': 14.14.7
     resolution:
       integrity: sha512-05d9fUDqRnt36rizLgo38SbPTrkMzdhXpvSHSAhxzokgIUPGNUoXHV0zYjPpTd4IryDADJ0mGHpfJ/Yhjyh9JQ==
   /@types/stack-utils/1.0.1:
@@ -3844,7 +3665,7 @@ packages:
   /@webpack-cli/info/1.1.0_webpack-cli@4.2.0:
     dependencies:
       envinfo: 7.7.3
-      webpack-cli: 4.2.0_webpack@5.4.0
+      webpack-cli: 4.2.0_webpack@4.44.2
     dev: true
     peerDependencies:
       webpack-cli: 4.x.x
@@ -3852,7 +3673,7 @@ packages:
       integrity: sha512-uNWSdaYHc+f3LdIZNwhdhkjjLDDl3jP2+XBqAq9H8DjrJUvlOKdP8TNruy1yEaDfgpAIgbSAN7pye4FEHg9tYQ==
   /@webpack-cli/serve/1.1.0_webpack-cli@4.2.0:
     dependencies:
-      webpack-cli: 4.2.0_webpack@5.4.0
+      webpack-cli: 4.2.0_webpack@4.44.2
     dev: true
     peerDependencies:
       webpack-cli: 4.x.x
@@ -3920,13 +3741,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-nQyp0o1/mNdbTO1PO6kHkwSrmgZ0MT/jCCpNiwbUjGoRN4dlBhqJtoQuCnEOKzgTVwg0ZWiCoQy6SxMebQVh8A==
-  /acorn/8.0.4:
-    dev: true
-    engines:
-      node: '>=0.4.0'
-    hasBin: true
-    resolution:
-      integrity: sha512-XNP0PqF1XD19ZlLKvB7cMmnZswW4C/03pRHgirB30uSJTaS3A3V1/P4sS3HPvFmjoriPCJQs+JDSbm4bL1TxGQ==
   /address/1.1.2:
     engines:
       node: '>= 0.12.0'
@@ -5742,7 +5556,7 @@ packages:
       webpack: ^4.0.0
     resolution:
       integrity: sha512-OcKJU/lt232vl1P9EEDamhoO9iKY3tIjY5GU+XDLblAykTdgs6Ux9P1hTHve8nFKy5KPpOXOsVI/hIwi3841+w==
-  /css-loader/5.0.1_webpack@5.4.0:
+  /css-loader/5.0.1_webpack@4.44.2:
     dependencies:
       camelcase: 6.2.0
       cssesc: 3.0.0
@@ -5756,7 +5570,7 @@ packages:
       postcss-value-parser: 4.1.0
       schema-utils: 3.0.0
       semver: 7.3.2
-      webpack: 5.4.0_webpack-cli@4.2.0
+      webpack: 4.44.2_webpack-cli@4.2.0
     dev: true
     engines:
       node: '>= 10.13.0'
@@ -6451,15 +6265,6 @@ packages:
       node: '>=6.9.0'
     resolution:
       integrity: sha512-3e87LvavsdxyoCfGusJnrZ5G8SLPOFeHSNpZI/ATL9a5leXo2k0w6MKnbqhdBad9qTobSfB20Ld7UmgoNbAZkQ==
-  /enhanced-resolve/5.3.1:
-    dependencies:
-      graceful-fs: 4.2.4
-      tapable: 2.1.1
-    dev: true
-    engines:
-      node: '>=10.13.0'
-    resolution:
-      integrity: sha512-G1XD3MRGrGfNcf6Hg0LVZG7GIKcYkbfHa5QMxt1HDUTdYoXH0JR1xXyg+MaKLF73E9A27uWNVxvFivNRYeUB6w==
   /enquirer/2.3.6:
     dependencies:
       ansi-colors: 4.1.1
@@ -6712,15 +6517,6 @@ packages:
       node: '>=4.0.0'
     resolution:
       integrity: sha512-p7VutNr1O/QrxysMo3E45FjYDTeXBy0iTltPFNSqKAIfjDSXC+4dj+qfyuD8bfAXrW/y6lW3O76VaYNPKfpKrg==
-  /eslint-scope/5.1.1:
-    dependencies:
-      esrecurse: 4.3.0
-      estraverse: 4.3.0
-    dev: true
-    engines:
-      node: '>=8.0.0'
-    resolution:
-      integrity: sha512-2NxwbF/hZ0KpepYN0cNbo+FN6XoK7GaHlQhgx/hIZl6Va0bF45RQOOwhLIy8lQDbuCiadSLCBnH2CFYquit5bw==
   /esprima/3.1.3:
     dev: false
     engines:
@@ -7478,10 +7274,6 @@ packages:
   /glob-to-regexp/0.3.0:
     resolution:
       integrity: sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs=
-  /glob-to-regexp/0.4.1:
-    dev: true
-    resolution:
-      integrity: sha512-lkX1HJXwyMcprw/5YUZc2s7DrpAiHB21/V+E1rHUrVNokkvB6bqMzT0VfV6/86ZNabt1k14YOIaT7nDvOX3Iiw==
   /glob/7.1.6:
     dependencies:
       fs.realpath: 1.0.0
@@ -8047,7 +7839,7 @@ packages:
   /https-proxy-agent/3.0.1:
     dependencies:
       agent-base: 4.3.0
-      debug: 3.1.0
+      debug: 3.2.6
     dev: false
     engines:
       node: '>= 4.5.0'
@@ -9191,16 +8983,6 @@ packages:
       node: '>= 6'
     resolution:
       integrity: sha512-51PE4haMSXcHohnSMdM42anbvZANYTqMrr52tVKPqqsPJMzoP6FYYDVqahX/HrAoKEKz3uUPzSvKs9A3qR4iVw==
-  /jest-worker/26.6.2:
-    dependencies:
-      '@types/node': 14.14.7
-      merge-stream: 2.0.0
-      supports-color: 7.2.0
-    dev: true
-    engines:
-      node: '>= 10.13.0'
-    resolution:
-      integrity: sha512-KWYVV1c4i+jbMpaBC+U++4Va0cp8OisU185o73T1vo99hqi7w8tSJfUXYswwqqrjzwxa6KpRK54WhPvwf5w6PQ==
   /js-base64/2.6.4:
     resolution:
       integrity: sha512-pZe//GGmwJndub7ZghVHz7vjb2LgC1m8B07Au3eYqeqv9emhESByMXxaEgkUkEqJe87oBbSniGYoQNIBklc7IQ==
@@ -9506,12 +9288,6 @@ packages:
       node: '>=4.3.0 <5.0.0 || >=5.10'
     resolution:
       integrity: sha512-Jsmr89RcXGIwivFY21FcRrisYZfvLMTWx5kOLc+JTxtpBOG6xML0vzbc6SEQG2FO9/4Fc3wW4LVcB5DmGflaRw==
-  /loader-runner/4.1.0:
-    dev: true
-    engines:
-      node: '>=6.11.5'
-    resolution:
-      integrity: sha512-oR4lB4WvwFoC70ocraKhn5nkKSs23t57h9udUgw8o0iH8hMXeEoRuUgfcvgUwAJ1ZpRqBvcou4N2SMvM1DwMrA==
   /loader-utils/0.2.17:
     dependencies:
       big.js: 3.2.0
@@ -10132,11 +9908,11 @@ packages:
       webpack: ^4.4.0
     resolution:
       integrity: sha512-a3Y4of27Wz+mqK3qrcd3VhYz6cU0iW5x3Sgvqzbj+XmlrSizmvu8QQMl5oMYJjgHOC4iyt+w7l4umP+dQeW3bw==
-  /mini-css-extract-plugin/1.3.0_webpack@5.4.0:
+  /mini-css-extract-plugin/1.3.0_webpack@4.44.2:
     dependencies:
       loader-utils: 2.0.0
       schema-utils: 3.0.0
-      webpack: 5.4.0_webpack-cli@4.2.0
+      webpack: 4.44.2_webpack-cli@4.2.0
       webpack-sources: 1.4.3
     dev: true
     engines:
@@ -10772,14 +10548,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-//88mFWSJx8lxCzwdAABTJL2MyWB12+eIY7MDL2SqLmAkeKU9qxRvWuSyTjm3FUmpBEMuFfckAIqEaVGUDxb6w==
-  /p-limit/3.0.2:
-    dependencies:
-      p-try: 2.2.0
-    dev: true
-    engines:
-      node: '>=10'
-    resolution:
-      integrity: sha512-iwqZSOoWIW+Ew4kAGUlN16J4M7OB3ysMLSZtnhmqx7njIHFPlxWBX8xo3lVTyFVq6mI/lL9qt2IsN1sHwaxJkg==
   /p-locate/2.0.0:
     dependencies:
       p-limit: 1.3.0
@@ -11955,6 +11723,17 @@ packages:
       node: '>=8.10'
     resolution:
       integrity: sha512-X2KYF/lIGyGwP/F/oXgGDF24nxDA2KC4b7AFto+eqzc/t838gpSGiaU8trTqHXOohuLxxc5qi1eDzsl9ucPDpg==
+  /react-dom/17.0.1_react@17.0.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+      react: 17.0.1
+      scheduler: 0.20.1
+    dev: false
+    peerDependencies:
+      react: 17.0.1
+    resolution:
+      integrity: sha512-6eV150oJZ9U2t9svnsspTMrWNyHc6chX0KzDeAOXftRa8bNeOKTTfCJ7KorIwenkHd2xqVTBTCZd79yk/lx/Ug==
   /react-error-boundary/3.0.2:
     dependencies:
       '@babel/runtime': 7.12.5
@@ -12041,6 +11820,15 @@ packages:
       react: ^16.14.0
     resolution:
       integrity: sha512-L8yPjqPE5CZO6rKsKXRO/rVPiaCOy0tQQJbC+UjPNlobl5mad59lvPjwFsQHTvL03caVDIVr9x9/OSgDe6I5Eg==
+  /react/17.0.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+    engines:
+      node: '>=0.10.0'
+    resolution:
+      integrity: sha512-lG9c9UuMHdcAexXtigOZLX8exLWkW0Ku29qPRU8uhF2R9BN96dLCt0psvzPLlHc5OWkgymP3qwTRgbnw5BKx3w==
   /read-chunk/3.2.0:
     dependencies:
       pify: 4.0.1
@@ -12676,6 +12464,13 @@ packages:
       object-assign: 4.1.1
     resolution:
       integrity: sha512-n/zwRWRYSUj0/3g/otKDRPMh6qv2SYMWNq85IEa8iZyAv8od9zDYpGSnpBEjNgcMNq6Scbu5KfIPxNF72R/2EA==
+  /scheduler/0.20.1:
+    dependencies:
+      loose-envify: 1.4.0
+      object-assign: 4.1.1
+    dev: false
+    resolution:
+      integrity: sha512-LKTe+2xNJBNxu/QhHvDR14wUXHRQbVY5ZOYpOGWRzhydZUqrLb2JBvLPY7cAqFmqrWuDED0Mjk7013SZiOz6Bw==
   /schema-utils/1.0.0:
     dependencies:
       ajv: 6.12.6
@@ -12793,12 +12588,6 @@ packages:
       randombytes: 2.1.0
     resolution:
       integrity: sha512-GaNA54380uFefWghODBWEGisLZFj00nS5ACs6yHa9nLqlLpVLO8ChDGeKRjZnV4Nh4n0Qi7nhYZD/9fCPzEqkw==
-  /serialize-javascript/5.0.1:
-    dependencies:
-      randombytes: 2.1.0
-    dev: true
-    resolution:
-      integrity: sha512-SaaNal9imEO737H2c05Og0/8LUXG7EnsZyMa8MzkmuHoELfT6txuj0cMqRj6zfPKnmQ1yasR4PCJc8x+M4JSPA==
   /serve-index/1.9.1:
     dependencies:
       accepts: 1.3.7
@@ -13428,11 +13217,11 @@ packages:
       node: '>= 0.12.0'
     resolution:
       integrity: sha512-XK+uv9kWwhZMZ1y7mysB+zoihsEj4wneFWAS5qoiLwzW0WzSqMrrsIy+a3zkQJq0ipFtBpX5W3MqyRIBF/WFGg==
-  /style-loader/2.0.0_webpack@5.4.0:
+  /style-loader/2.0.0_webpack@4.44.2:
     dependencies:
       loader-utils: 2.0.0
       schema-utils: 3.0.0
-      webpack: 5.4.0_webpack-cli@4.2.0
+      webpack: 4.44.2_webpack-cli@4.2.0
     dev: true
     engines:
       node: '>= 10.13.0'
@@ -13551,12 +13340,6 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-4WK/bYZmj8xLr+HUCODHGF1ZFzsYffasLUgEiMBY4fgtltdO6B4WJtlSbPaDTLpYTcGVwM2qLnFTICEcNxs3kA==
-  /tapable/2.1.1:
-    dev: true
-    engines:
-      node: '>=6'
-    resolution:
-      integrity: sha512-Wib1S8m2wdpLbmQz0RBEVosIyvb/ykfKXf3ZIDqvWoMg/zTNm6G/tDSuUM61J1kNCDXWJrLHGSFeMhAG+gAGpQ==
   /term-size/1.2.0:
     dependencies:
       execa: 0.7.0
@@ -13590,7 +13373,7 @@ packages:
       serialize-javascript: 4.0.0
       source-map: 0.6.1
       terser: 4.8.0
-      webpack: 4.44.2
+      webpack: 4.44.2_webpack-cli@4.2.0
       webpack-sources: 1.4.3
       worker-farm: 1.7.0
     engines:
@@ -13599,22 +13382,6 @@ packages:
       webpack: ^4.0.0
     resolution:
       integrity: sha512-04Rfe496lN8EYruwi6oPQkG0vo8C+HT49X687FZnpPF0qMAIHONI6HEXYPKDOE8e5HjXTyKfqRd/agHtH0kOtw==
-  /terser-webpack-plugin/5.0.3_webpack@5.4.0:
-    dependencies:
-      jest-worker: 26.6.2
-      p-limit: 3.0.2
-      schema-utils: 3.0.0
-      serialize-javascript: 5.0.1
-      source-map: 0.6.1
-      terser: 5.3.8
-      webpack: 5.4.0_webpack-cli@4.2.0
-    dev: true
-    engines:
-      node: '>= 10.13.0'
-    peerDependencies:
-      webpack: ^5.1.0
-    resolution:
-      integrity: sha512-zFdGk8Lh9ZJGPxxPE6jwysOlATWB8GMW8HcfGULWA/nPal+3VdATflQvSBSLQJRCmYZnfFJl6vkRTiwJGNgPiQ==
   /terser/4.8.0:
     dependencies:
       commander: 2.20.3
@@ -13625,17 +13392,6 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-EAPipTNeWsb/3wLPeup1tVPaXfIaU68xMnVdPafIL1TV05OhASArYyIfFvnvJCNrR2NIOvDVNNTFRa+Re2MWyw==
-  /terser/5.3.8:
-    dependencies:
-      commander: 2.20.3
-      source-map: 0.7.3
-      source-map-support: 0.5.19
-    dev: true
-    engines:
-      node: '>=10'
-    hasBin: true
-    resolution:
-      integrity: sha512-zVotuHoIfnYjtlurOouTazciEfL7V38QMAOhGqpXDEg6yT13cF4+fEP9b0rrCEQTn+tT46uxgFsTZzhygk+CzQ==
   /test-exclude/5.2.3:
     dependencies:
       glob: 7.1.6
@@ -14418,15 +14174,6 @@ packages:
       watchpack-chokidar2: 2.0.1
     resolution:
       integrity: sha512-9P3MWk6SrKjHsGkLT2KHXdQ/9SNkyoJbabxnKOoJepsvJjJG8uYTR3yTPxPQvNDI3w4Nz1xnE0TLHK4RIVe/MQ==
-  /watchpack/2.0.1:
-    dependencies:
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.4
-    dev: true
-    engines:
-      node: '>=10.13.0'
-    resolution:
-      integrity: sha512-vO8AKGX22ZRo6PiOFM9dC0re8IcKh8Kd/aH2zeqUc6w4/jBGlTy2P7fTC6ekT0NjVeGjgU2dGC5rNstKkeLEQg==
   /wbuf/1.7.3:
     dependencies:
       minimalistic-assert: 1.0.1
@@ -14488,7 +14235,7 @@ packages:
       node: '>=8'
     resolution:
       integrity: sha512-7doO/SRtLu8q5WM0s7vPKPWX580qhi0/yBHkOxNkv50f6qB76Zy9o2wRTrrPULqYTvQlVHuvbA8v+G5ayuUDsA==
-  /webpack-cli/4.2.0_webpack@5.4.0:
+  /webpack-cli/4.2.0_webpack@4.44.2:
     dependencies:
       '@webpack-cli/info': 1.1.0_webpack-cli@4.2.0
       '@webpack-cli/serve': 1.1.0_webpack-cli@4.2.0
@@ -14502,7 +14249,7 @@ packages:
       leven: 3.1.0
       rechoir: 0.7.0
       v8-compile-cache: 2.2.0
-      webpack: 5.4.0_webpack-cli@4.2.0
+      webpack: 4.44.2_webpack-cli@4.2.0
       webpack-merge: 4.2.2
     dev: true
     engines:
@@ -14627,15 +14374,6 @@ packages:
       source-map: 0.6.1
     resolution:
       integrity: sha512-lgTS3Xhv1lCOKo7SA5TjKXMjpSM4sBjNV5+q2bqesbSPs5FjGmU6jjtBSkX9b4qW87vDIsCIlUPOEhbZrMdjeQ==
-  /webpack-sources/2.2.0:
-    dependencies:
-      source-list-map: 2.0.1
-      source-map: 0.6.1
-    dev: true
-    engines:
-      node: '>=10.13.0'
-    resolution:
-      integrity: sha512-bQsA24JLwcnWGArOKUxYKhX3Mz/nK1Xf6hxullKERyktjNMC4x8koOeaDNTA2fEJ09BdWLbM/iTW0ithREUP0w==
   /webpack-virtual-modules/0.3.2:
     dependencies:
       debug: 3.2.6
@@ -14680,44 +14418,46 @@ packages:
         optional: true
     resolution:
       integrity: sha512-6KJVGlCxYdISyurpQ0IPTklv+DULv05rs2hseIXer6D7KrUicRDLFb4IUM1S6LUAKypPM/nSiVSuv8jHu1m3/Q==
-  /webpack/5.4.0_webpack-cli@4.2.0:
+  /webpack/4.44.2_webpack-cli@4.2.0:
     dependencies:
-      '@types/eslint-scope': 3.7.0
-      '@types/estree': 0.0.45
       '@webassemblyjs/ast': 1.9.0
       '@webassemblyjs/helper-module-context': 1.9.0
       '@webassemblyjs/wasm-edit': 1.9.0
       '@webassemblyjs/wasm-parser': 1.9.0
-      acorn: 8.0.4
-      browserslist: 4.14.7
+      acorn: 6.4.2
+      ajv: 6.12.6
+      ajv-keywords: 3.5.2_ajv@6.12.6
       chrome-trace-event: 1.0.2
-      enhanced-resolve: 5.3.1
-      eslint-scope: 5.1.1
-      events: 3.2.0
-      glob-to-regexp: 0.4.1
-      graceful-fs: 4.2.4
+      enhanced-resolve: 4.3.0
+      eslint-scope: 4.0.3
       json-parse-better-errors: 1.0.2
-      loader-runner: 4.1.0
-      mime-types: 2.1.27
+      loader-runner: 2.4.0
+      loader-utils: 1.4.0
+      memory-fs: 0.4.1
+      micromatch: 3.1.10
+      mkdirp: 0.5.5
       neo-async: 2.6.2
-      pkg-dir: 4.2.0
-      schema-utils: 3.0.0
-      tapable: 2.1.1
-      terser-webpack-plugin: 5.0.3_webpack@5.4.0
-      watchpack: 2.0.1
-      webpack-cli: 4.2.0_webpack@5.4.0
-      webpack-sources: 2.2.0
+      node-libs-browser: 2.2.1
+      schema-utils: 1.0.0
+      tapable: 1.1.3
+      terser-webpack-plugin: 1.4.5_webpack@4.44.2
+      watchpack: 1.7.5
+      webpack-cli: 4.2.0_webpack@4.44.2
+      webpack-sources: 1.4.3
     dev: true
     engines:
-      node: '>=10.13.0'
+      node: '>=6.11.5'
     hasBin: true
     peerDependencies:
       webpack-cli: '*'
+      webpack-command: '*'
     peerDependenciesMeta:
       webpack-cli:
         optional: true
+      webpack-command:
+        optional: true
     resolution:
-      integrity: sha512-udpYTyqz8toTTdaOsL2QKPLeZLt2IEm9qY7yTXuFEQhKu5bk0yQD9BtAdVQksmz4jFbbWOiWmm3NHarO0zr/ng==
+      integrity: sha512-6KJVGlCxYdISyurpQ0IPTklv+DULv05rs2hseIXer6D7KrUicRDLFb4IUM1S6LUAKypPM/nSiVSuv8jHu1m3/Q==
   /webpackbar/4.0.0:
     dependencies:
       ansi-escapes: 4.3.1
