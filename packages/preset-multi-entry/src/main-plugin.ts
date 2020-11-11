@@ -57,11 +57,11 @@ module.exports = (api: any, opts: IParams, args: any) => {
       }
       virtualModules[virtualModulePath] = `
           import * as m from "${demoPath}";
-          import { imports, code } from "!!demo-info-loader!${demoPath}";
+          import { imports, code, deps } from "!!demo-info-loader!${demoPath}";
 
           // 避免webpack做编译时分析，发现demoPath里面没有export meta造成warning
           const { default:demo, meta = {} } = (void 0, m);
-          export { demo, meta, code, imports };
+          export { demo, meta, code, imports, deps };
         `;
       entryListImportCode.push(`
           import { staticMeta as demoStaticMeta${idx} } from "${staticMetaVirtualModulePath}";

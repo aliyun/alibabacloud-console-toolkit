@@ -10,9 +10,12 @@ import * as externaledDeps from "@breezr-doc-internals/externaled-deps";
 
 interface IOpts {
   code: string;
+  deps: any;
 }
 
-export function useEvalCode({ code }: IOpts) {
+// 如果你的站点包含用户的敏感信息（比如cookie），那么不要用这个方法来eval**未知来源**的代码，以免XSS攻击。
+// eval当前用户自己提供的代码是可以的；但是不要在A用户访问站点的时候eval B用户提供的代码。
+export function useEvalCode({ code, deps: demoDeps }: IOpts) {
   const [transformedCode, setTransformedCode] = useState("");
   const [evaluated, setEvaluated] = useState<any>({});
 
@@ -51,7 +54,7 @@ export function useEvalCode({ code }: IOpts) {
     }
 
     function define(depsArr, factory) {
-      const deps = externaledDeps;
+      const deps = { ...externaledDeps, ...demoDeps };
       const depsValue = depsArr.map(depName => {
         if (depName === "exports") {
           return exports;

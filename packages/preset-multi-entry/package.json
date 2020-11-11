@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-multi-entry",
-  "version": "2.0.25",
+  "version": "2.0.31",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
