@@ -16,6 +16,8 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]);
   }
 
+  const publicPath = args.outputPublicPath || config.outputPublicPath || '/';
+
   plugins.push(...[
     '@alicloud/console-toolkit-plugin-builtin',
     [
@@ -23,13 +25,10 @@ export default (config: BreezrPresetConfig, args: any) => {
       {
         ...config,
         port: args.port || config.port || 3333,
-        host: args.host || config.host || 'localhost' 
-      }
-    ],
-    [
-      '@alicloud/console-toolkit-plugin-cdn',
-      {
-        publishType: args.publishType
+        host: args.host || config.host || 'localhost',
+        output: {
+          publicPath
+        },
       }
     ],
     [
@@ -57,6 +56,17 @@ export default (config: BreezrPresetConfig, args: any) => {
       }
     ]
   ]);
+
+  if (!args.outputPublicPath) {
+    plugins.push(
+      [
+        '@alicloud/console-toolkit-plugin-cdn',
+        {
+          publishType: args.publishType
+        }
+      ]
+    );
+  }
 
   //@ts-ignore
   if (config.mocks || windConfig.mocks) {
