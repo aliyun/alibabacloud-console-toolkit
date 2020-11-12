@@ -104,3 +104,37 @@ my-style-container {
   --xconsole-theme-var: #0064c8;
 }
 
+@font-face {
+  font-family: MyPrefixIcon;
+  src: url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.eot");
+  src: url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.svg#NextIcon") format("svg");
+}
+
+.my-prefix-icon {
+  display: inline-block;
+  font-family: MyPrefixIcon;
+}
+
+.my-prefix-btn-loading:after {
+  font-family: MyPrefixIcon;
+  content: "\E646";
+  content: var(--icon-content-loading, "\E646");
+}
+
+/* 非NextIcon不会受到影响 */
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-medium.eot");
+  font-weight: 500;
+}
+
+/* 非NextIcon不会受到影响 */
+.my-prefix-step-circle.my-prefix-step-vertical {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto";
+}
+
