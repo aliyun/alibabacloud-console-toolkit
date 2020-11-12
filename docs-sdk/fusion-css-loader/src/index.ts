@@ -63,8 +63,8 @@ module.exports = async function fusionCssLoader(
         return selector;
       }
       // fusion组件样式，不做处理
-      // 组件的样式隔离通过 fusionPrefix 替换来完成
-      if (selector.startsWith(".next-")) {
+      // 组件的样式隔离通过 fusionPrefix 的替换来完成
+      if (selector.includes(".next-")) {
         return selector;
       }
       // 其他选择器直接在前面插入styleContainer
