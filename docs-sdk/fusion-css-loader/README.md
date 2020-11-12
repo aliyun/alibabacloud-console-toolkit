@@ -160,4 +160,4 @@ import "./fusion-theme/variables.css?fusionVarScope=.my-container";
 
 ## 示例
 
-[webpack 项目示例](https://github.com/aliyun/alibabacloud-console-toolkit/tree/preset-demos/packages/fusion-css-loader/fixture)。
+[webpack 项目示例](https://github.com/aliyun/alibabacloud-console-toolkit/tree/preset-demos/docs-sdk/fusion-css-loader/fixture)。
