@@ -1,6 +1,9 @@
 importers:
   .:
-    specifiers: {}
+    devDependencies:
+      prettier: 2.1.2
+    specifiers:
+      prettier: ^2.1.2
   docs-consumer:
     dependencies:
       '@alicloud/console-os-react-app': 0.4.0-alpha.6
@@ -133,6 +136,7 @@ importers:
   fusion-css-loader:
     dependencies:
       loader-utils: 2.0.0
+      pascal-case: 3.1.1
       postcss: 8.1.7
       query-string: 6.13.7
       semver: 7.3.2
@@ -149,6 +153,7 @@ importers:
       css-loader: ^5.0.0
       loader-utils: ^2.0.0
       mini-css-extract-plugin: ^1.0.0
+      pascal-case: ^3.1.1
       postcss: ^8.1.1
       query-string: ^6.13.5
       semver: ^7.3.2
@@ -9484,6 +9489,12 @@ packages:
   /lower-case/1.1.4:
     resolution:
       integrity: sha1-miyr0bno4K6ZOkv31YdcOcQujqw=
+  /lower-case/2.0.1:
+    dependencies:
+      tslib: 1.14.1
+    dev: false
+    resolution:
+      integrity: sha512-LiWgfDLLb1dwbFQZsSglpRj+1ctGnayXz3Uv0/WO8n558JycT5fg6zkNcnW0G68Nn0aEldTFeEfmjCfmqry/rQ==
   /lowercase-keys/1.0.1:
     engines:
       node: '>=0.10.0'
@@ -10126,6 +10137,13 @@ packages:
       lower-case: 1.1.4
     resolution:
       integrity: sha512-rmTZ9kz+f3rCvK2TD1Ue/oZlns7OGoIWP4fc3llxxRXlOkHKoWPPWJOfFYpITabSow43QJbRIoHQXtt10VldyQ==
+  /no-case/3.0.3:
+    dependencies:
+      lower-case: 2.0.1
+      tslib: 1.14.1
+    dev: false
+    resolution:
+      integrity: sha512-ehY/mVQCf9BL0gKfsJBvFJen+1V//U+0HQMPrWct40ixE4jnv0bfvxDbWtAHL9EcaPEOJHVVYKoQn1TlZUB8Tw==
   /node-forge/0.10.0:
     engines:
       node: '>= 6.0.0'
@@ -10709,6 +10727,13 @@ packages:
       node: '>= 0.8'
     resolution:
       integrity: sha512-CiyeOxFT/JZyN5m0z9PfXw4SCBJ6Sygz1Dpl0wqjlhDEGGBP1GnsUVEL0p63hoG1fcj3fHynXi9NYO4nWOL+qQ==
+  /pascal-case/3.1.1:
+    dependencies:
+      no-case: 3.0.3
+      tslib: 1.14.1
+    dev: false
+    resolution:
+      integrity: sha512-XIeHKqIrsquVTQL2crjq3NfJUxmdLasn3TYOU0VBM+UX2a6ztAWBlJQBePLGY7VHW8+2dRadeIPK5+KImwTxQA==
   /pascalcase/0.1.1:
     engines:
       node: '>=0.10.0'
@@ -11399,6 +11424,13 @@ packages:
       node: '>=4'
     resolution:
       integrity: sha1-6SQ0v6XqjBn0HN/UAddBo8gZ2Jc=
+  /prettier/2.1.2:
+    dev: true
+    engines:
+      node: '>=10.13.0'
+    hasBin: true
+    resolution:
+      integrity: sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
   /pretty-bytes/5.4.1:
     engines:
       node: '>=6'

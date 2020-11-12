@@ -9,5 +9,8 @@
     "ver:mi": "npm run ver -- minor",
     "pub": "pnpm publish --filter !{examples}",
     "update-deps": "pnpm --recursive update -i -L"
+  },
+  "devDependencies": {
+    "prettier": "^2.1.2"
   }
 }
