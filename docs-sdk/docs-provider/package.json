@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-docs",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -31,7 +31,7 @@
     "@alicloud/console-os-react-portal": "^0.4.0-alpha.3",
     "@alicloud/console-toolkit-docs-consumer": "workspace:*",
     "@alicloud/console-toolkit-docs-shared": "workspace:*",
-    "@alicloud/console-toolkit-fusion-css-loader": "^1.0.4",
+    "@alicloud/console-toolkit-fusion-css-loader": "workspace:*",
     "@alicloud/console-toolkit-markdown-renderer": "workspace:*",
     "@alicloud/console-toolkit-plugin-os": "0.2.10",
     "@alicloud/console-toolkit-preset-official": "^1.1.4",

@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "license": "MIT",
   "scripts": {
-    "ver": "pnpm recursive --filter !{examples} --filter !root exec -- npm version",
+    "ver": "pnpm recursive --filter !{examples} --filter !root --filter [origin/preset-demos] exec -- npm version",
     "ver:p": "npm run ver -- patch",
     "ver:mi": "npm run ver -- minor",
     "pub": "pnpm publish --filter !{examples}",
