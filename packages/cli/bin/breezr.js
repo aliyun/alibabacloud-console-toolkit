@@ -76,9 +76,10 @@ program
   // based on cmdArgs
   .option('--buildMode [buildMode]', 'config webpack build behaviour')
   .option('--publishType [publishType]', 'Build engine type')
+  .option('--output-public-path [outputPublicPath]', 'build public path for webpack')
   .description('build for wind')
   .action(cmd => {
-    invokeService('build', minimist(process.argv.slice(2)));
+    invokeService('build', cleanArgs(cmd));
   });
 
 program
