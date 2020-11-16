@@ -12,7 +12,7 @@ export function useScrollToAnchor(ctnRef: React.RefObject<HTMLDivElement>) {
     if (!hash) return;
     let el;
     try {
-      el = ctnRef.current.querySelector(hash);
+      el = ctnRef.current.querySelector(decodeURIComponent(hash));
     } catch (error) {}
     if (el) {
       setAlreadyScrollToHashAnchor(true);
