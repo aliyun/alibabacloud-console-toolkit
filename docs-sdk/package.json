@@ -9,7 +9,7 @@
     "ver:mi": "npm run ver -- minor",
     "pub": "pnpm publish --filter !{examples}",
     "update-deps": "pnpm --recursive update -i -L",
-    "sync": "pnpm recursive --filter !{examples} --filter !root exec -- tnpm sync"
+    "sync": "pnpm recursive --filter !{examples} --filter !root --no-sort --workspace-concurrency=Infinity exec -- tnpm sync"
   },
   "devDependencies": {
     "prettier": "^2.1.2"
