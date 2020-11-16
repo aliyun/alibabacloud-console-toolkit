@@ -9,14 +9,15 @@ export function useScrollToAnchor(ctnRef: React.RefObject<HTMLDivElement>) {
     if (!ctnRef.current) return;
     if (alreadyScrollToHashAnchor) return;
     const hash = window.location.hash;
-    const el = ctnRef.current.querySelector(hash);
+    if (!hash) return;
+    let el;
+    try {
+      el = ctnRef.current.querySelector(hash);
+    } catch (error) {}
     if (el) {
       setAlreadyScrollToHashAnchor(true);
       window.location.hash = "#";
       window.location.hash = hash;
-      // el.scrollIntoView({
-      //   behavior: "smooth",
-      // });
     }
   }, [alreadyScrollToHashAnchor]);
   return scrollToAnchor;
