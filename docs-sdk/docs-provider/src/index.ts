@@ -1,6 +1,7 @@
 import presetWind from "@alicloud/console-toolkit-preset-official";
 import * as path from "path";
 import * as Chain from "webpack-chain";
+export type { IDemoOpts } from "@alicloud/console-toolkit-docs-shared";
 
 export type IExternalItem =
   | string
