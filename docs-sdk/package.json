@@ -8,7 +8,8 @@
     "ver:p": "npm run ver -- patch",
     "ver:mi": "npm run ver -- minor",
     "pub": "pnpm publish --filter !{examples}",
-    "update-deps": "pnpm --recursive update -i -L"
+    "update-deps": "pnpm --recursive update -i -L",
+    "sync": "pnpm recursive --filter !{examples} --filter !root exec -- tnpm sync"
   },
   "devDependencies": {
     "prettier": "^2.1.2"
