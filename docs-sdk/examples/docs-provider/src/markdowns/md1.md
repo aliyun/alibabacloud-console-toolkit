@@ -20,6 +20,8 @@
 嵌入其他项目的demo：
 [$XView](https://xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Ftable%2Fdemo3.tsx&consoleOSId=xconsole-demos)
 
+嵌入子文档：[$XView](http://localhost:3333/?entryKey=docs%2Fmd2&consoleOSId=breezr-docs-fixture)
+
 # Heading one
 
 Sint sit cillum pariatur eiusmod nulla pariatur ipsum. Sit laborum anim qui mollit tempor pariatur nisi minim dolor. Aliquip et adipisicing sit sit fugiat commodo id sunt. Nostrud enim ad commodo incididunt cupidatat in ullamco ullamco Lorem cupidatat velit enim et Lorem. Ut laborum cillum laboris fugiat culpa sint irure do reprehenderit culpa occaecat. Exercitation esse mollit tempor magna aliqua in occaecat aliquip veniam reprehenderit nisi dolor in laboris dolore velit.

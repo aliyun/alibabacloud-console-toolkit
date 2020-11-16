@@ -3,8 +3,7 @@ import debounce from "lodash.debounce";
 import isequal from "lodash.isequal";
 import { ITocHeading } from "../Layout/TableOfContent";
 
-export function useTOC(enable = false) {
-  const ctnRef = useRef<HTMLDivElement>(null);
+export function useTOC(enable = false, ctnRef: React.RefObject<HTMLDivElement>) {
   const [headings, setHeadings] = useState<ITocHeading[]>([]);
 
   const check = useCallback(

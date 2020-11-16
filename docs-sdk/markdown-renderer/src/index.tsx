@@ -1,4 +1,4 @@
-import React, { useMemo, useState, useCallback } from "react";
+import React, { useMemo, useState, useCallback, useRef } from "react";
 import mdComps from "./MarkdownComponents";
 import unified from "unified";
 import remarkParse from "remark-parse";
@@ -15,6 +15,7 @@ import { useTOC } from "./utils/useTOC";
 import githubSanitizeSchema from "hast-util-sanitize/lib/github.json";
 
 import { IDemoOpts } from "@alicloud/console-toolkit-docs-consumer";
+import { useScrollToAnchor } from "./utils/useScrollToAnchor";
 
 export const ctx = React.createContext<any>({});
 
@@ -46,12 +47,12 @@ export const MarkdownRenderer: React.FC<IProps> = ({
   embedded = false,
   resolveAppServePath,
   resolveAppDeps,
-  resolveDemoOpts
+  resolveDemoOpts,
 }) => {
   const compiledJSX = useMemo(() => {
     const actualComponents = {
       ...mdComps,
-      ...components
+      ...components,
     };
 
     const jsx = unified()
@@ -69,12 +70,12 @@ export const MarkdownRenderer: React.FC<IProps> = ({
               children: [
                 {
                   type: "text",
-                  value: node.value
-                }
-              ]
+                  value: node.value,
+                },
+              ],
             });
-          }
-        }
+          },
+        },
       })
       .use(rehypeRaw)
       .use(sanitize, {
@@ -82,8 +83,8 @@ export const MarkdownRenderer: React.FC<IProps> = ({
         tagNames: [...githubSanitizeSchema.tagNames, "inlinecode"],
         attributes: {
           ...githubSanitizeSchema.attributes,
-          "*": ["className", ...githubSanitizeSchema.attributes["*"]]
-        }
+          "*": ["className", ...githubSanitizeSchema.attributes["*"]],
+        },
       })
       .use(rehypeSlug)
       .use(rehypePlugins)
@@ -92,7 +93,7 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       .use(rehype2react, {
         createElement: React.createElement,
         Fragment: React.Fragment,
-        components: actualComponents
+        components: actualComponents,
       })
       .processSync(source).result as React.ReactElement;
 
@@ -101,19 +102,35 @@ export const MarkdownRenderer: React.FC<IProps> = ({
     // 仅在source更新时重新编译markdown
   }, [source]);
 
-  const { ctnRef, headings, check } = useTOC(toc);
+  const ctnRef = useRef<HTMLDivElement>(null);
+
+  const { headings, check } = useTOC(toc, ctnRef);
+  const scrollToAnchor = useScrollToAnchor(ctnRef);
 
   const ctxValue = useMemo(() => {
     return {
       checkHeadings: check,
       resolveAppServePath,
       resolveAppDeps,
-      resolveDemoOpts
+      resolveDemoOpts,
+      scrollToAnchor,
     };
-  }, [check, resolveAppServePath, resolveAppDeps, resolveDemoOpts]);
+  }, [
+    check,
+    resolveAppServePath,
+    resolveAppDeps,
+    resolveDemoOpts,
+    scrollToAnchor,
+  ]);
 
   if (embedded) {
-    return <ctx.Provider value={ctxValue}>{compiledJSX}</ctx.Provider>;
+    return (
+      <ctx.Provider value={ctxValue}>
+        <div className="markdown-embedded" ref={ctnRef}>
+          {compiledJSX}
+        </div>
+      </ctx.Provider>
+    );
   }
 
   return (
@@ -135,7 +152,7 @@ function transformLinkNode() {
   return (tree, vfile) => {
     visit(
       tree,
-      (node =>
+      ((node) =>
         node.type === "element" &&
         node.tagName === "a" &&
         !node.transformLinkNodeFlag) as any,
