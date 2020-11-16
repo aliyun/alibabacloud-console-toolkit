@@ -1,19 +1,20 @@
 import React, { useContext } from "react";
 import {
   EntryLoader,
-  getInfoFromURL
+  getInfoFromURL,
 } from "@alicloud/console-toolkit-docs-consumer";
 
 import { ctx } from "../index";
 
 export default {
-  a: props => {
+  a: (props) => {
     const { children, href } = props;
     const {
       checkHeadings,
       resolveAppServePath,
       resolveAppDeps,
-      resolveDemoOpts
+      resolveDemoOpts,
+      scrollToAnchor,
     } = useContext(ctx);
     if (
       Array.isArray(children) &&
@@ -24,18 +25,20 @@ export default {
       return renderXView(
         href,
         checkHeadings,
+        scrollToAnchor,
         resolveAppServePath,
         resolveAppDeps,
         resolveDemoOpts
       );
     }
     return <a {...props} />;
-  }
+  },
 };
 
 function renderXView(
   href,
   checkHeadings,
+  scrollToAnchor: () => void,
   resolveAppServePath?: (consoleOSId: string) => string,
   resolveAppDeps?: (consoleOSId: string) => any,
   resolveDemoOpts?: any
@@ -61,6 +64,7 @@ function renderXView(
           onLoaded={() => {
             if (typeof checkHeadings === "function") {
               checkHeadings();
+              scrollToAnchor();
             }
           }}
           markdownOpts={{ embedded: true }}
