@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 // @ts-ignore
-import env from "@alicloud/console-os-environment";
+import env from "@alicloud/breezr-docs-environment";
 
 import Overview from "./Overview";
 

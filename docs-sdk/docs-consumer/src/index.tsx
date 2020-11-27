@@ -24,7 +24,7 @@ function load(
     manifest: `${servePath}${consoleOSId}.manifest.json`,
     id: consoleOSId,
     deps: {
-      "@alicloud/console-os-environment": {
+      "@alicloud/breezr-docs-environment": {
         publicPath: servePath,
         consoleOSId,
       },

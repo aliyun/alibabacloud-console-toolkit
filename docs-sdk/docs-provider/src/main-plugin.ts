@@ -228,8 +228,8 @@ module.exports = (api: any, opts: IParams, args: any) => {
             commonjs: "react-dom",
             amd: "react-dom",
           },
-          "@alicloud/console-os-environment":
-            "@alicloud/console-os-environment",
+          "@alicloud/breezr-docs-environment":
+            "@alicloud/breezr-docs-environment",
           "@breezr-doc-internals/externaled-deps":
             "@breezr-doc-internals/externaled-deps",
         };
