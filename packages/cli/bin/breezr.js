@@ -106,11 +106,7 @@ program
           type: 'list',
           message: 'which type you wanna generate?',
           choices: [
-            'Wind Pro project',
-            'Wind project',
-            'Widget',
-            'Component',
-            'Generator'
+            'Component'
           ]
         }
       ])

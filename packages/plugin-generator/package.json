@@ -36,6 +36,7 @@
   "dependencies": {
     "@alicloud/console-toolkit-core": "^1.1.3",
     "@alicloud/console-toolkit-shared-utils": "^1.0.16",
+    "@alicloud/generator-breezr": "^1.0.0",
     "chalk": "^2.4.2",
     "execa": "^2.0.4",
     "lodash": "^4.17.11",
