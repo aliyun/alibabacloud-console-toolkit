@@ -101,7 +101,8 @@ export default (config: BreezrPresetConfig, args: any) => {
 
   if (config.consoleBase) {
     plugins.push([ '@alicloud/console-toolkit-plugin-console-base', {
-      product: config.product
+      product: config.product,
+      oneConsole: config.oneConsole
     }]);
   }
 
