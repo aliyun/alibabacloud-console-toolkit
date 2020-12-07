@@ -1,15 +1,13 @@
 import * as Chain from "webpack-chain";
 import { Evnrioment, getEnv } from "@alicloud/console-toolkit-shared-utils";
-import * as cp from "child_process";
 import * as path from "path";
 import VirtualModulesPlugin from "webpack-virtual-modules";
 import historyFallback from "connect-history-api-fallback";
 import { createProxyMiddleware } from "http-proxy-middleware";
 import open from "open";
-import { createWriteStream } from "fs";
-import { Service } from "@alicloud/console-toolkit-core";
+import { runScript } from "./scripts/runScript";
 
-import { IParams, IExternalItem } from "./index";
+import { IParams } from "./index";
 
 module.exports = (api: any, opts: IParams, args: any) => {
   const virtualModules: { [path: string]: string } = {};
@@ -162,15 +160,19 @@ module.exports = (api: any, opts: IParams, args: any) => {
     ] = `export default undefined;`;
   }
 
+  const subScriptEnv = {
+    CONSOLEOS_ID: opts.consoleOSId,
+    OUTPUT_PATH: opts.output,
+    // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
+    EXTERNALS: JSON.stringify(opts.externals),
+  };
+
   const isBuild = !getEnv().isDev();
   if (isBuild) {
     api.dispatchSync("registerBeforeBuildStart", async () => {
       // 构建被微应用external掉的依赖，以便在demo-viewer上加载渲染
-      await buildExternaledDeps({
-        cwd: api.getCwd(),
-        consoleOSId: opts.consoleOSId,
-        output: opts.output!,
-        externals: opts.externals,
+      await runScript("deps-build", {
+        env: subScriptEnv,
       });
     });
   }
@@ -257,7 +259,11 @@ module.exports = (api: any, opts: IParams, args: any) => {
       const host = config.devServer.get("host");
       const servePath = `http${https ? "s" : ""}://${host}:${port}/`;
 
-      let childPort;
+      config.devServer.historyApiFallback(false);
+      config.devServer.writeToDisk(true);
+
+      let hostPort;
+      let depsPort;
       config.devServer.before(function (app, server, compiler) {
         // webpack dev server自带的fallback和proxy一起使用时，
         // 在这种情况下会有bug，因此我们自己配置fallback和proxy
@@ -267,45 +273,51 @@ module.exports = (api: any, opts: IParams, args: any) => {
           })
         );
         app.use(
+          "/deps",
+          createProxyMiddleware({
+            target: "http://localhost:8889",
+            router: (req) => {
+              if (!depsPort) {
+                throw new Error("childProcess is not ready yet");
+              }
+              return `http://localhost:${depsPort}`;
+            },
+          })
+        );
+        app.use(
           "/host",
           createProxyMiddleware({
             target: "http://localhost:8889",
             router: (req) => {
-              if (!childPort) {
+              if (!hostPort) {
                 throw new Error("childProcess is not ready yet");
               }
-              return `http://localhost:${childPort}`;
+              return `http://localhost:${hostPort}`;
             },
           })
         );
       });
 
-      let childProcess: cp.ChildProcess = cp.fork(
-        path.resolve(__dirname, "./start-host-dev-server.js"),
-        {
-          cwd: api.getCwd(),
-          env: {
-            SERVE_PATH: servePath,
-            CONSOLEOS_ID: opts.consoleOSId,
-            // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
-            EXTERNALS: JSON.stringify(opts.externals),
-          },
-          silent: true,
-        }
-      );
-
-      childProcess.on("message", (msg: any) => {
-        if (msg && msg.type === "server_started") {
-          childPort = msg.port;
-          open(servePath);
-        }
+      runScript("deps-serve", {
+        env: {
+          ...subScriptEnv,
+          SERVE_PATH: servePath,
+        },
+        onGetPort: (p) => {
+          depsPort = p;
+        },
       });
 
-      const logStream = createWriteStream(
-        path.join(__dirname, "child_server_log.log")
-      );
-      childProcess.stdout?.pipe(logStream);
-      childProcess.stderr?.pipe(logStream);
+      runScript("host-serve", {
+        env: {
+          ...subScriptEnv,
+          SERVE_PATH: servePath,
+        },
+        onGetPort: (p) => {
+          hostPort = p;
+          open(servePath);
+        },
+      });
 
       virtualModules["/@resolveAppServePathForLocalDev"] = `
         export default function resolveAppServePath(appId) {
@@ -332,82 +344,4 @@ function generateVirtualPath(category: string, key: string) {
     key,
     "virtual.js"
   );
-}
-
-async function buildExternaledDeps({
-  cwd,
-  consoleOSId,
-  output,
-  externals,
-}: {
-  cwd: string;
-  consoleOSId: string;
-  output: string;
-  externals?: IExternalItem[];
-}) {
-  console.log("开始构建微应用external依赖...");
-  const depsConsoleOSId = consoleOSId + "-deps";
-  const service = new Service({
-    cwd,
-    config: {
-      presets: [
-        [
-          require.resolve("@alicloud/console-toolkit-preset-official"),
-          {
-            disablePolyfill: true,
-            disableErrorOverlay: true,
-            typescript: {
-              // @ts-ignore
-              disableTypeChecker: true,
-              useBabel: true,
-            },
-            useTerserPlugin: true,
-            htmlFileName: path.resolve(__dirname, "../src2/index.html"),
-            useHappyPack: false,
-            hashPrefix: depsConsoleOSId,
-            output: {
-              path: path.join(output, "deps"),
-            },
-            webpack(config) {
-              config.entry = path.join(__dirname, "../src2/BuildDeps/index.ts");
-              config.output.publicPath = "";
-              config.externals = {
-                react: {
-                  root: "React",
-                  commonjs2: "react",
-                  commonjs: "react",
-                  amd: "react",
-                },
-                "react-dom": {
-                  root: "ReactDOM",
-                  commonjs2: "react-dom",
-                  commonjs: "react-dom",
-                  amd: "react-dom",
-                },
-              };
-              return config;
-            },
-          },
-        ],
-      ],
-      plugins: [
-        [
-          "@alicloud/console-toolkit-plugin-os",
-          {
-            id: depsConsoleOSId,
-            cssPrefix: "html",
-          },
-        ],
-        [require.resolve("./config-webpack-plugin")],
-        [
-          require.resolve("./build-external-deps"),
-          {
-            externals,
-          },
-        ],
-      ],
-    },
-  });
-  await service.run("build");
-  console.log("成功构建微应用external依赖");
 }
