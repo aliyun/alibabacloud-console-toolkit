@@ -38,7 +38,8 @@ module.exports = {
               __dirname,
               "./src/test-external-module-in-dev.ts"
             )
-          }
+          },
+          "styled-components"
         ],
         resolveAppServePath: path.resolve(__dirname, "./resolveAppServePath.ts")
       }

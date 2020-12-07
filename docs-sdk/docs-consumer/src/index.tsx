@@ -275,6 +275,10 @@ async function wrapResolvers({
       consoleOSId: consoleOSId + "-deps",
       servePath: ensureEndSlash(servePath) + "deps/",
       exportName: "deps",
+      deps: {
+        react: React,
+        "react-dom": ReactDOM,
+      },
     });
   }
   // 包装一下resolveAppDeps，使它能拿到loadedSelfDeps，以及deps
