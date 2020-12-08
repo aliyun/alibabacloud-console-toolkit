@@ -1,9 +1,7 @@
 // @ts-nocheck
-// 兼容旧版逻辑，下个大版本删掉
-import envLegacy from "@alicloud/console-os-environment";
 import env from "@alicloud/breezr-docs-environment";
 
-const actualPublicPath = env?.publicPath ?? envLegacy?.publicPath;
+const actualPublicPath = env?.publicPath;
 
 if (!actualPublicPath) {
   console.error(
