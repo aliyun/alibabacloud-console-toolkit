@@ -214,6 +214,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
       .end();
 
     config.output.publicPath("");
+    config.output.path(path.resolve(process.cwd(), opts.output!));
 
     config.externals(
       (() => {

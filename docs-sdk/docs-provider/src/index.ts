@@ -39,7 +39,7 @@ export interface IParams {
 }
 
 export default (params: IParams, args) => {
-  params.output = params.output || "doc-dist";
+  params.output = params.output ?? "doc-dist";
   params.consoleOSId = params.consoleOSId || "console-os-demos";
 
   const presetConfig = presetWind(
@@ -49,7 +49,7 @@ export default (params: IParams, args) => {
       typescript: {
         // @ts-ignore
         disableTypeChecker: true,
-        useBabel: true
+        useBabel: true,
       },
       useTerserPlugin: true,
       htmlFileName: path.resolve(__dirname, "../src2/index.html"),
@@ -57,9 +57,9 @@ export default (params: IParams, args) => {
       // @ts-ignore
       hashPrefix: params.consoleOSId,
       // @ts-ignore
-      output: {
-        path: params.output
-      }
+      // output: {
+      //   path: params.output
+      // }
     },
     args
   );
@@ -69,8 +69,8 @@ export default (params: IParams, args) => {
       "@alicloud/console-toolkit-plugin-os",
       {
         id: params.consoleOSId,
-        cssPrefix: "html"
-      }
+        cssPrefix: "html",
+      },
     ],
     [require.resolve("./main-plugin"), params],
     require.resolve("./config-webpack-plugin")

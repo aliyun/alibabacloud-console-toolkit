@@ -30,10 +30,15 @@ export const config = ({
           },
           port,
           noOpen: true as any,
-          output: {
-            path: path.join(outputPath, "host"),
-          } as any,
+          // output: {
+          //   path: path.join(outputPath, "host"),
+          // } as any,
           webpack: (config: any) => {
+            config.output.path = path.resolve(
+              process.cwd(),
+              outputPath,
+              "host"
+            );
             config.output.publicPath = "/host/";
             if (isDev) {
               config.devServer.publicPath = "/host/";

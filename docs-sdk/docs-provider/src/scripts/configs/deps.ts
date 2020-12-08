@@ -32,12 +32,17 @@ export const config = ({
           htmlFileName: path.resolve(pkgRoot, "src2/index.html"),
           useHappyPack: false,
           hashPrefix: depsConsoleOSId,
-          output: {
-            path: path.join(outputPath, "deps"),
-          } as any,
+          // output: {
+          //   path: path.join(outputPath, "deps"),
+          // } as any,
           port,
           noOpen: true as any,
           webpack(config) {
+            config.output.path = path.resolve(
+              process.cwd(),
+              outputPath,
+              "deps"
+            );
             config.output.publicPath = "";
             if (isDev) {
               config.devServer.publicPath = "/deps/";

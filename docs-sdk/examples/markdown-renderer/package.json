@@ -9,9 +9,9 @@
   "license": "MIT",
   "private": true,
   "dependencies": {
-    "@alicloud/console-toolkit-cli": "^1.1.0",
+    "@alicloud/console-toolkit-cli": "^1.2.0",
     "@alicloud/console-toolkit-core": "^1.1.0",
-    "@alicloud/console-toolkit-preset-official": "^1.1.2",
-    "@alicloud/console-toolkit-markdown-renderer": "workspace:*"
+    "@alicloud/console-toolkit-markdown-renderer": "workspace:*",
+    "@alicloud/console-toolkit-preset-official": "^1.2.1"
   }
 }
