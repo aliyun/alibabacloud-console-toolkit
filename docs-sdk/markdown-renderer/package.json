@@ -26,7 +26,7 @@
     "access": "public"
   },
   "dependencies": {
-    "@alicloud/console-toolkit-docs-consumer": "workspace:*",
+    "@alicloud/console-toolkit-docs-consumer": "^workspace:*",
     "@mdx-js/mdx": "^1.6.19",
     "@mdx-js/react": "^1.6.19",
     "classnames": "^2.2.6",
