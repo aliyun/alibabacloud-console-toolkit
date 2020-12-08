@@ -9,8 +9,8 @@
     "watch": "tsc -w"
   },
   "devDependencies": {
-    "@alicloud/console-toolkit-cli": "^1.1.0",
-    "@alicloud/console-toolkit-preset-official": "^1.1.2",
+    "@alicloud/console-toolkit-cli": "^1.2.0",
+    "@alicloud/console-toolkit-preset-official": "^1.2.1",
     "@babel/cli": "^7.12.1",
     "@babel/core": "^7.12.3",
     "@babel/preset-env": "^7.12.1",
