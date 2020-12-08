@@ -8,7 +8,7 @@
     "watch": "tsc -w"
   },
   "dependencies": {
-    "@alicloud/console-os-react-app": "^0.4.0-alpha.4",
+    "@alicloud/console-os-react-app": "0.4.1",
     "@alicloud/console-toolkit-docs-shared": "workspace:^1.0.0",
     "query-string": "^6.13.6"
   },
