@@ -2,6 +2,7 @@ import presetWind from "@alicloud/console-toolkit-preset-official";
 import * as path from "path";
 import * as Chain from "webpack-chain";
 export type { IDemoOpts } from "@alicloud/console-toolkit-docs-shared";
+import { getEnv } from "@alicloud/console-toolkit-shared-utils";
 
 export type IExternalItem =
   | string
@@ -39,7 +40,12 @@ export interface IParams {
 }
 
 export default (params: IParams, args) => {
-  params.output = params.output ?? "doc-dist";
+  const env = getEnv();
+  if (env.isCloudBuild() && env.buildDestDir) {
+    params.output = env.buildDestDir;
+  } else {
+    params.output = params.output ?? "doc-dist";
+  }
   params.consoleOSId = params.consoleOSId || "console-os-demos";
 
   const presetConfig = presetWind(
