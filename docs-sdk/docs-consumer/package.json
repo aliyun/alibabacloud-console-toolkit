@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-docs-consumer",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "main": "lib/index.js",
   "license": "MIT",
   "scripts": {
