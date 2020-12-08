@@ -1,6 +1,7 @@
 import execa from "execa";
 import * as path from "path";
 import * as fs from "fs-extra";
+import { getEnv } from "@alicloud/console-toolkit-shared-utils";
 
 export function runScript(
   scriptName: "deps-build" | "deps-serve" | "host-serve",
@@ -28,13 +29,20 @@ export function runScript(
     throw new Error(`env.OUTPUT_PATH should be defined`);
   }
 
-  const logPath = path.resolve(
-    process.cwd(),
-    outputPath,
-    `log-${scriptName}.log`
-  );
-  fs.ensureDirSync(path.dirname(logPath));
-  const depsLogStream = fs.createWriteStream(logPath);
+  let depsLogStream;
+  const buildEnv = getEnv();
+  if (buildEnv.isCloudBuild()) {
+    depsLogStream = process.stdout;
+  } else {
+    const logPath = path.resolve(
+      process.cwd(),
+      outputPath,
+      `log-${scriptName}.log`
+    );
+    fs.ensureDirSync(path.dirname(logPath));
+    depsLogStream = fs.createWriteStream(logPath);
+  }
+
   depsHandle.stdout?.pipe(depsLogStream);
   depsHandle.stderr?.pipe(depsLogStream);
   depsHandle.on("message", (msg: any) => {
