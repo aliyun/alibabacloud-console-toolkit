@@ -29,7 +29,7 @@ export function runScript(
     outputPath,
     `log-${scriptName}.log`
   );
-  fs.ensureDir(path.dirname(logPath));
+  fs.ensureDirSync(path.dirname(logPath));
   const depsLogStream = fs.createWriteStream(logPath);
   depsHandle.stdout?.pipe(depsLogStream);
   depsHandle.stderr?.pipe(depsLogStream);
