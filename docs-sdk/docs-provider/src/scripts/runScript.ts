@@ -2,8 +2,6 @@ import execa from "execa";
 import * as path from "path";
 import * as fs from "fs-extra";
 
-const outputPath = process.env.OUTPUT_PATH || "doc-dist";
-
 export function runScript(
   scriptName: "deps-build" | "deps-serve" | "host-serve",
   {
@@ -24,6 +22,12 @@ export function runScript(
     console.error(`runScript error. scriptName: "${scriptName}", error:`);
     console.error(err);
   });
+
+  const outputPath = env?.OUTPUT_PATH;
+  if (!outputPath) {
+    throw new Error(`env.OUTPUT_PATH should be defined`);
+  }
+
   const logPath = path.resolve(
     process.cwd(),
     outputPath,
