@@ -22,7 +22,7 @@ function load(
   const { servePath, consoleOSId, deps, exportName } = opts;
   const consoleOSAppInfo = {
     manifest: `${servePath}${consoleOSId}.manifest.json`,
-    id: consoleOSId,
+    name: consoleOSId,
     deps: {
       "@alicloud/breezr-docs-environment": {
         publicPath: servePath,
