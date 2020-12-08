@@ -28,6 +28,11 @@ function load(
         publicPath: servePath,
         consoleOSId,
       },
+      // 兼容旧版逻辑，下个大版本删掉
+      "@alicloud/console-os-environment": {
+        publicPath: servePath,
+        consoleOSId,
+      },
       ...deps,
     },
   };

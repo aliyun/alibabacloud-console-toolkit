@@ -233,6 +233,8 @@ module.exports = (api: any, opts: IParams, args: any) => {
           },
           "@alicloud/breezr-docs-environment":
             "@alicloud/breezr-docs-environment",
+          "@alicloud/console-os-environment":
+            "@alicloud/console-os-environment",
           "@breezr-doc-internals/externaled-deps":
             "@breezr-doc-internals/externaled-deps",
         };
