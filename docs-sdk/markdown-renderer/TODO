@@ -1,1 +1,3 @@
 用一个suspense包住最外层的文档，在嵌套的微应用还没加载好的时候，展示suspense fallback。当所有嵌套微应用加载好的时候，再一起展示整个文档。这样阅读体验更好，而且方便我们url hash anchor跳转。
+
+本地开发使用 webpack-dev-middleware 和 webpack-hot-middleware 而不是webpack-dev-server，使得嵌套应用的更新能冒泡到页面刷新。

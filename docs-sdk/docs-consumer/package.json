@@ -5,7 +5,9 @@
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "watch": "tsc -w"
+    "watch": "tsc -w",
+    "doc-dev": "rm -rf doc-dist && npx breezr start --config ./docs/breezr.config.js --port 6300",
+    "doc-build": "rm -rf doc-dist && npx breezr build"
   },
   "dependencies": {
     "@alicloud/console-os-react-app": "0.4.1",
@@ -14,7 +16,10 @@
   },
   "devDependencies": {
     "@alicloud/console-toolkit-cli": "^1.2.0",
+    "@alicloud/console-toolkit-preset-docs": "workspace:*",
     "@alicloud/console-toolkit-preset-official": "^1.2.1",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
     "@types/react": "^16.9.52",
     "@types/react-dom": "^16.9.8",
     "typescript": "^4.0.3"
