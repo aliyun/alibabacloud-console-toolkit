@@ -5,3 +5,4 @@ packages:
   - "markdown-renderer"
   - "shared"
   - "examples/**"
+  - "site"
