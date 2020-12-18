@@ -15,7 +15,8 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     modules = false,
     sourceMap = false,
     classNamePrefix,
-    hashPrefix = ''
+    hashPrefix = '',
+    disableAutoPrefixer = false,
   } = options;
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
@@ -70,7 +71,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     .loader(require.resolve('postcss-loader'))
     .options({
       ident: 'postcss',
-      plugins: () => [
+      plugins: () => disableAutoPrefixer ? [] : [
         autoprefixer({
           // @ts-ignore
           overrideBrowserslist: [
@@ -103,9 +104,9 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     condition = 'stable',
   } = options;
   function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
-    loader?: string,
-    loaderOptions?: Chain.LoaderOptions,
-    modules?: CssModules
+    loader?: string;
+    loaderOptions?: Chain.LoaderOptions;
+    modules?: CssModules;
   }) {
     const baseRule = createRules(config, { lang, test });
 

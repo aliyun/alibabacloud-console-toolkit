@@ -31,6 +31,7 @@ interface BreezrReactOptions {
   classNamePrefix?: string;
   hashPrefix?: string;
   theme?: string | ThemeDef;
+  disableAutoPrefixer?: boolean;
 
   // babel-loader 配置
   babel?: Function;
@@ -48,7 +49,7 @@ interface BreezrReactOptions {
   useHappyPack?: boolean;
 
   // 拼写错误，为了兼容一起的
-  es5ImcompatibleVersions?: boolean,
+  es5ImcompatibleVersions?: boolean;
   es5IncompatibleVersions?: boolean;
 
   // file-loader 配置
@@ -61,7 +62,7 @@ interface BreezrReactOptions {
 
   // plugins 配置
   defineGlobalConstants?: {
-    [key: string]: any,
+    [key: string]: any;
   };
   htmlFileName?: string;
   disableErrorOverlay?: boolean;
@@ -121,6 +122,7 @@ interface BreezrStyleOptions {
   sourceMap?: boolean;
   hashPrefix?: string;
   hasPostCSSConfig?: boolean;
+  disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
 }
 

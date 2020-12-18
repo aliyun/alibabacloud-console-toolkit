@@ -72,6 +72,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     analyze = false,
     useHappyPack = true,
     hashPrefix = '',
+    disableAutoPrefixer = false,
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
   } = options;
@@ -143,6 +144,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     condition,
     theme,
     hashPrefix,
+    disableAutoPrefixer,
     classNamePrefix
   });
 
