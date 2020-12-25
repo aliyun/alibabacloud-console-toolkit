@@ -31,11 +31,15 @@ export default {
           // View可以不传，表示点击该操作图标不展开面板
           View: () => {
             return null;
-          }
-        }
+          },
+        },
       ];
     } else {
       return [];
     }
-  }
+  },
+  containerClassName: "testContainerClassName",
+  containerStyle: {
+    width: 1200,
+  },
 } as IDemoOpts;
