@@ -3,6 +3,8 @@ import { MarkdownRenderer } from "@alicloud/console-toolkit-markdown-renderer";
 
 // @ts-ignore
 import md from "!!raw-loader!./testMd.md";
+// @ts-ignore
+import md2 from "!!raw-loader!./testMd2.md";
 
 import "./index.less";
 
@@ -65,7 +67,7 @@ const consoleOSAppInfo = {
 
 render(
   <MarkdownRenderer
-    source={md}
+    source={md2}
     toc
     resolveAppServePath={(appId) => {
       return consoleOSAppInfo[appId]?.servePath;

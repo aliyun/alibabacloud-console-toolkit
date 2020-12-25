@@ -13,16 +13,6 @@ const shared = `
   padding-inline-start: 40px;
 `;
 
-const OL = styled.ol`
-  ${shared};
-  list-style-type: decimal;
-`;
-
-const UL = styled.ul`
-  ${shared};
-  list-style-type: disc;
-`;
-
 const LI = styled.li`
   word-wrap: break-all;
   & > p {
@@ -30,6 +20,20 @@ const LI = styled.li`
   }
   & + & {
     margin-top: 0.25em;
+  }
+`;
+
+const OL = styled.ol`
+  ${shared};
+  ${LI} {
+    list-style: decimal;
+  }
+`;
+
+const UL = styled.ul`
+  ${shared};
+  ${LI} {
+    list-style: disc;
   }
 `;
 
@@ -43,7 +47,7 @@ const lists = {
   listItem: LI,
   ul: UL,
   ol: OL,
-  li: LI
+  li: LI,
 };
 
 export default lists;
