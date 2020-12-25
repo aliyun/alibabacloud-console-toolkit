@@ -17,12 +17,13 @@ export interface IContextResolvers {
   resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
 }
 
-export interface ILoadOverviewOpts extends IConsoleOSOptions, IContextResolvers {
+export interface ILoadOverviewOpts
+  extends IConsoleOSOptions,
+    IContextResolvers {
   useSelfDeps?: boolean;
 }
 
-export interface IOverviewProps extends IContextResolvers
-  {
+export interface IOverviewProps extends IContextResolvers {
   entryKey?: string;
   onEntryKeyChange?: (newEnrtyKey: string) => void;
   onLoaded?: () => void;
@@ -32,7 +33,9 @@ export interface IOverviewProps extends IContextResolvers
   };
 }
 
-export interface ILoadEntryLoaderOpts extends IConsoleOSOptions, IContextResolvers {
+export interface ILoadEntryLoaderOpts
+  extends IConsoleOSOptions,
+    IContextResolvers {
   useSelfDeps?: boolean;
 }
 
@@ -63,6 +66,8 @@ export interface IDemoOpts {
     meta: any;
     imports: string[];
   }) => IDemoOperation[];
+  containerClassName?: string;
+  containerStyle?: any;
 }
 export interface ICodeSandboxFiles {
   [file: string]: string;
