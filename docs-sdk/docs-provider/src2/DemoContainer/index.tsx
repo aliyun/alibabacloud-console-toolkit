@@ -211,8 +211,17 @@ const DemoContainer: React.FC<IProps> = ({
 
   return (
     <div
-      className={[styles.container, className].filter(Boolean).join(" ")}
-      style={style}
+      className={[
+        buildTimeDemoOpts.containerClassName,
+        styles.container,
+        className,
+      ]
+        .filter(Boolean)
+        .join(" ")}
+      style={{
+        ...buildTimeDemoOpts.containerStyle,
+        ...style,
+      }}
       data-transformed-code={transformedCode}
     >
       <div className={styles.title}>{meta.title}</div>
