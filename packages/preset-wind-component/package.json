@@ -54,5 +54,5 @@
     "babel-preset-breezr": "^1.0.14",
     "rollup-plugin-auto-external": "^2.0.0"
   },
-  "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
+  "gitHead": "34e7d495c0a6ac3fc44c3bc9be70424e66daad2e"
 }

@@ -32,7 +32,6 @@ function resolveEntry(useTypescript: boolean | undefined) {
 
 export function getRollupConfig(config: IOption) {
   const {
-    externals = [],
     useTypescript,
     sourcemap,
     formats = [],
