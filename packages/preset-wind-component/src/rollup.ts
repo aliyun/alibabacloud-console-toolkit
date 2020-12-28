@@ -70,7 +70,7 @@ export function getRollupConfig(config: IOption) {
       json(),
       autoExternal(),
     ],
-    external: [...Object.keys(defaultIgnoreModules), ...externals, /^@babel\/runtime/]
+    external: [...Object.keys(defaultIgnoreModules), /^@babel\/runtime/]
   };
   return rollup ? rollup(presets) : presets;
 }
