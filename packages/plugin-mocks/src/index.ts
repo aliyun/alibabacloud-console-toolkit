@@ -7,8 +7,17 @@ import { PluginAPI, PluginOptions } from "@alicloud/console-toolkit-core";
 import { Evnrioment, BuildType } from '@alicloud/console-toolkit-shared-utils';
 import * as url from 'url';
 import * as qs from 'querystring';
+import oneProxyPlugin from './oneapi';
 
 export default (api: PluginAPI, opts: PluginOptions) => {
+  const {
+    oneapi = false
+  } = opts;
+
+  if (oneapi) {
+    return oneProxyPlugin(api, opts);
+  }
+
   api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
     const {
       host,
