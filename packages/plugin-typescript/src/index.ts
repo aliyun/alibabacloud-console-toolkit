@@ -150,6 +150,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         .use(ForkTsCheckerWebpackPlugin, [{
           tsconfig,
           eslint,
+          memoryLimit: 4089,
           // active when eslint is false or no tslint.json
           tslint: !eslint && disableTsLint ? undefined: tslintConf
         }]);
