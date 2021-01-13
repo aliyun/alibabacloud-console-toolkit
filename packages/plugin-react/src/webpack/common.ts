@@ -11,6 +11,7 @@ import { skeletonPlugin } from './plugins/skeleton';
 import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
+import { momentPlugin } from './plugins/moment';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -75,6 +76,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     disableAutoPrefixer = false,
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
+    moment,
   } = options;
 
   if (!cwd) {
@@ -189,5 +191,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   
   if (bail) {
     config.bail(bail);
+  }
+
+  if (!moment?.disable) {
+    momentPlugin(config);
   }
 };

@@ -16,8 +16,8 @@ interface BreezrReactOptions {
   output?: {
     filename: string;
     path: string;
-    publicPath: string,
-    chunkFilename: string,
+    publicPath: string;
+    chunkFilename: string;
   };
   bail?: boolean;
   status?: {
@@ -70,7 +70,7 @@ interface BreezrReactOptions {
   noProgress?: boolean;
   noOpen?: false;
   useTerserPlugin?: true;
-  uglifyOptions?: Object;
+  uglifyOptions?: any;
   htmlXmlMode?: boolean;
 
   // experiment
@@ -82,6 +82,10 @@ interface BreezrReactOptions {
   disablePolyfill?: boolean;
 
   analyze?: boolean;
+
+  moment?: {
+    disable: boolean;
+  };
 }
 
 /**
