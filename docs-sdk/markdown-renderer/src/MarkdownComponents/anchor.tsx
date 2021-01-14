@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import styled from "styled-components";
 import {
   EntryLoader,
   getInfoFromURL,
@@ -35,6 +36,11 @@ export default {
   },
 };
 
+const DemoRoot = styled.div`
+  display: inline-block;
+  width: 100%;
+`;
+
 function renderXView(
   href,
   checkHeadings,
@@ -55,7 +61,7 @@ function renderXView(
   }
 
   return (
-    <div className="XView-root">
+    <DemoRoot className="XView-root">
       <React.Suspense fallback="Loading...">
         <EntryLoader
           consoleOSId={consoleOSId}
@@ -73,6 +79,6 @@ function renderXView(
           resolveDemoOpts={resolveDemoOpts}
         />
       </React.Suspense>
-    </div>
+    </DemoRoot>
   );
 }
