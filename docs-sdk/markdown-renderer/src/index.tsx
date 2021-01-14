@@ -88,7 +88,7 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       })
       .use(rehypeSlug)
       .use(rehypePlugins)
-      .use(transformLinkNode)
+      // .use(transformLinkNode)
       // .use(debugPlugin, "re2")
       .use(rehype2react, {
         createElement: React.createElement,
