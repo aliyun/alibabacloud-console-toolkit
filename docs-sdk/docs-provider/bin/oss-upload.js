@@ -29,7 +29,7 @@ let client = new OSS({
   bucket: process.env.OSS_BUCKET || "opensource-microapp",
   region: process.env.OSS_REGION || "oss-cn-hangzhou",
   accessKeyId: process.env.OSS_K,
-  accessKeySecret: process.env.OSS_S
+  accessKeySecret: process.env.OSS_S,
 });
 
 async function del() {
@@ -37,12 +37,12 @@ async function del() {
   while (true) {
     const list = await client.list({
       prefix: targetDir,
-      "max-keys": 1000
+      "max-keys": 1000,
     });
     list.objects = list.objects || [];
     const count = list.objects.length;
     if (count === 0) break;
-    await Promise.all(list.objects.map(v => client.delete(v.name)));
+    await Promise.all(list.objects.map((v) => client.delete(v.name)));
     delCount += count;
   }
   if (delCount > 0) console.log(`Successfully delete ${delCount} old files`);
@@ -52,7 +52,7 @@ async function main() {
   await del();
 
   const files = await globby("**/*", {
-    cwd: sourceDir
+    cwd: sourceDir,
   });
 
   let successCount = 0;
@@ -61,7 +61,7 @@ async function main() {
   let consoleOSId;
 
   await Promise.all(
-    files.map(async filename => {
+    files.map(async (filename) => {
       const res = await client.put(
         path.join(targetDir, filename),
         path.join(sourceDir, filename)
@@ -81,8 +81,8 @@ async function main() {
   console.log(`[成功] 上传构建产物 "${sourceDir}" 到OSS路径 "${servePath}"`);
 
   const previewURL = qs.stringifyUrl({
-    url: "http://loc-alfa.aliyun-inc.com:3333/demo-playground",
-    query: { servePath, consoleOSId }
+    url: "https://xconsole.aliyun-inc.com/demo-playground",
+    query: { servePath, consoleOSId },
   });
   console.log(`预览url: ${previewURL} \n可以将它分享给其他同学！`);
 }
