@@ -124,8 +124,13 @@ const Loader: React.FC<IEntryLoaderProps> = ({
         resolveDemoOpts={resolveDemoOpts}
         resolveAppServePath={(appId) => {
           let result = "";
+          // 仅用于本地开发的 id => ServePath 解析逻辑
+          // 以便本地开发的时候能够从本地加载当前微应用
+          if (!result && typeof resolveAppServePathForLocalDev === "function") {
+            result = resolveAppServePathForLocalDev(appId);
+          }
           // 微应用加载者提供的配置
-          if (typeof resolveAppServePathFromLoader === "function") {
+          if (!result && typeof resolveAppServePathFromLoader === "function") {
             result = resolveAppServePathFromLoader(appId);
           }
           // 微应用开发者提供的配置
@@ -134,11 +139,6 @@ const Loader: React.FC<IEntryLoaderProps> = ({
             typeof resolveAppServePathFromDeveloper === "function"
           ) {
             result = resolveAppServePathFromDeveloper(appId);
-          }
-          // 仅用于本地开发的 id => ServePath 解析逻辑
-          // 以便本地开发的时候能够从本地加载当前微应用
-          if (!result && typeof resolveAppServePathForLocalDev === "function") {
-            result = resolveAppServePathForLocalDev(appId);
           }
           return result;
         }}
