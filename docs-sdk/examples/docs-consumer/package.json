@@ -12,6 +12,6 @@
     "@alicloud/console-toolkit-cli": "^1.2.0",
     "@alicloud/console-toolkit-core": "^1.1.0",
     "@alicloud/console-toolkit-docs-consumer": "workspace:*",
-    "@alicloud/console-toolkit-preset-official": "^1.2.1"
+    "@alicloud/console-toolkit-preset-official": "^1.2.8"
   }
 }
