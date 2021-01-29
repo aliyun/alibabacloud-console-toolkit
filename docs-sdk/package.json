@@ -12,6 +12,6 @@
     "sync": "pnpm recursive --filter !{examples} --filter !root --no-sort --workspace-concurrency=Infinity exec -- tnpm sync"
   },
   "devDependencies": {
-    "prettier": "^2.1.2"
+    "prettier": "^2.2.1"
   }
 }
