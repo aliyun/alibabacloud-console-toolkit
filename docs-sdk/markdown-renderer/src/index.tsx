@@ -88,7 +88,7 @@ export const MarkdownRenderer: React.FC<IProps> = ({
       })
       .use(rehypeSlug)
       .use(rehypePlugins)
-      // .use(transformLinkNode)
+      .use(transformLinkNode)
       // .use(debugPlugin, "re2")
       .use(rehype2react, {
         createElement: React.createElement,
@@ -152,10 +152,7 @@ function transformLinkNode() {
   return (tree, vfile) => {
     visit(
       tree,
-      ((node) =>
-        node.type === "element" &&
-        node.tagName === "a" &&
-        !node.transformLinkNodeFlag) as any,
+      ((node) => node.type === "element" && node.tagName === "a") as any,
       (node: any, ancestors: any[]) => {
         if (Array.isArray(node.children) && node.children.length === 1) {
           const linkTextNode = node.children[0];
@@ -165,18 +162,24 @@ function transformLinkNode() {
               linkTextNode.value.startsWith("$XDemo"))
           ) {
             const parent = ancestors[ancestors.length - 1];
-            const root = ancestors[0];
             parent.children.splice(parent.children.indexOf(node), 1);
-            node.transformLinkNodeFlag = true;
-            root.children.splice(
-              root.children.indexOf(ancestors[1]) + 1,
-              0,
-              node
-            );
+            // 先将找到的内联demo按顺序存到【顶层祖先元素】的数组中，
+            // 最后一起将内联demo加到【顶层祖先元素】后面
+            // （如果找到一个demo马上append，会造成当一个段落包含多个demo时，最终append的顺序逆转）
+            ancestors[1]._toBeAppended = ancestors[1]._toBeAppended ?? [];
+            ancestors[1]._toBeAppended.push(node);
           }
         }
         return visit.CONTINUE;
       }
     );
+
+    for (let i = 0; i < tree.children.length; ++i) {
+      const node = tree.children[i];
+      if (Array.isArray(node._toBeAppended)) {
+        tree.children.splice(i + 1, 0, ...node._toBeAppended);
+      }
+      delete node._toBeAppended;
+    }
   };
 }

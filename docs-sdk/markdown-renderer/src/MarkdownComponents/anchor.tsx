@@ -37,8 +37,7 @@ export default {
 };
 
 const DemoRoot = styled.div`
-  display: inline-block;
-  width: 100%;
+  margin: 12px 0;
 `;
 
 function renderXView(
