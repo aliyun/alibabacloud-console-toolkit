@@ -43,13 +43,13 @@ export interface IParams {
 
 export default (params: IParams, args) => {
   const env = getEnv();
+  const cwd = env.workingDir ?? process.cwd();
   if (env.isCloudBuild() && env.buildDestDir) {
     params.output = env.buildDestDir;
   } else {
     params.output = params.output ?? "doc-dist";
   }
   if (!params.getDemos) {
-    const cwd = env.workingDir ?? process.cwd();
     const baseDir = path.resolve(cwd, "demos");
     // 默认从demos目录查找demo
     if (fs.existsSync(baseDir)) {
@@ -67,6 +67,35 @@ export default (params: IParams, args) => {
       };
     }
   }
+  if (!params.getMarkdownEntries) {
+    const baseDir = path.resolve(cwd, "docs");
+    const READMEPath = path.resolve(cwd, "README.md");
+    params.getMarkdownEntries = () => {
+      const result: { key: string; path: string }[] = [];
+      if (fs.existsSync(READMEPath)) {
+        result.push({
+          key: "README",
+          path: READMEPath,
+        });
+      }
+      if (fs.existsSync(baseDir)) {
+        const paths = globby.sync("**/*.doc.md?(x)", { cwd: baseDir });
+        result.push(
+          ...paths.map((relativePath) => {
+            //  const fileName = path.basename(relativePath)
+            const docName = relativePath.replace(/\.doc\.mdx?$/, "");
+            // 对于每个doc，要返回key和路径
+            return {
+              key: docName,
+              path: path.resolve(baseDir, relativePath),
+            };
+          })
+        );
+      }
+      return result;
+    };
+  }
+
   params.consoleOSId = params.consoleOSId || "console-os-demos";
 
   const presetConfig = presetWind(
