@@ -49,16 +49,21 @@ function renderXView(
   resolveAppDeps?: (consoleOSId: string) => any,
   resolveDemoOpts?: any
 ) {
-  let { consoleOSId, servePath, entryKey } = getInfoFromURL(href);
-
+  let { consoleOSId, servePath: defaultServePath, entryKey } = getInfoFromURL(
+    href
+  );
   if (!consoleOSId) consoleOSId = "xconsole-demos";
-  if (!servePath) {
-    if (typeof resolveAppServePath === "function") {
-      servePath = resolveAppServePath(consoleOSId);
-    }
-    if (!servePath)
-      servePath = "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
+
+  let servePath: string | undefined;
+
+  if (typeof resolveAppServePath === "function") {
+    // 从解析函数获取的servePath，优先级最高
+    servePath = resolveAppServePath(consoleOSId);
   }
+  if (!servePath)
+    // fallback到用户在markdown link中手动指定的servePath
+    servePath =
+      defaultServePath || "https://dev.g.alicdn.com/xconsole/demos/0.1.1/";
 
   return (
     <DemoRoot className="XView-root">
