@@ -4,12 +4,11 @@
 
 
 ## 示例
+
+test包含多个demo的段落
 [$XDemo](https://pre-xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Fbadge%2Fdemo1.tsx)
-
 [$XDemo](https://pre-xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Fbadge%2Fdemo2.tsx)
-
 [$XDemo](https://pre-xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Fbadge%2Fdemo3.tsx)
-
 [$XDemo](https://pre-xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Fbadge%2Fdemo4.tsx)
 
 ## 使用建议
