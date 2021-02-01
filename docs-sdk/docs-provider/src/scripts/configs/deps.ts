@@ -47,6 +47,8 @@ export const config = ({
             if (isDev) {
               config.devServer.publicPath = "/deps/";
               config.devServer.writeToDisk = true;
+              // config.devServer.transportMode = "ws";
+              config.devServer.sockPath = "/deps/sockjs-node";
             }
             config.entry = path.join(pkgRoot, "src2/BuildDeps/index.ts");
             config.externals = {

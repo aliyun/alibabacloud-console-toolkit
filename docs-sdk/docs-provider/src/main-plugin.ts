@@ -267,7 +267,9 @@ module.exports = (api: any, opts: IParams, args: any) => {
       let depsPort;
       config.devServer.before(function (app, server, compiler) {
         // webpack dev server自带的fallback和proxy一起使用时，
-        // 在这种情况下会有bug，因此我们自己配置fallback和proxy
+        // 会有bug(多次apply webpack-dev-middleware):
+        // https://github.com/webpack/webpack-dev-server/issues/2716
+        // 因此我们自己配置fallback和proxy
         app.use(
           historyFallback({
             index: "/host/index.html",
@@ -277,6 +279,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
           "/deps",
           createProxyMiddleware({
             target: "http://localhost:8889",
+            ws: true,
             router: (req) => {
               if (!depsPort) {
                 throw new Error("childProcess is not ready yet");
@@ -289,6 +292,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
           "/host",
           createProxyMiddleware({
             target: "http://localhost:8889",
+            ws: true,
             router: (req) => {
               if (!hostPort) {
                 throw new Error("childProcess is not ready yet");
