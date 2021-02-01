@@ -279,7 +279,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
           "/deps",
           createProxyMiddleware({
             target: "http://localhost:8889",
-            ws: true,
+            // ws: true,
             router: (req) => {
               if (!depsPort) {
                 throw new Error("childProcess is not ready yet");
@@ -292,7 +292,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
           "/host",
           createProxyMiddleware({
             target: "http://localhost:8889",
-            ws: true,
+            // ws: true,
             router: (req) => {
               if (!hostPort) {
                 throw new Error("childProcess is not ready yet");
