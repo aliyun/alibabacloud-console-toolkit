@@ -86,7 +86,7 @@ export default (params: IParams, args) => {
             const docName = relativePath.replace(/\.doc\.mdx?$/, "");
             // 对于每个doc，要返回key和路径
             return {
-              key: docName,
+              key: `docs/${docName}`,
               path: path.resolve(baseDir, relativePath),
             };
           })
