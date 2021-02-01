@@ -48,8 +48,9 @@ export const config = ({
               config.devServer.historyApiFallback = {
                 index: "/host/index.html",
               };
-              // config.devServer.transportMode = "ws";
-              config.devServer.sockPath = "/host/sockjs-node";
+              config.devServer.liveReload = false;
+              config.devServer.hot = false;
+              config.devServer.inline = false;
             }
             config.entry.index = path.resolve(
               pkgRoot,
