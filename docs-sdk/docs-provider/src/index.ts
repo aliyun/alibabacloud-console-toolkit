@@ -16,6 +16,7 @@ export type IExternalItem =
 export interface IParams {
   consoleOSId: string;
   chainWebpack?: (configChain: Chain, env: any) => void;
+  // 由于breezr的plugin不支持异步返回，因此，getDemos等函数也必须是同步的
   getDemos?: () => {
     key: string;
     path: string;
@@ -32,6 +33,11 @@ export interface IParams {
     staticMeta?: object;
   }[];
   getNormalEntries?: () => {
+    key: string;
+    path: string;
+    staticMeta?: object;
+  }[];
+  getTypeInfoEntries?: () => {
     key: string;
     path: string;
     staticMeta?: object;
@@ -94,6 +100,21 @@ export default (params: IParams, args) => {
       }
       return result;
     };
+  }
+  if (!params.getTypeInfoEntries) {
+    const baseDir = path.resolve(cwd, "src/types");
+    if (fs.existsSync(baseDir)) {
+      params.getTypeInfoEntries = () => {
+        const paths = globby.sync("**/*.type.ts?(x)", { cwd: baseDir });
+        return paths.map((relativePath) => {
+          const typeName = relativePath.replace(/\.type\.tsx?$/, "");
+          return {
+            key: `types/${typeName}`,
+            path: path.resolve(baseDir, relativePath),
+          };
+        });
+      };
+    }
   }
 
   params.consoleOSId = params.consoleOSId || "console-os-demos";
