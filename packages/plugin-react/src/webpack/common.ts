@@ -172,7 +172,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     });
   }
   
-  if (analyze) {
+  if (analyze && !getEnv().isCloudBuild()) {
     analyzerPlugin(config);
   }
 

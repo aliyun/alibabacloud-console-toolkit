@@ -26,6 +26,7 @@ export default (config: BreezrPresetConfig, args: any) => {
         ...config,
         port: args.port || config.port || 3333,
         host: args.host || config.host || 'localhost',
+        analyze: args.analyze || config.analyze || false,
         output: {
           publicPath
         },
