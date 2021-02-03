@@ -18,6 +18,7 @@ import resolveAppServePathForLocalDev from "/@resolveAppServePathForLocalDev";
 import resolveAppServePathFromDeveloper from "/@resolveAppServePathFromDeveloper";
 
 import type { IEntryLoaderProps } from "@alicloud/console-toolkit-docs-shared";
+import InterfaceType from "./TypeInfoRenderer/Interface";
 
 type IEntryInfo =
   | {
@@ -37,6 +38,10 @@ type IEntryInfo =
       type: "normal";
       Component: React.ComponentType<any>;
       meta?: any;
+    }
+  | {
+      type: "typeInfo";
+      data: any;
     };
 
 const Loader: React.FC<IEntryLoaderProps> = ({
@@ -81,6 +86,12 @@ const Loader: React.FC<IEntryLoaderProps> = ({
           found.load().then((m) => {
             const { default: Component } = m;
             setEntry({ type: staticMeta._type, Component });
+          });
+          break;
+        case "typeInfo":
+          found.load().then((m) => {
+            const { typeInfo: data } = m;
+            setEntry({ type: staticMeta._type, data });
           });
           break;
         default:
@@ -145,6 +156,10 @@ const Loader: React.FC<IEntryLoaderProps> = ({
         resolveAppDeps={resolveAppDeps}
       />
     );
+  }
+
+  if (entry.type === "typeInfo") {
+    return <InterfaceType typeInfo={entry.data} />;
   }
 
   return <entry.Component meta={entry.meta} />;

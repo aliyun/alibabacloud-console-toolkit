@@ -107,6 +107,21 @@ module.exports = (api: any, opts: IParams, args: any) => {
         );
       });
   }
+  if (typeof opts.getTypeInfoEntries === "function") {
+    opts.getTypeInfoEntries().forEach(({ key, path: typePath }, idx) => {
+      const virtualModulePath = generateVirtualPath("entry", key);
+      if (virtualModules[virtualModulePath]) {
+        throw new Error(`duplicate key "${key}"`);
+      }
+      virtualModules[virtualModulePath] = `
+          import typeInfo from "!!type-info-loader!${typePath}";
+          export { typeInfo };
+        `;
+      entryListItemCode.push(
+        `{key: '${key}', staticMeta: {_type:"typeInfo"}, load: () => import('${virtualModulePath}')}`
+      );
+    });
+  }
   if (typeof opts.getNormalEntries === "function") {
     opts
       .getNormalEntries()
@@ -202,6 +217,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
         "md-file-static-meta-loader",
         path.resolve(__dirname, "./md-file-static-meta-loader")
       )
+      .set("type-info-loader", path.resolve(__dirname, "./type-info-loader"))
       .end()
       .end()
       .module.rule("md")

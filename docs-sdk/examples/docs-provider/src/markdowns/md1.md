@@ -17,6 +17,9 @@
 嵌入当前项目的的demo：
 [$XView](http://localhost:3333/?entryKey=demos%2Fdemo2&consoleOSId=breezr-docs-fixture)
 
+嵌入接口类型信息：
+[$XView](http://localhost:3333/?entryKey=types%2Ftest&consoleOSId=breezr-docs-fixture)
+
 <!-- 嵌入其他项目的demo：
 [$XView](https://xconsole.aliyun-inc.com/demos-viewer?demoKey=.%2Ftable%2Fdemo3.tsx&consoleOSId=xconsole-demos) -->
 
