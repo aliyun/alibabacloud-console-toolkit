@@ -85,6 +85,12 @@ my-style-container {
   line-height: inherit;
 }
 
+.my-prefix-btn.disabled.my-prefix-btn-normal,
+.my-prefix-btn[disabled].my-prefix-btn-normal {
+  background-color: #f7f8fa;
+  border-color: #e6e7eb;
+}
+
 /* mock fusion css var https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/variables.css */
 
 .my-var-container {
