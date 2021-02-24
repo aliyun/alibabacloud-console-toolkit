@@ -90,3 +90,7 @@ body {
   background-color: #f7f8fa;
   border-color: #e6e7eb;
 }
+
+body.next-modal-open {
+  color: red;
+}

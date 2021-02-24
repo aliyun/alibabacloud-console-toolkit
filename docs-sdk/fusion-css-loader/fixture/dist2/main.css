@@ -91,6 +91,10 @@ my-style-container {
   border-color: #e6e7eb;
 }
 
+body.my-prefix-modal-open {
+  color: red;
+}
+
 /* mock fusion css var https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/variables.css */
 
 .my-var-container {
