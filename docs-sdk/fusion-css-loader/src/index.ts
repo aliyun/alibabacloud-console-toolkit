@@ -107,7 +107,7 @@ module.exports = async function fusionCssLoader(
     });
     transformers.push(
       modifySelectorPostcssPlugin((selector) => {
-        if (selector.startsWith(".next-")) {
+        if (selector.includes(".next-")) {
           return selector.replace(/\.next-/g, fusionPrefix);
         }
       })
