@@ -84,3 +84,9 @@ body {
   font-size: 12px;
   line-height: inherit;
 }
+
+.next-btn.disabled.next-btn-normal,
+.next-btn[disabled].next-btn-normal {
+  background-color: #f7f8fa;
+  border-color: #e6e7eb;
+}
