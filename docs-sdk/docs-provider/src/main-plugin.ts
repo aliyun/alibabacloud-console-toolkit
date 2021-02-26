@@ -270,6 +270,8 @@ module.exports = (api: any, opts: IParams, args: any) => {
         "Access-Control-Allow-Origin": "*",
       });
       config.devServer.open(false);
+      config.devServer.hot(false);
+      config.devtool("cheap-source-map");
 
       const port = config.devServer.get("port");
       const https = config.devServer.get("https");
