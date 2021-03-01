@@ -161,7 +161,7 @@ const Loader: React.FC<IEntryLoaderProps> = ({
   if (entry.type === "typeInfo") {
     return (
       <React.Suspense fallback={null}>
-        <InterfaceType typeInfo={entry.data} />;
+        <InterfaceType typeInfo={entry.data} />
       </React.Suspense>
     );
   }
