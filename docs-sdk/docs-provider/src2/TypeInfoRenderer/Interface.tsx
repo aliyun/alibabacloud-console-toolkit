@@ -22,7 +22,7 @@ interface InterfacePropertyInfo {
 }
 
 const compactMarkdownComponents = {
-  p: (props) => <p {...props} />,
+  p: (props) => <p style={{ margin: 0, ...props.style }} {...props} />,
   ul: (props) => <ul {...props} />,
   ol: (props) => <ol {...props} />,
   li: (props) => <li {...props} />,

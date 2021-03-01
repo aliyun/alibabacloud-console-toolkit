@@ -13,7 +13,7 @@ export interface IConsoleOSOptions {
 // 父应用提供的resolve方法，子应用可以从父应用拿到需要的信息
 export interface IContextResolvers {
   resolveAppServePath?: (consoleOSId: string) => string;
-  resolveAppDeps?: (consoleOSId: string) => IDeps;
+  resolveAppDeps?: (consoleOSId: string) => IDeps | Promise<IDeps>;
   resolveDemoOpts?: (consoleOSId: string) => IDemoOpts;
 }
 

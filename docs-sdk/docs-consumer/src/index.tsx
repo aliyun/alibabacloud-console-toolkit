@@ -45,7 +45,7 @@ export async function loadOverview(
     resolveAppServePath,
     resolveDemoOpts,
   } = await wrapResolvers(opts);
-  const resolvedDeps = resolveAppDeps(opts.consoleOSId);
+  const resolvedDeps = await resolveAppDeps(opts.consoleOSId);
   const actualDeps = {
     ...resolvedDeps,
     "@breezr-doc-internals/externaled-deps": resolvedDeps,
@@ -62,10 +62,14 @@ export async function loadOverview(
   // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
   const Wrapped: React.ComponentType<IOverviewProps> = (props) => {
     const mergedResolveAppDeps = React.useCallback(
-      (consoleOSId) => {
+      async (consoleOSId) => {
+        const [a, b] = await Promise.all([
+          resolveAppDeps(consoleOSId),
+          props.resolveAppDeps?.(consoleOSId),
+        ]);
         return {
-          ...resolveAppDeps(consoleOSId),
-          ...props.resolveAppDeps?.(consoleOSId),
+          ...a,
+          ...b,
         };
       },
       [props.resolveAppDeps]
@@ -116,7 +120,7 @@ export async function loadEntryLoader(
     resolveAppServePath,
     resolveDemoOpts,
   } = await wrapResolvers(opts);
-  const resolvedDeps = resolveAppDeps(opts.consoleOSId);
+  const resolvedDeps = await resolveAppDeps(opts.consoleOSId);
   const actualDeps = {
     ...resolvedDeps,
     "@breezr-doc-internals/externaled-deps": resolvedDeps,
@@ -132,10 +136,14 @@ export async function loadEntryLoader(
   // 包装一下加载到的组件，覆盖resolveAppDeps，使得它能拿到loadedSelfDeps
   const Wrapped: React.ComponentType<IEntryLoaderProps> = (props) => {
     const mergedResolveAppDeps = React.useCallback(
-      (consoleOSId) => {
+      async (consoleOSId) => {
+        const [a, b] = await Promise.all([
+          resolveAppDeps(consoleOSId),
+          props.resolveAppDeps?.(consoleOSId),
+        ]);
         return {
-          ...resolveAppDeps(consoleOSId),
-          ...props.resolveAppDeps?.(consoleOSId),
+          ...a,
+          ...b,
         };
       },
       [props.resolveAppDeps]
@@ -268,34 +276,53 @@ async function wrapResolvers({
   deps,
   resolveDemoOpts,
 }: ILoadEntryLoaderOpts | ILoadOverviewOpts) {
-  let loadedSelfDeps: any;
-  // 先加载微应用自己打包的依赖
-  if (useSelfDeps) {
-    loadedSelfDeps = await load({
-      consoleOSId: consoleOSId + "-deps",
-      servePath: ensureEndSlash(servePath) + "deps/",
-      exportName: "deps",
-      deps: {
-        react: React,
-        "react-dom": ReactDOM,
-      },
-    });
-  }
   // 包装一下resolveAppDeps，使它能拿到loadedSelfDeps，以及deps
-  const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = (appId) => {
+  const resolveAppDeps: IEntryLoaderProps["resolveAppDeps"] = async (appId) => {
+    // 开始加载调用者指定的deps，注意这是个promise，但是我们还没await它
+    let loadingDeps = _resolveAppDeps?.(consoleOSId);
     if (appId === consoleOSId) {
+      // 此if块处理selfDeps的加载逻辑
+      // 是否要加载微应用自己构建出来的deps（即selfDeps）
+      let shouldLoadSelfDeps = false;
+      // 先加载微应用自己打包的deps
+      if (useSelfDeps) {
+        shouldLoadSelfDeps = true;
+      } else {
+        const resolved = await loadingDeps;
+        if (resolved?._useSelfDeps) {
+          // 如果上游resolver指定此配置，那么loader加载selfDeps作为deps的fallback
+          shouldLoadSelfDeps = true;
+        }
+      }
+      let loadingSelfDeps;
+      if (shouldLoadSelfDeps) {
+        // 开始加载selfDeps，注意这是个promise，但是我们还没await它
+        loadingSelfDeps = load({
+          consoleOSId: consoleOSId + "-deps",
+          servePath: ensureEndSlash(servePath) + "deps/",
+          exportName: "deps",
+          deps: {
+            react: React,
+            "react-dom": ReactDOM,
+          },
+        });
+      }
+      const [loadedSelfDeps, loadedDeps] = await Promise.all([
+        loadingSelfDeps,
+        loadingDeps,
+      ]);
       return {
         react: React,
         "react-dom": ReactDOM,
         ...loadedSelfDeps,
-        ..._resolveAppDeps?.(consoleOSId),
+        ...loadedDeps,
         ...deps,
       };
     } else {
       return {
         react: React,
         "react-dom": ReactDOM,
-        ..._resolveAppDeps?.(consoleOSId),
+        ...(await loadingDeps),
         ...deps,
       };
     }
