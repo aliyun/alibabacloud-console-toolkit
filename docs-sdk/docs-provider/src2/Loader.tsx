@@ -18,7 +18,7 @@ import resolveAppServePathForLocalDev from "/@resolveAppServePathForLocalDev";
 import resolveAppServePathFromDeveloper from "/@resolveAppServePathFromDeveloper";
 
 import type { IEntryLoaderProps } from "@alicloud/console-toolkit-docs-shared";
-import InterfaceType from "./TypeInfoRenderer/Interface";
+const InterfaceType = React.lazy(() => import("./TypeInfoRenderer/Interface"));
 
 type IEntryInfo =
   | {
@@ -159,7 +159,11 @@ const Loader: React.FC<IEntryLoaderProps> = ({
   }
 
   if (entry.type === "typeInfo") {
-    return <InterfaceType typeInfo={entry.data} />;
+    return (
+      <React.Suspense fallback={null}>
+        <InterfaceType typeInfo={entry.data} />;
+      </React.Suspense>
+    );
   }
 
   return <entry.Component meta={entry.meta} />;

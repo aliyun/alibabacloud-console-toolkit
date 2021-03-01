@@ -1,9 +1,5 @@
-import React, { useEffect, useLayoutEffect, useMemo, useState } from "react";
-import * as babel from "@babel/core";
-import babelTs from "@babel/preset-typescript";
-import babelAmd from "@babel/plugin-transform-modules-amd";
-import babelJSX from "@babel/plugin-transform-react-jsx";
-// import babelDynamicImport from "@babel/plugin-proposal-dynamic-import";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { ErrorBoundary, FallbackProps } from "react-error-boundary";
 
 // @ts-ignore
 import * as externaledDeps from "@breezr-doc-internals/externaled-deps";
@@ -11,37 +7,58 @@ import * as externaledDeps from "@breezr-doc-internals/externaled-deps";
 interface IOpts {
   code: string;
   deps: any;
+  enable: boolean;
 }
 
 // 如果你的站点包含用户的敏感信息（比如cookie），那么不要用这个方法来eval**未知来源**的代码，以免XSS攻击。
 // eval当前用户自己提供的代码是可以的；但是不要在A用户访问站点的时候eval B用户提供的代码。
-export function useEvalCode({ code, deps: demoDeps }: IOpts) {
+export function useEvalCode({ code, deps: demoDeps, enable }: IOpts) {
   const [transformedCode, setTransformedCode] = useState("");
   const [evaluated, setEvaluated] = useState<any>({});
 
   useEffect(() => {
-    babel
-      .transformAsync(code, {
-        presets: [
-          [
-            babelTs,
-            {
-              isTSX: true,
-              allExtensions: true
-            }
-          ]
-        ],
+    if (!enable) return;
+    setTransformedCode("");
+    setEvaluated({});
+    Promise.all([
+      import("@babel/core"),
+      import("@babel/preset-typescript"),
+      import("@babel/plugin-transform-modules-amd"),
+      import("@babel/plugin-transform-react-jsx"),
+      // import("@babel/plugin-proposal-dynamic-import")
+    ]).then(
+      ([
+        babel,
+        { default: babelTs },
+        { default: babelAmd },
+        { default: babelJSX },
+      ]) => {
+        babel
+          .transformAsync(code, {
+            presets: [
+              [
+                babelTs,
+                {
+                  isTSX: true,
+                  allExtensions: true,
+                },
+              ],
+            ],
 
-        plugins: [babelJSX, babelAmd]
-      })
-      .then(res => {
-        if (typeof res?.code === "string") {
-          setTransformedCode(res.code);
-        }
-      });
-  }, [code]);
+            plugins: [babelJSX, babelAmd],
+          })
+          .then((res) => {
+            if (typeof res?.code === "string") {
+              setTransformedCode(res.code);
+            }
+          });
+      }
+    );
+  }, [code, enable]);
 
   useLayoutEffect(() => {
+    if (!enable) return;
+
     const exports: any = {};
 
     try {
@@ -55,7 +72,7 @@ export function useEvalCode({ code, deps: demoDeps }: IOpts) {
 
     function define(depsArr, factory) {
       const deps = { ...externaledDeps, ...demoDeps };
-      const depsValue = depsArr.map(depName => {
+      const depsValue = depsArr.map((depName) => {
         if (depName === "exports") {
           return exports;
         }
@@ -66,7 +83,33 @@ export function useEvalCode({ code, deps: demoDeps }: IOpts) {
       });
       factory(...depsValue);
     }
-  }, [transformedCode]);
+  }, [transformedCode, demoDeps, enable]);
 
-  return { value: evaluated, transformedCode };
+  const renderEvalCode = evaluated.default ? (
+    <WrapEvaledComponent retryKey={evaluated.default}>
+      <evaluated.default />
+    </WrapEvaledComponent>
+  ) : null;
+
+  return { value: evaluated, transformedCode, renderEvalCode };
+}
+
+const WrapEvaledComponent: React.FC<{ retryKey: any }> = ({
+  children,
+  retryKey,
+}) => {
+  return (
+    <ErrorBoundary FallbackComponent={ErrorFallback} resetKeys={[retryKey]}>
+      {children}
+    </ErrorBoundary>
+  );
+};
+
+function ErrorFallback({ error }: FallbackProps) {
+  return (
+    <div role="alert">
+      <p>Error in demo:</p>
+      {error && <pre>{error.message}</pre>}
+    </div>
+  );
 }
