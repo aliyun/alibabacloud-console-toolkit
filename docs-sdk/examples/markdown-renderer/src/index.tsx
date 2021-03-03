@@ -76,7 +76,12 @@ render(
       return consoleOSAppInfo[appId]?.demoOpts;
     }}
     resolveAppDeps={(appId) => {
-      return consoleOSAppInfo[appId]?.deps;
+      if (consoleOSAppInfo[appId]?.deps) {
+        return consoleOSAppInfo[appId].deps;
+      }
+      return {
+        _useSelfDeps: true,
+      };
     }}
   />,
   document.querySelector(".app")
