@@ -1,13 +1,14 @@
 {
   "name": "@alicloud/console-toolkit-fusion-css-loader",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "main": "lib/index.js",
   "repository": "https://github.com/aliyun/alibabacloud-console-toolkit",
   "author": "sirui.csr <sirui.csr@alibaba-inc.com>",
   "license": "MIT",
   "scripts": {
     "prepare": "tsc",
-    "fixture": "webpack --config ./fixture/webpack.config.js"
+    "fixture": "webpack --config ./fixture/webpack.config.js",
+    "debug": "node --inspect-brk ./node_modules/webpack/bin/webpack.js --config ./fixture/webpack.config.js"
   },
   "devDependencies": {
     "@types/node": "^14.14.22",

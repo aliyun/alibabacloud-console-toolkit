@@ -51,6 +51,15 @@ my-style-container *:after {
   font-weight: 700;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 my-style-container {
   font-size: 100%;
 }
