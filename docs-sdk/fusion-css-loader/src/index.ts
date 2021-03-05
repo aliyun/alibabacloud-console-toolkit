@@ -136,6 +136,8 @@ module.exports = async function fusionCssLoader(
 function modifySelectorPostcssPlugin(transform) {
   return function (css) {
     css.walkRules((rule) => {
+      // @keyframes 里面的 0% 声明也是一种 rule，我们不考虑这种rule
+      if (rule?.parent?.name === "keyframes") return;
       const newSelectors = rule.selectors.map((selector) => {
         const res = transform(selector);
         if (res) return res;

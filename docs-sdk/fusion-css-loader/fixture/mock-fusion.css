@@ -51,6 +51,15 @@ h1 {
   font-weight: 700;
 }
 
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 html {
   font-size: 100%;
 }
