@@ -47,9 +47,11 @@ export const config = ({
             if (isDev) {
               config.devServer.publicPath = "/deps/";
               config.devServer.writeToDisk = true;
-              config.devServer.liveReload = false;
+              // 在组件开发场景下，deps中包含组件代码
+              // 因此当deps bundle重新编译以后，要刷新页面
+              config.devServer.liveReload = true;
+              config.devServer.inline = true;
               config.devServer.hot = false;
-              config.devServer.inline = false;
             }
             config.entry = path.join(pkgRoot, "src2/BuildDeps/index.ts");
             config.externals = {
