@@ -150,6 +150,7 @@ export default (params: IParams, args) => {
       },
     ],
     [require.resolve("./main-plugin"), params],
+    [require.resolve("./assets-upload-plugin"), params],
     require.resolve("./config-webpack-plugin")
   );
 
