@@ -119,6 +119,11 @@ export default (params: IParams, args) => {
 
   params.consoleOSId = params.consoleOSId || "console-os-demos";
 
+  if (params.consoleOSId.includes("/") || params.consoleOSId.includes("\\"))
+    throw new Error(
+      `consoleOSId 不能包含'/'和'\\'符号，您可以用'-'或'_'来代替`
+    );
+
   const presetConfig = presetWind(
     {
       disablePolyfill: true,
