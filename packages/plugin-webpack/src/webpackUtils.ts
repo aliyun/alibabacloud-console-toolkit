@@ -1,10 +1,10 @@
 import * as path from 'path';
-import * as Chain from 'webpack-chain';
-import * as webpackMerge from 'webpack-merge';
 import * as webpack from 'webpack';
+import * as Chain from 'webpack-chain';
 import * as webpackDevServer from 'webpack-dev-server';
-import { debug, isDev, error, warn } from '@alicloud/console-toolkit-shared-utils';
 import { PluginAPI } from '@alicloud/console-toolkit-core';
+import { debug, isDev, error, warn } from '@alicloud/console-toolkit-shared-utils';
+
 import { PluginAPIOpt } from './type';
 import { HOST, PORT } from './constants';
 
@@ -14,8 +14,11 @@ export function runCompiler(
   compiler: webpack.Compiler,
   watch: boolean = false
 ) {
-  return new Promise<webpack.Stats>((resolve, reject) => {
-    function handleStats(stats: webpack.Stats) {
+  return new Promise<webpack.Stats | undefined>((resolve, reject) => {
+    function handleStats(stats?: webpack.Stats) {
+      if (!stats) {
+        return;
+      }
       const info = stats.toJson({
         // toJson options
       });
@@ -105,38 +108,7 @@ export function webpackConfigure(
     _chain = createChain(currrentDir); // get default config
   }
 
-  const directory = opts.directory || currrentDir;
-  const filename = opts.filename || 'webpack.config.js';
-  let configByUser = opts.config || null; // get user config
-
-  /**
-   * Get user config according to path, if user did not pass the config.
-   */
-  if (!configByUser) {
-    configByUser = require(path.resolve(directory, filename));
-  }
-
-  if (configByUser.entry) {
-    /**
-     * delete default entry
-     */
-    _chain.entryPoints.clear();
-
-    /**
-     * format entry from String to Object, needed by webpack-chain, too.
-     */
-    if (typeof configByUser.entry === 'string') {
-      configByUser.entry = {
-        index: configByUser.entry
-      };
-    }
-  }
-
-  // @ts-ignore
-  return webpackMerge(_chain.toConfig(), configByUser);
-  // _chain.merge(configByUser);
-
-  // return _chain;
+  return _chain.toConfig();
 }
 
 export function createServer(
@@ -153,7 +125,7 @@ export function runServer(
   server: webpackDevServer,
   devServerConfig: webpackDevServer.Configuration
 ) {
-  return new Promise<webpack.Stats>((resolve, reject) => {
+  return new Promise<webpack.Stats | void>((resolve, reject) => {
     const { host = HOST, port = PORT } = devServerConfig;
     debug('engine', `current devServer listening: ${host}:${port}`);
 

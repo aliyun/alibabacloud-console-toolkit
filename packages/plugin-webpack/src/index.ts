@@ -1,5 +1,6 @@
-import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import * as express from 'express';
+import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
+
 import build from './build';
 import server from './start';
 
@@ -21,8 +22,10 @@ export default (api: PluginAPI, config: PluginOptions) => {
     disableHmr: config.disableHmr,
     ...opts
   }));
+
   api.registerAPI('webpackServer', async opts => await server(api, {
     webpack: config.webpack,
     ...opts
   }, serverMiddleWare));
+
 };

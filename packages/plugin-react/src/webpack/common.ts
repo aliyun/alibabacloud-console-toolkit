@@ -55,7 +55,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     babelExclude,
     babelPluginWindRc,
     babelPluginWindIntl,
-    babelUseBuiltIns,
+    babelUseBuiltIns = true,
     disableExtractText,
     noProgress,
     disableHtml,
@@ -85,7 +85,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     return;
   }
 
-  const src = resolve(cwd, 'src');
+  const src = resolve(cwd, './src');
   // output
   const output = {
     ...defaultOptions.output,
@@ -96,7 +96,6 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   if (!disablePolyfill) {
     config
       .entry('index')
-      .add(require.resolve('babel-polyfill'));
   }
 
   // entry

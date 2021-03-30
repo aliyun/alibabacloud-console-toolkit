@@ -1,6 +1,6 @@
 import * as webpack from 'webpack';
 import * as url from 'url';
-import * as cheerio from 'cheerio';
+import { load } from 'cheerio';
 import * as Chain from 'webpack-chain';
 import { createPlugin } from '../../utils';
 
@@ -30,7 +30,7 @@ class HtmlInjectPlugin {
         }
         // @ts-ignore
         compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
-          const $ = cheerio.load(data.html, {
+          const $ = load(data.html, {
             decodeEntities: false,
             xmlMode: this.htmlXmlMode,
           });
@@ -71,15 +71,17 @@ class HtmlInjectPlugin {
       });
   }
 
-  private _processScripts($: CheerioStatic, publicPath: string) {
+  private _processScripts($: cheerio.Root, publicPath: string) {
     const scripts = $('script');
     
     scripts.each((index, script) => {
-      let src = script.attribs['src'];
-      if (src && src.startsWith('/') && !src.startsWith('//')) {
-        src = url.resolve(publicPath, src.slice(1, src.length));
+      if (script.type === 'script') {
+        let src = script.attribs['src'];
+        if (src && src.startsWith('/') && !src.startsWith('//')) {
+          src = url.resolve(publicPath, src.slice(1, src.length));
+        }
+        $(script).attr('src', src); 
       }
-      $(script).attr('src', src);
     });
   }
 }
