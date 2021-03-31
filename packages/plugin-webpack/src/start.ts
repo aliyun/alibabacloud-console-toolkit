@@ -13,8 +13,10 @@ export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: exp
   if (isFunction(webpack)) {
     config = webpack(config, getEnv());
   }
+  // @ts-ignore
   const { devServer = {} } = config;
   if (!disableHmr) {
+    // @ts-ignore
     webpackDevServer.addDevServerEntrypoints(config, devServer);
   }
   const compiler = createCompiler(config);

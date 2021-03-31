@@ -41,3 +41,4 @@ typings/
 *.tgz
 
 yarn.lock
+examples

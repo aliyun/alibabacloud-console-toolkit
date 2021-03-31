@@ -14,8 +14,11 @@ export function runCompiler(
   compiler: webpack.Compiler,
   watch: boolean = false
 ) {
-  return new Promise<webpack.Stats>((resolve, reject) => {
-    function handleStats(stats: webpack.Stats) {
+  return new Promise<webpack.Stats | undefined>((resolve, reject) => {
+    function handleStats(stats: webpack.Stats | undefined) {
+      if (!stats) {
+        return;
+      }
       const info = stats.toJson({
         // toJson options
       });
@@ -144,6 +147,7 @@ export function createServer(
   devServerConfig: webpackDevServer.Configuration
 ): webpackDevServer {
   let server;
+  // @ts-ignore
   server = new webpackDevServer(compiler, devServerConfig);
 
   return server;
