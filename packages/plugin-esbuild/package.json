@@ -1,7 +1,7 @@
 {
-  "name": "@alicloud/console-core-lib-conf",
-  "version": "1.2.12",
-  "description": "console toolkit for console base",
+  "name": "@alicloud/console-toolkit-plugin-esbuild",
+  "version": "1.0.2",
+  "description": "console toolkit plugin for cdn",
   "main": "lib/index.js",
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
@@ -13,7 +13,6 @@
     "prepare": "npm run compile"
   },
   "devDependencies": {
-    "@alicloud/console-toolkit-core": "^1.1.3",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.5",
     "@types/jest": "^24.0.18",
@@ -30,7 +29,9 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
+    "@alicloud/console-toolkit-core": "^1.1.3",
     "@alicloud/console-toolkit-shared-utils": "^1.0.16",
+    "esbuild-loader": "~2.6.3",
     "lodash": "^4.17.11"
   },
   "publishConfig": {

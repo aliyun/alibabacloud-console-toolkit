@@ -39,6 +39,8 @@ export interface IOption {
     file: string;
     sourcemap: boolean;
   }];
+
+  disableStyleComponentsMinify?: boolean;
 }
 
 export interface OutputType {
