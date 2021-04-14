@@ -72,6 +72,7 @@ interface BreezrReactOptions {
   useTerserPlugin?: true;
   uglifyOptions?: any;
   htmlXmlMode?: boolean;
+  htmInject?: boolean;
 
   // experiment
   experiment?: {

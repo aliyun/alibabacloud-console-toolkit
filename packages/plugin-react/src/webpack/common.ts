@@ -73,6 +73,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     analyze = false,
     useHappyPack = true,
     hashPrefix = '',
+    htmInject = true,
     disableAutoPrefixer = false,
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
@@ -162,8 +163,19 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
         minifyCSS: true// 压缩内联css
       },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
-      templateParameters: {
-        __dev__: getEnv().isDev(),
+      inject: htmInject,
+      // @ts-ignore
+      templateParameters: (compilation, assets, assetTags, options) => {
+        return {
+            compilation,
+            webpackConfig: compilation.options,
+            htmlWebpackPlugin: {
+                tags: assetTags,
+                files: assets,
+                options,
+            },
+            __dev__: getEnv().isDev()
+        };
       },
     });
     htmlInjectPlugin(config, {
