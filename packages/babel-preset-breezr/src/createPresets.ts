@@ -23,6 +23,8 @@ export default (options: IOptions): BabelPresets => [
 
       // Do not transform modules but using ES6 module
       modules: options.module || false,
+
+      loose: true,
     },
   ],
   [
