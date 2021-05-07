@@ -228,7 +228,6 @@ const createPrivateMethods = createPluginCreator(
 );
 
 export default combineCreators([
-  createPrivateMethods,
   createTransformRuntime,
   createFunctionBind,
   createExportDefaultFrom,
@@ -245,4 +244,5 @@ export default combineCreators([
   createImportMeta,
   createClassProperties,
   createJSONStrings,
+  createPrivateMethods,
 ]);
