@@ -35,7 +35,8 @@ const DemoContainer: React.FC<IProps> = ({
     meta,
     opts,
     demoDeps,
-    children
+    children,
+    DemoWrapper
   );
 
   const { canFullScreen } = resolvedOpts;
@@ -60,9 +61,7 @@ const DemoContainer: React.FC<IProps> = ({
     >
       <div className={styles.title}>{meta.title}</div>
       <div className={styles.demo}>
-        <div className={styles.demoInner}>
-          {DemoWrapper ? <DemoWrapper>{demoView}</DemoWrapper> : demoView}
-        </div>
+        <div className={styles.demoInner}>{demoView}</div>
       </div>
       <div className={styles.describe}>{meta.describe || meta.description}</div>
       {operationsView}

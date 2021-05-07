@@ -29,6 +29,7 @@
 
     .demoInner {
       width: fit-content;
+      min-width: 100%;
       padding: 32px 16px;
     }
   }
@@ -67,7 +68,22 @@
     height: calc(100% - 24px);
     margin: 12px;
   }
-  :global .rc-dialog-content {
-    height: 100%;
+  :global {
+    .rc-dialog-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+
+      .rc-dialog-header {
+        flex: 0 0 auto;
+      }
+      .rc-dialog-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+      }
+    }
   }
 }
