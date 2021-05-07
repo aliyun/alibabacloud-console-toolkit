@@ -220,7 +220,15 @@ const createJSONStrings = createPluginCreator(
   (options) => options.proposal.jsonStrings
 );
 
+const createPrivateMethods = createPluginCreator(
+  // To process valid JSON into valid ECMAScript before embedding it.
+  // https://github.com/tc39/proposal-json-superset
+  require('@babel/plugin-proposal-private-methods'),
+  (options) => ({loose: true})
+);
+
 export default combineCreators([
+  createPrivateMethods,
   createTransformRuntime,
   createFunctionBind,
   createExportDefaultFrom,
