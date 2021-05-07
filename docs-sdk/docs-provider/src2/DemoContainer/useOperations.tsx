@@ -26,7 +26,8 @@ export function useOperations(
   meta: any = {},
   opts: IDemoOpts = {},
   demoDeps,
-  children: React.ReactNode
+  children: React.ReactNode,
+  DemoWrapper?: React.ComponentType<any>
 ) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -120,10 +121,17 @@ export function useOperations(
     imports,
   ]);
 
-  // 如果用户在操作面板修改过代码，
-  // 那么使用EvalCode来实时执行代码
-  // 否则，会fallback到打包的渲染代码
-  const demoView = renderEvalCode ?? children;
+  const demoView = (() => {
+    // 如果用户在操作面板修改过代码，
+    // 那么使用EvalCode来实时执行代码
+    // 否则，会fallback到打包的渲染代码
+    let ret = renderEvalCode ?? children;
+    // 如果用户配置了DemoWrapper，那么要用它包裹一下demo
+    if (DemoWrapper) {
+      ret = <DemoWrapper>{ret}</DemoWrapper>;
+    }
+    return ret;
+  })();
 
   const expandPanel = (() => {
     const { operation, height } = (() => {
