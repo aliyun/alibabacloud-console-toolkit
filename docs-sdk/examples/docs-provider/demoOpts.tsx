@@ -29,17 +29,18 @@ export default {
             </svg>
           ),
           // View可以不传，表示点击该操作图标不展开面板
-          View: () => {
-            return null;
-          },
+          View: undefined,
         },
       ];
     } else {
       return [];
     }
   },
+  // 可以自定义demo容器的类名和样式
   containerClassName: "testContainerClassName",
   containerStyle: {
-    width: 1200,
+    // width: 400,
   },
+  // canFullScreen为true时，demo容器默认宽度会增加，并且用户可以全屏查看demo
+  // canFullScreen: true,
 } as IDemoOpts;

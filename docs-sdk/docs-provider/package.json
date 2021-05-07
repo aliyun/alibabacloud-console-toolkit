@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-docs",
-  "version": "1.0.31",
+  "version": "1.0.32",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -53,6 +53,7 @@
     "open": "^7.3.1",
     "query-string": "^6.13.8",
     "raw-loader": "^4.0.2",
+    "rc-dialog": "^8.5.2",
     "react-animate-height": "^2.0.23",
     "react-codemirror2": "^7.2.1",
     "react-error-boundary": "^3.1.0",

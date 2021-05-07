@@ -12,7 +12,7 @@ console.log("testExternal", testExternal);
 
 interface IProps {}
 
-const Demo1: React.FC<IProps> = props => {
+const Demo1: React.FC<IProps> = (props) => {
   return <div>demo1</div>;
 };
 

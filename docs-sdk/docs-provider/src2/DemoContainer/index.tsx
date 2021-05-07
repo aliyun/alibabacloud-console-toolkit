@@ -29,23 +29,24 @@ const DemoContainer: React.FC<IProps> = ({
   demoDeps,
   children,
 }) => {
-  const { renderEvalCode, operationsView } = useOperations(
+  const { demoView, operationsView, resolvedOpts } = useOperations(
     originalCode,
     imports,
     meta,
     opts,
-    demoDeps
+    demoDeps,
+    children
   );
 
-  // 如果用户在操作面板修改过代码，
-  // 那么使用EvalCode来实时执行代码
-  // 否则，会fallback到打包的渲染代码
-  const demoView = renderEvalCode ?? children;
+  const { canFullScreen } = resolvedOpts;
 
   return (
     <div
       className={[
+        // canFullScreen说明demo可能比较大，因此增加默认宽度
+        canFullScreen ? "canFullScreen" : null,
         buildTimeDemoOpts.containerClassName,
+        opts.containerClassName,
         styles.container,
         className,
       ]
@@ -53,12 +54,15 @@ const DemoContainer: React.FC<IProps> = ({
         .join(" ")}
       style={{
         ...buildTimeDemoOpts.containerStyle,
+        ...(opts.containerStyle ?? {}),
         ...style,
       }}
     >
       <div className={styles.title}>{meta.title}</div>
       <div className={styles.demo}>
-        {DemoWrapper ? <DemoWrapper>{demoView}</DemoWrapper> : demoView}
+        <div className={styles.demoInner}>
+          {DemoWrapper ? <DemoWrapper>{demoView}</DemoWrapper> : demoView}
+        </div>
       </div>
       <div className={styles.describe}>{meta.describe || meta.description}</div>
       {operationsView}

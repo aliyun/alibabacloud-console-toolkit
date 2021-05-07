@@ -3,6 +3,10 @@
   max-width: 100%;
   border: 1px solid #e3e4e6;
   border-radius: 4px;
+  &:global(.canFullScreen) {
+    // canFullScreen说明demo可能比较大，因此增加默认宽度
+    width: 1200px;
+  }
   &:hover {
     transition: all 0.3s ease-in-out;
     box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
@@ -19,8 +23,14 @@
     margin: 0;
   }
   .demo {
-    padding: 32px 16px;
     border-bottom: 1px solid #dedede;
+    width: 100%;
+    overflow-x: auto;
+
+    .demoInner {
+      width: fit-content;
+      padding: 32px 16px;
+    }
   }
   .describe {
     padding: 12px 0 16px 12px;
@@ -49,4 +59,15 @@
 
 .codemirror {
   border-top: 1px solid #dedede;
+}
+
+.fullViewDialog {
+  && {
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
+    margin: 12px;
+  }
+  :global .rc-dialog-content {
+    height: 100%;
+  }
 }

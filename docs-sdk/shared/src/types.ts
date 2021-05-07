@@ -68,6 +68,7 @@ export interface IDemoOpts {
   }) => IDemoOperation[];
   containerClassName?: string;
   containerStyle?: any;
+  canFullScreen?: boolean;
 }
 export interface ICodeSandboxFiles {
   [file: string]: string;
@@ -75,6 +76,14 @@ export interface ICodeSandboxFiles {
 export interface IDemoOperation {
   name: string;
   icon: () => React.ReactNode;
+  enabled?: (ctx: {
+    demoOpts: IDemoOpts;
+    buildTimeDemoOpts: IDemoOpts;
+    demoMeta: any;
+    resolvedOpts: {
+      canFullScreen: boolean;
+    };
+  }) => boolean;
   View?: React.ComponentType<{
     meta: any;
     code: string;
