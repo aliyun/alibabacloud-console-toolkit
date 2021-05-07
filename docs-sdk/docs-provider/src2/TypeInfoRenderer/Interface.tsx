@@ -48,9 +48,9 @@ const InterfaceType: React.FC<IProps> = ({ typeInfo }) => {
           </tr>
         </markdownComponents.thead>
         <markdownComponents.tbody>
-          {typeInfo.properties.map((property) => {
+          {typeInfo.properties.map((property, idx) => {
             return (
-              <tr>
+              <tr key={idx}>
                 <td>{property.name}</td>
                 <td>
                   <markdownComponents.inlinecode>
