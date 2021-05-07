@@ -157,12 +157,10 @@ export function useOperations(
         };
       }
     })();
-    if (!operation) {
-      throw new Error(`can not find demo operation "${state.current}"`);
-    }
+
     return (
       <AnimateHeight duration={250} height={height}>
-        {operation.View ? (
+        {operation?.View ? (
           <operation.View
             code={currentCode}
             originalCode={originalCode2}
@@ -252,7 +250,7 @@ const defaultOperations: IDemoOperation[] = [
             // https://github.com/codemirror/CodeMirror/issues/2469#issuecomment-376064308
             setTimeout(() => {
               editor.refresh();
-            }, 0);
+            }, 10);
           }}
           onBeforeChange={(editor, data, value) => {
             setCode(value);
@@ -317,7 +315,7 @@ const defaultOperations: IDemoOperation[] = [
   },
 ];
 
-const initialState = { current: "none", previous: "code" };
+const initialState = { current: "none", previous: "none" };
 
 function reducer(
   state: { current: string; previous: string },
