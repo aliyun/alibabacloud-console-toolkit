@@ -56,6 +56,7 @@ importers:
       open: 7.3.1
       query-string: 6.13.8
       raw-loader: 4.0.2
+      rc-dialog: 8.5.2
       react-animate-height: 2.0.23
       react-codemirror2: 7.2.1_codemirror@5.59.2
       react-error-boundary: 3.1.0
@@ -103,6 +104,7 @@ importers:
       open: ^7.3.1
       query-string: ^6.13.8
       raw-loader: ^4.0.2
+      rc-dialog: ^8.5.2
       react-animate-height: ^2.0.23
       react-codemirror2: ^7.2.1
       react-error-boundary: ^3.1.0
@@ -734,7 +736,7 @@ packages:
       integrity: sha512-++apCsyKrW9Za/eN/1tvtPEfWbtC5OnZOse/CFxKdZ5wp3K/ZbcD1zDCjgV0LY0Gz0vqi4X6xY+6IgjYEX3fYw==
   /@alicloud/console-toolkit-plugin-typescript/1.2.6_@babel+core@7.12.10:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/plugin-transform-typescript': 7.12.0_@babel+core@7.12.10
       awesome-typescript-loader: 5.2.1_typescript@3.9.7
@@ -3223,6 +3225,12 @@ packages:
       regenerator-runtime: 0.13.7
     resolution:
       integrity: sha512-plcc+hbExy3McchJCEQG3knOsuh3HH+Prx1P6cLIkET/0dLuQDEnrT+s27Axgc9bqfsmNUNHfscgMUdBpC9xfg==
+  /@babel/runtime/7.14.0:
+    dependencies:
+      regenerator-runtime: 0.13.7
+    dev: false
+    resolution:
+      integrity: sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
   /@babel/template/7.10.4:
     dependencies:
       '@babel/code-frame': 7.10.4
@@ -6049,6 +6057,10 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JR/iSQOSt+LQIWwrwEzJ9uk0xfN3mTVYMwt1Ir5mUcSN6pU+V4zQFFaJsclJbPuAUQH+yfWef6tm7l1quW3C8Q==
+  /classnames/2.3.1:
+    dev: false
+    resolution:
+      integrity: sha512-OlQdbZ7gLfGarSqxesMesDa5uz7KFbID8Kpq/SxIoNGDqY8lSYs0D+hhtBXhcdB3rcbXArFr7vlHheLk1voeNA==
   /clean-css/4.2.3:
     dependencies:
       source-map: 0.6.1
@@ -13624,6 +13636,40 @@ packages:
       webpack: ^4.0.0 || ^5.0.0
     resolution:
       integrity: sha512-ZnScIV3ag9A4wPX/ZayxL/jZH+euYb6FcUinPcgiQW0+UBtEv0O6Q3lGd3cqJ+GHH+rksEv3Pj99oxJ3u3VIKA==
+  /rc-dialog/8.5.2:
+    dependencies:
+      '@babel/runtime': 7.14.0
+      classnames: 2.3.1
+      rc-motion: 2.4.3
+      rc-util: 5.12.2
+    dev: false
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    resolution:
+      integrity: sha512-3n4taFcjqhTE9uNuzjB+nPDeqgRBTEGBfe46mb1e7r88DgDo0lL4NnxY/PZ6PJKd2tsCt+RrgF/+YeTvJ/Thsw==
+  /rc-motion/2.4.3:
+    dependencies:
+      '@babel/runtime': 7.14.0
+      classnames: 2.3.1
+      rc-util: 5.12.2
+    dev: false
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    resolution:
+      integrity: sha512-GZLLFXHl/VqTfI7bSZNNZozcblNmDka1AAoQig7EZ6s0rWg5y0RlgrcHWO+W+nrOVbYfJDxoaQUoP2fEmvCWmA==
+  /rc-util/5.12.2:
+    dependencies:
+      '@babel/runtime': 7.14.0
+      react-is: 16.13.1
+      shallowequal: 1.1.0
+    dev: false
+    peerDependencies:
+      react: '>=16.9.0'
+      react-dom: '>=16.9.0'
+    resolution:
+      integrity: sha512-kzqG2lHY4oZsoj5Svov12K+9wi0xQHvGzfbLlsF1PDEH1aTbgdNTwlE7mejc3MGEr+7bNHa4+T5ZemCS8vQ1Gw==
   /rc/1.2.8:
     dependencies:
       deep-extend: 0.6.0
@@ -15672,7 +15718,7 @@ packages:
       serialize-javascript: 4.0.0
       source-map: 0.6.1
       terser: 4.8.0
-      webpack: 4.44.2_webpack-cli@4.4.0
+      webpack: 4.44.2
       webpack-sources: 1.4.3
       worker-farm: 1.7.0
     engines:
