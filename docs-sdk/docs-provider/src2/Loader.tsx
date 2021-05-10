@@ -28,6 +28,7 @@ type IEntryInfo =
       imports: string[];
       meta?: any;
       demoDeps: any;
+      loadOpts: any;
     }
   | {
       type: "md";
@@ -52,6 +53,7 @@ const Loader: React.FC<IEntryLoaderProps> = ({
   resolveDemoOpts,
   resolveAppServePath: resolveAppServePathFromLoader,
   resolveAppDeps,
+  loadOpts,
 }) => {
   const [entry, setEntry] = useState<null | IEntryInfo>(null);
 
@@ -73,6 +75,7 @@ const Loader: React.FC<IEntryLoaderProps> = ({
               imports,
               meta: { ...staticMeta, ...meta },
               demoDeps,
+              loadOpts,
             });
           });
           break;
@@ -122,6 +125,7 @@ const Loader: React.FC<IEntryLoaderProps> = ({
         meta={entry.meta}
         opts={demoOpts}
         demoDeps={entry.demoDeps}
+        loadOpts={entry.loadOpts}
       >
         <entry.Component />
       </DemoContainer>

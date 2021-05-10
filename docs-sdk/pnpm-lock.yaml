@@ -47,6 +47,7 @@ importers:
       ali-oss: 6.13.2
       codemirror: 5.59.2
       connect-history-api-fallback: 1.6.0
+      copy-to-clipboard: 3.3.1
       execa: 5.0.0
       fs-extra: 9.1.0
       get-port: 5.1.1
@@ -60,6 +61,7 @@ importers:
       react-animate-height: 2.0.23
       react-codemirror2: 7.2.1_codemirror@5.59.2
       react-error-boundary: 3.1.0
+      react-hot-toast: 1.0.2
       webpack-chain: 6.5.1
       webpack-virtual-modules: 0.4.2
     devDependencies:
@@ -94,6 +96,7 @@ importers:
       ali-oss: ^6.13.2
       codemirror: ^5.59.2
       connect-history-api-fallback: ^1.6.0
+      copy-to-clipboard: ^3.3.1
       execa: ^5.0.0
       fs-extra: ^9.1.0
       get-port: ^5.1.1
@@ -108,6 +111,7 @@ importers:
       react-animate-height: ^2.0.23
       react-codemirror2: ^7.2.1
       react-error-boundary: ^3.1.0
+      react-hot-toast: ^1.0.2
       rimraf: ^3.0.2
       typescript: ^4.1.3
       webpack-chain: ^6.5.1
@@ -6435,6 +6439,12 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha1-Z29us8OZl8LuGsOpJP1hJHSPV40=
+  /copy-to-clipboard/3.3.1:
+    dependencies:
+      toggle-selection: 1.0.6
+    dev: false
+    resolution:
+      integrity: sha512-i13qo6kIHTTpCm8/Wup+0b1mVWETvu2kIMzKoK8FpkLkFxlt0znUAHcMzox+T8sPlqtZXq3CulEjQHsYiGFJUw==
   /copy-to/2.0.1:
     dev: false
     resolution:
@@ -8815,6 +8825,12 @@ packages:
       node: '>=6'
     resolution:
       integrity: sha512-ollPHROa5mcxDEkwg6bPt3QbEf4pDQSNtd6JPL1YvOvAo/7/0VAm9TccUeoTmarjPw4pfUthSCqcyfNB1I3ZSg==
+  /goober/2.0.37:
+    dev: false
+    peerDependencies:
+      csstype: ^2.6.2
+    resolution:
+      integrity: sha512-wgj5C7IJX2+MyHZ4TgOA+hLL1mCDW+jGorQ5KCMLF1ofE9gQkfbo1s8txIrzIsAX65XRTm0qaipolId2KMYUkw==
   /good-listener/1.2.2:
     dependencies:
       delegate: 3.2.0
@@ -13848,6 +13864,17 @@ packages:
         optional: true
     resolution:
       integrity: sha512-JrLlvUPqh6wIkrK2hZDfOyq/Uh/WeVEr8nc7hkn2/3Ul0sx1Kr5y4kOGNacNRoj7RhwLNcQ3Udf1KJXrqc0ZtA==
+  /react-hot-toast/1.0.2:
+    dependencies:
+      goober: 2.0.37
+    dev: false
+    engines:
+      node: '>=10'
+    peerDependencies:
+      react: '>=16'
+      react-dom: '>=16'
+    resolution:
+      integrity: sha512-wp89H0WA6EtiexAg5l3ys+WaZ3u0xM/FJWxl6YxR3hlquWhKvO9snBgTe4ATPEcgbS6pbc43RbuBINOkYOzA5A==
   /react-is/16.13.1:
     resolution:
       integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
@@ -15914,6 +15941,10 @@ packages:
       node: '>=0.10.0'
     resolution:
       integrity: sha512-FWtleNAtZ/Ki2qtqej2CXTOayOH9bHDQF+Q48VpWyDXjbYxA4Yz8iDB31zXOBUlOHHKidDbqGVrTUvQMPmBGBw==
+  /toggle-selection/1.0.6:
+    dev: false
+    resolution:
+      integrity: sha1-bkWxJj8gF/oKzH2J14sVuL932jI=
   /toidentifier/1.0.0:
     engines:
       node: '>=0.6'

@@ -47,6 +47,10 @@ export interface IEntryLoaderProps extends IContextResolvers {
     embedded?: boolean;
   };
   demoOpts?: IDemoOpts;
+  /**
+   * 加载器透传下来的属性
+   */
+  loadOpts?: ILoadOverviewOpts;
 }
 
 export interface IDemoOpts {
@@ -76,6 +80,7 @@ export interface ICodeSandboxFiles {
 export interface IDemoOperation {
   name: string;
   icon: () => React.ReactNode;
+  onClick?: () => void;
   enabled?: (ctx: {
     demoOpts: IDemoOpts;
     buildTimeDemoOpts: IDemoOpts;
