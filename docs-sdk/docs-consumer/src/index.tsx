@@ -98,6 +98,13 @@ export async function loadOverview(
       return mergedResolveDemoOpts(opts.consoleOSId);
     }, [mergedResolveDemoOpts]);
 
+    const loadOpts = React.useMemo(() => {
+      return {
+        ...opts,
+        entryKey: props.entryKey,
+      };
+    }, [props.entryKey]);
+
     return (
       <ActualOverview
         {...props}
@@ -105,6 +112,7 @@ export async function loadOverview(
         resolveAppServePath={mergedResolveAppServePath}
         resolveDemoOpts={mergedResolveDemoOpts}
         demoOpts={demoOpts}
+        loadOpts={loadOpts}
       />
     );
   };
@@ -171,6 +179,13 @@ export async function loadEntryLoader(
       return mergedResolveDemoOpts(opts.consoleOSId);
     }, [mergedResolveDemoOpts]);
 
+    const loadOpts = React.useMemo(() => {
+      return {
+        ...opts,
+        entryKey: props.entryKey,
+      };
+    }, [props.entryKey]);
+
     return (
       <EntryLoader
         {...props}
@@ -178,6 +193,7 @@ export async function loadEntryLoader(
         resolveAppServePath={mergedResolveAppServePath}
         resolveDemoOpts={mergedResolveDemoOpts}
         demoOpts={demoOpts}
+        loadOpts={loadOpts}
       />
     );
   };

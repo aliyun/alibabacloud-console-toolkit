@@ -1,4 +1,6 @@
 import React from "react";
+import { Toaster } from "react-hot-toast";
+
 import Loader, { entries } from "../Loader";
 import styles from "./index.scoped.less";
 import DemoList from "./DemoList";
@@ -12,12 +14,15 @@ const Overview: React.FC<IOverviewProps> = ({
   onEntryKeyChange,
   ...restLoaderProps
 }) => {
+  const { loadOpts } = restLoaderProps as any;
   return (
     <div className={styles.container}>
+      <Toaster position="bottom-right" />
       <DemoList
         entryKeys={entryKeys}
         currentEntryKey={entryKey}
         onChange={onEntryKeyChange}
+        loadOpts={loadOpts}
       />
       <hr />
       {entryKey && (

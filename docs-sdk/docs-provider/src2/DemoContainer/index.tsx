@@ -16,6 +16,7 @@ interface IProps {
   className?: string;
   style?: React.CSSProperties;
   demoDeps: any;
+  loadOpts: any;
 }
 
 const DemoContainer: React.FC<IProps> = ({
@@ -27,6 +28,7 @@ const DemoContainer: React.FC<IProps> = ({
   className,
   style,
   demoDeps,
+  loadOpts,
   children,
 }) => {
   const { demoView, operationsView, resolvedOpts } = useOperations(
@@ -36,7 +38,8 @@ const DemoContainer: React.FC<IProps> = ({
     opts,
     demoDeps,
     children,
-    DemoWrapper
+    DemoWrapper,
+    loadOpts
   );
 
   const { canFullScreen } = resolvedOpts;

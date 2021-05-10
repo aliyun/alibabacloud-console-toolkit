@@ -27,7 +27,8 @@ export function useOperations(
   opts: IDemoOpts = {},
   demoDeps,
   children: React.ReactNode,
-  DemoWrapper?: React.ComponentType<any>
+  DemoWrapper: undefined | React.ComponentType<any>,
+  loadOpts: any
 ) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -183,13 +184,16 @@ export function useOperations(
         // 用于debug
         data-transformed-code={transformedCode}
       >
-        {operations.map(({ icon, name, View }) => {
+        {operations.map(({ icon, name, onClick }) => {
           return (
             <span
               key={name}
               className={styles.operation}
               onClick={() => {
                 dispatch(name);
+                if (typeof onClick === "function") {
+                  onClick();
+                }
               }}
             >
               {icon()}
