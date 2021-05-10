@@ -28,10 +28,12 @@ const compactMarkdownComponents = {
   li: (props) => <li {...props} />,
 };
 
+const style: React.CSSProperties = { width: "100%", overflowX: "auto" };
+
 const InterfaceType: React.FC<IProps> = ({ typeInfo }) => {
   // typeInfo.properties
   return (
-    <div>
+    <div style={style}>
       <markdownComponents.table>
         <colgroup>
           <col span={1} style={{ width: "15%" }} />
