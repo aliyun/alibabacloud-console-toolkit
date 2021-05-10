@@ -9,8 +9,8 @@ export default async function demoInfoLoader(this: any, content: string) {
   const callback = this.async();
   const ast = await parseAsync(content, {
     presets: [
-      ["@babel/preset-typescript", { isTSX: true, allExtensions: true }]
-    ]
+      ["@babel/preset-typescript", { isTSX: true, allExtensions: true }],
+    ],
   });
 
   if (!ast || ast.type !== "File") {
@@ -18,9 +18,15 @@ export default async function demoInfoLoader(this: any, content: string) {
   }
 
   // 在运行时创建codesandbox时需要imports的信息
-  const imports = ast.program.body.filter(isImportNode).map(node => {
-    return node.source.value;
-  });
+  const imports = ast.program.body
+    .filter(isImportNode)
+    .filter((node) => {
+      // 过滤掉纯类型import
+      return node.importKind === "value";
+    })
+    .map((node) => {
+      return node.source.value;
+    });
 
   // 在eval时需要imports的信息
   let importCodeLines: string[] = [];
