@@ -164,6 +164,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
       },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
       inject: htmInject,
+      scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'block',
       // @ts-ignore
       templateParameters: (compilation, assets, assetTags, options) => {
         return {

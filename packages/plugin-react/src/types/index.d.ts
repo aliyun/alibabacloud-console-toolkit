@@ -73,6 +73,7 @@ interface BreezrReactOptions {
   uglifyOptions?: any;
   htmlXmlMode?: boolean;
   htmInject?: boolean;
+  htmlScriptLoading?: 'defer' | 'block';
 
   // experiment
   experiment?: {
