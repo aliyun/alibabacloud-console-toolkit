@@ -1,9 +1,8 @@
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { resolve } from 'path';
-import { writeFileSync } from 'fs';
+import {  writeFileSync } from 'fs';
 import { getActualJestConfig } from './getActualJestConfig';
-
-const { runCLI } = require('jest-cli');
+import { run } from 'jest-cli'
 
 export default async (api: PluginAPI, opts: PluginOptions) => {
   const projectRootPath = api.getCwd();
@@ -34,12 +33,10 @@ export default async (api: PluginAPI, opts: PluginOptions) => {
   } else {
     // default method to boot jest
     bootJest = async (jestConfig, cliArgs) => {
-      await runCLI(
-        {
-          config: JSON.stringify(jestConfig),
-          ...cliArgs,
-        },
-        [projectRootPath]
+      writeFileSync(resolve(__dirname, 'jest.config.json'), JSON.stringify(jestConfig))
+      await run(
+        ['--config', resolve(__dirname, 'jest.config.json')],
+        projectRootPath
       );
     };
   }
