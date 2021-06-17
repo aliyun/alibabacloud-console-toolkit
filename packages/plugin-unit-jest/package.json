@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-unit-jest",
-	"version": "1.2.21",
+	"version": "1.2.22",
 	"description": "console toolkit plugin for jest",
 	"scripts": {
 		"ci": "npm run lint && npm run compile && npm run cov",
@@ -30,8 +30,8 @@
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.14.0",
 		"identity-obj-proxy": "^3.0.0",
-		"jest-cli": "^27.0.4",
 		"jest": "^27.0.4",
+		"jest-cli": "^27.0.4",
 		"jest-enzyme": "^7.0.2",
 		"ts-jest": "^27.0.3"
 	},
