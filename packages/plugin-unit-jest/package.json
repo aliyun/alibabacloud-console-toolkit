@@ -26,7 +26,7 @@
 	"dependencies": {
 		"@alicloud/console-toolkit-core": "^1.1.3",
 		"@babel/plugin-transform-modules-commonjs": "^7.4.3",
-		"@types/jest": "^24.0.18",
+		"@types/jest": "^26.0.23",
 		"babel-jest": "^24.7.1",
 		"enzyme": "^3.10.0",
 		"enzyme-adapter-react-16": "^1.14.0",
