@@ -39,6 +39,9 @@
     "ts-loader": "^6.1.0",
     "webpack-merge": "^4.2.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
