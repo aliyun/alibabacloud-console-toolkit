@@ -37,6 +37,9 @@
     "rimraf": "^3.0.0",
     "serve-static": "^1.14.1"
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
   "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
