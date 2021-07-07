@@ -136,6 +136,22 @@ export default (config: BreezrPresetConfig, args: any) => {
       }
     ]);
 
+  if (config.ssr) {
+    plugins.push(
+      [
+        '@alicloud/console-toolkit-plugin-ssr',
+        {
+          ...config.ssr,
+          webpack: (...args: any[]) => {
+            if (config.ssr.webpack) {
+              return config.ssr.webpack(args[0], config, args[1]);
+            }
+            return args[0];
+          },
+        }
+      ]);
+  }
+
   return {
     plugins,
   };

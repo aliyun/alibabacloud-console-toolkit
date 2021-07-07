@@ -298,4 +298,9 @@ export interface BreezrPresetConfig {
   product?: string;
 
   htmlScriptLoading?: 'defer' | 'block';
+
+  ssr: {
+    entry?: string;
+    webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
+  }
 }
