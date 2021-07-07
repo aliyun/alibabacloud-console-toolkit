@@ -5,6 +5,7 @@
     "ci": "lerna run lint && lerna run compile && npm run cov",
     "cov": "jest --coverage",
     "docs:build": "vuepress build docs",
+    "pub:canary": "npx lerna publish --exact --npm-tag=canary --canary=canary",
     "docs:dev": "vuepress dev docs",
     "lint": "eslint packages/ --ext ts",
     "test": "jest packages/",
