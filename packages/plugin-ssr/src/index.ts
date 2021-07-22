@@ -6,12 +6,17 @@ import * as webpack from 'webpack';
 import * as Chain from 'webpack-chain';
 
 import { PluginAPI } from '@alicloud/console-toolkit-core';
-import { done } from "@alicloud/console-toolkit-shared-utils";
+import { done, getEnv } from "@alicloud/console-toolkit-shared-utils";
 
 import { IOption } from './types';
 import buildServer from './buildServer';
 
 export default async (api: PluginAPI, options: IOption) => {
+  const { devServerRender = true } = options;
+
+  if (getEnv().isDev() && !devServerRender) {
+    return;
+  }
   // ssr for dev env
   api.dispatchSync('registerBeforeDevStart',  async () => {
     await buildServer(api, options)
