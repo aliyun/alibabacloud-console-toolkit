@@ -37,12 +37,6 @@ export default {
     commonjs: 'react-router-redux',
     amd: 'react-router-redux',
   },
-  'history': {
-    root: [LIB_NAME, 'HistoryLibrary'],
-    commonjs2: 'react-router-redux',
-    commonjs: 'react-router-redux',
-    amd: 'react-router-redux',
-  },
 
   'redux': {
     root: [LIB_NAME, 'Redux'],
