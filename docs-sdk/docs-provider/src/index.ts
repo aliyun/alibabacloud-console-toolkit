@@ -142,6 +142,7 @@ export default (params: IParams, args) => {
       // output: {
       //   path: params.output
       // }
+      babelPluginWindRc: false,
     },
     args
   );
