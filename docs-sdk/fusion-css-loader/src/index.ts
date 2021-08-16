@@ -89,7 +89,8 @@ module.exports = async function fusionCssLoader(
         if (decl.prop === "font-family" && decl.value === "NextIcon") {
           decl.value = fusionPrefixPascalCase + "Icon";
         }
-        // replace var(--xconsole-icon-font-family, NextIcon) to var(--xconsole-icon-font-family, fusionPrefix + Icon)
+        // replace font-family: var(--xconsole-icon-font-family, NextIcon)
+        // to font-family: var(--xconsole-icon-font-family, fusionPrefix + Icon)
         if (decl.prop === "font-family" && decl.value?.match(/var\(.*,\s?NextIcon\)/)) {
           decl.value = decl.value.replace("NextIcon", fusionPrefixPascalCase + "Icon");
         }
