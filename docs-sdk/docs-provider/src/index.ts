@@ -45,7 +45,10 @@ export interface IParams {
   externals?: IExternalItem[];
   resolveAppServePath?: string;
   output?: string;
-  https?: boolean;
+  devServer?: {
+    https?: boolean;
+    host?: string;
+  };
 }
 
 export default (params: IParams, args) => {
@@ -144,7 +147,8 @@ export default (params: IParams, args) => {
       //   path: params.output
       // }
       babelPluginWindRc: false,
-      https: params.https === true || args.https === true,
+      https: params.devServer?.https === true || args.https === true,
+      host: args.host ?? params.devServer?.host,
     },
     args
   );
