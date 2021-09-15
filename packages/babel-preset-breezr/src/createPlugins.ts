@@ -220,6 +220,29 @@ const createJSONStrings = createPluginCreator(
   (options) => options.proposal.jsonStrings
 );
 
+const createPrivateMethods = createPluginCreator(
+  // To process valid JSON into valid ECMAScript before embedding it.
+  // https://github.com/tc39/proposal-json-superset
+  require('@babel/plugin-proposal-private-methods'),
+  (options) => ({loose: true})
+);
+
+const createPropertyMethods = createPluginCreator(
+  // Proposal: Private methods and getter/setters for JavaScript classes
+  // https://babeljs.io/docs/en/babel-plugin-proposal-private-methods
+  require('@babel/plugin-proposal-private-property-in-object'),
+  () => ({
+    // Note: The loose mode configuration setting must be the same as @babel/plugin-proposal-class-properties.
+
+    //When true, private methods will be assigned directly 
+    // on its parent via Object.defineProperty rather than a WeakSet. 
+    // This results in improved performance and debugging (normal property access vs .get()) at 
+    // the expense of potentially leaking "privates" via things like Object.getOwnPropertyNames.
+    loose: true
+  })
+);
+
+
 export default combineCreators([
   createTransformRuntime,
   createFunctionBind,
@@ -237,4 +260,6 @@ export default combineCreators([
   createImportMeta,
   createClassProperties,
   createJSONStrings,
+  createPrivateMethods,
+  createPropertyMethods,
 ]);

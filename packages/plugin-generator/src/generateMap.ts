@@ -1,4 +1,9 @@
-const generatorMap: GeneratorMap = {};
+const generatorMap: GeneratorMap = {
+  Component: {
+    path: '@alicloud/generator-breezr/generators/library',
+    namespace: 'windComponent'
+  }
+};
 
 export interface GeneratorMeta {
   path: string;

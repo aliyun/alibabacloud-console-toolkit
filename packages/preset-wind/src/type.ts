@@ -51,6 +51,8 @@ export interface BreezrPresetConfig {
    */
   entry?: string;
 
+  hashPrefix?: string;
+
   output?: {
     filename: string;
     path: string;
@@ -252,13 +254,13 @@ export interface BreezrPresetConfig {
    * mocks 相关配置，详细参见
    */
   mocks?: {
-    host: string;
-    product: string;
-    oneConsoleProductAlias: Record<string, string>;
-    uriMatch: string;
-    pathReplace: string,
-    proxy: any;
-    disableBodyParser: boolean;
+    host?: string;
+    product?: string;
+    oneConsoleProductAlias?: Record<string, string>;
+    uriMatch?: string;
+    pathReplace?: string,
+    proxy?: any;
+    disableBodyParser?: boolean;
   }
   /**
    * 开启浏览器兼容性
@@ -294,4 +296,11 @@ export interface BreezrPresetConfig {
   plugins?: any;
 
   product?: string;
+
+  htmlScriptLoading?: 'defer' | 'block';
+
+  ssr: {
+    entry?: string;
+    webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
+  }
 }

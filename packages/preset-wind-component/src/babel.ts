@@ -1,4 +1,5 @@
 import { IOptionalOptions } from 'babel-preset-breezr/lib/types';
+import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 import { IOption } from './type/options';
 
 export function getBabelOptions(
@@ -19,6 +20,14 @@ export function getBabelOptions(
   if (config.babelModuleResolve) {
     // https://github.com/tleunen/babel-plugin-module-resolver/blob/master/DOCS.md
     plugins.push(['module-resolver', config.babelModuleResolve]);
+  }
+
+  if (!config.disableStyleComponentsMinify) {
+    plugins.push(['babel-plugin-styled-components', {
+      displayName: !getEnv().isProd(),
+      minify: getEnv().isProd(),
+      transpileTemplateLiterals: getEnv().isProd()
+    }]);
   }
 
   if (config.useTypescript || config.typescript) {

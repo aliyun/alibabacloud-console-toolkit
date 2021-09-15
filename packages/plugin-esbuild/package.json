@@ -1,0 +1,43 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-esbuild",
+  "version": "1.2.13",
+  "description": "console toolkit plugin for cdn",
+  "main": "lib/index.js",
+  "scripts": {
+    "ci": "npm run lint && npm run compile && npm run cov",
+    "lint": "tslint --project .",
+    "compile": "rm -rf ./lib && tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepare": "npm run compile"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.7",
+    "@types/debug": "^4.1.5",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.121",
+    "@types/node": "^12.7.5",
+    "@types/webpack": "^4.4.27",
+    "@types/webpack-chain": "^5.0.1",
+    "chai": "^4.2.0",
+    "jest": "^24.2.0-alpha.0",
+    "nyc": "^14.1.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.8.0",
+    "typescript": "^3.0.3"
+  },
+  "dependencies": {
+    "@alicloud/console-toolkit-core": "^1.1.3",
+    "@alicloud/console-toolkit-shared-utils": "^1.0.16",
+    "esbuild-loader": "~2.6.3",
+    "lodash": "^4.17.11"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "boelroy <boelroy@live.com>",
+  "license": "MIT",
+  "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
+}

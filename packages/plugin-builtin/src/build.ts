@@ -45,13 +45,13 @@ async function buildByBabel(api: PluginAPI, opts: CommandArgs) {
   debug('builtIn', 'babel after dispatch %o', options);
 }
 
-const callback: (() => Promise<void>)[] = [];
-
 /**
  * register builtIn start command for breezr
  * @param {PluginAPI} api breezr plugin api
  */
 export default async function (api: PluginAPI, config: BuiltInConfig) {
+  const callback: (() => Promise<void>)[] = [];
+
   debug('plugin:builtin', 'register build command');
 
   api.registerSyncAPI('registerBeforeBuildStart', (fn: () => Promise<void>) => {

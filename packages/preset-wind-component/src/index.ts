@@ -206,7 +206,7 @@ export default (config: IOption, cmdArgs: any) => {
 export const extendConfiguration = (config: IOption) => {
   return {
     presets: [
-      ['@alicloud/console-preset-component', config]
+      ['@alicloud/console-toolkit-preset-component', config]
     ]
   };
 };

@@ -59,7 +59,7 @@ export default (api: PluginAPI, opts: PluginOptions, args: CommandArgs) => {
    * register get config api 
    */
   let config: PluginConfig | null = null;
-  const absConfigPath = args.config ? args.config : getConfigFile(api.getCwd());
+  const absConfigPath = args.config ? join(api.getCwd(), args.config) : getConfigFile(api.getCwd());
 
   api.registerSyncAPI('getConfig', () => {
 

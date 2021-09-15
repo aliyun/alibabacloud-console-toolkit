@@ -4,7 +4,7 @@ import { PublishType, Evnrioment } from '@alicloud/console-toolkit-shared-utils'
 const notEmpty = (val: string|undefined, ...args: any[]) => (isString(val) && !!trim(val));
 
 const isValidBranch = (branch: string | undefined) =>
-  isString(branch) && /^[\w-]+\/(\d+\.){2}\d+$/.test(branch);
+  isString(branch) && /^[\w-\.]+\/(\d+\.){2}\d+$/.test(branch);
 
 export function generateCdnPath(env: Evnrioment) {
   const {

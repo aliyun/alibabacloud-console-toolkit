@@ -9,15 +9,21 @@ import * as url from 'url';
 import * as qs from 'querystring';
 
 export default (api: PluginAPI, opts: PluginOptions) => {
+  const {
+    oneapi = false
+  } = opts;
+
   api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
     const {
-      host,
       product,
       oneConsoleProductAlias,
       uriMatch = '/api/**/*.json',
       pathReplace = [],
       proxy,
     } = opts;
+
+    let host = opts.host || 'http://mocks.alibaba-inc.com';
+    host =  oneapi ? 'http://oneapi.alibaba-inc.com' : host;
 
     if (env.buildType & BuildType.Prod) {
       return;
@@ -126,7 +132,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         target: host,
       }, val)) : {};
 
-    const productProxy = typeof product === 'string' ? {
+    const productProxy = (typeof product === 'string' || oneapi) ? {
       // Proxy as Portal
       // e.g.:
       // /api/vpc/DescribeVpcs.json

@@ -42,13 +42,83 @@ const config = {
       "reason": "see https://github.com/microsoft/monaco-editor"
     }
   },
+  "proxy-polyfill": {
+    "^0.3.0": {
+      "version": "^0.3.0",
+      "reason": "see https://github.com/GoogleChrome/proxy-polyfill"
+    }
+  },
+  "ip-regex": {
+    "^2.1.0": {
+      "version": "^2.1.0",
+      "reason": "see https://github.com/sindresorhus/ip-regex"
+    },
+    "^3.0.0": {
+      "version": "^3.0.0",
+      "reason": "see https://github.com/sindresorhus/ip-regex"
+    },
+    "^4.0.0": {
+      "version": "^4.0.0",
+      "reason": "see https://github.com/sindresorhus/ip-regex"
+    }
+  },
+  "cidr-regex": {
+    "^2.0.0": {
+      "version": "^2.0.0",
+      "reason": "see https://github.com/sindresorhus/cidr-regex"
+    }
+  },
+  "scoped-regex": {
+    "^1.0.0": {
+      "version": "^1.0.0",
+      "reason": "see https://github.com/sindresorhus/scoped-regex"
+    }
+  },
+  "is-cidr": {
+    "^3.0.0": {
+      "version": "^3.0.0",
+      "reason": "see https://github.com/sindresorhus/is-cidr"
+    }
+  },
+  "is-ip": {
+    "^3.0.0": {
+      "version": "^3.0.0",
+      "reason": "see https://github.com/sindresorhus/is-cidr"
+    }
+  },
+  "postcss": {
+    "^8.0.0": {
+      "version": "^8.0.0",
+      "reason": "see https://github.com/microsoft/monaco-editor"
+    }
+  },
+  'escape-string-regexp': {
+    "^2.0.0": {
+      "version": "^2.0.0",
+      "reason": "see https://github.com/microsoft/monaco-editor"
+    }
+  }, 
+  'nanoid': {
+    "^3.0.0": {
+      "version": "^3.0.0",
+      "reason": "see https://github.com/microsoft/monaco-editor",
+    }
+  }
 };
 
+const ignorePaths = ['nanoid/non-secure']
+
 export function getPkgPath(filePath: string) {
-  const dir = dirname(filePath);
+  let dir = dirname(filePath);
+
   if (dir in pkgPathCache) {
     return pkgPathCache[dir];
   }
+  ignorePaths.forEach((ignore) => {
+    if (filePath.indexOf(ignore) !== -1) {
+      filePath = dirname(dir);
+    }
+  });
   pkgPathCache[dir] = pkgUp.sync({ cwd: filePath });
   return pkgPathCache[dir];
 }

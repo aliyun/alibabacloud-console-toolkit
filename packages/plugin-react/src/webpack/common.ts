@@ -11,6 +11,7 @@ import { skeletonPlugin } from './plugins/skeleton';
 import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
+import { momentPlugin } from './plugins/moment';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -71,8 +72,12 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     babelOption,
     analyze = false,
     useHappyPack = true,
+    hashPrefix = '',
+    htmInject = true,
+    disableAutoPrefixer = false,
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
+    moment,
   } = options;
 
   if (!cwd) {
@@ -141,6 +146,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     shouldExtract: !disableExtractText,
     condition,
     theme,
+    hashPrefix,
+    disableAutoPrefixer,
     classNamePrefix
   });
 
@@ -156,8 +163,20 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
         minifyCSS: true// 压缩内联css
       },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
-      templateParameters: {
-        __dev__: getEnv().isDev(),
+      inject: htmInject,
+      scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'block',
+      // @ts-ignore
+      templateParameters: (compilation, assets, assetTags, options) => {
+        return {
+            compilation,
+            webpackConfig: compilation.options,
+            htmlWebpackPlugin: {
+                tags: assetTags,
+                files: assets,
+                options,
+            },
+            __dev__: getEnv().isDev()
+        };
       },
     });
     htmlInjectPlugin(config, {
@@ -166,7 +185,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     });
   }
   
-  if (analyze) {
+  if (analyze && !getEnv().isCloudBuild()) {
     analyzerPlugin(config);
   }
 
@@ -185,5 +204,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   
   if (bail) {
     config.bail(bail);
+  }
+
+  if (!moment?.disable) {
+    momentPlugin(config);
   }
 };

@@ -30,10 +30,11 @@ export async function getActualJestConfig(opts: {
   const actualProjectName = projectName || basename(projectRootPath);
 
   let jestConfig = {
-    setupFilesAfterEnv: [require.resolve('jest-enzyme')],
-    testEnvironment: 'enzyme',
+    // setupFilesAfterEnv: [require.resolve('jest-enzyme')],
+    // testEnvironment: 'enzyme',
     transform: {
       // 插件默认不做任何转换，需要用户配置babelJestTransformPatterns
+      '^.+\\.tsx?$': require.resolve('ts-jest')
       //   ...require('ts-jest/presets').defaults.transform,
       // '^.+\\.jsx?$': DEFAULT_TRANSFORMER_PATH,
     } as any,

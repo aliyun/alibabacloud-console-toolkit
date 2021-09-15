@@ -16,6 +16,8 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]);
   }
 
+  const publicPath = args.outputPublicPath || config.outputPublicPath || '/';
+
   plugins.push(...[
     '@alicloud/console-toolkit-plugin-builtin',
     [
@@ -23,13 +25,11 @@ export default (config: BreezrPresetConfig, args: any) => {
       {
         ...config,
         port: args.port || config.port || 3333,
-        host: args.host || config.host || 'localhost' 
-      }
-    ],
-    [
-      '@alicloud/console-toolkit-plugin-cdn',
-      {
-        publishType: args.publishType
+        host: args.host || config.host || 'localhost',
+        analyze: args.analyze || config.analyze || false,
+        output: {
+          publicPath
+        },
       }
     ],
     [
@@ -57,6 +57,17 @@ export default (config: BreezrPresetConfig, args: any) => {
       }
     ]
   ]);
+
+  if (!args.outputPublicPath) {
+    plugins.push(
+      [
+        '@alicloud/console-toolkit-plugin-cdn',
+        {
+          publishType: args.publishType
+        }
+      ]
+    );
+  }
 
   //@ts-ignore
   if (config.mocks || windConfig.mocks) {
@@ -91,7 +102,8 @@ export default (config: BreezrPresetConfig, args: any) => {
 
   if (config.consoleBase) {
     plugins.push([ '@alicloud/console-toolkit-plugin-console-base', {
-      product: config.product
+      product: config.product,
+      oneConsole: config.oneConsole
     }]);
   }
 
@@ -123,6 +135,22 @@ export default (config: BreezrPresetConfig, args: any) => {
         }
       }
     ]);
+
+  if (config.ssr) {
+    plugins.push(
+      [
+        '@alicloud/console-toolkit-plugin-ssr',
+        {
+          ...config.ssr,
+          webpack: (...args: any[]) => {
+            if (config.ssr.webpack) {
+              return config.ssr.webpack(args[0], config, args[1]);
+            }
+            return args[0];
+          },
+        }
+      ]);
+  }
 
   return {
     plugins,

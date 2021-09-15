@@ -32,13 +32,15 @@ export interface IOption {
 
   bableFilter?: Function;
 
-  rollup: (rollConfig: any) => any;
+  rollup?: (rollConfig: any) => any;
 
-  formats: [{
+  formats?: [{
     format: string;
     file: string;
     sourcemap: boolean;
   }];
+
+  disableStyleComponentsMinify?: boolean;
 }
 
 export interface OutputType {

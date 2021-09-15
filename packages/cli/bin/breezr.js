@@ -39,6 +39,7 @@ program.version(require('../package').version).usage('<command> [options]');
 
 program
   .command('start')
+  .allowUnknownOption(true)
   .description('start the development environment for wind')
   .option('-o, --open', 'Open browser')
   .option('-p, --port [port]', '')
@@ -75,6 +76,7 @@ program
   // based on cmdArgs
   .option('--buildMode [buildMode]', 'config webpack build behaviour')
   .option('--publishType [publishType]', 'Build engine type')
+  .option('--output-public-path [outputPublicPath]', 'build public path for webpack')
   .description('build for wind')
   .action(cmd => {
     invokeService('build', cleanArgs(cmd));
@@ -104,11 +106,7 @@ program
           type: 'list',
           message: 'which type you wanna generate?',
           choices: [
-            'Wind Pro project',
-            'Wind project',
-            'Widget',
-            'Component',
-            'Generator'
+            'Component'
           ]
         }
       ])
@@ -119,6 +117,7 @@ program
 
 program
   .command('babel')
+  .allowUnknownOption(true)
   .description('babel compile')
   .action(cmd => {
     invokeService('babel', cleanArgs(cmd));
@@ -126,6 +125,7 @@ program
 
 program
   .command('help')
+  .allowUnknownOption(true)
   .description('breezr help <cmd>')
   .action((cmd, args) => {
     invokeService('help', {

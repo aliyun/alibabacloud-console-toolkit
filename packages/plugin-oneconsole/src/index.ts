@@ -14,5 +14,6 @@ export default (api: PluginAPI, options: PluginOptions) => {
 `;
 
   api.dispatchSync('addHtmlHeadScript', '<meta data-type="oneconsole.basic_header" />');
+  api.dispatchSync('addHtmlHeadScript', '<meta data-type="oneconsole.console_theme"/>');
   api.dispatchSync('addHtmlPrescript', mountDom);
 };
