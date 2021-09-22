@@ -1,0 +1,159 @@
+/* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+
+/* css reset */
+my-style-container {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+my-style-container {
+  margin: 0;
+}
+
+my-style-container article,
+my-style-container aside,
+my-style-container footer,
+my-style-container header,
+my-style-container nav,
+my-style-container section {
+  display: block;
+}
+
+my-style-container h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+my-style-container [type="search"]::-webkit-search-cancel-button,
+my-style-container [type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+my-style-container *,
+my-style-container *:before,
+my-style-container *:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot");
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff2")
+      format("woff2"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff")
+      format("woff"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.ttf")
+      format("truetype");
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+my-style-container {
+  font-size: 100%;
+}
+
+my-style-container {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 12px;
+  font-size: var(--font-size-body-1, 12px);
+  line-height: 1.28571;
+  color: #111111;
+  color: var(--color-text1-4, #111111);
+}
+
+/* component style */
+
+.my-prefix-btn {
+  position: relative;
+}
+.my-prefix-btn.my-prefix-small {
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 24px;
+  font-size: 12px;
+  border-width: 1px;
+}
+.my-prefix-btn.my-prefix-small > .my-prefix-btn-icon.my-prefix-icon-first:before,
+.my-prefix-btn.my-prefix-small > .my-prefix-btn-icon.my-prefix-icon-first .my-prefix-icon-remote {
+  width: 12px;
+  font-size: 12px;
+  line-height: inherit;
+}
+
+.my-prefix-btn.disabled.my-prefix-btn-normal,
+.my-prefix-btn[disabled].my-prefix-btn-normal {
+  background-color: #f7f8fa;
+  border-color: #e6e7eb;
+}
+
+body.my-prefix-modal-open {
+  color: red;
+}
+
+/* mock fusion css var https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/variables.css */
+
+.my-var-container {
+  /* ------------------------ color ------------------------ */
+  --color-brand1-1: #f7f9fa;
+  --color-brand1-6: #0064c8;
+  --color-brand1-9: #002850;
+  --color-data1-1: #00dccd;
+  --color-data1-2: #506fed;
+  --color-data1-3: #ae66fc;
+}
+
+/* mock alicloud css var https://unpkg.com/browse/@alicloudfe/components@1.0.4/dist/xconsole-var.css */
+
+.my-own-scope {
+  /* ------------------------ color ------------------------ */
+  --xconsole-theme-var: #0064c8;
+}
+
+@font-face {
+  font-family: MyPrefixIcon;
+  src: url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.eot");
+  src: url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.eot?#iefix")
+      format("embedded-opentype"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.woff2") format("woff2"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.woff") format("woff"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.ttf") format("truetype"),
+    url("//at.alicdn.com/t/font_1899989_e0hzok75tkg.svg#NextIcon") format("svg");
+}
+
+.my-prefix-icon {
+  display: inline-block;
+  font-family: MyPrefixIcon;
+}
+
+.my-prefix-btn-loading:after {
+  font-family: MyPrefixIcon;
+  content: "\E646";
+  content: var(--icon-content-loading, "\E646");
+}
+
+/* 非NextIcon不会受到影响 */
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-medium.eot");
+  font-weight: 500;
+}
+
+/* 非NextIcon不会受到影响 */
+.my-prefix-step-circle.my-prefix-step-vertical {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto";
+}
+

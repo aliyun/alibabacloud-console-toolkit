@@ -1,0 +1,36 @@
+:global body {
+  margin: 0px;
+}
+
+* {
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.list {
+  padding: 0 8px;
+  padding-inline-start: 0;
+  overflow: auto;
+  max-height: 200px;
+}
+
+.item {
+  display: inline-block;
+  font-size: 18px;
+  margin-top: 12px;
+  cursor: pointer;
+  width: 24%;
+  user-select: none;
+}
+
+.item.active {
+  color: #f06292;
+}
+
+.item:hover {
+  color: red;
+}
+
+.widgetCtn {
+  padding: 8px 12px;
+}

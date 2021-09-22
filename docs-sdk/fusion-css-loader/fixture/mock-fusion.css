@@ -1,0 +1,105 @@
+/* mock fusion css https://unpkg.alipay.com/browse/@alife/theme-xconsole-v4@0.4.13/dist/next.var.css */
+
+/* css reset */
+html {
+  line-height: 1.15;
+  -ms-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+}
+
+article,
+aside,
+footer,
+header,
+nav,
+section {
+  display: block;
+}
+
+h1 {
+  font-size: 2em;
+  margin: 0.67em 0;
+}
+
+[type="search"]::-webkit-search-cancel-button,
+[type="search"]::-webkit-search-decoration {
+  -webkit-appearance: none;
+}
+
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: "Roboto";
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot");
+  src: url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.eot?#iefix")
+      format("embedded-opentype"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff2")
+      format("woff2"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.woff")
+      format("woff"),
+    url("//i.alicdn.com/artascope-font/20160419204543/font/roboto-bold.ttf")
+      format("truetype");
+  font-weight: 700;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+html {
+  font-size: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC",
+    "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial,
+    sans-serif;
+  font-size: 12px;
+  font-size: var(--font-size-body-1, 12px);
+  line-height: 1.28571;
+  color: #111111;
+  color: var(--color-text1-4, #111111);
+}
+
+/* component style */
+
+.next-btn {
+  position: relative;
+}
+.next-btn.next-small {
+  border-radius: 2px;
+  padding: 0 8px;
+  height: 24px;
+  font-size: 12px;
+  border-width: 1px;
+}
+.next-btn.next-small > .next-btn-icon.next-icon-first:before,
+.next-btn.next-small > .next-btn-icon.next-icon-first .next-icon-remote {
+  width: 12px;
+  font-size: 12px;
+  line-height: inherit;
+}
+
+.next-btn.disabled.next-btn-normal,
+.next-btn[disabled].next-btn-normal {
+  background-color: #f7f8fa;
+  border-color: #e6e7eb;
+}
+
+body.next-modal-open {
+  color: red;
+}
