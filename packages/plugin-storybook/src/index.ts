@@ -8,7 +8,7 @@ import { DYNAMIC_CONFIG_PATH } from './constants';
 const writeFileAsync = promisify(writeFile);
 
 export default (api: PluginAPI, opts: PluginOptions) => {
-  api.registerCommand(
+  api.(
     'start-storybook',
     {
       description: 'start story board',

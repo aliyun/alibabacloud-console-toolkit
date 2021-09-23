@@ -1,8 +1,9 @@
+import * as fs from 'fs';
 import * as path from 'path';
 import { debounce } from 'lodash';
-import * as chokidar from 'chokidar';
 import * as express from 'express';
 import * as webpack from 'webpack';
+import * as chokidar from 'chokidar';
 import * as Chain from 'webpack-chain';
 
 import { PluginAPI } from '@alicloud/console-toolkit-core';
@@ -36,6 +37,33 @@ export default async (api: PluginAPI, options: IOption) => {
   // ssr for prod build
   api.dispatchSync('registerBeforeBuildStart',  async () => {
     await buildServerBundle(api, options);
+  });
+
+  api.registerCommand('ssr:render', {
+    usage: `breezr ssr:render [options] <file>`,
+    description: 'get ssr result',
+    options: {
+      '--config': 'console config 的 json 文件',
+      '--path': '要渲染的路由'
+    }
+  }, (args) => {
+    console.log(args);
+    let config = {};
+    if (args.config) {
+      config = require(args.config);
+    }
+    const code = fs.readFileSync(args._[1], 'UTF-8');
+    const tmpPath = path.join(process.cwd(), `node_modules/${Date.now().toString()}.js`);
+    fs.writeFileSync(tmpPath, `
+var window = {}; var navigator = {};
+window.ALIYUN_CONSOLE_CONFIG = ${JSON.stringify(config)}
+var location = window.location = {
+  search: '',
+  hostname: 'foo.bar.com'
+};\n${code}`);
+    const entry = require(tmpPath);
+    const content = entry.default({ location: args.path });
+    console.log(content);
   });
 }
 
