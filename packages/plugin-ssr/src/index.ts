@@ -15,30 +15,6 @@ import buildServer from './buildServer';
 export default async (api: PluginAPI, options: IOption) => {
   const { devServerRender = true } = options;
 
-  if (getEnv().isDev() && !devServerRender) {
-    return;
-  }
-  // ssr for dev env
-  api.dispatchSync('registerBeforeDevStart',  async () => {
-    await buildServer(api, options)
-    await watchAndBuild(api, options);
-  });
-
-  api.on('onChainWebpack', async (config: Chain) => {
-    const originBefore = config.devServer.get('before');
-    config.devServer.before((app, server, compiler) => {
-      app.use(serveSSR(path.resolve(config.output.get('path'), 'server/index.js'), compiler));
-      if (originBefore) {
-        originBefore(app, server, compiler)
-      }
-    })
-  });
-
-  // ssr for prod build
-  api.dispatchSync('registerBeforeBuildStart',  async () => {
-    await buildServerBundle(api, options);
-  });
-
   api.registerCommand('ssr:render', {
     usage: `breezr ssr:render [options] <file>`,
     description: 'get ssr result',
@@ -64,6 +40,30 @@ var location = window.location = {
     const entry = require(tmpPath);
     const content = entry.default({ location: args.path });
     console.log(content);
+  });
+
+  if (getEnv().isDev() && !devServerRender) {
+    return;
+  }
+  // ssr for dev env
+  api.dispatchSync('registerBeforeDevStart',  async () => {
+    await buildServer(api, options)
+    await watchAndBuild(api, options);
+  });
+
+  api.on('onChainWebpack', async (config: Chain) => {
+    const originBefore = config.devServer.get('before');
+    config.devServer.before((app, server, compiler) => {
+      app.use(serveSSR(path.resolve(config.output.get('path'), 'server/index.js'), compiler));
+      if (originBefore) {
+        originBefore(app, server, compiler)
+      }
+    })
+  });
+
+  // ssr for prod build
+  api.dispatchSync('registerBeforeBuildStart',  async () => {
+    await buildServerBundle(api, options);
   });
 }
 
