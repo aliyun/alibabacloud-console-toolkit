@@ -1,6 +1,6 @@
 {
   "name": "babel-preset-breezr-wind",
-  "version": "1.2.30",
+  "version": "1.2.32",
   "description": "Babel preset used by console app",
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
