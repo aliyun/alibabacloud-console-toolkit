@@ -19,6 +19,7 @@ const getBabelOption = (opts: PluginOptions) => {
     babelExclude,
     babelPluginWindRc,
     babelPluginWindIntl,
+    reactRefresh,
   } = opts;
   return {
     presets: [
@@ -28,7 +29,8 @@ const getBabelOption = (opts: PluginOptions) => {
           reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
           windRc: babelPluginWindRc,
           windIntl: babelPluginWindIntl,
-          windCherryPick: babelPluginWindCherryPick
+          windCherryPick: babelPluginWindCherryPick,
+          reactRefresh
         }
       ]
     ],

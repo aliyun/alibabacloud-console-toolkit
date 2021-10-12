@@ -25,7 +25,8 @@
     "less": "^3.0.2",
     "lodash": "^4.17.10",
     "postcss-less": "^1.1.5",
-    "react-hot-loader": "^4.7.2"
+    "react-hot-loader": "^4.7.2",
+    "react-refresh": "^0.10.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.0.5",

@@ -51,6 +51,7 @@ interface BreezrReactOptions {
   // 拼写错误，为了兼容一起的
   es5ImcompatibleVersions?: boolean;
   es5IncompatibleVersions?: boolean;
+  reactRefresh?: boolean;
 
   // file-loader 配置
   staticAssetsOutputPath?: string;
@@ -109,6 +110,7 @@ interface BreezrReactBabelOption {
   es5ImcompatibleVersions?: boolean;
   exclude?: Webpack.RuleSetCondition;
   include?: Webpack.RuleSetCondition;
+  reactRefresh?: boolean;
 }
 
 type CssModules = boolean | 'global' | 'local';

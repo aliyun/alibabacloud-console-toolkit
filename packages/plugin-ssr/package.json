@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-ssr",
-  "version": "1.2.28",
+  "version": "1.2.29",
   "description": "console toolkit ssr plugin",
   "main": "lib/index.js",
   "scripts": {

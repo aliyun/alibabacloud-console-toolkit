@@ -17,6 +17,7 @@ export default ((ctx: any, options: any) => {
     windRc = true,
     windCherryPick = true,
     windLoadableCodeSplitting = true,
+    reactRefresh = false,
   } = options;
 
   const plugins = [];
@@ -62,8 +63,13 @@ export default ((ctx: any, options: any) => {
     );
   }
 
-  if (reactHotLoader && env !== 'production') {
+  // 如果是 reactRefresh 打开的情况 就关闭 react-hot-loader
+  if (reactHotLoader && env !== 'production' && !reactRefresh) {
     plugins.unshift(require.resolve('react-hot-loader/babel'));
+  }
+
+  if (reactRefresh && env !== 'production') {
+    plugins.push(require.resolve('react-refresh/babel'));
   }
 
   return {

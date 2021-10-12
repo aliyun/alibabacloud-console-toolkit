@@ -5,9 +5,11 @@ import { definePlugin } from './plugins/define';
 import { openBrowserPlugin } from './plugins/openBrowser';
 import { errorOverlay } from './plugins/errorOverlay';
 import { hmrPlugin } from './plugins/hmr';
+import { reactRefreshPlugin } from './plugins/reactRefresh';
 import { common } from './common';
 
 import { BreezrReactOptions } from '../types';
+
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 
 const NODE_ENV = 'development';
@@ -22,6 +24,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     disableErrorOverlay = false,
     disableHmr = false,
     publicPathOnDev = false,
+    reactRefresh
   } = options;
 
   config.mode(NODE_ENV);
@@ -62,6 +65,10 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
 
   if (!disableErrorOverlay) {
     errorOverlay(config);
+  }
+
+  if (reactRefresh) {
+    reactRefreshPlugin(config, options)
   }
 
   chainDevServer(config, options);

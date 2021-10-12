@@ -42,6 +42,7 @@
   "publishConfig": {
     "access": "public"
   },
+  "private": true,
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",

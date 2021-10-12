@@ -47,6 +47,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     include,
     useBuiltIns,
     useHappyPack = false,
+    reactRefresh = false,
     exclude = /node_modules/,
   } = options;
 
@@ -68,6 +69,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
         require.resolve('babel-preset-breezr-wind'),
         {
           reactHotLoader,
+          reactRefresh,
           reactCssModules,
           reactCssModulesContext,
           reactCssModulesResolvePath,

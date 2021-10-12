@@ -78,6 +78,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
     moment,
+    reactRefresh
   } = options;
 
   if (!cwd) {
@@ -132,7 +133,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     useBuiltIns: babelUseBuiltIns,
     windIntl: babelPluginWindIntl,
     windCherryPick: babelPluginWindCherryPick,
-    babelOption: babelOption
+    babelOption: babelOption,
+    reactRefresh,
   });
 
   let condition: CssConditionType = 'stable';
