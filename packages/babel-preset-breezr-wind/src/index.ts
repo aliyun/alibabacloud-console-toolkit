@@ -69,7 +69,7 @@ export default ((ctx: any, options: any) => {
   }
 
   if (reactRefresh && env !== 'production') {
-    plugins.push(require.resolve('react-refresh/babel'));
+    plugins.unshift(require.resolve('react-refresh/babel'));
   }
 
   return {
