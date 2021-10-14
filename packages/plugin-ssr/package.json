@@ -16,6 +16,7 @@
     "@alicloud/console-toolkit-core": "^1.2.30",
     "@types/chai": "^4.1.7",
     "@types/debug": "^4.1.5",
+    "@types/heapdump": "^0.3.1",
     "@types/jest": "^24.0.18",
     "@types/lodash": "^4.14.121",
     "@types/node": "^12.7.5",
@@ -33,6 +34,7 @@
   "dependencies": {
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
     "@types/express": "^4.17.12",
+    "heapdump": "^0.3.15",
     "lodash": "^4.17.11",
     "rimraf": "^3.0.0",
     "serve-static": "^1.14.1"

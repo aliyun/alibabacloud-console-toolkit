@@ -1,3 +1,5 @@
 module.exports = {
-  plugins: ['../../lib/index.js']
+  plugins: [ 
+    ['../../lib/index.js', { devServerRender: false }]
+  ]
 }

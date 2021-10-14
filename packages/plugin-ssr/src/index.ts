@@ -1,4 +1,3 @@
-import * as fs from 'fs';
 import * as path from 'path';
 import { debounce } from 'lodash';
 import * as express from 'express';
@@ -10,6 +9,8 @@ import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { done, getEnv } from "@alicloud/console-toolkit-shared-utils";
 
 import { IOption } from './types';
+import renderCmdHandler from './cmd/render';
+import doctorCmdHandler from './cmd/doctor';
 import buildServer from './buildServer';
 
 export default async (api: PluginAPI, options: IOption) => {
@@ -22,29 +23,24 @@ export default async (api: PluginAPI, options: IOption) => {
       '--config': 'console config 的 json 文件',
       '--path': '要渲染的路由'
     }
-  }, (args) => {
-    console.log(args);
-    let config = {};
-    if (args.config) {
-      config = require(args.config);
-    }
-    const code = fs.readFileSync(args._[1], 'UTF-8');
-    const tmpPath = path.join(process.cwd(), `node_modules/${Date.now().toString()}.js`);
-    fs.writeFileSync(tmpPath, `
-var window = {}; var navigator = {};
-window.ALIYUN_CONSOLE_CONFIG = ${JSON.stringify(config)}
-var location = window.location = {
-  search: '',
-  hostname: 'foo.bar.com'
-};\n${code}`);
-    const entry = require(tmpPath);
-    const content = entry.default({ location: args.path });
-    console.log(content);
-  });
+  }, renderCmdHandler);
 
-  if (getEnv().isDev() && !devServerRender) {
+  api.registerCommand('ssr:doctor', {
+    usage: `breezr ssr:doctor [options] <file>`,
+    description: '对 ssr 结果做测试，发现问题',
+    details: '对 ssr 结果做测试，发现问题',
+    options: {
+      '--config': 'console config 的 json 文件',
+      '--path': '要渲染的路由',
+      '--renderNumber': '渲染次数',
+      '--snapshot': '输出 js 的堆栈',
+    }
+  }, doctorCmdHandler);
+
+  if (getEnv().isDev() || !devServerRender) {
     return;
   }
+
   // ssr for dev env
   api.dispatchSync('registerBeforeDevStart',  async () => {
     await buildServer(api, options)
