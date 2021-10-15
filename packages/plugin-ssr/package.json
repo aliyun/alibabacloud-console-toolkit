@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-ssr",
-  "version": "1.2.34",
+  "version": "1.2.35",
   "description": "console toolkit ssr plugin",
   "main": "lib/index.js",
   "scripts": {
@@ -44,5 +44,5 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
-  "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
+  "gitHead": "3246ceba508b9214dc1146828a168c80e0009094"
 }

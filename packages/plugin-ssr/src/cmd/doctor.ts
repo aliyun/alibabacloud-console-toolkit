@@ -23,6 +23,7 @@ const doctor = async (args: CommandArgs) => {
     module.exports.default({ location: args.path });
     if (index % 100 == 0) {
       console.log(`进度 ${index*100/1000}%`)
+      global.gc();
     }
   }
 

@@ -37,7 +37,7 @@ export default async (api: PluginAPI, options: IOption) => {
     }
   }, doctorCmdHandler);
 
-  if (getEnv().isDev() || !devServerRender) {
+  if (getEnv().isDev() && !devServerRender) {
     return;
   }
 

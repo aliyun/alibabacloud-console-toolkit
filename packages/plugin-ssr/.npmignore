@@ -6,5 +6,5 @@ tslint.json
 
 yarn.lock
 *.log
-
+tests/
 src
