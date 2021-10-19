@@ -2,8 +2,6 @@ import { CommandArgs } from '@alicloud/console-toolkit-core';
 import { info, done, error } from '@alicloud/console-toolkit-shared-utils'
 import { memoryUsage } from 'process'
 
-import { writeSnapshot } from 'heapdump';
-
 import { prepareCode } from '../utils';
 
 const doctor = async (args: CommandArgs) => {
@@ -33,13 +31,14 @@ const doctor = async (args: CommandArgs) => {
 
   global.gc();
 
-  if ((memoryUsageAfter.heapTotal - memoryUsageBefore.heapTotal) / memoryUsageBefore.heapTotal > 0.1) {
+  if ((memoryUsageAfter.heapUsed - memoryUsageBefore.heapUsed) / memoryUsageBefore.heapUsed > 0.1) {
     error(`发现内存溢出 你可以通过添加 --heapdump 参数生成 内存快照 排查内存`)
-    process.argv0
+    console.log(`\n\t tnpm i heapdump`)
     console.log(`\n\t ${process.argv.join(' ')} --heapdump`)
   }
   if (args.heapdump) {
-    writeSnapshot();
+    const heapdump = require('heapdump')
+    heapdump.writeSnapshot();
   }
 }
 
