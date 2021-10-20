@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-official",
-  "version": "1.2.39",
+  "version": "1.2.40",
   "description": "console toolkit preset for console app",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
@@ -40,7 +40,7 @@
     "@alicloud/console-toolkit-plugin-mocks": "^1.2.30",
     "@alicloud/console-toolkit-plugin-oneconsole": "^1.2.30",
     "@alicloud/console-toolkit-plugin-react": "^1.2.32",
-    "@alicloud/console-toolkit-plugin-ssr": "^1.2.38",
+    "@alicloud/console-toolkit-plugin-ssr": "^1.2.40",
     "@alicloud/console-toolkit-plugin-styled-components-isolation": "^1.2.30",
     "@alicloud/console-toolkit-plugin-typescript": "^1.2.30",
     "@alicloud/console-toolkit-plugin-unit-jest": "^1.2.30",
