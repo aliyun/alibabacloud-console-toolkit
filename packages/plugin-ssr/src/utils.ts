@@ -5,7 +5,7 @@ import { CommandArgs } from '@alicloud/console-toolkit-core'
 export const prepareCode = (args: CommandArgs) => {
   let config = {};
   if (args.config) {
-    config = require(args.config);
+    config = require(args.consoleConfig);
   }
   const code = fs.readFileSync(args._[1], 'UTF-8');
   const tmpPath = path.join(process.cwd(), `node_modules/${Date.now().toString()}.js`);
