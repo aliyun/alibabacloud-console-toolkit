@@ -100,7 +100,7 @@ export default (config: BreezrPresetConfig, args: any) => {
     }]);
   }
 
-  if (config.consoleBase) {
+  if (config.consoleBase === true || (typeof config.consoleBase === 'object' && !config.consoleBase.disabled)) {
     plugins.push([ '@alicloud/console-toolkit-plugin-console-base', {
       product: config.product,
       oneConsole: config.oneConsole

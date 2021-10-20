@@ -275,7 +275,7 @@ export interface BreezrPresetConfig {
   /**
    * 开启控制台 topbar & sidebar
    */
-  consoleBase?: boolean;
+  consoleBase?: boolean | { disabled: boolean };
 
   /**
    * 监控相关配置，详细参见 https://yuque.antfin-inc.com/wind/breezr_guide/zydbd8
