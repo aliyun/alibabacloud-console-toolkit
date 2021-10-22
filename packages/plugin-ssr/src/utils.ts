@@ -4,8 +4,13 @@ import { CommandArgs } from '@alicloud/console-toolkit-core'
 
 export const prepareCode = (args: CommandArgs) => {
   let config = {};
-  if (args.config) {
+  let global = {};
+  if (args.consoleConfig) {
     config = require(args.consoleConfig);
+  }
+
+  if (args.consoleGlobal) {
+    global = require(args.consoleGlobal);
   }
   const code = fs.readFileSync(args._[1], 'UTF-8');
   const tmpPath = path.join(process.cwd(), `node_modules/${Date.now().toString()}.js`);
@@ -13,6 +18,7 @@ export const prepareCode = (args: CommandArgs) => {
 const renderFunction = function (module) {
   var window = {}; var navigator = {}; ${args.enableConsole ? '' : 'var console = { assert: () => {},clear: () => {},context: () => {},count: () => {},countReset: () => {},debug: () => {},dir: () => {},dirxml: () => {},error: () => {},group: () => {},groupCollapsed: () => {},groupEnd: () => {},info: () => {},log: () => {}, memory: () => {},profile: () => {},profileEnd: () => {},table: () => {},time: () => {},timeEnd: () => {},timeLog: () => {},timeStamp: () => {},trace: () => {},warn: () => {}, }'}
   window.ALIYUN_CONSOLE_CONFIG = ${JSON.stringify(config)}
+  window.ALIYUN_CONSOLE_GLOBAL = ${JSON.stringify(global)}
   var location = window.location = {
   search: '',
   hostname: 'foo.bar.com',
