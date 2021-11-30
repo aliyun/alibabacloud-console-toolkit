@@ -150,8 +150,8 @@ export default (api: PluginAPI, opts: PluginOptions) => {
          */
         target: host,
         pathRewrite: (path: string) => path.replace(
-          /^\/data\/(innerApi|call)\.json(\?action=(.*))?/,
-          '/mock/oneconsole/data/api.json?type=$1'
+          /^\/data\/(innerApi|call)\.json(\?(.*))?/,
+          '/mock/oneconsole/data/api.json$2&type=$1'
         ),
         onProxyReq: oneConsoleProxyReq,
       }),

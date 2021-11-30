@@ -14,7 +14,7 @@ import doctorCmdHandler from './cmd/doctor';
 import buildServer from './buildServer';
 
 export default async (api: PluginAPI, options: IOption) => {
-  const { devServerRender = true } = options;
+  const { devServerRender = false } = options;
 
   api.registerCommand('ssr:render', {
     usage: `breezr ssr:render [options] <file>`,
