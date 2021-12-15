@@ -20,7 +20,6 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     https = false,
     defineGlobalConstants,
     noOpen,
-    disableErrorOverlay = false,
     disableHmr = false,
     publicPathOnDev = false,
     reactRefresh
