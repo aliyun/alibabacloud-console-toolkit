@@ -3,7 +3,6 @@ import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
 import { openBrowserPlugin } from './plugins/openBrowser';
-import { errorOverlay } from './plugins/errorOverlay';
 import { hmrPlugin } from './plugins/hmr';
 import { reactRefreshPlugin } from './plugins/reactRefresh';
 import { common } from './common';
@@ -63,9 +62,6 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     hmrPlugin(config);
   }
 
-  if (!disableErrorOverlay) {
-    errorOverlay(config);
-  }
 
   if (reactRefresh) {
     reactRefreshPlugin(config, options)
