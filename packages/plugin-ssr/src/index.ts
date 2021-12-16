@@ -14,7 +14,7 @@ import doctorCmdHandler from './cmd/doctor';
 import buildServer from './buildServer';
 
 export default async (api: PluginAPI, options: IOption) => {
-  const { devServerRender = false } = options;
+  const { devServerRender = false, microApp } = options;
 
   api.registerCommand('ssr:render', {
     usage: `breezr ssr:render [options] <file>`,
@@ -55,6 +55,9 @@ export default async (api: PluginAPI, options: IOption) => {
         originBefore(app, server, compiler)
       }
     })
+    if (microApp) {
+      api.dispatchSync('configMicroAppSSREntry', path.resolve(config.output.get('path'), 'server/index.js'))
+    }
   });
 
   // ssr for prod build
