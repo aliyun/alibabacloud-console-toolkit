@@ -56,7 +56,7 @@ export default async (api: PluginAPI, options: IOption) => {
       }
     })
     if (microApp) {
-      api.dispatchSync('configMicroAppSSREntry', path.resolve(config.output.get('path'), 'server/index.js'))
+      api.dispatchSync('configMicroAppSSREntry', path.resolve(config.output.get('publicPath'), 'server/index.js'))
     }
   });
 
