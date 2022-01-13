@@ -93,10 +93,11 @@ export default (config: BreezrPresetConfig, args: any) => {
     }]);
   }
 
-  if (config.armsId) {
+  if (config.armsId || config.aemId) {
     plugins.push([ '@alicloud/console-toolkit-plugin-arms', {
       armsId: config.armsId,
-      oneConsole: config.oneConsole
+      oneConsole: config.oneConsole,
+      aemId: config.aemId,
     }]);
   }
 
@@ -143,7 +144,7 @@ export default (config: BreezrPresetConfig, args: any) => {
         {
           ...config.ssr,
           webpack: (...args: any[]) => {
-            if (config.ssr.webpack) {
+            if (config?.ssr?.webpack) {
               return config.ssr.webpack(args[0], config, args[1]);
             }
             return args[0];

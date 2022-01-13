@@ -19,4 +19,9 @@ export default (api: PluginAPI, options: PluginOptions) => {
 </script>`;
     api.dispatchSync('addHtmlScript', armsStaticSourceTraceScripts);
   }
+
+  if (options.aemId) {
+    const aemScripts = `<meta data-type="oneconsole.aem_config" data-pid="${options.aemId}" />`;
+    api.dispatchSync('addHtmlScript', aemScripts);
+  }
 };

@@ -299,7 +299,9 @@ export interface BreezrPresetConfig {
 
   htmlScriptLoading?: 'defer' | 'block';
 
-  ssr: {
+  aemId?: string;
+
+  ssr?: {
     entry?: string;
     webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
   }
