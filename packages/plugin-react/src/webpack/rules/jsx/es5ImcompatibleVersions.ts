@@ -103,6 +103,12 @@ const config = {
       "version": "^3.0.0",
       "reason": "see https://github.com/microsoft/monaco-editor",
     }
+  },
+  'compare-version': {
+    "*": {
+      "version": "*",
+      "reason": "see https://github.com/microsoft/monaco-editor",
+    }
   }
 };
 
