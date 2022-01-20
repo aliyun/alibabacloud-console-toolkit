@@ -21,7 +21,7 @@ const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
     const rule = `extraBabelInclude_${index}`;
     config.module
       .rule(rule)
-        .test(/\.jsx?$/)
+        .test(/\.m?jsx?$/)
         .include
           .add(include)
           .end()
