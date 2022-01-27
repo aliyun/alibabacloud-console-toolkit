@@ -109,6 +109,12 @@ const config = {
       "version": "*",
       "reason": "see https://github.com/microsoft/monaco-editor",
     }
+  },
+  "@simplewebauthn/browser": {
+    "^4.1.0": {
+      "version": "^4.1.0",
+      "reason": "https://github.com/MasterKale/SimpleWebAuthn/blob/f07dd0b1689f6db41899dfcda628d0caf0f167c2/packages/browser/src/helpers/bufferToBase64URLString.ts#L11"
+    }
   }
 };
 
