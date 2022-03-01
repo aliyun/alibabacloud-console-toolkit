@@ -21,6 +21,6 @@ const getConfig = () => {
   return babelConfig;
 };
 
-module.exports = babelJest.createTransformer({
+module.exports = babelJest.default.createTransformer({
   ...getConfig(),
 });

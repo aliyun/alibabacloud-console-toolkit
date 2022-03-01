@@ -170,13 +170,6 @@ export default (config: IOption, cmdArgs: any) => {
           const pkgName = pkgJson.name;
           newJestConfig.moduleNameMapper[`^${pkgName}(.*)$`] = '<rootDir>$1';
 
-          if (config.useTypescript || config.typescript) {
-            Object.assign(
-              newJestConfig.transform,
-              require('ts-jest/presets').defaults.transform
-            );
-          }
-
           if (typeof config.processJestConfig === 'function') {
             return config.processJestConfig(newJestConfig);
           } else {

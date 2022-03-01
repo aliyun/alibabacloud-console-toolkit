@@ -79,6 +79,7 @@ export function collectInterfaceInfo(fileName: string): InterfaceInfo {
       ) {
         throw new Error(
           `unexpected declaration type in interface. name: ${name}, kind: ${
+            // @ts-ignore
             ts.SyntaxKind[declaration.kind]
           }`
         );
@@ -101,6 +102,7 @@ export function collectInterfaceInfo(fileName: string): InterfaceInfo {
         name,
         typeText,
         documentation,
+        // @ts-ignore
         defaultValue,
       });
     });

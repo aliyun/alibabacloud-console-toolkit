@@ -21,23 +21,16 @@ export function useEvalCode({ code, deps: demoDeps, enable }: IOpts) {
     setTransformedCode("");
     setEvaluated({});
     Promise.all([
-      import("@babel/core"),
-      import("@babel/preset-typescript"),
-      import("@babel/plugin-transform-modules-amd"),
-      import("@babel/plugin-transform-react-jsx"),
-      // import("@babel/plugin-proposal-dynamic-import")
+      import("@babel/standalone"),
     ]).then(
       ([
         babel,
-        { default: babelTs },
-        { default: babelAmd },
-        { default: babelJSX },
       ]) => {
-        babel
-          .transformAsync(code, {
+        const res = babel
+          .transform(code, {
             presets: [
               [
-                babelTs,
+                'typescript',
                 {
                   isTSX: true,
                   allExtensions: true,
@@ -45,13 +38,12 @@ export function useEvalCode({ code, deps: demoDeps, enable }: IOpts) {
               ],
             ],
 
-            plugins: [babelJSX, babelAmd],
+            plugins: ['transform-modules-amd', 'transform-react-jsx'],
           })
-          .then((res) => {
-            if (typeof res?.code === "string") {
-              setTransformedCode(res.code);
-            }
-          });
+          
+          if (typeof res?.code === "string") {
+            setTransformedCode(res.code);
+          }
       }
     );
   }, [code, enable]);
