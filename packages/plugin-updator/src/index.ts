@@ -13,7 +13,7 @@ interface IChoice {
 }
 
 export default async (api: PluginAPI, opts: PluginOptions) => {
-  const { packagePath, autoUpdate } = opts;
+  const { packagePath, autoUpdate = false } = opts;
   if (!existsSync(packagePath)) {
     return;
   }

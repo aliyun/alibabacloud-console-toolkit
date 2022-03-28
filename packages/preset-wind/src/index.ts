@@ -11,7 +11,7 @@ export default (config: BreezrPresetConfig, args: any) => {
     plugins.push([
       '@alicloud/console-toolkit-plugin-updator', {
         packagePath: resolve(__dirname, '../package.json'),
-        autoUpdate: true
+        autoUpdate: false
       }
     ]);
   }

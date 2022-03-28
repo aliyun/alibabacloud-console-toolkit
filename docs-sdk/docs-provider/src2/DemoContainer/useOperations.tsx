@@ -253,6 +253,7 @@ const defaultOperations: IDemoOperation[] = [
           editorDidMount={(editor) => {
             // https://github.com/codemirror/CodeMirror/issues/2469#issuecomment-376064308
             setTimeout(() => {
+              editor.setSize("", `${code.split('\n').length * 18 + 10}px`);
               editor.refresh();
             }, 10);
           }}
