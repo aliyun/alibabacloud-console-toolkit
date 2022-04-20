@@ -35,7 +35,7 @@
     "@alicloud/console-toolkit-fusion-css-loader": "workspace:^1.0.0",
     "@alicloud/console-toolkit-markdown-renderer": "workspace:^3.0.0",
     "@alicloud/console-toolkit-plugin-os": "0.4.2",
-    "@alicloud/console-toolkit-preset-official": "1.2.8",
+    "@alicloud/console-toolkit-preset-official": "^1.2.8",
     "@alicloud/console-toolkit-shared-utils": "1.0.16",
     "@babel/standalone": "^7.17.2",
     "ali-oss": "^6.13.2",
