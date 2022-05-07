@@ -6,7 +6,7 @@
     "clean": "rm -rf doc-dist",
     "dev": "npm run clean && npx breezr start",
     "build": "npm run clean && npx breezr build",
-    "debug": "npm run clean && npx --node-arg=--inspect breezr start",
+    "debug": "npm run clean && npx --node-options=--inspect-brk breezr start",
     "upload": "breezr upload",
     "upload:pre": "npm run upload -- --tag=pre"
   },
