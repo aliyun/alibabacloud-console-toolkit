@@ -62,6 +62,7 @@ export const config = ({
             __servePath: JSON.stringify(servePath),
             __consoleOSId: JSON.stringify(consoleOSId),
           },
+          disableUpdator: true,
         } as BreezrPresetConfig,
       ],
     ],
