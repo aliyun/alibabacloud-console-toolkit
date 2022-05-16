@@ -37,13 +37,10 @@ importers:
       '@alicloud/console-toolkit-docs-shared': 'link:../shared'
       '@alicloud/console-toolkit-fusion-css-loader': 'link:../fusion-css-loader'
       '@alicloud/console-toolkit-markdown-renderer': 'link:../markdown-renderer'
-      '@alicloud/console-toolkit-plugin-os': 0.4.2_@babel+core@7.12.10
-      '@alicloud/console-toolkit-preset-official': 1.2.8_8d56ec2c39966f19981a869c2b9480fc
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
-      '@babel/core': 7.12.10
-      '@babel/plugin-transform-modules-amd': 7.12.1_@babel+core@7.12.10
-      '@babel/plugin-transform-react-jsx': 7.12.12_@babel+core@7.12.10
-      '@babel/preset-typescript': 7.12.7_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-os': 0.4.2
+      '@alicloud/console-toolkit-preset-official': 1.2.8_@types+react@17.0.0
+      '@alicloud/console-toolkit-shared-utils': 1.0.16
+      '@babel/standalone': 7.17.11
       ali-oss: 6.13.2
       codemirror: 5.59.2
       connect-history-api-fallback: 1.6.0
@@ -83,12 +80,9 @@ importers:
       '@alicloud/console-toolkit-fusion-css-loader': 'workspace:^1.0.0'
       '@alicloud/console-toolkit-markdown-renderer': 'workspace:^3.0.0'
       '@alicloud/console-toolkit-plugin-os': 0.4.2
-      '@alicloud/console-toolkit-preset-official': 1.2.8
+      '@alicloud/console-toolkit-preset-official': ^1.2.8
       '@alicloud/console-toolkit-shared-utils': 1.0.16
-      '@babel/core': ^7.12.10
-      '@babel/plugin-transform-modules-amd': ^7.12.1
-      '@babel/plugin-transform-react-jsx': ^7.12.12
-      '@babel/preset-typescript': ^7.12.7
+      '@babel/standalone': ^7.17.2
       '@types/fs-extra': ^9.0.6
       '@types/node': ^14.14.22
       '@types/react': ^17.0.0
@@ -208,7 +202,7 @@ importers:
       unified: 9.2.0
       unist-util-visit-parents: 3.1.1
     devDependencies:
-      '@alicloud/console-toolkit-cli': 1.2.0
+      '@alicloud/console-toolkit-cli': 1.2.0_@babel+core@7.12.10
       '@alicloud/console-toolkit-preset-official': 1.2.8_8d56ec2c39966f19981a869c2b9480fc
       '@babel/cli': 7.12.10_@babel+core@7.12.10
       '@babel/core': 7.12.10
@@ -351,6 +345,25 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-kZTSiKUc3YlB39bKjtLD0M2/9GrcAueLGXeuO0VAkRzOY4qvMCaFm1QD2DN2TOdVvSjRW08YVReQkgNqgEuRUw==
+  /@alicloud/console-toolkit-cli/1.2.0_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-block': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-builtin': 1.2.0_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-generator': 1.2.0_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      chalk: 2.4.2
+      commander: 3.0.2
+      debug: 4.3.1
+      figlet: 1.5.0
+      inquirer: 7.3.3
+      update-notifier: 3.0.1
+    dev: true
+    hasBin: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-kZTSiKUc3YlB39bKjtLD0M2/9GrcAueLGXeuO0VAkRzOY4qvMCaFm1QD2DN2TOdVvSjRW08YVReQkgNqgEuRUw==
   /@alicloud/console-toolkit-core/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
@@ -381,6 +394,15 @@ packages:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
+    resolution:
+      integrity: sha512-68OCXZly622bUQ4UbpD94m5yTr5909x+nkmDjoBqY6FNgd/B6S+XYYMkjaYFLrwJHGdxWlm0TKVc+ug8wSesBg==
+  /@alicloud/console-toolkit-plugin-arms/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      lodash: 4.17.20
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
     resolution:
       integrity: sha512-68OCXZly622bUQ4UbpD94m5yTr5909x+nkmDjoBqY6FNgd/B6S+XYYMkjaYFLrwJHGdxWlm0TKVc+ug8wSesBg==
   /@alicloud/console-toolkit-plugin-babel/1.1.3:
@@ -415,10 +437,37 @@ packages:
       yeoman-generator: 4.0.2
     resolution:
       integrity: sha512-8XYnHnRj9xh4bCtn5zZ4Rykg8LHxhBwSYRE5je2CinX1H2NU9x+G6FPkADGFP2DoxETgiIN6z1ESDPIEXCee0Q==
+  /@alicloud/console-toolkit-plugin-block/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      chalk: 2.4.2
+      execa: 2.1.0
+      lodash: 4.17.20
+      mkdirp: 0.5.5
+      ora: 3.4.0
+      package-json: 6.5.0
+      rimraf: 2.7.1
+      semver: 6.3.0
+      user-home: 2.0.0
+      yeoman-generator: 4.0.2
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-8XYnHnRj9xh4bCtn5zZ4Rykg8LHxhBwSYRE5je2CinX1H2NU9x+G6FPkADGFP2DoxETgiIN6z1ESDPIEXCee0Q==
   /@alicloud/console-toolkit-plugin-browser-hint/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
+    resolution:
+      integrity: sha512-i4Ac3YvrrJffz1QvsBZoE7Qi50CG9/Bf8Dwn/YfS33NkXd47WxRvwmeEdWhmTxy5lxdnU9DwoUZ64zeSpiLaHQ==
+  /@alicloud/console-toolkit-plugin-browser-hint/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      lodash: 4.17.20
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
     resolution:
       integrity: sha512-i4Ac3YvrrJffz1QvsBZoE7Qi50CG9/Bf8Dwn/YfS33NkXd47WxRvwmeEdWhmTxy5lxdnU9DwoUZ64zeSpiLaHQ==
   /@alicloud/console-toolkit-plugin-builtin/1.2.0:
@@ -431,11 +480,34 @@ packages:
       webpack-chain: 6.5.1
     resolution:
       integrity: sha512-BzUGX1ck0tywyYIt2Kt77LbE3apmRC9rUziCabYgrvh8JWWmHlc08YFrk+ZXLOjD3J+uNGIBmYLGLGV7eg/eLw==
+  /@alicloud/console-toolkit-plugin-builtin/1.2.0_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-babel': 1.1.3
+      '@alicloud/console-toolkit-plugin-generator': 1.2.0_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-webpack': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      webpack-chain: 6.5.1
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-BzUGX1ck0tywyYIt2Kt77LbE3apmRC9rUziCabYgrvh8JWWmHlc08YFrk+ZXLOjD3J+uNGIBmYLGLGV7eg/eLw==
   /@alicloud/console-toolkit-plugin-cdn/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
+    resolution:
+      integrity: sha512-YKJL5z0Gpl0ymLOr2n5knXa+Ti1syvZ6JWLspbkEC8vBxWwlBv0KPXdPTp/ngzVABhs+tlxKBUYL2bv4bguX3w==
+  /@alicloud/console-toolkit-plugin-cdn/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      lodash: 4.17.20
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
     resolution:
       integrity: sha512-YKJL5z0Gpl0ymLOr2n5knXa+Ti1syvZ6JWLspbkEC8vBxWwlBv0KPXdPTp/ngzVABhs+tlxKBUYL2bv4bguX3w==
   /@alicloud/console-toolkit-plugin-console-base/1.2.1:
@@ -444,12 +516,32 @@ packages:
       lodash: 4.17.20
     resolution:
       integrity: sha512-/57nbuzfwM0KzLnUvycS+hcp3zM83U+FoMCts7NF+3vqiLeaItIMz51fqJBI9VeJdQm5IISb4ObEA4WmdGhw+Q==
+  /@alicloud/console-toolkit-plugin-console-base/1.2.1_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      lodash: 4.17.20
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-/57nbuzfwM0KzLnUvycS+hcp3zM83U+FoMCts7NF+3vqiLeaItIMz51fqJBI9VeJdQm5IISb4ObEA4WmdGhw+Q==
   /@alicloud/console-toolkit-plugin-dll/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-shared-utils': 1.0.16
       lodash: 4.17.20
       rimraf: 3.0.2
       serve-static: 1.14.1
+    resolution:
+      integrity: sha512-GAw/4xq7WXQh9lrJH723NlkjETjagPnRN00xzv+B2Ldqp59JNtvELlBuAu5VWHQD4HvbRg2qrXVrvF3oXIXePQ==
+  /@alicloud/console-toolkit-plugin-dll/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      lodash: 4.17.20
+      rimraf: 3.0.2
+      serve-static: 1.14.1
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
     resolution:
       integrity: sha512-GAw/4xq7WXQh9lrJH723NlkjETjagPnRN00xzv+B2Ldqp59JNtvELlBuAu5VWHQD4HvbRg2qrXVrvF3oXIXePQ==
   /@alicloud/console-toolkit-plugin-generator/1.2.0:
@@ -469,6 +561,26 @@ packages:
       yeoman-environment: 2.10.3
     resolution:
       integrity: sha512-muGI5iMiF+jyjCWVnfaQ19d50+DIUQ3HpIgTzRgIr7lKuVpPFclgMvjFlKOg1jYvedZqtVcLlVbla1KK45l+4w==
+  /@alicloud/console-toolkit-plugin-generator/1.2.0_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      '@alicloud/generator-breezr': 1.2.0
+      chalk: 2.4.2
+      execa: 2.1.0
+      lodash: 4.17.20
+      mkdirp: 0.5.5
+      ora: 3.4.0
+      package-json: 6.5.0
+      rimraf: 3.0.2
+      semver: 6.3.0
+      user-home: 2.0.0
+      yeoman-environment: 2.10.3
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-muGI5iMiF+jyjCWVnfaQ19d50+DIUQ3HpIgTzRgIr7lKuVpPFclgMvjFlKOg1jYvedZqtVcLlVbla1KK45l+4w==
   /@alicloud/console-toolkit-plugin-long-term-caching/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -479,8 +591,9 @@ packages:
       integrity: sha512-yr5EOo8Ttkeh/es3pQmAYHq4FrcHviDiLEe+o5og+GLCqemRx52jLM7tyfH0x5FNWW8JUkjKmCgIVXPricv/2A==
   /@alicloud/console-toolkit-plugin-long-term-caching/1.1.3_@babel+core@7.12.10:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+    dev: true
     peerDependencies:
       '@babel/core': '*'
       webpack: ^3 || ^4
@@ -497,6 +610,20 @@ packages:
       webpack-chain: 6.5.1
     resolution:
       integrity: sha512-awVHbYkyuJ0TJRlzGvdu3PRCJxJM/42o41j8Mw7pr5w9btHA4bjL8MPV8mXHnGQXC22aXc48ZelW69TQZ1lAGw==
+  /@alicloud/console-toolkit-plugin-mocks/1.2.5_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      body-parser: 1.19.0
+      chalk: 2.4.2
+      string.prototype.padend: 3.1.1
+      webpack: 4.46.0
+      webpack-chain: 6.5.1
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-awVHbYkyuJ0TJRlzGvdu3PRCJxJM/42o41j8Mw7pr5w9btHA4bjL8MPV8mXHnGQXC22aXc48ZelW69TQZ1lAGw==
   /@alicloud/console-toolkit-plugin-oneconsole/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -508,9 +635,22 @@ packages:
       html-webpack-plugin: ^3
     resolution:
       integrity: sha512-Otr9ruDWUKF7U7dZffLfCYC/68HDY/yFLzc5C+1mwzXvejlAIx1U6wbJn9WF1k5nuT2qU7VnA8yDXtgFOIy33Q==
-  /@alicloud/console-toolkit-plugin-os/0.4.2_@babel+core@7.12.10:
+  /@alicloud/console-toolkit-plugin-oneconsole/1.1.3_@babel+core@7.12.10:
     dependencies:
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      lodash: 4.17.20
+      query-string: 6.13.8
+      request-promise-native: 1.0.9
+      safe-require: 1.0.4
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+      html-webpack-plugin: ^3
+    resolution:
+      integrity: sha512-Otr9ruDWUKF7U7dZffLfCYC/68HDY/yFLzc5C+1mwzXvejlAIx1U6wbJn9WF1k5nuT2qU7VnA8yDXtgFOIy33Q==
+  /@alicloud/console-toolkit-plugin-os/0.4.2:
+    dependencies:
+      '@alicloud/console-toolkit-shared-utils': 1.0.16
       axios: 0.20.0
       lodash: 4.17.20
       package-json: 6.5.0
@@ -519,13 +659,11 @@ packages:
       webpack-assets-manifest: 3.1.1
       webpack-sources: 1.4.3
     dev: false
-    peerDependencies:
-      '@babel/core': '*'
     resolution:
       integrity: sha512-IXtVTxxz7VsNviCvDdnSJvZZ7MIpWiBL3OxRsE9RzP/dQlboT1tCgsKsd4ZqmNkk01PaVeAt/D4ZP+83Nqmwlw==
   /@alicloud/console-toolkit-plugin-react/1.2.8:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/core': 7.12.10
       assert: 1.5.0
@@ -568,7 +706,7 @@ packages:
       integrity: sha512-gZEknr1L9Yr9MHke1UBSOOeeJl4/EiOuNvYZQb/3d+GJJxWoho4gqrX6EyXjxPwZ71c0zmlcEG4BMuNikCpBFw==
   /@alicloud/console-toolkit-plugin-react/1.2.8_4695a47c40ef995f48f8c834d2fb82ec:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/core': 7.12.10
       assert: 1.5.0
@@ -614,7 +752,7 @@ packages:
       integrity: sha512-gZEknr1L9Yr9MHke1UBSOOeeJl4/EiOuNvYZQb/3d+GJJxWoho4gqrX6EyXjxPwZ71c0zmlcEG4BMuNikCpBFw==
   /@alicloud/console-toolkit-plugin-react/1.2.8_@types+react@17.0.0:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/core': 7.12.10
       assert: 1.5.0
@@ -657,7 +795,7 @@ packages:
       integrity: sha512-gZEknr1L9Yr9MHke1UBSOOeeJl4/EiOuNvYZQb/3d+GJJxWoho4gqrX6EyXjxPwZ71c0zmlcEG4BMuNikCpBFw==
   /@alicloud/console-toolkit-plugin-react/1.2.8_react-dom@17.0.1+react@17.0.1:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/core': 7.12.10
       assert: 1.5.0
@@ -716,6 +854,7 @@ packages:
       chalk: 2.4.2
       lodash: 4.17.20
       read-pkg: 5.2.0
+    dev: true
     peerDependencies:
       '@babel/core': '*'
       webpack: '>= 4'
@@ -740,7 +879,7 @@ packages:
       integrity: sha512-++apCsyKrW9Za/eN/1tvtPEfWbtC5OnZOse/CFxKdZ5wp3K/ZbcD1zDCjgV0LY0Gz0vqi4X6xY+6IgjYEX3fYw==
   /@alicloud/console-toolkit-plugin-typescript/1.2.6_@babel+core@7.12.10:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
       '@babel/plugin-transform-typescript': 7.12.0_@babel+core@7.12.10
       awesome-typescript-loader: 5.2.1_typescript@3.9.7
@@ -753,6 +892,7 @@ packages:
       thread-loader: 2.1.3
       ts-loader: 6.2.2_typescript@3.9.7
       typescript: 3.9.7
+    dev: true
     peerDependencies:
       '@babel/core': '*'
     resolution:
@@ -776,7 +916,7 @@ packages:
       integrity: sha512-diugrA5rCEfPncmk/KDngsWygZppF6SCDNm802MoRPHmvT0HvXu7JMtJGhJIeOFQ2m+n8y6bdgJvbImF36Xl+Q==
   /@alicloud/console-toolkit-plugin-unit-jest/1.1.3_@babel+core@7.12.10:
     dependencies:
-      '@alicloud/console-toolkit-core': 1.1.3
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
       '@babel/plugin-transform-modules-commonjs': 7.12.1_@babel+core@7.12.10
       babel-jest: 24.9.0_@babel+core@7.12.10
       enzyme: 3.11.0
@@ -785,6 +925,7 @@ packages:
       jest-cli: 24.9.0
       jest-enzyme: 7.1.2_enzyme@3.11.0
       ts-jest: 24.3.0
+    dev: true
     peerDependencies:
       '@babel/core': '*'
       react: ^16.0.0
@@ -819,6 +960,19 @@ packages:
       update-notifier: 3.0.1
     resolution:
       integrity: sha512-zHRcbcu7vVobnwQmHXspAxID4bTwToaupMAji/tAhC34XuSkklfCBN6+KavgHzA+haP55JMnPihPyNCIOAZ8zQ==
+  /@alicloud/console-toolkit-plugin-updator/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      execa: 2.1.0
+      inquirer: 7.3.3
+      rimraf: 3.0.2
+      update-notifier: 3.0.1
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+    resolution:
+      integrity: sha512-zHRcbcu7vVobnwQmHXspAxID4bTwToaupMAji/tAhC34XuSkklfCBN6+KavgHzA+haP55JMnPihPyNCIOAZ8zQ==
   /@alicloud/console-toolkit-plugin-webpack/1.1.3:
     dependencies:
       '@alicloud/console-toolkit-core': 1.1.3
@@ -833,6 +987,26 @@ packages:
       webpack-chain: 6.5.1
       webpack-dev-server: 3.11.0_webpack@4.44.2
       webpack-merge: 4.2.2
+    requiresBuild: true
+    resolution:
+      integrity: sha512-KDhe520L6gPIdyaiekWAceIwux1Lz+Sh3UuOjm8/+K/q/gxT+ZPTiDZO28WAueoJGGxlsAJBa9msx1hk/Ry2xQ==
+  /@alicloud/console-toolkit-plugin-webpack/1.1.3_@babel+core@7.12.10:
+    dependencies:
+      '@alicloud/console-toolkit-core': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      assert: 2.0.0
+      chalk: 2.4.2
+      debug: 4.3.1
+      fs-extra: 8.1.0
+      lodash: 4.17.20
+      string.prototype.padend: 3.1.1
+      webpack: 4.44.2
+      webpack-chain: 6.5.1
+      webpack-dev-server: 3.11.0_webpack@4.44.2
+      webpack-merge: 4.2.2
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
     requiresBuild: true
     resolution:
       integrity: sha512-KDhe520L6gPIdyaiekWAceIwux1Lz+Sh3UuOjm8/+K/q/gxT+ZPTiDZO28WAueoJGGxlsAJBa9msx1hk/Ry2xQ==
@@ -884,24 +1058,48 @@ packages:
       integrity: sha512-QB7kDNigefT09RrCK9nCTJnlg9InlogkICvXBdv2Cd2MseL/xxaH9bjEoNAU2aom7UUM+U8k/W8TZhQMg8S47w==
   /@alicloud/console-toolkit-preset-official/1.2.8_8d56ec2c39966f19981a869c2b9480fc:
     dependencies:
+      '@alicloud/console-toolkit-plugin-arms': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-browser-hint': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-builtin': 1.2.0_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-cdn': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-console-base': 1.2.1_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-dll': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-long-term-caching': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-mocks': 1.2.5_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-oneconsole': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-react': 1.2.8_@types+react@17.0.0
+      '@alicloud/console-toolkit-plugin-styled-components-isolation': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-typescript': 1.2.6_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-unit-jest': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-updator': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-webpack': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+    dev: true
+    peerDependencies:
+      '@babel/core': '*'
+      '@types/react': '*'
+    resolution:
+      integrity: sha512-QB7kDNigefT09RrCK9nCTJnlg9InlogkICvXBdv2Cd2MseL/xxaH9bjEoNAU2aom7UUM+U8k/W8TZhQMg8S47w==
+  /@alicloud/console-toolkit-preset-official/1.2.8_@types+react@17.0.0:
+    dependencies:
       '@alicloud/console-toolkit-plugin-arms': 1.1.3
       '@alicloud/console-toolkit-plugin-browser-hint': 1.1.3
       '@alicloud/console-toolkit-plugin-builtin': 1.2.0
       '@alicloud/console-toolkit-plugin-cdn': 1.1.3
       '@alicloud/console-toolkit-plugin-console-base': 1.2.1
       '@alicloud/console-toolkit-plugin-dll': 1.1.3
-      '@alicloud/console-toolkit-plugin-long-term-caching': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-long-term-caching': 1.1.3
       '@alicloud/console-toolkit-plugin-mocks': 1.2.5
       '@alicloud/console-toolkit-plugin-oneconsole': 1.1.3
       '@alicloud/console-toolkit-plugin-react': 1.2.8_@types+react@17.0.0
-      '@alicloud/console-toolkit-plugin-styled-components-isolation': 1.1.3_@babel+core@7.12.10
-      '@alicloud/console-toolkit-plugin-typescript': 1.2.6_@babel+core@7.12.10
-      '@alicloud/console-toolkit-plugin-unit-jest': 1.1.3_@babel+core@7.12.10
+      '@alicloud/console-toolkit-plugin-styled-components-isolation': 1.1.3
+      '@alicloud/console-toolkit-plugin-typescript': 1.2.6
+      '@alicloud/console-toolkit-plugin-unit-jest': 1.1.3
       '@alicloud/console-toolkit-plugin-updator': 1.1.3
       '@alicloud/console-toolkit-plugin-webpack': 1.1.3
-      '@alicloud/console-toolkit-shared-utils': 1.0.16_@babel+core@7.12.10
+      '@alicloud/console-toolkit-shared-utils': 1.0.16
+    dev: false
     peerDependencies:
-      '@babel/core': '*'
       '@types/react': '*'
     resolution:
       integrity: sha512-QB7kDNigefT09RrCK9nCTJnlg9InlogkICvXBdv2Cd2MseL/xxaH9bjEoNAU2aom7UUM+U8k/W8TZhQMg8S47w==
@@ -2839,6 +3037,7 @@ packages:
       '@babel/helper-create-class-features-plugin': 7.12.1_@babel+core@7.12.10
       '@babel/helper-plugin-utils': 7.10.4
       '@babel/plugin-syntax-typescript': 7.12.1_@babel+core@7.12.10
+    dev: true
     peerDependencies:
       '@babel/core': ^7.0.0-0
     resolution:
@@ -3235,6 +3434,12 @@ packages:
     dev: false
     resolution:
       integrity: sha512-JELkvo/DlpNdJ7dlyw/eY7E0suy5i5GQH+Vlxaq1nsNJ+H7f4Vtv3jMeCEgRhZZQFXTjldYfQgv2qmM6M1v5wA==
+  /@babel/standalone/7.17.11:
+    dev: false
+    engines:
+      node: '>=6.9.0'
+    resolution:
+      integrity: sha512-47wVYBeTktYHwtzlFuK7qqV/H5X6mU4MUNqpQ9iiJOqnP8rWL0eX0GWLKRsv8D8suYzhuS1K/dtwgGr+26U7Gg==
   /@babel/template/7.10.4:
     dependencies:
       '@babel/code-frame': 7.10.4
@@ -15745,7 +15950,7 @@ packages:
       serialize-javascript: 4.0.0
       source-map: 0.6.1
       terser: 4.8.0
-      webpack: 4.44.2
+      webpack: 4.44.2_webpack-cli@4.4.0
       webpack-sources: 1.4.3
       worker-farm: 1.7.0
     engines:

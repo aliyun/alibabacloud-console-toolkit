@@ -149,6 +149,7 @@ export default (params: IParams, args) => {
       babelPluginWindRc: false,
       https: params.devServer?.https === true || args.https === true,
       host: args.host ?? params.devServer?.host,
+      disableUpdator: true,
     },
     args
   );

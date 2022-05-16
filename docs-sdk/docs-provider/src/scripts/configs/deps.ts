@@ -70,6 +70,7 @@ export const config = ({
             };
             return config;
           },
+          disableUpdator: true,
         } as BreezrPresetConfig,
       ],
     ],
