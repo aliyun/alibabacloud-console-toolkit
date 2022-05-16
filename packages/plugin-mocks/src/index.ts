@@ -159,10 +159,12 @@ export default (api: PluginAPI, opts: PluginOptions) => {
       // Proxy as OneConsole
       '/data/*.json': merge({}, commonProxyConfig, {
         target: host,
-        pathRewrite: (path: string) => path.replace(
-          /^\/data\/(.*)\.json/,
-          '/mock/oneconsole/data/$1.json'
-        ),
+        pathRewrite: (path: string) => {
+          return path.replace(
+            /^\/data\/(.*)\.json/,
+            '/mock/oneconsole/data/$1.json'
+          ).replace(/\?_fetcher_=.*/, '')
+        },
         onProxyReq: oneConsoleProxyReq,
       }),
 

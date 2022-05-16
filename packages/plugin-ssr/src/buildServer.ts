@@ -58,6 +58,7 @@ const buildServer = async (api: PluginAPI, opts: IOption) => {
   config.plugins.delete('Skeleton');
   config.plugins.delete('webpackBar');
   config.plugins.delete('McmsAssetsPlugins');
+  config.plugins.delete('BundleAnalyzerPlugin');
 
   // server config
 
