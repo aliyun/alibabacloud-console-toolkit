@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-mocks",
-  "version": "1.2.43",
+  "version": "1.2.57",
   "description": "console toolkit plugin for mocks",
   "main": "lib/index.js",
   "directories": {
