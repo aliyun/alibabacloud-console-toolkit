@@ -17,6 +17,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     classNamePrefix,
     hashPrefix = '',
     disableAutoPrefixer = false,
+    postCssPlugins = [],
   } = options;
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
@@ -79,6 +80,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
             'not ie <= 9',
           ],
         }),
+        ...postCssPlugins,
       ]
     });
 

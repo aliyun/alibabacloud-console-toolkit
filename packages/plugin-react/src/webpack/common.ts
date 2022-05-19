@@ -78,7 +78,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
     moment,
-    reactRefresh
+    reactRefresh,
+    postCssPlugins
   } = options;
 
   if (!cwd) {
@@ -150,7 +151,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     theme,
     hashPrefix,
     disableAutoPrefixer,
-    classNamePrefix
+    classNamePrefix,
+    postCssPlugins
   });
 
   file(config, options);

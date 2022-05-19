@@ -32,6 +32,7 @@ interface BreezrReactOptions {
   hashPrefix?: string;
   theme?: string | ThemeDef;
   disableAutoPrefixer?: boolean;
+  postCssPlugins?: any[];
 
   // babel-loader 配置
   babel?: Function;
@@ -132,6 +133,7 @@ interface BreezrStyleOptions {
   hasPostCSSConfig?: boolean;
   disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
+  postCssPlugins?: any[]
 }
 
 interface ThemeDef {
