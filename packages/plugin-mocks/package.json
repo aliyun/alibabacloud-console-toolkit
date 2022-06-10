@@ -17,6 +17,7 @@
     "prepare": "npm run compile"
   },
   "devDependencies": {
+    "@types/body-parser": "^1.19.2",
     "@types/chai": "^4.1.7",
     "@types/express": "^4.16.1",
     "@types/jest": "^24.0.18",
@@ -37,7 +38,7 @@
   "dependencies": {
     "@alicloud/console-toolkit-core": "^1.2.30",
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
-    "body-parser": "^1.18.3",
+    "body-parser": "^1.20.0",
     "chalk": "^2.4.2",
     "string.prototype.padend": "^3.0.0",
     "webpack": "^4.29.5",

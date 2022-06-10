@@ -32,6 +32,7 @@
     "typescript": "^3.0.3"
   },
   "dependencies": {
+    "@types/webpack": "4.41.32",
     "@types/webpack-chain": "^5.2.0",
     "autoprefixer": "^9.7.6",
     "css-loader": "^3.5.2",
@@ -39,7 +40,9 @@
     "mini-css-extract-plugin": "^0.8.0",
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
-    "style-loader": "^1.1.4"
+    "style-loader": "^1.1.4",
+    "webpack": "^4.46.0",
+    "webpack-chain": "^6.0.0"
   },
   "license": "MIT",
   "gitHead": "792beded0cd71d9c8f3c2aea77173fb0731fce8f"
