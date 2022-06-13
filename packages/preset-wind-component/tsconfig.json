@@ -3,7 +3,6 @@
       "module": "commonjs",
       "target": "es5",
       "outDir": "lib",
-      "skipLibCheck": true,
       "lib": [
           "es6",
           "dom",
@@ -11,6 +10,7 @@
       ],
       "sourceMap": true,
       "rootDir": "src",
+      "skipLibCheck": true,
       "esModuleInterop": true,
       "moduleResolution": "node",
       /* Strict Type-Checking Option */

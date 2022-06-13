@@ -39,7 +39,8 @@
 		"lodash": "^4.17.11",
 		"thread-loader": "^2.1.2",
 		"ts-loader": "^8.3.0",
-		"typescript": "^4.0.0"
+		"typescript": "^4.0.0",
+		"webpack-chain": "^6.0.0"
 	},
 	"main": "lib/index.js",
 	"author": "boelroy <boelroy@live.com>",
