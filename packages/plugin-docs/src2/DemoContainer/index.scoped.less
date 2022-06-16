@@ -1,0 +1,89 @@
+.container {
+  width: 800px;
+  max-width: 100%;
+  border: 1px solid #e3e4e6;
+  border-radius: 4px;
+  &:global(.canFullScreen) {
+    // canFullScreen说明demo可能比较大，因此增加默认宽度
+    width: 1200px;
+  }
+  &:hover {
+    transition: all 0.3s ease-in-out;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.16);
+  }
+  .title {
+    height: 40px;
+    line-height: 40px;
+    font-family: PingFangSC-Medium;
+    font-size: 14px;
+    color: #303030;
+    letter-spacing: 0;
+    border-bottom: 1px solid #dedede;
+    padding-left: 16px;
+    margin: 0;
+  }
+  .demo {
+    border-bottom: 1px solid #dedede;
+    width: 100%;
+    overflow-x: auto;
+
+    .demoInner {
+      width: fit-content;
+      min-width: 100%;
+      padding: 32px 16px;
+    }
+  }
+  .describe {
+    padding: 12px 0 16px 12px;
+    border-bottom: 1px solid #dedede;
+    p {
+      font-size: 12px;
+      margin: 0;
+    }
+  }
+  .operations {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    color: #666666;
+    font-size: 15px;
+    opacity: 0.7;
+    > .operation {
+      width: 16px;
+      height: 16px;
+      cursor: pointer;
+      margin-right: 16px;
+    }
+  }
+}
+
+.codemirror {
+  border-top: 1px solid #dedede;
+}
+
+.fullViewDialog {
+  && {
+    width: calc(100% - 24px);
+    height: calc(100% - 24px);
+    margin: 12px;
+  }
+  :global {
+    .rc-dialog-content {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: stretch;
+
+      .rc-dialog-header {
+        flex: 0 0 auto;
+      }
+      .rc-dialog-body {
+        flex: 1 1 auto;
+        min-height: 0;
+        overflow: auto;
+      }
+    }
+  }
+}
