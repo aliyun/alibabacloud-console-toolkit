@@ -191,6 +191,13 @@ export default (config: IOption, cmdArgs: any) => {
     ]);
   }
 
+  if(config.docs) {
+    plugins.push([
+      require.resolve('@alicloud/console-toolkit-plugin-docs'),
+      config.docs
+    ]);
+  }
+
   return {
     plugins,
   };

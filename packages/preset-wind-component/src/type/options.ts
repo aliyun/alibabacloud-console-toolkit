@@ -1,3 +1,5 @@
+import { DocsPluginConfig } from '@alicloud/console-toolkit-plugin-docs';
+
 export interface IOption {
   moduleName: string;
 
@@ -41,6 +43,8 @@ export interface IOption {
   }];
 
   disableStyleComponentsMinify?: boolean;
+
+  docs?: DocsPluginConfig;
 }
 
 export interface OutputType {
