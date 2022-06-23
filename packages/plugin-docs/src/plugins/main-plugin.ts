@@ -39,7 +39,6 @@ module.exports = (api: any, opts: IParams) => {
   if (opts.demoType === 'mobile') {
     demoContainerPath = require.resolve('@ali/xmobile-demo-docs-layout');
     const cssPath = path.resolve(demoContainerPath, '../../dist/index.css');
-    console.log(cssPath);
     if (fs.pathExistsSync(cssPath)) {
       demoContainerCssPath = cssPath;
     }
