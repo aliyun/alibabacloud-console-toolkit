@@ -37,7 +37,7 @@ export default function docsUpload(
   };
 
   if (!configInfo.storeUrl) {
-    configInfo.storeUrl = `${uploadConfig.ossBucket}.${uploadConfig.ossRegion}.aliyuncs.com/${uploadConfig.ossDir}${uploadConfig.ossName}/-${uploadConfig.ossTag}/`;
+    configInfo.storeUrl = `https://${uploadConfig.ossBucket}.${uploadConfig.ossRegion}.aliyuncs.com/${uploadConfig.ossDir}${uploadConfig.ossName}/-${uploadConfig.ossTag}/`;
   }
 
   const buildService = new Service({

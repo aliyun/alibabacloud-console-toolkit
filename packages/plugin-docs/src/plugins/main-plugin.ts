@@ -76,7 +76,7 @@ module.exports = (api: any, opts: IParams) => {
       );
       if (opts.demoType === 'mobile' && isBuild && !staticMeta.url && !!opts.storeUrl) {
         // 生成移动端 demo OSS url 地址，注入到 meta 中
-        staticMeta.url = opts.storeUrl;
+        staticMeta.url = `https://xconsole.aliyun-inc.com/demo-playground?consoleOSId=${opts.consoleOSId}&servePath=${opts.storeUrl}&entryKey=${key}&demoOnly=true`;
       }
       virtualModules[staticMetaVirtualModulePath] = `
           import { staticMeta as staticMetaFromFile } from "!!js-file-static-meta-loader!${demoPath}";
