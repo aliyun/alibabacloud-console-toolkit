@@ -10,7 +10,7 @@ import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { IUploadConfig } from '../types';
 
 export default async (api: PluginAPI, options: IUploadConfig) => {
-  const { ossDir, ossName, ossTag, uploadDir, consoleOSId } = options;
+  const { ossAccessKeyId, ossAccessKeySecret, ossBucket, ossRegion, ossDir, ossName, ossTag, uploadDir, consoleOSId } = options;
 
   const targetDir = path.join(ossDir, ossName, `-${ossTag}`);
 
@@ -32,22 +32,26 @@ export default async (api: PluginAPI, options: IUploadConfig) => {
     }
 
     const client = new aliOss({
-      bucket: process.env.OSS_BUCKET || 'opensource-microapp',
-      region: process.env.OSS_REGION || 'oss-cn-hangzhou',
-      accessKeyId: process.env.OSS_K,
-      accessKeySecret: process.env.OSS_S,
+      bucket: ossBucket,
+      region: ossRegion,
+      accessKeyId: ossAccessKeyId,
+      accessKeySecret: ossAccessKeySecret,
     });
 
     async function del() {
       let delCount = 0;
-      while (true) {
+      let uploadStatus = true;
+      while (uploadStatus) {
         const list = await client.list({
           prefix: targetDir,
           'max-keys': 1000,
         });
         list.objects = list.objects || [];
         const count = list.objects.length;
-        if (count === 0) break;
+        if (count === 0) {
+          uploadStatus = false;
+          break;
+        }
         await Promise.all(
           list.objects.map((v: Record<string, any>) => client.delete(v.name))
         );

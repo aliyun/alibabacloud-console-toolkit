@@ -9,7 +9,7 @@ import * as fs from 'fs-extra';
 import { Evnrioment, getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { runScript } from '../scripts/runScript';
-import IParams from '../types/IParams';
+import { IParams } from '../types';
 
 function generateVirtualPath(category: string, key: string) {
   if (!['static-meta', 'entry'].includes(category)) {
@@ -28,6 +28,7 @@ module.exports = (api: any, opts: IParams) => {
   const virtualModules: { [path: string]: string } = {};
   const entryListItemCode = [] as string[];
   const entryListImportCode = [] as string[];
+  const isBuild = !getEnv().isDev();
 
   let demoContainerPath =
     opts.demoContainerPath ||
@@ -73,6 +74,10 @@ module.exports = (api: any, opts: IParams) => {
         'static-meta',
         key
       );
+      if (opts.demoType === 'mobile' && isBuild && !staticMeta.url && !!opts.storeUrl) {
+        // 生成移动端 demo OSS url 地址，注入到 meta 中
+        staticMeta.url = opts.storeUrl;
+      }
       virtualModules[staticMetaVirtualModulePath] = `
           import { staticMeta as staticMetaFromFile } from "!!js-file-static-meta-loader!${demoPath}";
           const staticMetaFromFindAPI = ${JSON.stringify(staticMeta)};
@@ -212,7 +217,6 @@ module.exports = (api: any, opts: IParams) => {
     EXTERNALS: JSON.stringify(opts.externals),
   };
 
-  const isBuild = !getEnv().isDev();
   if (isBuild) {
     api.dispatchSync('registerBeforeBuildStart', async () => {
       // 构建被微应用external掉的依赖，以便在demo-viewer上加载渲染

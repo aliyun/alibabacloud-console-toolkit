@@ -1,11 +1,15 @@
 {
   "name": "@alicloud/console-toolkit-plugin-docs",
-  "version": "1.2.61",
+  "version": "1.2.63",
   "author": "",
   "license": "MIT",
   "description": "console toolkit plugin for build docs",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
+  "files": [
+    "lib",
+    "src2"
+  ],
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
     "lint": "tslint --project .",

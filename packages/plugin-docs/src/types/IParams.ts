@@ -4,12 +4,13 @@ import { IExternalItem } from './IExternalItem';
 export default interface IParams {
   consoleOSId: string;
   demoType?: string;
+  storeUrl?: string;
   chainWebpack?: (configChain: Chain, env: any) => void;
   // 由于breezr的plugin不支持异步返回，因此，getDemos等函数也必须是同步的
   getDemos?: () => {
     key: string;
     path: string;
-    staticMeta?: object;
+    staticMeta?: Record<string, any>;
   }[];
   demoContainerPath?: string;
   demoWrapperPath?: string;

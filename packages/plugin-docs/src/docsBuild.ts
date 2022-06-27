@@ -19,6 +19,7 @@ export default async function docsBuild(
   if (!process.env.NODE_ENV) {
     process.env.NODE_ENV = 'production';
   }
+
   const buildService = new Service({
     cwd,
     config: {

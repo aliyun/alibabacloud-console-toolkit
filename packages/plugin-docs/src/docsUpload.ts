@@ -25,12 +25,21 @@ export default function docsUpload(
     process.env.NODE_ENV = 'production';
   }
   const uploadConfig: IUploadConfig = {
-    ossDir: process.env.OSS_DIR || commandList.ossDir || 'app/breezr-docs/',
-    ossName: process.env.OSS_NAME || commandList.ossName || consoleOSId,
-    ossTag: process.env.OSS_Tag || commandList.ossTag || 'latest',
+    ossAccessKeyId: process.env.OSS_K || commandList['oss-access-key-id'],
+    ossAccessKeySecret: process.env.OSS_S || commandList['oss-access-key-secret'],
+    ossBucket: process.env.OSS_BUCKET || commandList['oss-bucket'] || 'opensource-microapp',
+    ossRegion: process.env.OSS_REGION || commandList['oss-region'] || 'oss-cn-hangzhou',
+    ossDir: process.env.OSS_DIR || commandList['oss-dir'] || 'app/breezr-docs/',
+    ossName: process.env.OSS_NAME || commandList['oss-name'] || consoleOSId,
+    ossTag: process.env.OSS_Tag || commandList['oss-tag'] || 'latest',
     uploadDir: path.resolve(cwd, output || 'doc-dist'),
     consoleOSId,
   };
+
+  if (!configInfo.storeUrl) {
+    configInfo.storeUrl = `${uploadConfig.ossBucket}.${uploadConfig.ossRegion}.aliyuncs.com/${uploadConfig.ossDir}${uploadConfig.ossName}/-${uploadConfig.ossTag}/`;
+  }
+
   const buildService = new Service({
     cwd,
     config: {
