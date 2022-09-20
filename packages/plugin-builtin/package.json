@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-builtin",
-  "version": "1.2.30",
+  "version": "2.0.0-alpha.0",
   "description": "console toolkit plugin for build-in cmd",
   "main": "lib/index.js",
   "scripts": {
@@ -33,7 +33,7 @@
     "@alicloud/console-toolkit-plugin-generator": "^1.2.30",
     "@alicloud/console-toolkit-plugin-webpack": "^1.2.30",
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
-    "webpack-chain": "^6.0.0"
+    "@gem-mine/webpack-chain": "^7.1.0"
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",

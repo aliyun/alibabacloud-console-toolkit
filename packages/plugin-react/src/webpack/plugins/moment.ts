@@ -1,4 +1,4 @@
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
 
 export function momentPlugin(config: Chain) {

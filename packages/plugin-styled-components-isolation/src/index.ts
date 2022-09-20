@@ -1,5 +1,5 @@
 import * as webpack from 'webpack';
-import * as WebpackChain from "webpack-chain";
+import * as WebpackChain from "@gem-mine/webpack-chain";
 import { sync as readPkgSync, NormalizeOptions } from 'read-pkg';
 import { kebabCase, fromPairs } from 'lodash';
 import { PluginAPI, PluginOptions } from "@alicloud/console-toolkit-core";

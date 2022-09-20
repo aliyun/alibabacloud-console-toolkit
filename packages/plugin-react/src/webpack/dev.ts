@@ -1,4 +1,4 @@
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
@@ -77,18 +77,18 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
     disableHmr,
   } = options;
 
+  config.devServer.allowedHosts.add('all');
+
   config
-    .devServer
     .stats('errors-only')
+    .devServer
     .headers({
       'Access-Control-Allow-Origin': '*',
     })
-    .disableHostCheck(true)
     .port(port)
     .host(host)
     .https(https)
     .hot(!disableHmr)
-    .inline(!disableHmr)
     .historyApiFallback({
       rewrites: [
         {

@@ -5,7 +5,7 @@ import * as path from 'path';
 import * as autoprefixer from 'autoprefixer';
 import { PluginAPI } from '@alicloud/console-toolkit-core'
 import * as webpack from 'webpack';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 
 type CssModules = boolean | 'global' | 'local';
 

@@ -1,4 +1,4 @@
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { BuildType, Evnrioment } from '@alicloud/console-toolkit-shared-utils';

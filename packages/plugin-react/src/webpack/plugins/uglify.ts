@@ -1,7 +1,7 @@
 import * as UglifyPlugin from 'uglifyjs-webpack-plugin';
 import * as TerserPlugin from 'terser-webpack-plugin';
 import * as OptimizeCSSAssetsPlugin from 'optimize-css-assets-webpack-plugin';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { BreezrReactOptions } from '../../types';
 
 export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {

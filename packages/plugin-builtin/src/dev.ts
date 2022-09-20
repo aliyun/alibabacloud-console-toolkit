@@ -1,6 +1,6 @@
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { getConfigFile } from '@alicloud/console-toolkit-core/lib/plugins/config/config';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { getEnv, watch } from '@alicloud/console-toolkit-shared-utils';
 
 async function server(api: PluginAPI, callback: (() => Promise<void>)[]) {

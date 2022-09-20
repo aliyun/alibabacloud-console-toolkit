@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as webpackMerge from 'webpack-merge';
 import * as webpack from 'webpack';
 import * as webpackDevServer from 'webpack-dev-server';
@@ -136,7 +136,7 @@ export function webpackConfigure(
   }
 
   // @ts-ignore
-  return webpackMerge(_chain.toConfig(), configByUser);
+  return webpackMerge.merge(_chain.toConfig(), configByUser);
   // _chain.merge(configByUser);
 
   // return _chain;
@@ -157,7 +157,7 @@ export function runServer(
   server: webpackDevServer,
   devServerConfig: webpackDevServer.Configuration
 ) {
-  return new Promise<webpack.Stats>((resolve, reject) => {
+  return new Promise<webpack.Stats | void>((resolve, reject) => {
     const { host = HOST, port = PORT } = devServerConfig;
     debug('engine', `current devServer listening: ${host}:${port}`);
 

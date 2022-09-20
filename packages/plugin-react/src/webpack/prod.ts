@@ -1,5 +1,5 @@
 import { join } from 'path';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 
 import { getEnv, BuildType } from '@alicloud/console-toolkit-shared-utils';
 

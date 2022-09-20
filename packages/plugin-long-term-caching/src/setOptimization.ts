@@ -1,5 +1,5 @@
 import { isEmpty, isNil, omitBy } from 'lodash';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 
 interface Options {
   config: Chain;

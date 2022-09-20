@@ -1,5 +1,5 @@
 import * as path from 'path';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 
 module.exports = (api: any) => {
   api.on('onChainWebpack', (config: Chain) => {

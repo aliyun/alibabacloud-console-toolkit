@@ -1,4 +1,4 @@
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { createRules } from '../../utils';
 import { BreezrReactOptions } from '../../types';
 

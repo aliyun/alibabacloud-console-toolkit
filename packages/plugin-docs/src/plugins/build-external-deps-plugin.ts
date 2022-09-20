@@ -1,6 +1,6 @@
 import path from 'path';
 
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import { Evnrioment } from '@alicloud/console-toolkit-shared-utils';
 

@@ -1,6 +1,6 @@
 import { resolve } from 'path';
 
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { getEnv, error, exit } from '@alicloud/console-toolkit-shared-utils';
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 

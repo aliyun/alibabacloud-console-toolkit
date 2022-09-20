@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { Request, Application } from 'express';
 import { mapValues, isPlainObject, merge } from 'lodash';
 import * as bodyParser from 'body-parser';

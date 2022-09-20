@@ -1,5 +1,5 @@
 import * as _ from 'lodash';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
 
 export const resolveOptions = (options: any, defaultOptions: any) => {
@@ -29,7 +29,7 @@ export function createRules(config: Chain, { lang, test }: {
 }
 
 
-export function createPlugin(config: Chain, name: string, plugin: Chain.PluginClass, options?: any) {
+export function createPlugin(config: Chain, name: string, plugin: Chain.PluginClass<any>, options?: any) {
   return config
     .plugin(name)
     .use(plugin, [options]);

@@ -1,6 +1,6 @@
 import { PluginAPI, CommandArgs } from '@alicloud/console-toolkit-core';
 import { debug, getEnv, error } from '@alicloud/console-toolkit-shared-utils';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { BuiltInConfig } from './BuiltInConfig';
 
 const options = {

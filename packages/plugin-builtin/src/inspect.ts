@@ -1,6 +1,6 @@
 import { PluginAPI, CommandArgs } from '@alicloud/console-toolkit-core';
 import { debug } from '@alicloud/console-toolkit-shared-utils';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { getEnv, BuildType } from '@alicloud/console-toolkit-shared-utils';
 // 这里只是取 webpack 的 types
 

@@ -1,7 +1,7 @@
 import { join, resolve } from "path";
 import { sortedUniq } from "lodash";
 import * as webpack from 'webpack';
-import * as Chain from "webpack-chain";
+import * as Chain from "@gem-mine/webpack-chain";
 import { PluginAPI } from "@alicloud/console-toolkit-core";
 import { getEnv, error, info, exit, debug } from "@alicloud/console-toolkit-shared-utils";
 

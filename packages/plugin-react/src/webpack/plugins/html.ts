@@ -1,4 +1,4 @@
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 import { createPlugin } from '../../utils';
 

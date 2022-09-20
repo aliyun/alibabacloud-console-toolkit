@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import * as express from 'express';
 import * as webpack from 'webpack';
 import * as chokidar from 'chokidar';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { done, getEnv } from "@alicloud/console-toolkit-shared-utils";

@@ -3,7 +3,7 @@ import * as webpack from 'webpack';
 import { resolve } from 'path';
 import * as serveStatic from 'serve-static';
 import { copyFileSync, existsSync } from 'fs';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { IOption } from './type';
 import buildDll from './buildDll';

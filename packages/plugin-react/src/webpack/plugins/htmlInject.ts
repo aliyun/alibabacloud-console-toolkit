@@ -1,7 +1,7 @@
 import * as webpack from 'webpack';
 import * as url from 'url';
 import * as cheerio from 'cheerio';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import { createPlugin } from '../../utils';
 
 import { HtmlData } from '../../html';

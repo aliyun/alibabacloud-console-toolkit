@@ -33,7 +33,7 @@
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
     "esbuild-loader": "~2.6.3",
     "lodash": "^4.17.11",
-    "webpack-chain": "^6.0.0"
+    "@gem-mine/webpack-chain": "^6.0.0"
   },
   "publishConfig": {
     "access": "public"

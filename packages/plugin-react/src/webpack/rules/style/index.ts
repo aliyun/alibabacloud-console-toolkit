@@ -1,5 +1,5 @@
 import * as autoprefixer from 'autoprefixer';
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
 
 import { createRules } from '../../../utils';

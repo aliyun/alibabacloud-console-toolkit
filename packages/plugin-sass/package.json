@@ -41,8 +41,8 @@
     "node-sass": "^4.13.1",
     "postcss-loader": "^3.0.0",
     "style-loader": "^1.1.4",
-    "webpack": "^4.46.0",
-    "webpack-chain": "^6.0.0"
+    "webpack": "^5.0.0",
+    "@gem-mine/webpack-chain": "^7.0.0"
   },
   "license": "MIT",
   "gitHead": "792beded0cd71d9c8f3c2aea77173fb0731fce8f"

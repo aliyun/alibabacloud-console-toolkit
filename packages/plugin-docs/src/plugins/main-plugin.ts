@@ -1,6 +1,6 @@
 import * as path from 'path';
 
-import * as Chain from 'webpack-chain';
+import * as Chain from '@gem-mine/webpack-chain';
 import VirtualModulesPlugin from 'webpack-virtual-modules';
 import historyFallback from 'connect-history-api-fallback';
 import { createProxyMiddleware } from 'http-proxy-middleware';
