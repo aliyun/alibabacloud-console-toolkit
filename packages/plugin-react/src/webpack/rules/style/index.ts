@@ -105,6 +105,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     shouldExtract,
     condition = 'stable',
   } = options;
+
   function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
     loader?: string;
     loaderOptions?: Chain.LoaderOptions;
@@ -119,6 +120,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
   }
 
   const lessLoaderOptions = {
+    ...options.lessLoaderOptions,
     javascriptEnabled: true,
     modifyVars: options.theme ? normalizeTheme(options.theme, {cwd}) : {}
   };

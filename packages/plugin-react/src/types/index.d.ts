@@ -128,6 +128,7 @@ interface BreezrStyleOptions {
   loader?: string;
   classNamePrefix?: string;
   loaderOptions?: any;
+  lessLoaderOptions?: any;
   sourceMap?: boolean;
   hashPrefix?: string;
   hasPostCSSConfig?: boolean;
