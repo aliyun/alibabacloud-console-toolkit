@@ -36,8 +36,9 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
       .use('extract-css-loader')
       .loader(require('mini-css-extract-plugin').loader)
       .options({
+        publicPath: 'auto',
+        esModule: false,
         ...styleLoaderOptions,
-        publicPath: './',
       });
   } else {
     rule
@@ -67,21 +68,22 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     .options(cssOptions);
 
   // postcss loader
+  if (!disableAutoPrefixer) {
+    postCssPlugins.push(autoprefixer({
+      overrideBrowserslist: [
+        '> 0%',
+        'not ie <= 9',
+      ],
+    }))
+  }
+
   rule
     .use('postcss-loader')
     .loader(require.resolve('postcss-loader'))
     .options({
-      ident: 'postcss',
-      plugins: () => disableAutoPrefixer ? [] : [
-        autoprefixer({
-          // @ts-ignore
-          overrideBrowserslist: [
-            '> 0%',
-            'not ie <= 9',
-          ],
-        }),
-        ...postCssPlugins,
-      ]
+      postcssOptions: {
+        plugins: [...postCssPlugins]
+      }
     });
 
   // style loader, eg: less, scss
@@ -105,7 +107,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     shouldExtract,
     condition = 'stable',
   } = options;
-  function createCssRules(lang: string, condition: Pick<webpack.RuleSetRule, 'test' | 'include' | 'exclude'>, styleOptions?: {
+  function createCssRules(lang: string, condition: webpack.RuleSetRule, styleOptions?: {
     loader?: string;
     loaderOptions?: Chain.LoaderOptions;
     modules?: CssModules;
@@ -119,11 +121,13 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
   }
 
   const lessLoaderOptions = {
-    javascriptEnabled: true,
-    modifyVars: options.theme ? normalizeTheme(options.theme, {cwd}) : {}
+    lessOptions: {
+      javascriptEnabled: true,
+      modifyVars: options.theme ? normalizeTheme(options.theme, {cwd}) : {}
+    }
   };
 
-  createCssRules('css', /\.css$/);
+  createCssRules('css', { test: /\.css$/ });
 
   /*
    * 排除掉 scope.less 的 的文件, 以防 less-loader 被加载两次

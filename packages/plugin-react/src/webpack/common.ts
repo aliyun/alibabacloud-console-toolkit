@@ -167,23 +167,12 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     htmlPlugin(config, {
       minify: { // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
-        minifyCSS: true// 压缩内联css
       },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
       inject: htmInject,
       scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'blocking',
-      // @ts-ignore
-      templateParameters: (compilation, assets, assetTags, options) => {
-        return {
-          compilation,
-          webpackConfig: compilation.options,
-          htmlWebpackPlugin: {
-            tags: assetTags,
-            files: assets,
-            options,
-          },
-          __dev__: getEnv().isDev()
-        };
+      templateParameters: {
+        __dev__: getEnv().isDev()
       },
     });
     htmlInjectPlugin(config, {

@@ -32,6 +32,6 @@ export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {
 
   config
     .optimization
-    .minimizer('OptimizeCSSAssetsPlugin')
+    .minimizer('CssMinimizerPlugin')
     .use(CssMinimizerPlugin, []);
 }
