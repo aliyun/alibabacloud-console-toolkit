@@ -71,7 +71,6 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     htmlXmlMode,
     babelOption,
     analyze = false,
-    useHappyPack = true,
     hashPrefix = '',
     htmInject = true,
     disableAutoPrefixer = false,
@@ -86,6 +85,11 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     error('can\'t not get cwd for webpack');
     exit(1);
     return;
+  }
+
+  // @ts-ignore
+  if (options.useHappyPack) {
+    error('don\'t support useHappyPack');
   }
 
   const src = resolve(cwd, 'src');
@@ -106,14 +110,14 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   config
     .context(src)
     .entry('index')
-      .add(entry)
-      .end()
+    .add(entry)
+    .end()
     .output
-      .filename(output.filename)
-      .path(outputPath)
-      .publicPath(output.publicPath)
-      .chunkFilename(output.chunkFilename)
-      .end();
+    .filename(output.filename)
+    .path(outputPath)
+    .publicPath(output.publicPath)
+    .chunkFilename(output.chunkFilename)
+    .end();
 
   config.resolve
     .extensions
@@ -126,7 +130,6 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactCssModules: true,
     reactCssModulesContext: src,
 
-    useHappyPack: useHappyPack,
     // 只有在构建的时候才开启转义
     es5ImcompatibleVersions: getEnv().isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
     exclude: babelExclude,
@@ -168,18 +171,18 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
       },
       template: htmlFileName ? htmlFileName : resolve(cwd, 'src/index.html'),
       inject: htmInject,
-      scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'block',
+      scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'blocking',
       // @ts-ignore
       templateParameters: (compilation, assets, assetTags, options) => {
         return {
-            compilation,
-            webpackConfig: compilation.options,
-            htmlWebpackPlugin: {
-                tags: assetTags,
-                files: assets,
-                options,
-            },
-            __dev__: getEnv().isDev()
+          compilation,
+          webpackConfig: compilation.options,
+          htmlWebpackPlugin: {
+            tags: assetTags,
+            files: assets,
+            options,
+          },
+          __dev__: getEnv().isDev()
         };
       },
     });

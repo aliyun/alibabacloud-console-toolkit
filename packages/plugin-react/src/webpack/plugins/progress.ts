@@ -3,7 +3,7 @@ import * as Chain from '@gem-mine/webpack-chain';
 import { createPlugin } from '../../utils';
 
 export function progressPlugin(config: Chain) {
-  return createPlugin(
+  createPlugin(
     config,
     'webpackBar',
     WebpackBar,

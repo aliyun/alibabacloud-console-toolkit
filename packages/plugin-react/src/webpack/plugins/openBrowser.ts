@@ -1,15 +1,16 @@
 import * as Chain from '@gem-mine/webpack-chain';
-import * as OpenBrowserPlugin from 'open-browser-webpack-plugin';
+import * as OpenBrowserPlugin from 'webpack-open-browser';
 import { createPlugin } from '../../utils';
 
 const defaultOptions = {
   delay: 1000,
 };
 
-export function openBrowserPlugin(config: Chain, options: any) {
-  return createPlugin(
+export function openBrowser(config: Chain, options: any) {
+  createPlugin(
     config,
     'openBrowser',
+    //@ts-ignore
     OpenBrowserPlugin,
     {
       ...defaultOptions,

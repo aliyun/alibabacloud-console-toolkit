@@ -2,7 +2,7 @@ import * as Chain from '@gem-mine/webpack-chain';
 import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
-import { openBrowserPlugin } from './plugins/openBrowser';
+import { openBrowser } from './plugins/openBrowser';
 import { hmrPlugin } from './plugins/hmr';
 import { reactRefreshPlugin } from './plugins/reactRefresh';
 import { common } from './common';
@@ -50,7 +50,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   const protocol = https ? 'https' : 'http';
   const url = `${protocol}://${host}:${port}`;
   if (!noOpen) {
-    openBrowserPlugin(config, { url: url });
+    openBrowser(config, { url: url });
   }
 
   if (publicPathOnDev) {

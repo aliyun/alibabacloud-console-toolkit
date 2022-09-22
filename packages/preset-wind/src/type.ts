@@ -161,7 +161,7 @@ export interface BreezrPresetConfig {
    * @type {Boolean}
    * @defaults true
    */
-  useHappyPack?: boolean;
+  // useHappyPack?: boolean;
 
   /**
    * @type {Boolean}
@@ -297,7 +297,7 @@ export interface BreezrPresetConfig {
 
   product?: string;
 
-  htmlScriptLoading?: 'defer' | 'block';
+  htmlScriptLoading?: 'defer' | 'blocking' | 'module';
 
   aemId?: string;
 

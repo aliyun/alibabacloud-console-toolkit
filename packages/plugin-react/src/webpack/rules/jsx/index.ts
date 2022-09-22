@@ -2,8 +2,6 @@ import * as Chain from '@gem-mine/webpack-chain';
 import * as Webpack from 'webpack';
 import { createRules } from '../../../utils';
 import { BreezrReactBabelOption } from '../../../types';
-import * as happypack from 'happypack';
-import { createPlugin } from '../../../utils';
 import { getPkgPath, shouldTransform } from './es5ImcompatibleVersions';
 
 const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
@@ -17,20 +15,20 @@ const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
     }
   ];
 
-  extraBabelIncludes.forEach((include: Webpack.Condition, index: number) => {
+  extraBabelIncludes.forEach((include: Webpack.RuleSetConditionAbsolute, index: number) => {
     const rule = `extraBabelInclude_${index}`;
     config.module
       .rule(rule)
-        .test(/\.m?jsx?$/)
-        .include
-          .add(include)
-          .end()
-        .use('babel-loader')
-          .loader(require.resolve('babel-loader'))
-          .options({
-            ...babelConfig,
-            sourceType: 'unambiguous'
-          });
+      .test(/\.m?jsx?$/)
+      .include
+      .add(include)
+      .end()
+      .use('babel-loader')
+      .loader(require.resolve('babel-loader'))
+      .options({
+        ...babelConfig,
+        sourceType: 'unambiguous'
+      });
   });
 };
 
@@ -46,7 +44,6 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     es5ImcompatibleVersions,
     include,
     useBuiltIns,
-    useHappyPack = false,
     reactRefresh = false,
     exclude = /node_modules/,
   } = options;
@@ -58,7 +55,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
 
   if (include) {
     rule
-    .include
+      .include
       .add(include)
       .end();
   }
@@ -86,36 +83,13 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     babelConfig = options.babel(babelConfig);
   }
 
-  if (useHappyPack) {
-    rule
-      .exclude
-        .add(exclude)
-        .end()
-      .use('happypack/loader')
-      .loader(require.resolve('happypack/loader'))
-      .options({id: 'jsx'});
-
-    createPlugin(
-      config,
-      'HappypackJS',
-      happypack,
-      {
-        id: 'jsx',
-        loaders: [{
-          loader: require.resolve('babel-loader'),
-          options: babelConfig
-        }]
-      }
-    );
-  } else {
-    rule
-      .exclude
-        .add(exclude)
-        .end()
-      .use('babel-loader')
-      .loader(require.resolve('babel-loader'))
-      .options(babelConfig);
-  }
+  rule
+    .exclude
+    .add(exclude)
+    .end()
+    .use('babel-loader')
+    .loader(require.resolve('babel-loader'))
+    .options(babelConfig);
 
   if (es5ImcompatibleVersions) {
     addEs5ImcompatibleVersions(config, babelConfig);

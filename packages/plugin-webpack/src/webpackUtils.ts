@@ -25,7 +25,12 @@ export function runCompiler(
 
       if (stats.hasErrors()) {
         // @ts-ignore
-        error(info.errors);
+        info.errors?.forEach((e) => {
+          const E = new Error(e.file);
+          E.stack = e.stack;
+
+          error(E);
+        })
         reject(info.errors);
       }
 
@@ -57,6 +62,8 @@ export function runCompiler(
         }
         handleStats(stats);
         resolve(stats);
+
+        compiler.close(() => {});
       });
     }
   });

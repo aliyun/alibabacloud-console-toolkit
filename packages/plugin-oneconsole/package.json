@@ -19,12 +19,12 @@
 		"@types/jest": "^24.0.18",
 		"@types/lodash": "^4.14.121",
 		"@types/node": "^12.7.5",
-		"@types/webpack": "^4.4.27",
+		"@types/webpack": "^5.0.0",
 		"@types/webpack-chain": "^5.0.1",
 		"chai": "^4.2.0",
 		"chalk": "^2.4.2",
 		"cli-table3": "^0.5.1",
-		"html-webpack-plugin": "^3.2.0",
+		"html-webpack-plugin": "^5.0.0",
 		"jest": "^24.2.0-alpha.0",
 		"nyc": "^14.1.1",
 		"ts-jest": "^24.0.0",
@@ -40,7 +40,7 @@
 		"safe-require": "^1.0.3"
 	},
 	"peerDependencies": {
-		"html-webpack-plugin": "^3"
+		"html-webpack-plugin": "^5.0.0"
 	},
 	"author": "boelroy <boelroy@live.com>",
 	"license": "MIT",

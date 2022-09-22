@@ -105,12 +105,12 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     shouldExtract,
     condition = 'stable',
   } = options;
-  function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
+  function createCssRules(lang: string, condition: Pick<webpack.RuleSetRule, 'test' | 'include' | 'exclude'>, styleOptions?: {
     loader?: string;
     loaderOptions?: Chain.LoaderOptions;
     modules?: CssModules;
   }) {
-    const baseRule = createRules(config, { lang, test });
+    const baseRule = createRules(config, { lang, ...condition });
 
     applyCssLoaders(baseRule, {
       ...options,

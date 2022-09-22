@@ -2,8 +2,9 @@ import * as webpack from 'webpack';
 import * as url from 'url';
 import * as cheerio from 'cheerio';
 import * as Chain from '@gem-mine/webpack-chain';
-import { createPlugin } from '../../utils';
+import * as HtmlWebpackPlugin from 'html-webpack-plugin';
 
+import { createPlugin } from '../../utils';
 import { HtmlData } from '../../html';
 
 interface HtmlInjectOption {
@@ -25,11 +26,7 @@ class HtmlInjectPlugin {
       'HtmlInjectPlugin',
       (compilation) => {
         // @ts-ignore
-        if (!compilation.hooks.htmlWebpackPluginAfterHtmlProcessing) {
-          return;
-        }
-        // @ts-ignore
-        compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
+        HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync('HtmlInjectPlugin', (data, callback) => {
           const $ = cheerio.load(data.html, {
             decodeEntities: false,
             xmlMode: this.htmlXmlMode,
@@ -39,11 +36,11 @@ class HtmlInjectPlugin {
           const body = $('body');
           const head = $('head');
 
-          let publicPath  = '';
+          let publicPath: webpack.WebpackOptionsNormalized['output']['publicPath'] = '';
           if (compiler) {
             const { output } = compiler.options;
             if (output && output.publicPath) {
-              publicPath = output.publicPath;
+              publicPath = output.publicPath as string;
             }
           }
 

@@ -47,7 +47,7 @@ interface BreezrReactOptions {
   babelPluginWindIntl?: boolean;
   babelPluginWindCherryPick?: boolean;
   useThreads?: boolean;
-  useHappyPack?: boolean;
+  // useHappyPack?: boolean; 废弃
 
   // 拼写错误，为了兼容一起的
   es5ImcompatibleVersions?: boolean;
@@ -75,7 +75,7 @@ interface BreezrReactOptions {
   uglifyOptions?: any;
   htmlXmlMode?: boolean;
   htmInject?: boolean;
-  htmlScriptLoading?: 'defer' | 'block';
+  htmlScriptLoading?: 'defer' | 'block' | 'module';
 
   // experiment
   experiment?: {
@@ -98,7 +98,7 @@ interface BreezrReactOptions {
 interface BreezrReactBabelOption {
   // babel 配置
   babel?: Function;
-  useHappyPack?: boolean;
+  // useHappyPack?: boolean; // 废弃
   reactHotLoader?: boolean;
   reactCssModules?: boolean;
   reactCssModulesContext?: string;

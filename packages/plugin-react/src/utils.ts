@@ -21,15 +21,23 @@ export const resolveOptions = (options: any, defaultOptions: any) => {
 };
 
 
-export function createRules(config: Chain, { lang, test }: {
+export function createRules(config: Chain, { lang, test, include, exclude }: {
   lang: string;
-  test: webpack.Condition;
+  test?: webpack.RuleSetConditionAbsolute;
+  include?: webpack.RuleSetConditionAbsolute;
+  exclude?: webpack.RuleSetConditionAbsolute;
 }): Chain.Rule {
-  return config.module.rule(lang).test(test);
+  let chain = config.module.rule(lang);
+
+  if (test) chain = chain.test(test);
+  if (include) chain = chain.include.add(include).end();
+  if (exclude) chain = chain.exclude.add(exclude).end();
+
+  return chain;
 }
 
 
-export function createPlugin(config: Chain, name: string, plugin: Chain.PluginClass<any>, options?: any) {
+export function createPlugin<O = any>(config: Chain, name: string, plugin: Chain.PluginClass<any>, options?: O) {
   return config
     .plugin(name)
     .use(plugin, [options]);

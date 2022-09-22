@@ -1,11 +1,11 @@
 import { resolve } from 'path';
 import { existsSync } from 'fs';
 import * as WebpackChain from '@gem-mine/webpack-chain';
-import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
 import { warn } from '@alicloud/console-toolkit-shared-utils';
 import * as IgnoreNotFoundExportPlugin from "ignore-not-found-export-webpack-plugin";
-import * as Happypack from 'happypack';
+
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
 
 interface ILoader {
   loader: string;
@@ -47,7 +47,6 @@ const getBabelOption = (opts: PluginOptions) => {
 
 export default (api: PluginAPI, opts: PluginOptions) => {
   const {
-    useHappyPack = true,
     tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
     ignoreWebpackModuleDependencyWarning,
     typescript = {}
@@ -56,18 +55,18 @@ export default (api: PluginAPI, opts: PluginOptions) => {
   api.on('onChainWebpack', async (config: WebpackChain) => {
     config
       .entry('index')
-        .clear()
-        .add('./index')
-        .end()
+      .clear()
+      .add('./index')
+      .end()
       .resolve
-        .extensions
-        .merge(['.js', '.jsx', '.ts', '.tsx'])
-        .end();
+      .extensions
+      .merge(['.js', '.jsx', '.ts', '.tsx'])
+      .end();
     
     if (!opts.disablePolyfill) {
       config
-      .entry('index')
-      .prepend(require.resolve('babel-polyfill'));
+        .entry('index')
+        .prepend(require.resolve('babel-polyfill'));
     }
 
     if (!tsconfig || !existsSync(tsconfig)) {
@@ -97,11 +96,8 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     };
 
     if (!typescript.useBabel){
-      addLoader({
-        loader: require.resolve('cache-loader'),
-        options: {}
-      });
-  
+      config.cache({ type: 'filesystem' });
+      
       addLoader({
         loader: require.resolve('thread-loader'),
         options: {
@@ -119,42 +115,20 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     } else {
       const babelOption = opts.babelOption ? opts.babelOption : getBabelOption(opts);
 
-      if (useHappyPack) {
-        tsRule
-          .use('happypack/loader')
-          .options({id: 'ts'})
-          .loader(require.resolve('happypack/loader'));
-        
-        config
-          .plugin('HappypackTs')
-            .use(Happypack, [{
-              id: 'ts',
-              loaders: [{
-                loader: require.resolve('babel-loader'),
-                options: babelOption
-              }]
-            }]);
-      } else {
-        addLoader({
-          loader: require.resolve('babel-loader'),
-          options: babelOption,
-        });
-      }
+      addLoader({
+        loader: require.resolve('babel-loader'),
+        options: babelOption,
+      });
     }
-
-    const tslintConf = resolve(api.getCwd(), 'tslint.json');
-    const disableTsLint = !existsSync(tslintConf);
-    const { eslint } = opts;
 
     if (!typescript.disableTypeChecker) {
       config
-      .plugin('ForkTsCheckerWebpackPlugin')
+        .plugin('ForkTsCheckerWebpackPlugin')
         .use(ForkTsCheckerWebpackPlugin, [{
-          tsconfig,
-          eslint,
-          memoryLimit: 4089,
-          // active when eslint is false or no tslint.json
-          tslint: !eslint && disableTsLint ? undefined: tslintConf
+          typescript: {
+            memoryLimit: 4089,
+            configFile: tsconfig,
+          }
         }]);
     }
   });

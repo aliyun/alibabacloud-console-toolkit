@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "esModuleInterop": true,
     "paths": { "*": ["types/*"] },
       "module": "commonjs",
       "target": "es5",
