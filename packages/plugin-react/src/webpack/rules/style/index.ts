@@ -56,9 +56,12 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   if (modules === true || modules === 'local') {
     cssOptions = {
       ...cssOptions,
-      localIdentName: `${classNamePrefix ? classNamePrefix : "[path]"}___[name]__[local]___[hash:base64:5]`,
-      hashPrefix: hashPrefix
+      modules: {
+        localIdentName: `${classNamePrefix ? classNamePrefix : "[path]"}___[name]__[local]___[hash:base64:5]`,
+      }
     };
+
+    if (hashPrefix) cssOptions.modules.localIdentHashSalt = hashPrefix;
   }
 
   // css loader
