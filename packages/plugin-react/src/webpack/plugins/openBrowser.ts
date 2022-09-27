@@ -1,5 +1,5 @@
 import * as Chain from '@gem-mine/webpack-chain';
-import * as OpenBrowserPlugin from 'webpack-open-browser';
+import OpenBrowserPlugin from 'webpack-open-browser';
 import { createPlugin } from '../../utils';
 
 const defaultOptions = {
@@ -12,9 +12,9 @@ export function openBrowser(config: Chain, options: any) {
     'openBrowser',
     //@ts-ignore
     OpenBrowserPlugin,
-    {
+    [{
       ...defaultOptions,
       ...options
-    }
+    }]
   );
 }

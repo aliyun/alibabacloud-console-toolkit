@@ -8,7 +8,7 @@ import { PluginAPIOpt } from './type';
 import { webpackConfigure, createCompiler, runServer, createServer } from './webpackUtils';
 
 export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: Middleware[]) => {
-  const { webpack, disableHmr } = opts;
+  const { webpack } = opts;
   let config = webpackConfigure(api, opts);
 
   if (isFunction(webpack)) {
@@ -16,10 +16,7 @@ export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: Mid
   }
   
   const { devServer = {} } = config;
-  if (!disableHmr) {
-    //@ts-ignore
-    webpackDevServer.addDevServerEntrypoints(config, devServer);
-  }
+
   const compiler = createCompiler(config);
 
   const { devServerOpt } = opts;

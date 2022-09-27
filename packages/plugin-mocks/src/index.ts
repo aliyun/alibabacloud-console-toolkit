@@ -183,9 +183,9 @@ export default (api: PluginAPI, opts: PluginOptions) => {
 
     const mocksProxyConfig = {
       devServer: {
-        before(app: Application) {
-          app.use(bodyParser.urlencoded({ extended: false }));
-          app.use(bodyParser.json());
+        onBeforeSetupMiddleware(devServer) {
+          devServer.app.use(bodyParser.urlencoded({ extended: false }));
+          devServer.app.use(bodyParser.json());
         },
 
         proxy: Object.assign({}, productProxy, customProxy),

@@ -182,7 +182,7 @@ export function createServer(
 ): webpackDevServer {
   let server;
   // @ts-ignore
-  server = new webpackDevServer(compiler, devServerConfig);
+  server = new webpackDevServer(devServerConfig, compiler);
 
   return server;
 }

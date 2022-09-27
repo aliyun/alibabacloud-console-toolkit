@@ -27,7 +27,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
 
   config.mode(NODE_ENV);
 
-  config.devtool('cheap-module-eval-source-map');
+  config.devtool('eval-cheap-module-source-map');
 
   // set common config
   const disableExtractText = options.disableExtractText !== undefined
@@ -58,7 +58,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   }
 
   if (!disableHmr) {
-    hmrPlugin(config);
+    config.devServer.hot('only')
   }
 
 
