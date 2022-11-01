@@ -3,7 +3,6 @@ import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
 import { openBrowser } from './plugins/openBrowser';
-import { hmrPlugin } from './plugins/hmr';
 import { reactRefreshPlugin } from './plugins/reactRefresh';
 import { common } from './common';
 
@@ -27,6 +26,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
 
   config.mode(NODE_ENV);
 
+  // @ts-ignore
   config.devtool('eval-cheap-module-source-map');
 
   // set common config

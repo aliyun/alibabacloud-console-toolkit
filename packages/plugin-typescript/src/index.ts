@@ -96,8 +96,6 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     };
 
     if (!typescript.useBabel){
-      config.cache({ type: 'filesystem' });
-      
       addLoader({
         loader: require.resolve('thread-loader'),
         options: {
