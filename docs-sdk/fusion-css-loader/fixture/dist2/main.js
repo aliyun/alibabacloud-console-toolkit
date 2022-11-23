@@ -94,19 +94,19 @@
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mock_fusion_css_fusionPrefix_my_prefix_styleContainer_my_style_container__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mock-fusion.css?fusionPrefix=.my-prefix-&styleContainer=my-style-container */ \"./fixture/mock-fusion.css?fusionPrefix=.my-prefix-&styleContainer=my-style-container\");\n/* harmony import */ var _mock_var_css_fusionVarScope_my_var_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mock-var.css?fusionVarScope=.my-var-container */ \"./fixture/mock-var.css?fusionVarScope=.my-var-container\");\n/* harmony import */ var _mock_custom_var_css_myCustomFusionModify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mock-custom-var.css?myCustomFusionModify */ \"./fixture/mock-custom-var.css?myCustomFusionModify\");\n/* harmony import */ var _mock_fusion_icon_css_fusionPrefix_my_prefix___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mock-fusion-icon.css?fusionPrefix=.my-prefix- */ \"./fixture/mock-fusion-icon.css?fusionPrefix=.my-prefix-\");\n\n\n\n\n\n\n//# sourceURL=webpack:///./fixture/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _mock_fusion_css_fusionPrefix_my_prefix_styleContainer_my_style_container__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./mock-fusion.css?fusionPrefix=.my-prefix-&styleContainer=my-style-container */ \"./fixture/mock-fusion.css?fusionPrefix=.my-prefix-&styleContainer=my-style-container\");\n/* harmony import */ var _mock_var_css_fusionVarScope_my_var_container__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./mock-var.css?fusionVarScope=.my-var-container */ \"./fixture/mock-var.css?fusionVarScope=.my-var-container\");\n/* harmony import */ var _mock_custom_theme_css_myCustomFusionModify__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./mock-custom-theme.css?myCustomFusionModify */ \"./fixture/mock-custom-theme.css?myCustomFusionModify\");\n/* harmony import */ var _mock_fusion_icon_css_fusionPrefix_my_prefix___WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./mock-fusion-icon.css?fusionPrefix=.my-prefix- */ \"./fixture/mock-fusion-icon.css?fusionPrefix=.my-prefix-\");\n\n\n\n\n\n\n//# sourceURL=webpack:///./fixture/index.js?");
 
 /***/ }),
 
-/***/ "./fixture/mock-custom-var.css?myCustomFusionModify":
-/*!**********************************************************!*\
-  !*** ./fixture/mock-custom-var.css?myCustomFusionModify ***!
-  \**********************************************************/
+/***/ "./fixture/mock-custom-theme.css?myCustomFusionModify":
+/*!************************************************************!*\
+  !*** ./fixture/mock-custom-theme.css?myCustomFusionModify ***!
+  \************************************************************/
 /*! no exports provided */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./fixture/mock-custom-var.css?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack:///./fixture/mock-custom-theme.css?");
 
 /***/ }),
 

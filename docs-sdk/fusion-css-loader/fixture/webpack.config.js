@@ -44,6 +44,7 @@ module.exports = {
                 // loader: "@alicloud/console-toolkit-fusion-css-loader"
                 loader: path.resolve(__dirname, "../lib/index.js"),
                 options: {
+                  fusionPrefix: '.my-prefix-',
                   selectorTransformer: selector => {
                     if (selector === ".theme-xconsole") {
                       return ".my-own-scope";

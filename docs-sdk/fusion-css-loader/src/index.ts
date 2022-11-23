@@ -90,9 +90,14 @@ module.exports = async function fusionCssLoader(
           decl.value = fusionPrefixPascalCase + "Icon";
         }
         // replace font-family: var(--xconsole-icon-font-family, NextIcon)
-        // to font-family: var(--xconsole-icon-font-family, fusionPrefix + Icon)
+        // to font-family: var(--xconsole-icon-font-family, MyPrefixIcon)
         if (decl.prop === "font-family" && decl.value?.match(/var\(.*,\s?NextIcon\)/)) {
           decl.value = decl.value.replace("NextIcon", fusionPrefixPascalCase + "Icon");
+        }
+        // replace --xconsole-icon-font-family: NextIcon;
+        // to --xconsole-icon-font-family: MyPrefixIcon;
+        if (decl.prop === "--xconsole-icon-font-family" && decl.value) {
+          decl.value = fusionPrefixPascalCase + "Icon";
         }
       }
       // css.walkAtRules((rule) => {
