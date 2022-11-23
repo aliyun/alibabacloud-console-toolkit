@@ -28,12 +28,10 @@ export function readdir(
     (filename: string, _index: number, currentDirectory: string) => {
       const stat = fs.statSync(path.join(currentDirectory, filename));
 
-      if (stat.isDirectory()) {
-        return true;
-      }
+      if (stat.isDirectory()) return true;
 
       return (
-        (includeDotfiles || filename[0] !== ".") &&
+        (includeDotfiles || filename[0] !== ".") && !filename.endsWith('.d.ts') &&
         (!filter || filter(filename))
       );
     }

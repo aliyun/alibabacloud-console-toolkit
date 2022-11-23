@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-babel",
-  "version": "1.2.30",
+  "version": "1.2.32",
   "description": "console toolkit plugin for babel",
   "main": "lib/index.js",
   "directories": {
