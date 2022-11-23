@@ -1,0 +1,27 @@
+/*
+mock alicloud xconsole theme css var:
+https://unpkg.com/browse/@alicloud/console-components@1.5.10/dist/xconsole.css
+https://github.com/aliyun/cloud-design/blob/417902cbb0309c4dd11111d3a04d13650bd4cdac/base-components/src/theme/xconsole/css-var-custom.scss#L1
+*/
+
+/* the following .theme-xconsole should be replaced */
+.theme-xconsole,
+:root {
+  --alicloudfe-components-theme: xconsole;
+  /* the following NextIcon should be replaced */
+  --xconsole-icon-font-family: NextIcon;
+  --body-bg: #ffffff;
+  --range-scale-item-position-top: 8px;
+}
+
+/*
+mock icon style from xconsole:
+https://unpkg.com/@alicloud/console-components@1.5.10/dist/xconsole.css
+https://github.com/aliyun/cloud-design/blob/7090466c857239a5da865d6c6ae31732fc235ce2/base-components/src/theme/xconsole/icon.scss#L9
+*/
+
+/* the following ".next-" prefix, and NextIcon should be replaced */
+.next-icon {
+  font-family: NextIcon;
+  font-family: var(--xconsole-icon-font-family, NextIcon);
+}
