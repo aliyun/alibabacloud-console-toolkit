@@ -52,6 +52,13 @@ export const config = ({
               config.devServer.liveReload = true;
               config.devServer.inline = true;
               config.devServer.hot = false;
+              // 让sockjs直接请求deps开发服务器
+              // 即使宿主开发服务器使用https，deps开发服务器依然要走http。
+              // 这里hostname必须为 127.0.0.1 ，才能避免继承宿主应用的https：
+              // https://github.com/webpack/webpack-dev-server/blob/699404b091541242ad3d5f38f1a0022a83ff09b2/client-src/default/utils/createSocketUrl.js#L68
+              // 使用场景：
+              // https://code.alibaba-inc.com/wind/rc-rd-tree/blob/b8f45ae274070bd525e2e9da209e114bb3dc3c38/config/breezr.docs.config.ts#L23
+              config.devServer.public = `http://127.0.0.1:${port}`;
             }
             config.entry = path.join(pkgRoot, "src2/BuildDeps/index.ts");
             config.externals = {
