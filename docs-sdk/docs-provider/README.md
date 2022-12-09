@@ -8,3 +8,14 @@ breezr-docs 是一套基于 webpack 的文档、demo 开发环境。
 
 示例项目与文档：
 http://gitlab.alibaba-inc.com/sirui.csr/breezr-doc-demo
+
+示例项目2 (在预发控制台加载本地开发的breezr-docs，从而可以在本地开发时直接调用后端接口，不需要绑定任何host)：
+https://gitlab.alibaba-inc.com/xconsole/open-platform/blob/673749953499316d5c63ce0d727ce7a8597bb51d/packages/xconsole-open-template/README.md#L11
+
+示例项目3 （通过绑定OneConsole预发hosts + 指定开发服务器的host为控制台域名 + 使用https 来实现本地直接调用后端接口）
+https://gitlab.alibaba-inc.com/wind/rc-rd-tree/blob/578faeab93700781ef083c1c3bb34e919b42b530/README.md#L52
+
+## 维护信息
+
+`src/`下是插件代码（运行在node环境）
+`src2/`下是客户端代码（运行在浏览器环境）
