@@ -278,6 +278,11 @@ module.exports = (api: any, opts: IParams, args: any) => {
       const host = config.devServer.get("host");
       const servePath = `http${https ? "s" : ""}://${host}:${port}/`;
 
+      // 这里hostname必须为 127.0.0.1 ，才能避免继承宿主应用的https协议：
+      // https://github.com/webpack/webpack-dev-server/blob/699404b091541242ad3d5f38f1a0022a83ff09b2/client-src/default/utils/createSocketUrl.js#L68
+      // 示例项目： https://code.alibaba-inc.com/xconsole/open-platform/blob/673749953499316d5c63ce0d727ce7a8597bb51d/packages/xconsole-open-template/config/breezr.docs.config.ts#L23
+      config.devServer.public(`http${https ? "s" : ""}://127.0.0.1:${port}`);
+
       config.devServer.historyApiFallback(false);
       config.devServer.writeToDisk(true);
 
