@@ -48,6 +48,7 @@ export interface IParams {
   devServer?: {
     https?: boolean;
     host?: string;
+    open?: string | boolean;
   };
 }
 

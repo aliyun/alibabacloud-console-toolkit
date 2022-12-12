@@ -343,7 +343,10 @@ module.exports = (api: any, opts: IParams, args: any) => {
         },
         onGetPort: (p) => {
           hostPort = p;
-          open(servePath);
+          // 用户可以配置开发期间自动打开的url
+          const userConfigOpen = opts.devServer?.open;
+          if (userConfigOpen === false) return;
+          open(typeof userConfigOpen === "string" ? userConfigOpen : servePath);
         },
       });
 
