@@ -180,6 +180,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
     OUTPUT_PATH: opts.output,
     // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
     EXTERNALS: JSON.stringify(opts.externals),
+    WEBPACK_CONFIG_PATH: opts.webpackConfigPath,
   };
 
   const isBuild = !getEnv().isDev();

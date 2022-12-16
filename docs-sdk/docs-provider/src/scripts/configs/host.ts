@@ -4,6 +4,7 @@ import { BreezrPresetConfig } from "@alicloud/console-toolkit-preset-official";
 const outputPath = process.env.OUTPUT_PATH || "doc-dist";
 const servePath = process.env.SERVE_PATH;
 const consoleOSId = process.env.CONSOLEOS_ID;
+const webpackConfigPath = process.env.WEBPACK_CONFIG_PATH;
 const pkgRoot = path.resolve(__dirname, "../../../");
 
 if (!servePath) {
@@ -56,7 +57,13 @@ export const config = ({
               pkgRoot,
               "src2/HostApp/index.tsx"
             );
-            return config;
+
+            let result = config;
+            if (webpackConfigPath) {
+              const c = require(webpackConfigPath);
+              result = c?.({ type: "host", isDev, config }) || result;
+            }
+            return result;
           },
           defineGlobalConstants: {
             __servePath: JSON.stringify(servePath),
