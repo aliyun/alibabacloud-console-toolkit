@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "strict": true,
+    "types": ["node", "jest"],
+    "typeRoots": ["./types", "./node_modules/@types"]
+  },
+  "exclude": ["test", "node_modules", "lib"]
+}

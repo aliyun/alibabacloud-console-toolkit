@@ -1,0 +1,22 @@
+{
+  "name": "core",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/jest": "^29.2.4",
+    "@types/node": "^18.11.17"
+  },
+  "dependencies": {
+    "@babel/core": "^7.20.5",
+    "@babel/register": "^7.18.9",
+    "chalk": "^5.2.0",
+    "chokidar": "^3.5.3"
+  }
+}
