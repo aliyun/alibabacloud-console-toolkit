@@ -2,10 +2,9 @@ import webpack from 'webpack';
 import WebpackDevServer from 'webpack-dev-server';
 import openBrowser from 'react-dev-utils/openBrowser.js';
 
-const DEFAULT_PORT = parseInt(process.env.PORT || '3000', 10) || 3000;
-const HOST = process.env.HOST || '0.0.0.0';
-
 export default function createServer(config: webpack.Configuration) {
+  const DEFAULT_PORT = parseInt(process.env.PORT || '3000', 10) || 3000;
+  const HOST = process.env.HOST || '0.0.0.0';
   const compiler = webpack(config);
 
   const devServerConfig = {

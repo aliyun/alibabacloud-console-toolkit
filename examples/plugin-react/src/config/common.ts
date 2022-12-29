@@ -145,7 +145,7 @@ const getCommonConfig = (context: IContext, config: IConfig) => {
     infrastructureLogging: {
       level: 'warn',
     },
-    stats: 'none',
+    // stats: 'none',
     performance: false,
     // cache: enableCache ? {
     //   type: 'filesystem',
@@ -209,7 +209,34 @@ const getCommonConfig = (context: IContext, config: IConfig) => {
             //   },
             // },
             {
-              test: /\.(js|mjs|jsx|ts|tsx)$/,
+              test: /\.(ts|tsx)$/,
+              exclude: /node_modules/,
+              loader: requireResolve('babel-loader'),
+              options: {
+                presets: [
+                  [
+                    requireResolve('babel-preset-breezr-wind'),
+                    {
+                      reactRefresh: isDev(),
+                    },
+                  ],
+                  [
+                    requireResolve('@babel/preset-typescript'),
+                    {
+                      isTSX: true,
+                      allExtensions: true,
+                    },
+                  ],
+                ],
+                babelrc: false,
+                configFile: false,
+                // @remove-on-eject-end
+                compact: context.env.isProd(),
+              },
+            },
+            {
+              test: /\.(js|mjs|jsx)$/,
+              exclude: /node_modules/,
               loader: requireResolve('babel-loader'),
               options: {
                 presets: [
@@ -284,7 +311,7 @@ const getCommonConfig = (context: IContext, config: IConfig) => {
     //   aggregateTimeout: 200,
     //   ignored: watchIgnoredRegexp,
     // },
-    optimization: {
+    optimization: isDev() ? undefined : {
       splitChunks: { minChunks: Infinity, cacheGroups: { default: false } },
       minimize: true,
       minimizer: [

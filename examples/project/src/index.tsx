@@ -1,8 +1,10 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 
 const Component = () => {
   return <div>hello world.</div>;
 };
 
-ReactDOM.render(<Component />, document.getElementById('#app'));
+const root = createRoot(document.getElementById('app'));
+
+root.render(<Component />);

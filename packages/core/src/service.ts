@@ -57,6 +57,9 @@ export class Service implements IService {
     return this.#commands;
   }
 
+  /**
+   * register command
+   */
   get registerCommand() {
     return (name: string, def: ICommandDef, callback: CommandCallback) => {
       this.#commands.set(name, { def, callback });
