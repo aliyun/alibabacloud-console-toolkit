@@ -1,7 +1,7 @@
 import path from 'path';
 
-import { IConfig, PresetConfig } from '../types/config';
-import { IPresetReturn } from '../types/service';
+import type { IConfig, PresetConfig } from '../types/config';
+import type { IPresetReturn } from '../types/service';
 
 function idToPreset(preset: PresetConfig, cwd: string) {
   let presetId = preset as string;

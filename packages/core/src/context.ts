@@ -1,9 +1,10 @@
 import { EventEmitter } from 'events';
 
-import resolvePlugins from './utils/resolvePlugins';
-import { getEnv } from './utils/getEnv';
-import { IConfig, PluginOptions } from './types/config';
-import {
+import { require } from './utils/requireModule.js';
+import resolvePlugins from './utils/resolvePlugins.js';
+import { getEnv } from './utils/getEnv.js';
+import type { IConfig, PluginOptions } from './types/config';
+import type {
   IService,
   AsyncAPIMethod,
   IContext,
@@ -47,6 +48,20 @@ export default class Context implements IContext {
     return this.#config;
   }
 
+  get name() {
+    return this.#service.name;
+  }
+
+  get version() {
+    return this.#service.version;
+  }
+
+  get requireResolve() {
+    return (path: string, paths: string[] = []) => {
+      return require.resolve(path, { paths: [this.#cwd, ...paths] });
+    };
+  }
+
   get registerAPI() {
     return (name: string, fn: AsyncAPIMethod<any>) => {
       this.#asyncMethods.set(name, fn);
@@ -84,9 +99,9 @@ export default class Context implements IContext {
   }
 
   get registerPlugin() {
-    return (id: string, options: PluginOptions) => {
-      const plugin = resolvePlugins([[id, options]], this.#cwd)[0];
-      return this.#service.initPlugin(plugin);
+    return async (id: string, options: PluginOptions) => {
+      const plugins = await resolvePlugins([[id, options]], this.#cwd);
+      return this.#service.initPlugin(plugins[0], this);
     };
   }
 

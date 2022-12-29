@@ -35,9 +35,27 @@ export interface IServiceOption {
    * project root dir path
    */
   cwd: string;
-  config?: IConfig;
-  plugins?: IPluginRegister[];
+  // config?: IConfig;
+  /**
+   * config file path
+   */
   configFile?: string;
+  /**
+   * if use inner cli, default true;
+   */
+  cli?: boolean;
+  /**
+   * cli name
+   */
+  name: string;
+  /**
+   * cli version
+   */
+  version: string;
+  /**
+   * cli usage
+   */
+  usage?: string;
 }
 
 export interface ICommandArgs {
@@ -46,9 +64,13 @@ export interface ICommandArgs {
 
 export type CommandCallback = (args: ICommandArgs, rawArgs?: string[]) => PromiseLike<any>;
 
+interface ICommandOptionConfig {
+  default?: string;
+}
+
 export interface ICommandDef {
   /**
-   * description of the commands
+   * description of the command
    */
   description: string;
 
@@ -63,10 +85,10 @@ export interface ICommandDef {
   details?: string;
 
   /**
-   * options for commands like: -x --xxxx
+   * options for commands like: { '-x, --xxxx': [description, config] }
    */
   options?: {
-    [key: string]: string;
+    [key: string]: string | [string, ICommandOptionConfig];
   };
 }
 
@@ -87,6 +109,9 @@ export interface IContext {
   readonly cwd: string;
   readonly config: IConfig & { [key: string]: any };
   readonly env: IEnvironment;
+  readonly name: string;
+  readonly version: string;
+  readonly requireResolve: (request: string, paths?: string[]) => string;
   readonly registerAPI: (name: string, callback: AsyncAPIMethod) => void;
   readonly dispatchAPI: <R = any>(name: string, ...args: any[]) => PromiseLike<R>;
   readonly registerSyncAPI: (name: string, callback: SyncAPIMethod) => void;
@@ -100,7 +125,15 @@ export interface IContext {
 
 export interface IService {
   readonly commands: Map<string, ICommandRegister>;
+  /**
+   * cli name
+   */
+  readonly name: string;
+  /**
+   * cli version
+   */
+  readonly version: string;
   readonly run: (commandName: string, commandArgs: ICommandArgs) => void;
-  readonly initPlugin: (plugin: IPluginRegister) => void;
+  readonly initPlugin: (plugin: IPluginRegister, context: IContext) => void;
   readonly registerCommand: (name: string, def: ICommandDef, callback: CommandCallback) => void;
 }

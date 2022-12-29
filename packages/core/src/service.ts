@@ -1,10 +1,12 @@
-import * as path from 'path';
+import path, { dirname } from 'path';
+import { cac, CAC } from 'cac';
+import { fileURLToPath } from 'url';
 
-import Context from './context';
-import resolvePlugins from './utils/resolvePlugins';
-import getUserConfig from './utils/loadConfig';
-import resolvePresets from './utils/resolvePresets';
-import {
+import Context from './context.js';
+import resolvePlugins from './utils/resolvePlugins.js';
+import getUserConfig from './utils/getConfig.js';
+import resolvePresets from './utils/resolvePresets.js';
+import type {
   IPluginRegister,
   ICommandRegister,
   IContext,
@@ -14,7 +16,7 @@ import {
   ICommandDef,
   ICommandArgs,
 } from './types/service';
-import { IConfig } from './types/config';
+import type { IConfig } from './types/config';
 
 enum PluginState {
   UNINIT,
@@ -22,30 +24,33 @@ enum PluginState {
   INITED
 }
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
 const CONFIG_FILES = [
   'config/config.js',
   'config/config.ts',
 ];
 
 export class Service implements IService {
-  readonly context: IContext;
-  readonly #plugins: IPluginRegister[];
-  readonly #pluginStateMap: Map<string, PluginState> = new Map();
-  readonly #commands: Map<string, ICommandRegister> = new Map();
+  readonly name: string;
+  readonly version: string;
+  #plugins: IPluginRegister[] = [];
+  #cli?: CAC;
+  #pluginStateMap: Map<string, PluginState> = new Map();
+  #commands: Map<string, ICommandRegister> = new Map();
 
   constructor(options: IServiceOption) {
-    const cwd = options.cwd || process.cwd();
-    const config = getUserConfig([options.configFile, ...CONFIG_FILES]);
+    const { cli = true } = options || {};
 
-    this.context = new Context({
-      cwd,
-      config,
-      service: this,
-    });
+    this.name = options.name;
+    this.version = options.version;
 
-    this.#plugins = this.#resolvePlugins(config, cwd);
-
-    this.init();
+    if (cli) {
+      this.#cli = cac(options?.name);
+      if (options.version) this.#cli.version(options.version);
+      if (options.usage) this.#cli.usage(options.usage);
+    }
   }
 
   get commands() {
@@ -59,41 +64,93 @@ export class Service implements IService {
   }
 
   /**
-   *
+   * call command action
    * @param name
    * @param args
    * @param rawArv
    */
-  async run(name: string, args: ICommandArgs = {}) {
+  async run(name: string, options: ICommandArgs = {}) {
     let command = this.#commands.get(name);
 
-    if (!command && name) {
-      // error(`command "${name}" does not exist.`);
+    if (!command) {
+      console.error(`command "${name}" does not exist.`);
       process.exit(0);
     }
 
-    if (!command || args.help || args.h) {
+    if (!command || options.help || options.h) {
       command = this.#commands.get('help');
     }
-    const { callback } = command;
-    await callback(args);
+
+    const { callback } = command as ICommandRegister;
+    await callback(options);
   }
 
   /**
-   * init
+   * start service
    */
-  async init() {
+  async start(options?: { cwd?: string; configFile?: string }) {
+    const cwd = options?.cwd || process.cwd();
+
+    //
+    const config = await getUserConfig([
+      options?.configFile, ...CONFIG_FILES.map((filePath) => path.resolve(cwd, filePath))
+    ], cwd);
+
+    //
+    this.#plugins = await this.#resolvePlugins(config, cwd);
+
+    // init context
+    const context = new Context({
+      cwd,
+      config,
+      service: this,
+    });
+
     // init plugins
     for (const plugin of this.#plugins) {
-      await this.initPlugin(plugin);
+      await this.initPlugin(plugin, context);
     }
+
+    // init cli
+    if (this.#cli) {
+      for (const [commandName, { def }] of this.#commands) {
+        const command = this.#cli.command(commandName, def.description, {
+          allowUnknownOptions: true,
+        });
+
+        if (def.usage) command.usage(def.usage);
+        if (def.options) {
+          for (const option of Object.entries(def.options)) {
+            const [optionName, optionExtra] = option;
+            let description = optionExtra;
+            let optionConfig = {};
+
+            if (Array.isArray(optionExtra)) {
+              description = optionExtra[0];
+              optionConfig = optionExtra[1];
+            }
+
+            command.option(optionName, description as string, optionConfig);
+          }
+        }
+
+        command.action((...args: any[]) => {
+          const opts = args[args.length - 1];
+          delete opts['--'];
+
+          this.run(commandName, opts);
+        });
+      }
+    }
+
+    this.#cli?.parse(process.argv);
   }
 
   /**
    * init Plugin
    */
-  async initPlugin(plugin: IPluginRegister) {
-    const { id, pluginEntry, opts } = plugin;
+  async initPlugin(plugin: IPluginRegister, context: IContext) {
+    const { id, pluginEntry, opts = {} } = plugin;
 
     if (this.#pluginStateMap.get(id) === PluginState.INITED) {
       return;
@@ -106,15 +163,15 @@ export class Service implements IService {
 
     this.#pluginStateMap.set(id, PluginState.INITING);
 
-    await pluginEntry(this.context, opts);
+    await pluginEntry(context, opts);
 
     this.#pluginStateMap.set(id, PluginState.INITED);
   }
 
   #resolvePlugins(config: IConfig, cwd: string) {
     const builtInPlugins = [
-      path.resolve(__dirname, './plugins/common/index'),
-      path.resolve(__dirname, './plugins/commands/help'),
+      path.resolve(__dirname, './builtin/common/index.js'),
+      path.resolve(__dirname, './builtin/commands/help.js'),
     ];
 
     const presetPlugins = resolvePresets(config, cwd);

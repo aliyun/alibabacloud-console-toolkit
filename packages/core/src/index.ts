@@ -1,6 +1,7 @@
 // export plugin API
-export * from './service';
+export * from './service.js';
 
 // export types
-export * from './types/config';
-export * from './types/service';
+export * from './types/config.js';
+export * from './types/env.js';
+export * from './types/service.js';

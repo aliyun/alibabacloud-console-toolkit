@@ -1,14 +1,14 @@
 import path from 'path';
 
-import requireModule from './requireModule';
-import { PluginConfig } from '../types/config';
-import { IPluginRegister } from '../types/service';
+import requireModule from './requireModule.js';
+import type { PluginConfig } from '../types/config';
+import type { IPluginRegister } from '../types/service';
 
-const resolvePlugins = (pluginList: PluginConfig[], cwd: string) => {
-  const plugins: IPluginRegister[] = [];
+const resolvePlugins = async (pluginList: PluginConfig[], cwd: string) => {
+  // const plugins: IPluginRegister[] = [];
   const pluginMap = new Map();
 
-  for (const plugin of pluginList) {
+  const plugins = await Promise.all(pluginList.map(async (plugin) => {
     let pluginId: string = plugin as string;
     let options = null;
 
@@ -22,12 +22,12 @@ const resolvePlugins = (pluginList: PluginConfig[], cwd: string) => {
         // TODO: 处理冲突的配置
       }
 
-      continue;
+      return null;
     }
 
     if (typeof pluginId !== 'string') {
       // TODO: warn
-      continue;
+      return null;
     }
 
     // resolve local plugin
@@ -36,14 +36,17 @@ const resolvePlugins = (pluginList: PluginConfig[], cwd: string) => {
     }
 
     pluginMap.set(pluginId, options);
-    plugins.push({
+
+    const pluginEntry = await requireModule(pluginId, cwd);
+
+    return {
       id: pluginId,
       opts: options || {},
-      pluginEntry: requireModule(pluginId),
-    });
-  }
+      pluginEntry,
+    };
+  }));
 
-  return plugins;
+  return plugins.filter(Boolean) as IPluginRegister[];
 };
 
 export default resolvePlugins;

@@ -1,4 +1,4 @@
-import * as chokidar from 'chokidar';
+import chokidar from 'chokidar';
 import type { FSWatcher } from 'chokidar';
 
 export interface WatchMap {

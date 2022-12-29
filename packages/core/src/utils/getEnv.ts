@@ -1,6 +1,6 @@
-import { Environment, BuildType } from '../types/env';
+import { IEnvironment, BuildType } from '../types/env.js';
 
-export function getEnv(): Environment {
+export function getEnv(): IEnvironment {
   /**
    * 构建器执行环境
    * - local: 执行本地构建

@@ -1,7 +1,7 @@
 import fs from 'fs';
 
-import { IConfig } from '../types/config';
-import requireModule from './requireModule';
+import type { IConfig } from '../types/config';
+import requireModule from './requireModule.js';
 
 const defaultConfig: IConfig = {
   presets: [],
@@ -15,15 +15,15 @@ const checkConfig = (config: IConfig) => {
   return config;
 };
 
-const getUserConfig = (filePaths: string[]) => {
-  const filePath = filePaths.find((path) => fs.existsSync(path));
+const getUserConfig = async (filePaths: (string | undefined)[], cwd: string) => {
+  const filePath = filePaths.find((path) => path && fs.existsSync(path));
 
   if (!filePath) {
-    console.error('cannot find config.');
+    console.error(`cannot find config: ${filePaths.join(',')}`);
   }
 
   try {
-    return checkConfig(requireModule(filePath));
+    return checkConfig(await requireModule(filePath, cwd));
   } catch (e) {
     console.error(e);
     return defaultConfig;

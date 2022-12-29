@@ -1,35 +1,37 @@
 // Reference: https://github.com/vuejs/vue-cli/blob/dev/packages/%40vue/cli-service/lib/commands/help.js
 import chalk from 'chalk';
 
-import getPadLength from '../../utils/getPadLength';
-import { IContext, ICommandArgs, ICommandRegister } from '../../types/service';
+import getPadLength from '../../utils/getPadLength.js';
+import type { IContext, ICommandArgs, ICommandRegister } from '../../types/service';
 
 export default (context: IContext) => {
+  const { name, version } = context;
+
   function logMainHelp() {
     console.log(
-      '\n  Usage: breezr <command> [options]\n' +
+      `\n  Usage: ${name} <command> [options]\n` +
       '\n  Commands:\n',
     );
     const commands = context.getCommands();
     const padLength = getPadLength(commands);
-    for (const name in commands) {
-      if (name !== 'help') {
-        const opts = commands[name].def || {};
+    for (const cName in commands) {
+      if (cName !== 'help') {
+        const opts = commands[cName].def || {};
         console.log(`    ${
-          chalk.blue(name.padEnd(padLength))
+          chalk.blue(cName.padEnd(padLength))
         }${
           opts.description || ''
         }`);
       }
     }
     console.log(`\n  run ${
-      chalk.green('breezr help [command]')
+      chalk.green(`${name} help [command]`)
     } for usage of a specific command.\n`);
   }
 
-  function logHelpForCommand(name: string, command?: ICommandRegister) {
+  function logHelpForCommand(cName: string, command?: ICommandRegister) {
     if (!command) {
-      console.log(chalk.red(`\n  command "${name}" does not exist.`));
+      console.log(chalk.red(`\n  command "${cName}" does not exist.`));
     } else {
       const definition = command.def;
       if (definition.usage) {
@@ -38,11 +40,11 @@ export default (context: IContext) => {
       if (definition.options) {
         console.log('\n  Options:\n');
         const padLength = getPadLength(definition.options);
-        for (const name in definition.options) {
+        for (const optName in definition.options) {
           console.log(`    ${
-            chalk.blue(name.padEnd(padLength))
+            chalk.blue(optName.padEnd(padLength))
           }${
-            definition.options[name]
+            definition.options[optName]
           }`);
         }
       }

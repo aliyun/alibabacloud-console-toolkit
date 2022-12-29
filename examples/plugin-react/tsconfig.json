@@ -2,7 +2,7 @@
   "extends": "../../tsconfig.json",
   "compilerOptions": {
     "outDir": "lib",
-    "types": ["node", "jest"],
+    "types": ["node"],
     "typeRoots": ["./types", "./node_modules/@types"]
   },
   "exclude": ["test", "node_modules", "lib"]
