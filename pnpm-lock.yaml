@@ -30,7 +30,7 @@ importers:
       pnpm: 7.18.1
       typescript: 4.9.4
 
-  examples/cli:
+  examples/cli-demo:
     specifiers:
       '@alicloud/console-toolkit-core': workspace:^2.0.0
       '@types/react': ^18.0.26
@@ -112,6 +112,14 @@ importers:
       '@types/webpack-bundle-analyzer': 4.6.0
       typescript: 4.9.4
 
+  examples/project:
+    specifiers:
+      cli-demo: workspace:1.0.0
+      plugin-react: workspace:^1.0.0
+    dependencies:
+      cli-demo: link:../cli-demo
+      plugin-react: link:../plugin-react
+
   packages/core:
     specifiers:
       '@babel/core': ^7.20.5
@@ -134,12 +142,6 @@ importers:
       '@types/fs-extra': 9.0.13
       '@types/jest': 29.2.4
       '@types/node': 18.11.17
-
-  packages/plugin-react:
-    specifiers:
-      '@alicloud/console-toolkit-core': workspace:^2.0.0
-    dependencies:
-      '@alicloud/console-toolkit-core': link:../core
 
 packages:
 

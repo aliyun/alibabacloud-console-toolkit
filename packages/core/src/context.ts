@@ -113,12 +113,12 @@ export default class Context implements IContext {
 
   get getCommands() {
     return (commandNames?: string[]) => {
-      if (!commandNames) return [];
+      if (!commandNames) return Array.from(this.#service.commands.entries());
 
       const commands = [];
 
       for (const command of this.#service.commands.entries()) {
-        if (commandNames.includes(command[0])) commands.push(command[1]);
+        if (commandNames.includes(command[0])) commands.push(command);
       }
 
       return commands;

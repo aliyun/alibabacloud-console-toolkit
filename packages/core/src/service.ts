@@ -143,6 +143,8 @@ export class Service implements IService {
       }
     }
 
+    this.#cli?.help();
+
     this.#cli?.parse(process.argv);
   }
 
@@ -171,7 +173,6 @@ export class Service implements IService {
   #resolvePlugins(config: IConfig, cwd: string) {
     const builtInPlugins = [
       path.resolve(__dirname, './builtin/common/index.js'),
-      path.resolve(__dirname, './builtin/commands/help.js'),
     ];
 
     const presetPlugins = resolvePresets(config, cwd);

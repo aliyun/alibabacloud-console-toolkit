@@ -120,7 +120,7 @@ export interface IContext {
   readonly emit: (name: string, ...args: any[]) => void;
   readonly registerPlugin: (id: string, opts: PluginOptions) => void;
   readonly registerCommand: (name: string, def: ICommandDef, callback: CommandCallback) => void;
-  readonly getCommands: (commandNames?: string[]) => ICommandRegister[];
+  readonly getCommands: (commandNames?: string[]) => Array<[string, ICommandRegister]>;
 }
 
 export interface IService {

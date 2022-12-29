@@ -3,7 +3,6 @@
 // import path from 'path';
 import { Service } from '@alicloud/console-toolkit-core';
 
-import d from 'plugin-react';
 // import { fileURLToPath } from 'url';
 
 // const __filename = fileURLToPath(import.meta.url);
