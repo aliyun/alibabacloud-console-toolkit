@@ -133,7 +133,7 @@ export interface IService {
    * cli version
    */
   readonly version: string;
-  readonly run: (commandName: string, commandArgs: ICommandArgs) => void;
+  readonly run: (commandName: string, commandArgs: ICommandArgs, rawArgs?: string[]) => void;
   readonly initPlugin: (plugin: IPluginRegister, context: IContext) => void;
   readonly registerCommand: (name: string, def: ICommandDef, callback: CommandCallback) => void;
 }

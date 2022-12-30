@@ -72,7 +72,7 @@ export class Service implements IService {
    * @param args
    * @param rawArv
    */
-  async run(name: string, options: ICommandArgs = {}) {
+  async run(name: string, options: ICommandArgs = {}, rawArgs?: string[]) {
     let command = this.#commands.get(name);
 
     if (!command) {
@@ -85,7 +85,7 @@ export class Service implements IService {
     }
 
     const { callback } = command as ICommandRegister;
-    await callback(options);
+    await callback(options, rawArgs);
   }
 
   /**
@@ -138,10 +138,10 @@ export class Service implements IService {
         }
 
         command.action((...args: any[]) => {
-          const opts = args[args.length - 1];
+          const opts = args.pop();
           delete opts['--'];
 
-          this.run(commandName, opts);
+          this.run(commandName, opts, args);
         });
       }
     }
@@ -176,6 +176,7 @@ export class Service implements IService {
   #resolvePlugins(config: IConfig, cwd: string) {
     const builtInPlugins = [
       path.resolve(__dirname, './builtin/common/index.js'),
+      path.resolve(__dirname, './builtin/generator/index.js'),
     ];
 
     const presetPlugins = resolvePresets(config, cwd);
