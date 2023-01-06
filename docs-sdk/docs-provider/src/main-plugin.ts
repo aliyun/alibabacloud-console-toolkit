@@ -180,6 +180,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
     OUTPUT_PATH: opts.output,
     // externals参数会经过序列化传递给子进程，所以只能使用支持json化的值
     EXTERNALS: JSON.stringify(opts.externals),
+    WEBPACK_CONFIG_PATH: opts.webpackConfigPath,
   };
 
   const isBuild = !getEnv().isDev();
@@ -343,7 +344,10 @@ module.exports = (api: any, opts: IParams, args: any) => {
         },
         onGetPort: (p) => {
           hostPort = p;
-          open(servePath);
+          // 用户可以配置开发期间自动打开的url
+          const userConfigOpen = opts.devServer?.open;
+          if (userConfigOpen === false) return;
+          open(typeof userConfigOpen === "string" ? userConfigOpen : servePath);
         },
       });
 

@@ -16,6 +16,10 @@ export type IExternalItem =
 export interface IParams {
   consoleOSId: string;
   chainWebpack?: (configChain: Chain, env: any) => void;
+  /**
+   * 指定一个模块路径，它包含一个webpack配置函数，它可以修改deps、host的webpack配置。
+   */
+  webpackConfigPath?: string;
   // 由于breezr的plugin不支持异步返回，因此，getDemos等函数也必须是同步的
   getDemos?: () => {
     key: string;
@@ -48,6 +52,7 @@ export interface IParams {
   devServer?: {
     https?: boolean;
     host?: string;
+    open?: string | boolean;
   };
 }
 

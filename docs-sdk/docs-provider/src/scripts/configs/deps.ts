@@ -6,6 +6,7 @@ const depsConsoleOSId = process.env.CONSOLEOS_ID + "-deps";
 const externals = process.env.EXTERNALS
   ? JSON.parse(process.env.EXTERNALS)
   : undefined;
+const webpackConfigPath = process.env.WEBPACK_CONFIG_PATH;
 const pkgRoot = path.resolve(__dirname, "../../../");
 
 if (!process.env.CONSOLEOS_ID) {
@@ -75,7 +76,13 @@ export const config = ({
                 amd: "react-dom",
               },
             };
-            return config;
+
+            let result = config;
+            if (webpackConfigPath) {
+              const c = require(webpackConfigPath);
+              result = c?.({ type: "deps", isDev, config }) || result;
+            }
+            return result;
           },
           disableUpdator: true,
         } as BreezrPresetConfig,
