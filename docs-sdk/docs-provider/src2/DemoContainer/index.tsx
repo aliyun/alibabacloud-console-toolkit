@@ -63,8 +63,10 @@ const DemoContainer: React.FC<IProps> = ({
       }}
     >
       <div className={styles.title}>{meta.title}</div>
-      <div className={styles.demo}>
-        <div className={styles.demoInner}>{demoView}</div>
+      <div className={styles.demo + " breezr-docs-demo"}>
+        <div className={styles.demoInner + " breezr-docs-demoInner"}>
+          {demoView}
+        </div>
       </div>
       <div className={styles.describe}>{meta.describe || meta.description}</div>
       {operationsView}
