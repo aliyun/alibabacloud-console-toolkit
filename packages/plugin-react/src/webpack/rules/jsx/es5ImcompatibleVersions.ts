@@ -36,12 +36,6 @@ const config = {
       "reason": "see https://github.com/sidorares/json-bigint/blob/master/lib/parse.js#L7"
     }
   },
-  "monaco-editor": {
-    "^0.21.0": {
-      "version": "^0.21.0",
-      "reason": "see https://github.com/microsoft/monaco-editor"
-    }
-  },
   "proxy-polyfill": {
     "^0.3.0": {
       "version": "^0.3.0",
@@ -126,6 +120,12 @@ const config = {
     "^3.0.0": {
       "version": "^3.0.0",
       "reason": "https://github.com/alibaba/hooks",
+    }
+  },
+  "monaco-editor/": {
+    "*": {
+      "version": "*",
+      "reason": "https://github.com/microsoft/monaco-editor/issues/2817",
     }
   }
 };
