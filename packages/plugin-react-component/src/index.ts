@@ -2,6 +2,7 @@ import path from 'path';
 import { IContext, PluginOptions } from '@alicloud/console-toolkit-core';
 
 import build from './build.js';
+import start from './start.js';
 
 export default function (context: IContext, options: PluginOptions) {
   context.registerCommand('init <projectName>', {
@@ -43,5 +44,13 @@ export default function (context: IContext, options: PluginOptions) {
     description: 'start',
     usage: '',
   }, async () => {
+    try {
+      await start({
+        ...options,
+        cwd: context.cwd,
+      });
+    } catch (e) {
+      console.error(e);
+    }
   });
 }

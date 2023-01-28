@@ -1,15 +1,7 @@
-import * as React from 'react';
-import styles from './index.module.css';
+import React from 'react';
+import { createRoot } from 'react-dom/client';
 
-interface ComponentProps {
-  /** Title for ExampleComponent. */
-  title: string;
-}
+import App from '../src/index';
 
-export default function ExampleComponent(props: ComponentProps) {
-  const { title = 'Hello World!' } = props;
-
-  return (
-    <div className={styles.container}>{title}</div>
-  );
-}
+const root = createRoot(document.getElementById('app')!);
+root.render(<App title="demo" />);
