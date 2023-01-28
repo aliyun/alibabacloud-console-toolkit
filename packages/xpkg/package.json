@@ -1,19 +1,21 @@
 {
   "name": "@alicloud/xpkg",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "",
   "main": "index.js",
   "type": "module",
   "bin": {
-    "cli-demo": "./bin/index.mjs"
+    "xpkg": "./bin/index.mjs"
   },
   "scripts": {
+    "link-locale": "pnpm link ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@alicloud/console-toolkit-core": "workspace:^2.0.0",
+    "@alicloud/console-toolkit-plugin-react-component": "workspace:^1.0.0",
     "plugin-react": "workspace:^1.0.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0"
@@ -21,5 +23,8 @@
   "devDependencies": {
     "@types/react": "^18.0.26",
     "@types/react-dom": "^18.0.10"
+  },
+  "engines": {
+    "node": ">=14.0.0"
   }
 }

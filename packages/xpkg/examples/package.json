@@ -1,0 +1,54 @@
+{
+  "name": "@ali/example-component",
+  "version": "0.1.0",
+  "description": "组件功能描述",
+  "files": [
+    "esm"
+  ],
+  "module": "esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js"
+    },
+    "./*": "./*"
+  },
+  "sideEffects": [
+    "dist/*",
+    "*.scss",
+    "*.less",
+    "*.css"
+  ],
+  "scripts": {
+    "start": "xpkg start",
+    "clean": "rm -rf esm",
+    "build": "npm run clean && xpkg build",
+    "prepublishOnly": "npm run build",
+    "eslint": "eslint --cache --ext .js,.jsx,.ts,.tsx ./",
+    "eslint:fix": "npm run eslint -- --fix",
+    "stylelint": "stylelint \"**/*.{css,scss,less}\"",
+    "lint": "npm run eslint && npm run stylelint"
+  },
+  "keywords": [
+    "xpkg",
+    "react",
+    "component"
+  ],
+  "devDependencies": {
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "eslint": "^7.0.0",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0"
+  },
+  "peerDependencies": {
+    "react": "^17 || ^18"
+  },
+  "publishConfig": {
+    "registry": "https://registry.npm.alibaba-inc.com"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@alicloud/xpkg": "^0.1.0",
+    "typescript": "^4.9.4"
+  }
+}

@@ -1,6 +1,5 @@
 # common
 
-.*
 !.*ignore
 !.*rc
 !.gitattributes
@@ -32,8 +31,6 @@ jspm_packages/
 build/Release
 lib
 dist
-build
-!packages/babel-plugin-wind-rc/lib/
 
 # TypeScript v1 declaration files
 typings/
@@ -41,8 +38,7 @@ typings/
 # Output of 'npm pack'
 *.tgz
 
-yarn.lock
-.npmrc
-
-!packages/xpkg/examples/.*
-packages/xpkg/examples/esm
+# xconsole
+src/.xconsole
+build
+.faas_debug_tmp
