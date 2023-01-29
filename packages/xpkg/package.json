@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/xpkg",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "",
   "main": "index.js",
   "type": "module",
@@ -15,10 +15,11 @@
   "license": "ISC",
   "dependencies": {
     "@alicloud/console-toolkit-core": "workspace:^2.0.0",
-    "@alicloud/console-toolkit-plugin-react-component": "workspace:^1.0.0",
-    "plugin-react": "workspace:^1.0.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "@alicloud/console-toolkit-plugin-react-component": "workspace:^1.0.0"
+  },
+  "peerDependencies": {
+    "react": ">=16.0.0",
+    "react-dom": ">=16.0.0"
   },
   "devDependencies": {
     "@types/react": "^18.0.26",
