@@ -47,7 +47,7 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   if (isTs) {
     require('@babel/register')({
       only: [absolutePath],
-      presets: ['@babel/preset-typescript'],
+      presets: ['@babel/preset-env', '@babel/preset-typescript'],
       ignore: [/node_modules/],
       extensions: ['.ts', '.tsx'],
       babelrc: false,

@@ -14,7 +14,7 @@ import typescript from 'rollup-plugin-typescript2';
 import type { IBuildOptions } from '../type';
 
 export default function getRollupOptions(options: IBuildOptions) {
-  const { cwd, sourcemap = true } = options;
+  const { cwd, sourcemap = false } = options;
   const rootDir = path.resolve(cwd, 'src');
   const dest = path.resolve(cwd, './esm');
 
