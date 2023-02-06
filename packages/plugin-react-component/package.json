@@ -1,12 +1,13 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "",
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
   "type": "module",
   "scripts": {
     "build": "rm -rf ./lib && tsc",
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -40,13 +41,11 @@
     "@types/node": "^18.11.17",
     "@types/react-dev-utils": "^9.0.11",
     "@types/webpack-bundle-analyzer": "^4.6.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
     "typescript": "^4.9.4"
   },
   "peerDependencies": {
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
   },
   "publishConfig": {
     "access": "public"
