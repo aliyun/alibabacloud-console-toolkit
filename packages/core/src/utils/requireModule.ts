@@ -45,9 +45,8 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   const isESM = ['.mjs'].some((type) => absolutePath.endsWith(type));
 
   if (isTs) {
-    require('@babel/register')({
-      only: [absolutePath],
-      presets: ['@babel/preset-env', '@babel/preset-typescript'],
+    require(require.resolve('@babel/register'))({
+      presets: [require.resolve('@babel/preset-env'), require.resolve('@babel/preset-typescript')],
       ignore: [/node_modules/],
       extensions: ['.ts', '.tsx'],
       babelrc: false,

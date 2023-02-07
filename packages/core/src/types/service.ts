@@ -35,11 +35,6 @@ export interface IServiceOption {
    * project root dir path
    */
   cwd: string;
-  // config?: IConfig;
-  /**
-   * config file path
-   */
-  configFile?: string;
   /**
    * if use inner cli, default true;
    */
