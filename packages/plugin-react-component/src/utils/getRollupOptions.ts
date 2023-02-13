@@ -61,6 +61,7 @@ export default function getRollupOptions(options: IBuildOptions) {
         useTsconfigDeclarationDir: true,
         tsconfigDefaults: {
           compilerOptions: {
+            target: 'es5',
             declaration: true,
             allowJs: true,
             jsx: 'preserve',
@@ -71,7 +72,6 @@ export default function getRollupOptions(options: IBuildOptions) {
         tsconfigOverride: {
           compilerOptions: {
             module: 'ESNext',
-            target: 'esnext',
           },
         },
       }),
