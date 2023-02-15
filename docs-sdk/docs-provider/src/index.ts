@@ -164,7 +164,7 @@ export default (params: IParams, args) => {
       "@alicloud/console-toolkit-plugin-os",
       {
         id: params.consoleOSId,
-        cssPrefix: "html",
+        disableCssPrefix: true,
       },
     ],
     [require.resolve("./main-plugin"), params],

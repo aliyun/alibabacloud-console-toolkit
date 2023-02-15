@@ -93,7 +93,7 @@ export const config = ({
         "@alicloud/console-toolkit-plugin-os",
         {
           id: depsConsoleOSId,
-          cssPrefix: "html",
+          disableCssPrefix: true,
         },
       ],
       [path.join(pkgRoot, "lib/config-webpack-plugin.js")],
