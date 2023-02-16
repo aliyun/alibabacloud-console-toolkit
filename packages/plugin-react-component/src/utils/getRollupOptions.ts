@@ -14,8 +14,8 @@ import typescript from 'rollup-plugin-typescript2';
 import type { IBuildOptions } from '../type';
 
 export default function getRollupOptions(options: IBuildOptions) {
-  const { cwd, sourcemap = false } = options;
-  const rootDir = path.resolve(cwd, 'src');
+  const { cwd, sourcemap = false, babelPlugins = [], src = 'src' } = options;
+  const rootDir = path.resolve(cwd, src);
   const dest = path.resolve(cwd, './esm');
 
   const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
@@ -37,7 +37,14 @@ export default function getRollupOptions(options: IBuildOptions) {
       dir: dest,
       sourcemap,
     },
-    external: ['react', 'react-dom'].concat(peerDeps).concat(deps),
+    external: [
+      'react',
+      'react-dom',
+      'react/jsx-runtime',
+      'core-js',
+      'regenerator-runtime',
+      'tslib',
+    ].concat(peerDeps).concat(deps),
     plugins: [
       postcss({
         plugins: [autoprefixer()],
@@ -64,9 +71,10 @@ export default function getRollupOptions(options: IBuildOptions) {
             target: 'es5',
             declaration: true,
             allowJs: true,
-            jsx: 'preserve',
+            jsx: 'react',
             declarationDir: dest,
           },
+          include: [rootDir],
         },
         tsconfig: path.resolve(cwd, 'tsconfig.json'),
         tsconfigOverride: {
@@ -80,6 +88,7 @@ export default function getRollupOptions(options: IBuildOptions) {
         babelrc: false,
         configFile: false,
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'],
+        plugins: [...babelPlugins],
       }),
     ],
   };
