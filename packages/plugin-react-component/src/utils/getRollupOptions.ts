@@ -8,8 +8,8 @@ import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
-import postcss from 'rollup-plugin-postcss';
 import typescript from 'rollup-plugin-typescript2';
+import styles from 'rollup-plugin-styles';
 
 import type { IBuildOptions } from '../type';
 
@@ -20,11 +20,18 @@ export default function getRollupOptions(options: IBuildOptions) {
 
   const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
+  let useTypescript = false;
+
   const input = Object.fromEntries(
-    glob.sync(path.join(rootDir, '/**/*[!.d].{ts,tsx,js,jsx}')).map((file) => [
-      path.relative(rootDir, file.slice(0, file.length - path.extname(file).length)),
-      fileURLToPath(new URL(file, import.meta.url)),
-    ]),
+    glob.sync(path.join(rootDir, '/**/*[!.d].{ts,tsx,js,jsx}')).map((file) => {
+      const ext = path.extname(file);
+      if (ext === '.ts' || ext === '.tsx') useTypescript = true;
+
+      return [
+        path.relative(rootDir, file.slice(0, file.length - ext.length)),
+        fileURLToPath(new URL(file, import.meta.url)),
+      ];
+    }),
   );
 
   const peerDeps = Object.keys(pkg.peerDependencies || {});
@@ -38,6 +45,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       sourcemap,
     },
     external: [
+      /@babel\/runtime/,
       'react',
       'react-dom',
       'react/jsx-runtime',
@@ -46,24 +54,23 @@ export default function getRollupOptions(options: IBuildOptions) {
       'tslib',
     ].concat(peerDeps).concat(deps),
     plugins: [
-      postcss({
+      styles({
         plugins: [autoprefixer()],
         autoModules: true,
-        // only write out CSS for the first bundle (avoids pointless extra files):
-        inject: false,
-        extract: true,
-        minimize: true,
+        mode: 'extract',
+        minimize: false,
+        sourceMap: false,
       }),
       commonjs({
-        extensions: [
-          '.js',
-        ],
+        include: /\/node_modules\//,
+        esmExternals: false,
+        requireReturnsDefault: 'namespace',
       }),
       nodeResolve({
         extensions: ['.mjs', '.js', '.jsx', '.json', '.node', '.ts', '.jsx', '.tsx', '.cjs', '.mts', '.cts'],
       }),
       json(),
-      typescript({
+      useTypescript && typescript({
         cwd,
         useTsconfigDeclarationDir: true,
         tsconfigDefaults: {
@@ -84,11 +91,12 @@ export default function getRollupOptions(options: IBuildOptions) {
         },
       }),
       babel({
-        babelHelpers: 'bundled',
+        babelHelpers: 'runtime',
         babelrc: false,
         configFile: false,
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'],
-        plugins: [...babelPlugins],
+        presets: ['@babel/preset-env', '@babel/preset-react'],
+        plugins: ['@babel/plugin-transform-runtime', ...babelPlugins],
       }),
     ],
   };
