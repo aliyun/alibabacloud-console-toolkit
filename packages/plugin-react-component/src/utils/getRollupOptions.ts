@@ -43,6 +43,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       format: 'es',
       dir: dest,
       sourcemap,
+      assetFileNames: '[name][extname]',
     },
     external: [
       /@babel\/runtime/,
