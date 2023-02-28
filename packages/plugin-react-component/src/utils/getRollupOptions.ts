@@ -14,9 +14,9 @@ import styles from 'rollup-plugin-styles';
 import type { IBuildOptions } from '../type';
 
 export default function getRollupOptions(options: IBuildOptions) {
-  const { cwd, sourcemap = false, babelPlugins = [], src = 'src' } = options;
+  const { cwd, sourcemap = false, babelPlugins = [], src = 'src', output = './esm' } = options;
   const rootDir = path.resolve(cwd, src);
-  const dest = path.resolve(cwd, './esm');
+  const dest = path.resolve(cwd, output);
 
   const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
@@ -44,6 +44,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       dir: dest,
       sourcemap,
       assetFileNames: '[name][extname]',
+      hoistTransitiveImports: false,
     },
     external: [
       /@babel\/runtime/,
