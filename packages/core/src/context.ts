@@ -16,13 +16,13 @@ import type {
 
 interface IOptions {
   cwd: string;
-  config: IConfig;
+  config?: IConfig;
   service: IService;
 }
 
 export default class Context implements IContext {
   #cwd: string;
-  #config: IConfig;
+  #config?: IConfig;
   #service: IService;
   #asyncMethods = new Map();
   #syncMethods = new Map();

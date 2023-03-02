@@ -102,7 +102,7 @@ export type PluginLifeCycleListener<T = any> = (...args: any) => PromiseLike<T>;
 
 export interface IContext {
   readonly cwd: string;
-  readonly config: IConfig & { [key: string]: any };
+  readonly config?: IConfig & { [key: string]: any };
   readonly env: IEnvironment;
   readonly name: string;
   readonly version: string;

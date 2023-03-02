@@ -91,13 +91,14 @@ export class Service implements IService {
   /**
    * start service
    */
-  async start(options?: { cwd?: string; configFile?: string }) {
+  async start(options?: { cwd?: string; configFile?: string | IConfig }) {
     const cwd = options?.cwd || process.cwd();
 
-    //
-    const config = await getUserConfig([
-      options?.configFile, ...CONFIG_FILES.map((filePath) => path.resolve(cwd, filePath))
-    ], cwd);
+    const { configFile } = options || {};
+
+    const config = typeof configFile === 'string' ? await getUserConfig([
+      configFile, ...CONFIG_FILES.map((filePath) => path.resolve(cwd, filePath)),
+    ], cwd) : configFile;
 
     //
     this.#plugins = await this.#resolvePlugins(config, cwd);
@@ -173,14 +174,16 @@ export class Service implements IService {
     this.#pluginStateMap.set(id, PluginState.INITED);
   }
 
-  #resolvePlugins(config: IConfig, cwd: string) {
+  #resolvePlugins(config: IConfig | undefined, cwd: string) {
     const builtInPlugins = [
       path.resolve(__dirname, './builtin/common/index.js'),
       path.resolve(__dirname, './builtin/generator/index.js'),
     ];
 
-    const presetPlugins = resolvePresets(config, cwd);
+    const presetPlugins = config ? resolvePresets(config, cwd) : [];
 
-    return resolvePlugins([...builtInPlugins, ...presetPlugins, ...config.plugins], cwd);
+    const plugins = config?.plugins || [];
+
+    return resolvePlugins([...builtInPlugins, ...presetPlugins, ...plugins], cwd);
   }
 }
