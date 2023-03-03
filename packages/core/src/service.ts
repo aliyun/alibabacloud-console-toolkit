@@ -149,7 +149,12 @@ export class Service implements IService {
 
     this.#cli?.help();
 
-    this.#cli?.parse(process.argv);
+    try {
+      this.#cli?.parse(process.argv);
+    } catch (e) {
+      console.error((e as Error).message);
+      process.exit(1);
+    }
   }
 
   /**

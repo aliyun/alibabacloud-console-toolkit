@@ -10,7 +10,7 @@ import type { IContext } from '../../types/service';
 
 export default (context: IContext) => {
   context.registerAPI('generate', async ({ name, dir, registry }: { name?: string; dir?: string; registry?: string }) => {
-    if (!name) throw new Error('template name is undefined');
+    if (!name || typeof name !== 'string') throw new Error('template name is undefined');
 
     const tarball = await getNpmTarball(name, 'latest', registry);
     await downloadTarball(tarball, dir || context.cwd);
