@@ -13,6 +13,8 @@ import styles from 'rollup-plugin-styles';
 
 import type { IBuildOptions } from '../type';
 
+const moduleRegExp = (module: string) => new RegExp(`^${module}(\\/.+)*$`);
+
 export default function getRollupOptions(options: IBuildOptions) {
   const { cwd, sourcemap = false, babelPlugins = [], src = 'src', output = './esm' } = options;
   const rootDir = path.resolve(cwd, src);
@@ -47,14 +49,14 @@ export default function getRollupOptions(options: IBuildOptions) {
       hoistTransitiveImports: false,
     },
     external: [
-      /@babel\/runtime/,
+      '@babel/runtime',
       'react',
       'react-dom',
       'react/jsx-runtime',
       'core-js',
       'regenerator-runtime',
       'tslib',
-    ].concat(peerDeps).concat(deps),
+    ].concat(peerDeps).concat(deps).map(moduleRegExp),
     plugins: [
       styles({
         plugins: [autoprefixer()],

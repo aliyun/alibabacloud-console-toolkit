@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "description": "",
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
