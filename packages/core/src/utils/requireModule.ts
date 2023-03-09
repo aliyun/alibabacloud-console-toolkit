@@ -8,11 +8,19 @@ const __dirname = dirname(__filename);
 
 export const require = createRequire(import.meta.url);
 
+export const resolvePkgPath = (path: string, cwd: string) => {
+  try {
+    return require.resolve(path);
+  } catch (e) {
+    return require.resolve(path, { paths: [cwd] });
+  }
+};
+
 export const loadPkg = (path: string, cwd: string) => {
   /**
    * esModule 设置 exports 时可能会无法直接解析 package.json
    */
-  const absolutePath = require.resolve(path, { paths: [cwd] });
+  const absolutePath = resolvePkgPath(path, cwd);
   let relativePath = absolutePath;
   let pkgJSONPath = pathJoin(relativePath, 'package.json');
 
@@ -36,11 +44,7 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   let isTypeModule = false;
 
   if (isPkg) {
-    try {
-      absolutePath = require.resolve(path);
-    } catch (e) {
-      absolutePath = require.resolve(path, { paths: [cwd] });
-    }
+    absolutePath = resolvePkgPath(path, cwd);
 
     const pkgJSON = loadPkg(path, cwd);
     isTypeModule = pkgJSON.type === 'module';
