@@ -30,13 +30,18 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   }
 
   const isBuiltIn = path.includes(pathResolve(__dirname, '../builtin/'));
-
   const isPkg = !['.', '/'].some((str) => path.startsWith(str));
-  const absolutePath = isPkg ? require.resolve(path, { paths: [cwd] }) : path;
 
+  let absolutePath = path;
   let isTypeModule = false;
 
   if (isPkg) {
+    try {
+      absolutePath = require.resolve(path);
+    } catch (e) {
+      absolutePath = require.resolve(path, { paths: [cwd] });
+    }
+
     const pkgJSON = loadPkg(path, cwd);
     isTypeModule = pkgJSON.type === 'module';
   }

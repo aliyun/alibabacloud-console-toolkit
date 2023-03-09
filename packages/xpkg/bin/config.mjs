@@ -7,7 +7,7 @@ const userConfigPath = path.resolve(cwd, 'config/config.ts');
 let userConfig = {};
 
 if (!fs.existsSync(userConfigPath)) {
-  console.log(`cannot find config/config.ts in ${cwd}}.`);
+  console.log(`cannot find config/config.ts in ${cwd}.`);
 } else {
   userConfig = await requireModule(userConfigPath);
 }
