@@ -37,16 +37,16 @@ importers:
 
   docs-provider:
     specifiers:
-      '@alicloud/console-os-react-portal': 1.4.1
+      '@alicloud/console-os-react-portal': ^1.4.1
       '@alicloud/console-toolkit-cli': ^1.2.0
       '@alicloud/console-toolkit-core': ^1.1.3
       '@alicloud/console-toolkit-docs-consumer': workspace:^1.0.0
       '@alicloud/console-toolkit-docs-shared': workspace:^1.0.0
       '@alicloud/console-toolkit-fusion-css-loader': workspace:^1.0.0
       '@alicloud/console-toolkit-markdown-renderer': workspace:^3.0.0
-      '@alicloud/console-toolkit-plugin-os': 1.4.22
+      '@alicloud/console-toolkit-plugin-os': ^1.4.22
       '@alicloud/console-toolkit-preset-official': ^1.2.8
-      '@alicloud/console-toolkit-shared-utils': 1.2.30
+      '@alicloud/console-toolkit-shared-utils': ^1.2.30
       '@babel/standalone': ^7.17.2
       '@types/fs-extra': ^9.0.6
       '@types/node': ^14.14.22
@@ -2936,7 +2936,6 @@ packages:
   /@discoveryjs/json-ext/0.5.2:
     resolution: {integrity: sha512-HyYEUDeIj5rRQU2Hk5HTB2uHsbRQpF70nvMhVzi+VJR0X+xNEhjPui4/kBf3VeH/wqD28PT4sVOm8qqLjBrSZg==}
     engines: {node: '>=10.0.0'}
-    dev: true
 
   /@emotion/cache/10.0.29:
     resolution: {integrity: sha512-fU2VtSVlHiF27empSbxi1O2JFdNWZO+2NFHfwO0pxgTep6Xa3uGb+3pVKfLww2l/IBGLNEZl5Xf/++A4wAYDYQ==}
@@ -3047,7 +3046,7 @@ packages:
       ansi-escapes: 3.2.0
       chalk: 2.4.2
       exit: 0.1.2
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jest-changed-files: 24.9.0
       jest-config: 24.9.0
       jest-haste-map: 24.9.0
@@ -3128,7 +3127,7 @@ packages:
     engines: {node: '>= 6'}
     dependencies:
       callsites: 3.1.0
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       source-map: 0.6.1
 
   /@jest/test-result/24.9.0:
@@ -3162,7 +3161,7 @@ packages:
       chalk: 2.4.2
       convert-source-map: 1.7.0
       fast-json-stable-stringify: 2.1.0
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jest-haste-map: 24.9.0
       jest-regex-util: 24.9.0
       jest-util: 24.9.0
@@ -3687,7 +3686,6 @@ packages:
     dependencies:
       webpack: 4.44.2_webpack-cli@4.4.0
       webpack-cli: 4.4.0_webpack@4.44.2
-    dev: true
 
   /@webpack-cli/info/1.2.1_webpack-cli@4.4.0:
     resolution: {integrity: sha512-fLnDML5HZ5AEKzHul8xLAksoKN2cibu6MgonkUj8R9V7bbeVRkd1XbGEGWrAUNYHbX1jcqCsDEpBviE5StPMzQ==}
@@ -3696,7 +3694,6 @@ packages:
     dependencies:
       envinfo: 7.7.3
       webpack-cli: 4.4.0_webpack@4.44.2
-    dev: true
 
   /@webpack-cli/serve/1.2.2_webpack-cli@4.4.0:
     resolution: {integrity: sha512-03GkWxcgFfm8+WIwcsqJb9agrSDNDDoxaNnexPnCCexP5SCE4IgFd9lNpSy+K2nFqVMpgTFw6SwbmVAVTndVew==}
@@ -3708,7 +3705,6 @@ packages:
         optional: true
     dependencies:
       webpack-cli: 4.4.0_webpack@4.44.2
-    dev: true
 
   /@xtuc/ieee754/1.2.0:
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -3922,7 +3918,6 @@ packages:
   /ansi-colors/4.1.1:
     resolution: {integrity: sha512-JoX0apGbHaUJBNl6yF+p6JAFYZ666/hhCGKN5t9QFjbJQKUU/g8MNbFDbvfrgKXvI1QpZplPOnwIo99lX/AAmA==}
     engines: {node: '>=6'}
-    dev: true
 
   /ansi-escapes/3.2.0:
     resolution: {integrity: sha512-cBhpre4ma+U0T1oM5fXg7Dy1Jw7zzwv7lt/GoCpr+hDQJoYnKVPLL4dCvSEFMmQurOQvSrwT7SL/DAlhBI97RQ==}
@@ -5269,7 +5264,7 @@ packages:
       braces: 3.0.2
       glob-parent: 5.1.2
       is-binary-path: 2.1.0
-      is-glob: 4.0.1
+      is-glob: 4.0.3
       normalize-path: 3.0.0
       readdirp: 3.6.0
     optionalDependencies:
@@ -5518,7 +5513,6 @@ packages:
   /commander/6.2.1:
     resolution: {integrity: sha512-U7VdrJFnJgo4xjrHpTzu0yrHPGImdsmD95ZlgYSEajAn2JKzDhDTPG9kBTefmObL2w/ngeZnilk+OV9CG3d7UA==}
     engines: {node: '>= 6'}
-    dev: true
 
   /commondir/1.0.1:
     resolution: {integrity: sha1-3dgA2gxmEnOTzKWVDqloo6rxJTs=}
@@ -6646,7 +6640,7 @@ packages:
     resolution: {integrity: sha512-Nv9m36S/vxpsI+Hc4/ZGRs0n9mXqSWGGq49zxb/cJfPAQMbUtttJAlNPS4AQzaBdw/pKskw5bMbekT/Y7W/Wlg==}
     engines: {node: '>=6.9.0'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       memory-fs: 0.5.0
       tapable: 1.1.3
 
@@ -6655,7 +6649,6 @@ packages:
     engines: {node: '>=8.6'}
     dependencies:
       ansi-colors: 4.1.1
-    dev: true
 
   /entities/1.1.2:
     resolution: {integrity: sha512-f2LZMYl1Fzu7YSBKg+RoROelpOaNrcGmE9AZubeDfrCEia483oW4MI4VyFd5VNHIgQ/7qm1I0wUHK1eJnn2y2w==}
@@ -6671,7 +6664,6 @@ packages:
     resolution: {integrity: sha512-46+j5QxbPWza0PB1i15nZx0xQ4I/EfQxg9J8Had3b408SV63nEtor2e+oiY63amTo9KTuh2a3XLObNwduxYwwA==}
     engines: {node: '>=4'}
     hasBin: true
-    dev: true
 
   /enzyme-adapter-react-16/1.15.6_5wmi5p7qqb44id7z5b7cvtdywm:
     resolution: {integrity: sha512-yFlVJCXh8T+mcQo8M6my9sPgeGzj85HSHi6Apgf1Cvq/7EL/J9+1JoJmJsRxZgyTvPMAqOEpRSu/Ii/ZpyOk0g==}
@@ -7337,7 +7329,6 @@ packages:
 
   /fastest-levenshtein/1.0.12:
     resolution: {integrity: sha512-On2N+BpYJ15xIC974QNVuYGMOlEVt4s0EOI3wwMqOmK1fdDY+FN/zltPV8vosq4ad4c/gJ1KHScUn/6AWIgiow==}
-    dev: true
 
   /fastparse/1.1.2:
     resolution: {integrity: sha512-483XLLxTVIwWK3QTrMGRqUfUpoOs/0hbQrl2oz4J0pAcm3A3bu84wxTFqGqkJzewCLdME38xJLJAxBABfQT8sQ==}
@@ -7670,7 +7661,7 @@ packages:
     resolution: {integrity: sha512-YJDaCJZEnBmcbw13fvdAM9AwNOJwOzrE4pqMqBq5nFiEqXUqHwlK4B+3pUw6JNvfSPtX05xFHtYy/1ni01eGCw==}
     engines: {node: '>=6 <7 || >=8'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jsonfile: 4.0.0
       universalify: 0.1.2
 
@@ -7678,7 +7669,7 @@ packages:
     resolution: {integrity: sha512-yhlQgA6mnOJUKOsRUFsgJdQCvkKhcz8tlZG5HBQfReYZy46OwLcY+Zia0mtdHsOo9y/hP+CxMN0TU9QxoOtG4g==}
     engines: {node: '>=6 <7 || >=8'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jsonfile: 4.0.0
       universalify: 0.1.2
 
@@ -7698,7 +7689,7 @@ packages:
   /fs-write-stream-atomic/1.0.10:
     resolution: {integrity: sha1-tH31NJPvkR33VzHnCp3tAYnbQMk=}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       iferr: 0.1.5
       imurmurhash: 0.1.4
       readable-stream: 2.3.7
@@ -7901,7 +7892,7 @@ packages:
     resolution: {integrity: sha512-AOIgSQCepiJYwP3ARnGx+5VnTu2HBYdzbGP45eLw1vr3zB3vZLeyed1sC9hnbcOc9/SrMyM5RPQrkGz4aS9Zow==}
     engines: {node: '>= 6'}
     dependencies:
-      is-glob: 4.0.1
+      is-glob: 4.0.3
 
   /glob-to-regexp/0.3.0:
     resolution: {integrity: sha1-jFoUlNIGbFcMw7/kSWF1rMTVAqs=}
@@ -8095,7 +8086,6 @@ packages:
 
   /graceful-fs/4.2.10:
     resolution: {integrity: sha512-9ByhssR2fPVsNZj478qUUbKfmL0+t5BDVyjShtyZZLiK7ZDAArFFfopyOTj0M05wE2tJPisA4iTnnXl2YoPvOA==}
-    optional: true
 
   /graceful-fs/4.2.4:
     resolution: {integrity: sha512-WjKPNJF79dtJAVniUlGGWHYGz2jWxT6VhN/4m1NdkbZ2nOsEF+cI1Edgql5zCRhs/VsQYRvrXctxktVXZUkixw==}
@@ -8677,7 +8667,6 @@ packages:
     dependencies:
       pkg-dir: 4.2.0
       resolve-cwd: 3.0.0
-    dev: true
 
   /imurmurhash/0.1.4:
     resolution: {integrity: sha1-khi5srkoojixPcT7a21XbyMUU+o=}
@@ -8761,7 +8750,6 @@ packages:
   /interpret/2.2.0:
     resolution: {integrity: sha512-Ju0Bz/cEia55xDwUWEa8+olFpCiQoypjnQySseKtmjNrnps3P+xfpUmGr90T7yjlVJmOtybRvPXhKMbHr+fWnw==}
     engines: {node: '>= 0.10'}
-    dev: true
 
   /invariant/2.2.4:
     resolution: {integrity: sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==}
@@ -9233,7 +9221,7 @@ packages:
     resolution: {integrity: sha512-R47KzMtDJH6X4/YW9XTx+jrLnZnscW4VpNN+1PViSYTejLVPWv7oov+Duf8YQSPyVRUvueQqz1TcsC6mooZTXw==}
     engines: {node: '>=6'}
     dependencies:
-      debug: 4.3.1
+      debug: 4.3.4
       istanbul-lib-coverage: 2.0.5
       make-dir: 2.1.0
       rimraf: 2.7.1
@@ -9464,7 +9452,7 @@ packages:
       '@jest/types': 24.9.0
       anymatch: 2.0.0
       fb-watchman: 2.0.1
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       invariant: 2.2.4
       jest-serializer: 24.9.0
       jest-util: 24.9.0
@@ -9582,7 +9570,7 @@ packages:
       '@jest/types': 24.9.0
       chalk: 2.4.2
       exit: 0.1.2
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jest-config: 24.9.0
       jest-docblock: 24.9.0
       jest-haste-map: 24.9.0
@@ -9614,7 +9602,7 @@ packages:
       chalk: 2.4.2
       exit: 0.1.2
       glob: 7.1.6
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       jest-config: 24.9.0
       jest-haste-map: 24.9.0
       jest-message-util: 24.9.0
@@ -9668,7 +9656,7 @@ packages:
       '@jest/types': 24.9.0
       callsites: 3.1.0
       chalk: 2.4.2
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       is-ci: 2.0.0
       mkdirp: 0.5.5
       slash: 2.0.0
@@ -9851,14 +9839,14 @@ packages:
   /jsonfile/4.0.0:
     resolution: {integrity: sha1-h3Gq4HmbZAdrdmQPygWPnBDjPss=}
     optionalDependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
 
   /jsonfile/6.1.0:
     resolution: {integrity: sha512-5dgndWOriYSm5cnYaJNhalLNDKOqFwyDB/rr1E9ZsGciGvKPs8R2xYGCacuf3z6K1YKDz182fd+fY3cn3pMqXQ==}
     dependencies:
       universalify: 2.0.0
     optionalDependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
     dev: false
 
   /jsonparse/1.3.1:
@@ -9996,7 +9984,7 @@ packages:
     resolution: {integrity: sha1-L19Fq5HjMhYjT9U62rZo607AmTs=}
     engines: {node: '>=4'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       parse-json: 4.0.0
       pify: 3.0.0
       strip-bom: 3.0.0
@@ -10709,7 +10697,6 @@ packages:
 
   /minimist/1.2.8:
     resolution: {integrity: sha512-2yyAR8qBkN3YuheJanUpWC5U3bb5osDywNB8RzDVlDwDHbocAJveqqj1u8+SVD7jkWT4yvsHCpWqqWqAxb0zCA==}
-    dev: false
 
   /mississippi/3.0.0:
     resolution: {integrity: sha512-x471SsVjUtBRtcvd4BzKE9kFC+/2TeWgKCgw0bZcw1b9l2X3QX5vCWgF+KaZaYm87Ss//rHnWryupDrgLvmSkA==}
@@ -10749,7 +10736,6 @@ packages:
     hasBin: true
     dependencies:
       minimist: 1.2.8
-    dev: false
 
   /mkdirp/1.0.4:
     resolution: {integrity: sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==}
@@ -11393,7 +11379,7 @@ packages:
     resolution: {integrity: sha1-hUNzx/XCMVkU/Jv8a9gjj92h7Cc=}
 
   /os-homedir/1.0.2:
-    resolution: {integrity: sha1-/7xJiDNuDoM94MFox+8VISGqf7M=}
+    resolution: {integrity: sha512-B5JU3cabzk8c67mRRd3ECmROafjYMXbuzlwtqdM8IbS8ktlTix8aFGb2bAGKrSRIlnfKwovGUUr72JUPyOb6kQ==}
     engines: {node: '>=0.10.0'}
 
   /os-name/1.0.3:
@@ -11424,7 +11410,7 @@ packages:
   /output-file-sync/2.0.1:
     resolution: {integrity: sha512-mDho4qm7WgIXIGf4eYU1RHN2UU5tPfVYVSRwDJw0uTmj35DQUt/eNp19N7v6T3SrR0ESTEf2up2CGO73qI35zQ==}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       is-plain-obj: 1.1.0
       mkdirp: 0.5.5
 
@@ -13044,7 +13030,7 @@ packages:
     resolution: {integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==}
     engines: {node: '>=0.10'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       micromatch: 3.1.10
       readable-stream: 2.3.7
     transitivePeerDependencies:
@@ -13054,7 +13040,7 @@ packages:
     resolution: {integrity: sha512-1JU/8q+VgFZyxwrJ+SVIOsh+KywWGpds3NTqikiKpDMZWScmAYyKIgqkO+ARvNWJfXeXR1zxz7aHF4u4CyH6vQ==}
     engines: {node: '>=0.10'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       micromatch: 3.1.10_supports-color@6.1.0
       readable-stream: 2.3.7
     transitivePeerDependencies:
@@ -13089,7 +13075,6 @@ packages:
     engines: {node: '>= 0.10'}
     dependencies:
       resolve: 1.19.0
-    dev: true
 
   /recursive-readdir/2.2.2:
     resolution: {integrity: sha512-nRCcW9Sj7NuZwa2XvH9co8NPeXUBhZP7CRKJtU+cS6PW9FpCIFoI5ib0NT1ZrbNuPoRy0ylyCaUL8Gih4LSyFg==}
@@ -13428,7 +13413,6 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       resolve-from: 5.0.0
-    dev: true
 
   /resolve-from/3.0.0:
     resolution: {integrity: sha1-six699nWiBvItuZTM17rywoYh0g=}
@@ -13442,7 +13426,6 @@ packages:
   /resolve-from/5.0.0:
     resolution: {integrity: sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==}
     engines: {node: '>=8'}
-    dev: true
 
   /resolve-url-loader/3.1.2:
     resolution: {integrity: sha512-QEb4A76c8Mi7I3xNKXlRKQSlLBwjUV/ULFMP+G7n3/7tJZ8MG5wsZ3ucxP1Jz8Vevn6fnJsxDx9cIls+utGzPQ==}
@@ -14611,7 +14594,7 @@ packages:
       css-tree: 1.0.0-alpha.37
       csso: 4.2.0
       js-yaml: 3.14.1
-      mkdirp: 0.5.5
+      mkdirp: 0.5.6
       object.values: 1.1.2
       sax: 1.2.4
       stable: 0.1.8
@@ -14700,7 +14683,7 @@ packages:
       serialize-javascript: 4.0.0
       source-map: 0.6.1
       terser: 4.8.0
-      webpack: 4.44.2
+      webpack: 4.44.2_webpack-cli@4.4.0
       webpack-sources: 1.4.3
       worker-farm: 1.7.0
 
@@ -15346,7 +15329,7 @@ packages:
     engines: {node: '>=0.10.0'}
 
   /user-home/2.0.0:
-    resolution: {integrity: sha1-nHC/2Babwdy/SGBODwS4tJzenp8=}
+    resolution: {integrity: sha512-KMWqdlOcjCYdtIJpicDSFBQ8nFwS2i9sslAd6f4+CBGcU4gist2REnr2fxj2YocvJFxSF3ZOHLYLVZnUxv4BZQ==}
     engines: {node: '>=0.10.0'}
     dependencies:
       os-homedir: 1.0.2
@@ -15428,7 +15411,6 @@ packages:
 
   /v8-compile-cache/2.2.0:
     resolution: {integrity: sha512-gTpR5XQNKFwOd4clxfnhaqvfqMpqEwr4tOtCyz4MtYZX2JYhfr1JvBFKdS+7K/9rfpZR3VLX+YWBbKoxCgS43Q==}
-    dev: true
 
   /validate-npm-package-license/3.0.4:
     resolution: {integrity: sha512-DpKm2Ui/xN7/HQKCtpZxoRWBhZ9Z0kqtygG8XCgNQ8ZlDnxuQmWhj566j8fN4Cu3/JmbhsDo7fcAJq4s9h27Ew==}
@@ -15476,7 +15458,7 @@ packages:
     resolution: {integrity: sha1-sQTZ5ECf+jJfqt1SBkLQo7SIs2U=}
     engines: {node: '>=4'}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       pify: 2.3.0
       strip-bom-buf: 1.0.0
       strip-bom-stream: 2.0.0
@@ -15634,7 +15616,6 @@ packages:
       v8-compile-cache: 2.2.0
       webpack: 4.44.2_webpack-cli@4.4.0
       webpack-merge: 5.7.3
-    dev: true
 
   /webpack-dev-middleware/3.7.2_webpack@4.44.2:
     resolution: {integrity: sha512-1xC42LxbYoqLNAhV6YzTYacicgMZQTqRd27Sim9wn5hJrX3I5nxYy1SxSd4+gjUFsz1dQFj+yEe6zEVmSkeJjw==}
@@ -15725,7 +15706,6 @@ packages:
     dependencies:
       clone-deep: 4.0.1
       wildcard: 2.0.0
-    dev: true
 
   /webpack-plugin-html-skeleton/1.0.14:
     resolution: {integrity: sha512-sBqi3E2yRnxJHFLLp+dR7QEWRWvGkLnmCZiCxhcXolHp1Bt03XGMo+PHYkHo/nJbffew0fm/tyUOSCYZMhz3Dw==}
@@ -15872,7 +15852,6 @@ packages:
       webpack-sources: 1.4.3
     transitivePeerDependencies:
       - supports-color
-    dev: true
 
   /webpack/4.46.0:
     resolution: {integrity: sha512-6jJuJjg8znb/xRItk7bkT0+Q7AHCYjjFnvKIWQPkNIOyRqoCGvkOs0ipeQzrqz4l5FtN5ZI/ukEHroeX/o1/5Q==}
@@ -16016,7 +15995,6 @@ packages:
 
   /wildcard/2.0.0:
     resolution: {integrity: sha512-JcKqAHLPxcdb9KM49dufGXn2x3ssnfjbcaQdLlfZsL9rH9wgDQjUtDxbo8NE0F6SFvydeu1VhZe7hZuHsB2/pw==}
-    dev: true
 
   /win-release/1.1.1:
     resolution: {integrity: sha1-X6VeAr58qTTt/BJmVjLoSbcuUgk=}
@@ -16076,14 +16054,14 @@ packages:
   /write-file-atomic/2.4.1:
     resolution: {integrity: sha512-TGHFeZEZMnv+gBFRfjAcxL5bPHrsGKtnb4qsFAws7/vlh+QfwAaySIw4AXP9ZskTTh5GWu3FLuJhsWVdiJPGvg==}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       imurmurhash: 0.1.4
       signal-exit: 3.0.3
 
   /write-file-atomic/2.4.3:
     resolution: {integrity: sha512-GaETH5wwsX+GcnzhPgKcKjJ6M2Cq3/iZp1WyY/X1CSqrW+jVNM9Y7D8EC2sM4ZG/V8wZlSniJnCKWPmBYAucRQ==}
     dependencies:
-      graceful-fs: 4.2.4
+      graceful-fs: 4.2.10
       imurmurhash: 0.1.4
       signal-exit: 3.0.3
 
