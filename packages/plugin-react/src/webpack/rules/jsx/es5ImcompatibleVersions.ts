@@ -127,7 +127,13 @@ const config = {
       "version": "*",
       "reason": "https://github.com/microsoft/monaco-editor/issues/2817",
     }
-  }
+  },
+  "@monaco-editor/react": {
+    "*": {
+      "version": "*",
+      "reason": "transform es5",
+    }
+  },
 };
 
 const ignorePaths = ['nanoid/non-secure']
