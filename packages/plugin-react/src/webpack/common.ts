@@ -128,7 +128,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
     useHappyPack: useHappyPack,
     // 只有在构建的时候才开启转义
-    es5ImcompatibleVersions: getEnv().isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
+    es5ImcompatibleVersions: es5ImcompatibleVersions || es5IncompatibleVersions,
     exclude: babelExclude,
     windRc: babelPluginWindRc,
     useBuiltIns: babelUseBuiltIns,
