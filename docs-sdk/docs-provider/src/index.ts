@@ -1,10 +1,11 @@
-import presetWind from "@alicloud/console-toolkit-preset-official";
+import presetOfficial from "@alicloud/console-toolkit-preset-official";
 import globby from "globby";
 import * as path from "path";
 import * as fs from "fs-extra";
 import * as Chain from "webpack-chain";
 export type { IDemoOpts } from "@alicloud/console-toolkit-docs-shared";
 import { getEnv } from "@alicloud/console-toolkit-shared-utils";
+import { getModifyPresetConfig } from "./getModifyPresetConfig";
 
 export type IExternalItem =
   | string
@@ -55,6 +56,15 @@ export interface IParams {
     open?: string | boolean;
     port?: string;
   };
+  /**
+   * 支持用户修改preset-official的配置。
+   * 这里要传入一个文件路径。这个文件是一个这样的模块：
+   * module.exports = (config, {type, isDev}) => {
+   *    // 修改config...
+   *    return config;
+   * }
+   */
+  presetOfficialConfigPath?: string;
 }
 
 export default (params: IParams, args) => {
@@ -134,8 +144,13 @@ export default (params: IParams, args) => {
       `consoleOSId 不能包含'/'和'\\'符号，您可以用'-'或'_'来代替`
     );
 
-  const presetConfig = presetWind(
-    {
+  const modifyConfig = getModifyPresetConfig(params.presetOfficialConfigPath, {
+    type: "main",
+    isDev: env.isDev(),
+  });
+
+  const presetConfig = presetOfficial(
+    modifyConfig({
       disablePolyfill: true,
       disableErrorOverlay: true,
       typescript: {
@@ -157,7 +172,7 @@ export default (params: IParams, args) => {
       host: args.host ?? params.devServer?.host,
       port: args.port || params.devServer?.port || undefined,
       disableUpdator: true,
-    },
+    }),
     args
   );
 
