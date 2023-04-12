@@ -187,7 +187,7 @@ module.exports = (api: any, opts: IParams, args: any) => {
   if (isBuild) {
     api.dispatchSync("registerBeforeBuildStart", async () => {
       // 构建被微应用external掉的依赖，以便在demo-viewer上加载渲染
-      await runScript("deps-build", {
+      runScript("deps-build", {
         env: subScriptEnv,
       });
     });

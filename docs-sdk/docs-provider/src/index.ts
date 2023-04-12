@@ -53,6 +53,7 @@ export interface IParams {
     https?: boolean;
     host?: string;
     open?: string | boolean;
+    port?: string;
   };
 }
 
@@ -154,6 +155,7 @@ export default (params: IParams, args) => {
       babelPluginWindRc: false,
       https: params.devServer?.https === true || args.https === true,
       host: args.host ?? params.devServer?.host,
+      port: args.port || params.devServer?.port || undefined,
       disableUpdator: true,
     },
     args
@@ -164,7 +166,7 @@ export default (params: IParams, args) => {
       "@alicloud/console-toolkit-plugin-os",
       {
         id: params.consoleOSId,
-        cssPrefix: "html",
+        disableCssPrefix: true,
       },
     ],
     [require.resolve("./main-plugin"), params],
