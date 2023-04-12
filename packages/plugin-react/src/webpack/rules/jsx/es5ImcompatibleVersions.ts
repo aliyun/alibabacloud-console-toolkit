@@ -134,6 +134,12 @@ const config = {
       "reason": "transform es5",
     }
   },
+  "react-error-boundary": {
+    "^4.0.0": {
+      "version": "^4.0.0",
+      "reason": "4.x do not support es5",
+    }
+  }
 };
 
 const ignorePaths = ['nanoid/non-secure']
