@@ -16,7 +16,10 @@ import type { IBuildOptions } from '../type';
 const moduleRegExp = (module: string) => new RegExp(`^${module}(\\/.+)*$`);
 
 export default function getRollupOptions(options: IBuildOptions) {
-  const { cwd, sourcemap = false, babelPlugins = [], src = 'src', output = './esm' } = options;
+  const {
+    cwd, sourcemap = false, babelPlugins = [], src = 'src', output = './esm',
+    globals,
+  } = options;
   const rootDir = path.resolve(cwd, src);
   const dest = path.resolve(cwd, output);
 
@@ -47,6 +50,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       sourcemap,
       assetFileNames: '[name][extname]',
       hoistTransitiveImports: false,
+      globals,
     },
     external: [
       '@babel/runtime',

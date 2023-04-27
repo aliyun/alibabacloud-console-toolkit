@@ -30,4 +30,8 @@ export interface IBuildOptions {
    * dev-server port
    */
   port?: number;
+  /**
+   * rollup output.globals
+   */
+  globals?: { [id: string]: string }| ((id: string) => string);
 }
