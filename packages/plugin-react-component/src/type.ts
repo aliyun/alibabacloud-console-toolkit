@@ -34,4 +34,8 @@ export interface IBuildOptions {
    * rollup output.globals
    */
   globals?: { [id: string]: string }| ((id: string) => string);
+  /**
+   * option for @rollup/plugin-virtual
+   */
+  virtual?: { [id: string]: string };
 }

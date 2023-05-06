@@ -10,6 +10,7 @@ import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
 import typescript from 'rollup-plugin-typescript2';
 import styles from 'rollup-plugin-styles';
+import virtualPlugin from '@rollup/plugin-virtual';
 
 import type { IBuildOptions } from '../type';
 
@@ -18,7 +19,7 @@ const moduleRegExp = (module: string) => new RegExp(`^${module}(\\/.+)*$`);
 export default function getRollupOptions(options: IBuildOptions) {
   const {
     cwd, sourcemap = false, babelPlugins = [], src = 'src', output = './esm',
-    globals,
+    globals, virtual,
   } = options;
   const rootDir = path.resolve(cwd, src);
   const dest = path.resolve(cwd, output);
@@ -62,6 +63,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       'tslib',
     ].concat(peerDeps).concat(deps).map(moduleRegExp),
     plugins: [
+      virtual && virtualPlugin(virtual),
       styles({
         plugins: [autoprefixer()],
         autoModules: true,

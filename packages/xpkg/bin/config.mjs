@@ -19,6 +19,8 @@ export default {
     ['@alicloud/console-toolkit-plugin-react-component',
       {
         demo: userConfig.demo,
+        globals: userConfig.globals,
+        virtual: userConfig.virtual,
       },
     ]],
 };
