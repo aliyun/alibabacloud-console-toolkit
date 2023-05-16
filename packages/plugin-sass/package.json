@@ -1,7 +1,8 @@
 {
   "name": "@alicloud/console-toolkit-plugin-sass",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "breezr plugin for sass",
+  "main": "lib/index.js",
   "scripts": {
     "ci": "tnpm run lint && tnpm run compile && tnpm run cov",
     "lint": "tslint --project .",
