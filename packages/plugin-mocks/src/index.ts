@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 import * as Chain from '@gem-mine/webpack-chain';
-import { Request, Application } from 'express';
+import { Request } from 'express';
 import { mapValues, isPlainObject, merge } from 'lodash';
 import * as bodyParser from 'body-parser';
 import { PluginAPI, PluginOptions } from "@alicloud/console-toolkit-core";
@@ -63,10 +63,10 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         );
       } catch (err) {
         console.error(
-          `[${chalk.red('ProxyError')}] ${chalk.yellow(err.message)}`
+          `[${chalk.red('ProxyError')}] ${chalk.yellow((err as Error).message)}`
         );
         console.error(
-          chalk.yellow(err.stack)
+          chalk.yellow((err as Error).stack || '')
         );
       }
     };
@@ -183,6 +183,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
 
     const mocksProxyConfig = {
       devServer: {
+        // @ts-ignore
         onBeforeSetupMiddleware(devServer) {
           devServer.app.use(bodyParser.urlencoded({ extended: false }));
           devServer.app.use(bodyParser.json());
