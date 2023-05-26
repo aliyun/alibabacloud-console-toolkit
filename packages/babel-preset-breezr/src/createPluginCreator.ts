@@ -37,6 +37,7 @@ export default function createPluginCreator(
     let didEnabled: PluginEnabled | PluginEnabledGetter = enable;
 
     if (isFunction(enable)) {
+      // @ts-ignore
       didEnabled = enable(opt) as PluginEnabled;
     }
 
@@ -48,6 +49,7 @@ export default function createPluginCreator(
     let pluginOptions: PluginOptions = options;
 
     if (isFunction(options)) {
+      // @ts-ignore
       pluginOptions = options(opt);
     }
 
