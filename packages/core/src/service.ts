@@ -1,6 +1,7 @@
 import path, { dirname } from 'path';
 import { cac, CAC } from 'cac';
 import { fileURLToPath } from 'url';
+import chalk from 'chalk';
 
 import Context from './context.js';
 import resolvePlugins from './utils/resolvePlugins.js';
@@ -48,6 +49,7 @@ export class Service implements IService {
 
     if (cli) {
       this.#cli = cac(options?.name);
+
       if (options.version) this.#cli.version(options.version);
       if (options.usage) this.#cli.usage(options.usage);
     }
@@ -150,9 +152,27 @@ export class Service implements IService {
     this.#cli?.help();
 
     try {
-      this.#cli?.parse(process.argv);
+      const result = this.#cli?.parse(process.argv, { run: false });
+
+      const args = result?.args || [];
+      const opts = result?.options || {};
+
+      if (!this.#cli?.matchedCommand) {
+        if (args.length) {
+          throw new Error(`${chalk.red('Error:')} Command ${args.join(' ')} not valid.\n`);
+        }
+
+        if (!opts.h && !opts['--']?.h) {
+          throw new Error();
+        }
+      }
+
+      await this.#cli?.runMatchedCommand();
     } catch (e) {
       console.error((e as Error).message);
+
+      this.#cli?.outputHelp();
+
       process.exit(1);
     }
   }

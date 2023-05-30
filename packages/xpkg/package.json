@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/xpkg",
-  "version": "0.1.7",
+  "version": "0.1.8",
   "description": "",
   "main": "index.js",
   "type": "module",
