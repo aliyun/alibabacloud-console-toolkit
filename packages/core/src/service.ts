@@ -25,6 +25,12 @@ enum PluginState {
   INITED
 }
 
+export enum ServiceStatus {
+  // 初始化，注册插件
+  INIT = 'init',
+  ACTIVE = 'active',
+}
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -40,12 +46,14 @@ export class Service implements IService {
   #cli?: CAC;
   #pluginStateMap: Map<string, PluginState> = new Map();
   #commands: Map<string, ICommandRegister> = new Map();
+  #status: ServiceStatus;
 
   constructor(options: IServiceOption) {
     const { cli = true } = options || {};
 
     this.name = options.name;
     this.version = options.version;
+    this.#status = ServiceStatus.INIT;
 
     if (cli) {
       this.#cli = cac(options?.name);
@@ -63,6 +71,11 @@ export class Service implements IService {
    * register command
    */
   get registerCommand() {
+    if (this.#status !== ServiceStatus.INIT) {
+      console.error('You should not register command at wrong stage.');
+      process.exit(0);
+    }
+
     return (name: string, def: ICommandDef, callback: CommandCallback) => {
       this.#commands.set(name, { def, callback });
     };
@@ -98,9 +111,12 @@ export class Service implements IService {
 
     const { configFile } = options || {};
 
-    const config = typeof configFile === 'string' ? await getUserConfig([
-      configFile, ...CONFIG_FILES.map((filePath) => path.resolve(cwd, filePath)),
-    ], cwd) : configFile;
+    const config = typeof configFile === 'object' ?
+      configFile
+      :
+      await getUserConfig([
+        configFile, ...CONFIG_FILES.map((filePath) => path.resolve(cwd, filePath)),
+      ], cwd);
 
     //
     this.#plugins = await this.#resolvePlugins(config, cwd);

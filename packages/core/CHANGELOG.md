@@ -1,3 +1,7 @@
+# V2.0.8
+
+- 重新整理了 env 环境变量，现在支持获取 publishType、publishEnv、publishVersion、defAppId
+
 # V2.0.0
 
 - 配置归一

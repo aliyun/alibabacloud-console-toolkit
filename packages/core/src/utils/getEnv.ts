@@ -1,16 +1,12 @@
-import { IEnvironment, BuildType } from '../types/env.js';
+import parser from 'yargs-parser';
+
+import { IEnvironment, BuildType, PublishType, PublishEnv, IBuildArgv } from '../types/env.js';
 
 export function getEnv(): IEnvironment {
   /**
    * 构建器执行环境
    * - local: 执行本地构建
    * - cloud(default): 执行云端构建
-   *
-   * 该参数将作为扩展参数(extendOptions)传入到windpack中,
-   * 以便开发者可以利用扩展参数自定义扩展配置.
-   *
-   * 如:某些webpack插件只需要在本地构建中使用, 可以在自定义配置中访问这些扩展参数,
-   * 在适当的时候开启这些插件(如 webpack-visualizer-plugin).
    */
   const buildEnv = process.env.BUILD_ENV;
 
@@ -34,11 +30,6 @@ export function getEnv(): IEnvironment {
   const buildDestDir = process.env.BUILD_DEST_DIR || process.env.BUILD_DEST;
 
   /**
-   * 构建动态参数
-   */
-  const buildArgv = process.env.BUILD_ARGV || '[]';
-
-  /**
    * 构建日志显示方式
    *
    * - info(default): 显示基本信息
@@ -59,7 +50,7 @@ export function getEnv(): IEnvironment {
   /**
    * wind 项目配置文件名称
    */
-  const windConfigFile = '.windrc';
+  // const windConfigFile = '.windrc';
 
   /**
    * 当前项目 git 分支
@@ -75,6 +66,33 @@ export function getEnv(): IEnvironment {
    * 当前项目 git 项目名称
    */
   const gitProject = process.env.BUILD_GIT_PROJECT;
+
+  /**
+   * 构建动态参数
+   */
+  const buildArgv = process.env.BUILD_ARGV || '[]';
+
+  // 解析 def 构建环境变量
+  const buildArgvObject = (
+    process.env.BUILD_ARGV_STR ? parser(process.env.BUILD_ARGV_STR) : {}
+  ) as Partial<IBuildArgv>;
+
+  /**
+   * def 发布类型
+   */
+  const publishType = buildArgvObject.def_publish_type || PublishType.NORMAL;
+
+  /**
+   * def 发布环境
+   */
+  const publishEnv = buildArgvObject.def_publish_env || PublishEnv.PROD;
+
+  /**
+   * def 发布版本
+   */
+  const publishVersion = buildArgvObject.def_publish_version;
+
+  const defAppId = buildArgvObject.def_work_app_id;
 
   let buildType = BuildType.Dev;
   if (nodeEnv === 'production') {
@@ -95,7 +113,6 @@ export function getEnv(): IEnvironment {
     gitGroup,
     gitProject,
     gitBranch,
-    windConfigFile,
     defConfigFile,
     nodeEnv,
     logLevel,
@@ -105,6 +122,10 @@ export function getEnv(): IEnvironment {
     workingDir,
     buildEnv,
     buildType,
+    publishEnv,
+    publishType,
+    publishVersion,
+    defAppId,
     isProd() {
       return (buildType & BuildType.Prod) > 0;
     },

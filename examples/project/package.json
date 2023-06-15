@@ -2,9 +2,11 @@
   "name": "project",
   "version": "1.0.0",
   "private": true,
-  "description": "",
+  "description": "用于测试 examples 下的 cli-demo 和 plugin-react",
   "main": "index.js",
   "scripts": {
+    "build": "npm run clean && cli-demo build",
+    "clean": "rm -rf build",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
