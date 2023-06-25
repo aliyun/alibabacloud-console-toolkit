@@ -118,11 +118,11 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]);
   }
 
-  if (config.dll) {
-    plugins.push(['@alicloud/console-toolkit-plugin-dll', {
-      ...config.dll
-    }]);  
-  }
+  // if (config.dll) {
+  //   plugins.push(['@alicloud/console-toolkit-plugin-dll', {
+  //     ...config.dll
+  //   }]);  
+  // }
 
   plugins.push(
     [

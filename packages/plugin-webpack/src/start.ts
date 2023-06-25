@@ -1,13 +1,14 @@
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { isFunction } from 'lodash';
-// import * as express from 'express';
 import * as webpackDevServer from 'webpack-dev-server';
-import type { Middleware } from 'webpack-dev-server';
+import type { Middleware, Compiler } from 'webpack-dev-server';
 import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 import { PluginAPIOpt } from './type';
 import { webpackConfigure, createCompiler, runServer, createServer } from './webpackUtils';
 
-export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: Middleware[]) => {
+export type getMiddleware = (compiler: Compiler) => Middleware
+
+export default async (api: PluginAPI, opts: PluginAPIOpt, beforeServerMiddleWares: getMiddleware[], afterServerMiddleWares: getMiddleware[]) => {
   const { webpack } = opts;
   let config = webpackConfigure(api, opts);
 
@@ -37,15 +38,24 @@ export default async (api: PluginAPI, opts: PluginAPIOpt, serverMiddleWares: Mid
     if (!devServer) {
       throw new Error('webpack-dev-server is not defined');
     }
+    
+    beforeServerMiddleWares.forEach(fn => {
+      middlewares.unshift(fn(compiler));
+    });
 
-    middlewares.concat(serverMiddleWares)
+    afterServerMiddleWares.forEach(fn => {
+      middlewares.unshift(fn(compiler));
+    });
 
     return middlewares;
   }
   
   const server = createServer(compiler, devServerConfig);
+
   await runServer(server, devServerConfig);
+
   api.emit('onServerRunning');
+
   if (opts.onServerRunning) {
     opts.onServerRunning(server);
   }

@@ -1,17 +1,18 @@
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
-import * as express from 'express';
+
 import build from './build';
 import server from './start';
+import type { getMiddleware } from './start';
 
 export default (api: PluginAPI, config: PluginOptions) => {
-  const serverMiddleWare: express.RequestHandler[] = [];
-  const afterServerMiddleWare: express.RequestHandler[] = [];
+  const serverMiddleWare: getMiddleware[] = [];
+  const afterServerMiddleWare: getMiddleware[] = [];
 
-  api.registerSyncAPI('addMiddleware', (middleware: express.RequestHandler) => {
+  api.registerSyncAPI('addMiddleware', (middleware: getMiddleware) => {
     serverMiddleWare.push(middleware);
   });
 
-  api.registerSyncAPI('addAfterMiddleware', (middleware: express.RequestHandler) => {
+  api.registerSyncAPI('addAfterMiddleware', (middleware: getMiddleware) => {
     afterServerMiddleWare.push(middleware);
   });
 
@@ -21,8 +22,9 @@ export default (api: PluginAPI, config: PluginOptions) => {
     disableHmr: config.disableHmr,
     ...opts
   }));
+
   api.registerAPI('webpackServer', async opts => await server(api, {
     webpack: config.webpack,
     ...opts
-  }, serverMiddleWare));
+  }, serverMiddleWare, afterServerMiddleWare));
 };
