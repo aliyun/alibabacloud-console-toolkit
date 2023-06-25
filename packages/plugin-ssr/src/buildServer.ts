@@ -20,23 +20,6 @@ var location = window.location = {
 };\n${content}`);
 }
 
-export default async (api: PluginAPI, opts: IOption) => {
-  try {
-    info('building ssr bundle');
-    const outputPath = await buildServer(api, opts);
-
-    if (getEnv().isDev()) {
-      writeMockWindow(outputPath);
-    }
-
-    done('ssr bundle build successfully!');
-  } catch(e) {
-    error(e.toString());
-    debug('ssr', e.stack);
-    exit(0);
-  }
-};
-
 const buildServer = async (api: PluginAPI, opts: IOption) => {
   const { entry = './index.server' } = opts;
 
@@ -96,4 +79,23 @@ const buildServer = async (api: PluginAPI, opts: IOption) => {
   process.env.NODE_ENV = cachedEnv;
 
   return config.output.get('path');
+};
+
+export default async (api: PluginAPI, opts: IOption) => {
+  try {
+    info('building ssr bundle');
+    const outputPath = await buildServer(api, opts);
+
+    if (getEnv().isDev()) {
+      writeMockWindow(outputPath);
+    }
+
+    done('ssr bundle build successfully!');
+  } catch (e) {
+    // @ts-ignore
+    error(e.toString());
+    // @ts-ignore
+    debug('ssr', e.stack);
+    exit(0);
+  }
 };
