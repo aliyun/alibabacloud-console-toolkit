@@ -35,7 +35,7 @@ const buildServer = async (api: PluginAPI, opts: IOption) => {
   config.entryPoints.delete('vendor');
   config.entryPoints.delete('runtime');
   config.output.delete('chunkFilename');
-  config.optimization.delete('splitChunks');
+  config.optimization.splitChunks({}).clear();
   config.optimization.delete('runtimeChunk');
   config.plugins.delete('GetherResource');
   config.plugins.delete('Skeleton');
@@ -49,6 +49,7 @@ const buildServer = async (api: PluginAPI, opts: IOption) => {
   config.entry('index').add(entry);
 
   // config output
+  config.output.filename('[name].js');
   config.output.path(path.join(config.output.get('path'), 'server'));
   config.output.libraryTarget('commonjs2');
 
