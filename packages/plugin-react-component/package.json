@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "description": "",
   "main": "./lib/index.js",
   "exports": "./lib/index.js",
@@ -16,6 +16,7 @@
   "dependencies": {
     "@alicloud/console-toolkit-core": "workspace:^2.0.0",
     "@babel/core": "^7.20.5",
+    "@babel/preset-typescript": "^7.18.6",
     "@babel/runtime": "^7.21.0",
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-commonjs": "^24.0.0",

@@ -177,6 +177,7 @@ importers:
     specifiers:
       '@alicloud/console-toolkit-core': workspace:^2.0.0
       '@babel/core': ^7.20.5
+      '@babel/preset-typescript': ^7.18.6
       '@babel/runtime': ^7.21.0
       '@rollup/plugin-babel': ^6.0.3
       '@rollup/plugin-commonjs': ^24.0.0
@@ -207,6 +208,7 @@ importers:
     dependencies:
       '@alicloud/console-toolkit-core': link:../core
       '@babel/core': 7.20.5
+      '@babel/preset-typescript': 7.18.6_@babel+core@7.20.5
       '@babel/runtime': 7.21.0
       '@rollup/plugin-babel': 6.0.3_5g2hh23q4l23yby5axnhrtdpnu
       '@rollup/plugin-commonjs': 24.0.0_rollup@3.9.1

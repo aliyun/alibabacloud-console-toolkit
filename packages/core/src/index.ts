@@ -1,3 +1,6 @@
+// check env
+import './checkNodeEnv.js';
+
 // export plugin API
 export * from './service.js';
 

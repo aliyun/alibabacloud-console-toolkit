@@ -24,10 +24,6 @@ export default function (context: IContext, options: PluginOptions) {
     description: 'build',
     usage: '',
   }, async () => {
-    if (!process.env.NODE_ENV) {
-      process.env.NODE_ENV = 'production';
-    }
-
     context.emit('onBeforeBuild');
 
     const webpackConfig = getProdConfig(context, { mode: 'production', ...options });

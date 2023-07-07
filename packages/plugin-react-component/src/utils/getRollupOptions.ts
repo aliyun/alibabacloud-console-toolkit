@@ -97,6 +97,8 @@ export default function getRollupOptions(options: IBuildOptions) {
         tsconfigOverride: {
           compilerOptions: {
             module: 'ESNext',
+            declaration: true,
+            emitDeclarationOnly: true,
           },
         },
       }),
@@ -105,7 +107,7 @@ export default function getRollupOptions(options: IBuildOptions) {
         babelrc: false,
         configFile: false,
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'],
-        presets: ['@babel/preset-env', '@babel/preset-react'],
+        presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
         plugins: ['@babel/plugin-transform-runtime', ...babelPlugins],
       }),
     ],
