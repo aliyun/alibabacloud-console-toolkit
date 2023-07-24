@@ -1,9 +1,9 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "lib",
+    "module": "CommonJS",
     "types": ["node"],
     "typeRoots": ["./types", "./node_modules/@types"]
-  },
-  "exclude": ["test", "node_modules", "lib", "esm"]
+  }
 }

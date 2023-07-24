@@ -8,7 +8,7 @@ const __dirname = dirname(__filename);
 
 export const require = createRequire(import.meta.url);
 
-export const resolvePkgPath = (path: string, cwd: string) => {
+const requireResolve = (path: string, cwd: string) => {
   try {
     return require.resolve(path);
   } catch (e) {
@@ -16,13 +16,26 @@ export const resolvePkgPath = (path: string, cwd: string) => {
   }
 };
 
-export const loadPkg = (path: string, cwd: string) => {
-  /**
-   * esModule 设置 exports 时可能会无法直接解析 package.json
-   */
-  const absolutePath = resolvePkgPath(path, cwd);
-  let relativePath = absolutePath;
-  let pkgJSONPath = pathJoin(relativePath, 'package.json');
+/**
+ * 解析 package 入口文件
+ * @param path string
+ * @param cwd string
+ * @returns string
+ */
+export const resolvePkgEntry = (path: string, cwd: string) => {
+  return requireResolve(path, cwd);
+};
+
+/**
+ * 解析 package.json
+ * @param path string
+ * @param cwd string
+ * @returns string
+ */
+export const loadPkgJSON = (path: string, cwd: string) => {
+  // throw error when find package.json failed
+  let relativePath = dirname(requireResolve(path, cwd));
+  let pkgJSONPath = pathJoin(relativePath, './package.json');
 
   while (!fs.existsSync(pkgJSONPath) && relativePath !== cwd && relativePath !== '/') {
     relativePath = pathJoin(relativePath, '..');
@@ -40,18 +53,18 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   const isBuiltIn = path.includes(pathResolve(__dirname, '../builtin/'));
   const isPkg = !['.', '/'].some((str) => path.startsWith(str));
 
-  let absolutePath = path;
+  let entryPath = path;
   let isTypeModule = false;
 
   if (isPkg) {
-    absolutePath = resolvePkgPath(path, cwd);
+    entryPath = resolvePkgEntry(path, cwd);
 
-    const pkgJSON = loadPkg(path, cwd);
+    const pkgJSON = loadPkgJSON(path, cwd);
     isTypeModule = pkgJSON.type === 'module';
   }
 
-  const isTs = ['.ts', '.mts'].some((type) => absolutePath.endsWith(type));
-  const isESM = ['.mjs'].some((type) => absolutePath.endsWith(type));
+  const isTs = ['.ts', '.mts'].some((type) => entryPath.endsWith(type));
+  const isESM = ['.mjs'].some((type) => entryPath.endsWith(type));
 
   if (isTs) {
     require(require.resolve('@babel/register'))({
@@ -66,11 +79,11 @@ const requireModule = async (path: string | undefined, cwd: string) => {
   let module;
 
   if ((isESM || isTypeModule || isBuiltIn) && !isTs) {
-    module = await import(absolutePath);
+    module = await import(entryPath);
     return module.default || module;
   }
 
-  module = require(absolutePath);
+  module = require(entryPath);
   return module.__esModule ? module.default : module;
 };
 

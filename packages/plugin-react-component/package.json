@@ -1,12 +1,16 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.12",
+  "version": "1.0.15",
   "description": "",
-  "main": "./lib/index.js",
-  "exports": "./lib/index.js",
-  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./esm/index.js",
+      "require": "./lib/index.js",
+      "default": "./esm/index.js"
+    }
+  },
   "scripts": {
-    "build": "rm -rf ./lib && tsc",
+    "build": "rm -rf ./lib && tsc -b tsconfig.cjs.json tsconfig.esm.json",
     "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pub": "pnpm publish"
@@ -35,7 +39,8 @@
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
-    "vite": "^4.0.4"
+    "vite": "^4.0.4",
+    "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {
     "@types/babel__core": "^7.1.20",

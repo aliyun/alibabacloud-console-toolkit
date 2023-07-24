@@ -1,5 +1,6 @@
-import path from 'path';
+import { resolve } from 'path';
 import { createServer } from 'vite';
+import tsconfigPaths from 'vite-tsconfig-paths';
 
 import type { IBuildOptions } from './type';
 
@@ -10,7 +11,10 @@ export default async function build(options: IBuildOptions) {
     const server = await createServer({
       mode: 'development',
       configFile: false,
-      root: path.resolve(options.cwd, options.demo || 'demo'),
+      root: resolve(options.cwd, options.demo || 'demo'),
+      plugins: [tsconfigPaths({
+        root: options.cwd,
+      })],
       server: {
         host,
         port,

@@ -33,6 +33,7 @@ build/Release
 lib
 dist
 build
+esm
 !packages/babel-plugin-wind-rc/lib/
 
 # TypeScript v1 declaration files

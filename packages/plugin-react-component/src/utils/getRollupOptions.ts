@@ -35,7 +35,8 @@ export default function getRollupOptions(options: IBuildOptions) {
 
       return [
         path.relative(rootDir, file.slice(0, file.length - ext.length)),
-        fileURLToPath(new URL(file, import.meta.url)),
+        // fileURLToPath(new URL(file, import.meta.url)),
+        file,
       ];
     }),
   );
@@ -90,6 +91,7 @@ export default function getRollupOptions(options: IBuildOptions) {
             allowJs: true,
             jsx: 'react',
             declarationDir: dest,
+            esModuleInterop: true,
           },
           include: [rootDir],
         },
