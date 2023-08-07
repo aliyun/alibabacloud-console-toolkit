@@ -2,7 +2,7 @@ import fs from 'fs-extra';
 import path from 'path';
 import glob from 'glob';
 import autoprefixer from 'autoprefixer';
-import { fileURLToPath } from 'url';
+// import { fileURLToPath } from 'url';
 import { RollupOptions } from 'rollup';
 import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
@@ -27,11 +27,13 @@ export default function getRollupOptions(options: IBuildOptions) {
   const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
   let useTypescript = false;
+  let useJavascript = false;
 
   const input = Object.fromEntries(
     glob.sync(path.join(rootDir, '/**/*[!.d].{ts,tsx,js,jsx}')).map((file) => {
       const ext = path.extname(file);
       if (ext === '.ts' || ext === '.tsx') useTypescript = true;
+      if (ext === '.js' || ext === '.jsx') useJavascript = true;
 
       return [
         path.relative(rootDir, file.slice(0, file.length - ext.length)),
@@ -41,6 +43,8 @@ export default function getRollupOptions(options: IBuildOptions) {
     }),
   );
 
+  // js ts 混用时不生成 types
+  const generateTypes = !useJavascript && useTypescript;
   const peerDeps = Object.keys(pkg.peerDependencies || {});
   const deps = Object.keys(pkg.dependencies || {});
 
@@ -81,7 +85,7 @@ export default function getRollupOptions(options: IBuildOptions) {
         extensions: ['.mjs', '.js', '.jsx', '.json', '.node', '.ts', '.jsx', '.tsx', '.cjs', '.mts', '.cts'],
       }),
       json(),
-      useTypescript && typescript({
+      generateTypes && typescript({
         cwd,
         useTsconfigDeclarationDir: true,
         tsconfigDefaults: {
