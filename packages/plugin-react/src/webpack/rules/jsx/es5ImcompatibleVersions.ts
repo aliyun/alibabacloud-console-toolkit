@@ -140,7 +140,7 @@ const config = {
       "reason": "4.x do not support es5",
     }
   },
-  "@hpcc/wasm": {
+  "@hpcc-js/wasm": {
     "*": {
       "version": "*",
       "reason": "transform es5"
