@@ -8,6 +8,10 @@ import { Evnrioment, BuildType } from '@alicloud/console-toolkit-shared-utils';
 import * as url from 'url';
 import * as qs from 'querystring';
 
+const defaultPathRewrite = (config: any) => {
+  return config;
+}
+
 export default (api: PluginAPI, opts: PluginOptions) => {
   const {
     oneapi = false
@@ -20,6 +24,8 @@ export default (api: PluginAPI, opts: PluginOptions) => {
       uriMatch = '/api/**/*.json',
       pathReplace = [],
       proxy,
+      // headers = {},
+      pathRewrite: userPathRewrite = defaultPathRewrite,
     } = opts;
 
     let host = opts.host || 'http://mocks.alibaba-inc.com';
@@ -48,7 +54,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
 
     let pathRewrite;
     if (match && replaceWith) {
-      pathRewrite = (path: string) => path.replace(new RegExp(match), replaceWith);
+      pathRewrite = (path: string) => userPathRewrite(path.replace(new RegExp(match), replaceWith));
     }
 
     const log = (onProxyReq: Function) => (proxyReq: any, req: Request) => {
@@ -63,10 +69,10 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         );
       } catch (err) {
         console.error(
-          `[${chalk.red('ProxyError')}] ${chalk.yellow(err.message)}`
+          `[${chalk.red('ProxyError')}] ${chalk.yellow((err as Error).message)}`
         );
         console.error(
-          chalk.yellow(err.stack)
+          chalk.yellow((err as Error).stack || '')
         );
       }
     };
@@ -149,10 +155,10 @@ export default (api: PluginAPI, opts: PluginOptions) => {
          * /data/call.json?action=A  =>  /data/api.json?type=innerApi&action=A
          */
         target: host,
-        pathRewrite: (path: string) => path.replace(
+        pathRewrite: (path: string) => userPathRewrite(path.replace(
           /^\/data\/(innerApi|call)\.json(\?(.*))?/,
           '/mock/oneconsole/data/api.json$2&type=$1'
-        ),
+        )),
         onProxyReq: oneConsoleProxyReq,
       }),
 
@@ -160,10 +166,10 @@ export default (api: PluginAPI, opts: PluginOptions) => {
       '/data/*.json': merge({}, commonProxyConfig, {
         target: host,
         pathRewrite: (path: string) => {
-          return path.replace(
+          return userPathRewrite(path.replace(
             /^\/data\/(.*)\.json/,
             '/mock/oneconsole/data/$1.json'
-          ).replace(/\?_fetcher_=.*/, '')
+          ).replace(/\?_fetcher_=.*/, ''))
         },
         onProxyReq: oneConsoleProxyReq,
       }),
@@ -171,13 +177,13 @@ export default (api: PluginAPI, opts: PluginOptions) => {
       // Proxy risk/sendVerifyCode
       '/risk/sendVerifyMessage.json': merge({}, commonProxyConfig, {
         target: host,
-        pathRewrite: (path: string) => `/mock/${product}${path}`,
+        pathRewrite: (path: string) => userPathRewrite(`/mock/${product}${path}`),
       }),
 
       // Proxy tool/**/*.json
       '/tool/**/*.json': merge({}, commonProxyConfig, {
         target: host,
-        pathRewrite: (path: string) => `/mock/${product}${path}`,
+        pathRewrite: (path: string) => userPathRewrite(`/mock/${product}${path}`),
       }),
     } : {};
 
