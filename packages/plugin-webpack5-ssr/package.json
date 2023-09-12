@@ -1,0 +1,47 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-webpack5-ssr",
+  "version": "1.0.0",
+  "description": "console toolkit ssr plugin",
+  "main": "lib/index.js",
+  "scripts": {
+    "ci": "npm run lint && npm run compile && npm run cov",
+    "lint": "tslint --project .",
+    "compile": "rm -rf ./lib && tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepublishOnly": "npm run compile"
+  },
+  "devDependencies": {
+    "@alicloud/console-toolkit-core": "^1.2.30",
+    "@gem-mine/webpack-chain": "^7.1.0",
+    "@types/chai": "^4.1.7",
+    "@types/debug": "^4.1.5",
+    "@types/heapdump": "^0.3.1",
+    "@types/jest": "^24.0.18",
+    "@types/lodash": "^4.14.121",
+    "@types/node": "^12.7.5",
+    "@types/serve-static": "^1.13.3",
+    "@types/webpack": "^5.0.0",
+    "chai": "^4.2.0",
+    "jest": "^24.2.0-alpha.0",
+    "nyc": "^14.1.1",
+    "ts-jest": "^24.0.0",
+    "ts-node": "^8.4.1",
+    "tslint": "^5.8.0",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@alicloud/console-toolkit-shared-utils": "^1.2.30",
+    "@types/express": "^4.17.12",
+    "chokidar": "^3.5.3",
+    "lodash": "^4.17.11",
+    "rimraf": "^3.0.0",
+    "serve-static": "^1.14.1"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "author": "fringey <465964690@qq.com>",
+  "license": "MIT"
+}
