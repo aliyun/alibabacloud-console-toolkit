@@ -20,7 +20,7 @@ export default (config: IOption, cmdArgs: any) => {
     esModules: cmdArgs.esModule === true,
   });
   const babelOptionsForJest = getBabelOptions(
-    { ...config, babelModuleResolve: undefined },
+    { babelModuleResolve: undefined, ...config },
     {
       module: cmdArgs.esModule ? false : 'commonjs',
       esModules: cmdArgs.esModule === true,
