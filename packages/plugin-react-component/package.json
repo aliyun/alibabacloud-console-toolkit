@@ -11,7 +11,7 @@
   },
   "scripts": {
     "build": "rm -rf ./lib && tsc -b tsconfig.cjs.json tsconfig.esm.json",
-    "prepare": "npm run build",
+    "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pub": "pnpm publish"
   },
