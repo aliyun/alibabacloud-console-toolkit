@@ -102,7 +102,6 @@ export default async (api: PluginAPI, options: IOption) => {
     await watchAndBuild(api, options);
   });
 
-
   api.on('onChainWebpack', async (config: Chain) => {
     api.dispatchSync('addMiddleware', (compiler: Compiler) => ({
       name: 'ssrRenderMiddleware',
