@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -35,6 +35,7 @@
   },
   "author": "fringey <465964690@qq.com>",
   "dependencies": {
+    "@alicloud/babel-preset-xconsole": "^1.0.0",
     "@alicloud/console-toolkit-core": "^1.2.30",
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
     "@babel/core": "^7.3.3",
@@ -45,7 +46,6 @@
     "autoprefixer": "^9.6.0",
     "babel-loader": "^8.0.5",
     "babel-polyfill": "^6.26.0",
-    "babel-preset-breezr-wind": "^1.2.42",
     "cheerio": "^1.0.0-rc.3",
     "css-loader": "^6.0.0",
     "css-minimizer-webpack-plugin": "^4.1.0",

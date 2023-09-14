@@ -63,7 +63,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   let babelConfig = options.babelOption ? options.babelOption : {
     presets: [
       [
-        require.resolve('babel-preset-breezr-wind'),
+        require.resolve('@alicloud/babel-preset-xconsole'),
         {
           reactHotLoader,
           reactRefresh,
