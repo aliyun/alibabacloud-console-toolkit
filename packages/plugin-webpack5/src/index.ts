@@ -9,7 +9,8 @@ export default (api: PluginAPI, config: PluginOptions) => {
   const afterServerMiddleWare: getMiddleware[] = [];
 
   api.registerSyncAPI('addMiddleware', (middleware: getMiddleware) => {
-    serverMiddleWare.push(middleware);
+    // 倒序插入，方便后面顺序插入到 webpack server
+    serverMiddleWare.unshift(middleware);
   });
 
   api.registerSyncAPI('addAfterMiddleware', (middleware: getMiddleware) => {

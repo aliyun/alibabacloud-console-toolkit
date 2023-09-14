@@ -44,7 +44,7 @@ export default async (api: PluginAPI, opts: PluginAPIOpt, beforeServerMiddleWare
     });
 
     afterServerMiddleWares.forEach(fn => {
-      middlewares.unshift(fn(compiler));
+      middlewares.push(fn(compiler));
     });
 
     return middlewares;
