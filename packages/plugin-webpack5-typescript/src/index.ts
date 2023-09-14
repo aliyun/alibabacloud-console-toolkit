@@ -14,7 +14,7 @@ interface ILoader {
 
 const getBabelOption = (opts: PluginOptions) => {
   const {
-    typescript = {},
+    typescript = { useBabel: true },
     babelPluginWindCherryPick,
     babelExclude,
     babelPluginWindRc,
@@ -24,24 +24,18 @@ const getBabelOption = (opts: PluginOptions) => {
   return {
     presets: [
       [
-        require.resolve('babel-preset-breezr-wind'), {
+        require.resolve('@alicloud/babel-preset-xconsole'), {
           exclude: babelExclude,
           reactCssModules: typescript.reactCssModules === undefined ? true: typescript.reactCssModules,
           windRc: babelPluginWindRc,
           windIntl: babelPluginWindIntl,
           windCherryPick: babelPluginWindCherryPick,
-          reactRefresh
+          reactRefresh,
+          typescript: true,
+          presetEnv: opts.presetEnv,
         }
       ]
     ],
-    plugins: [
-      [
-        require.resolve('@babel/plugin-transform-typescript'),
-        {
-          isTSX :true
-        }
-      ]
-    ]
   };
 }
 
@@ -49,7 +43,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
   const {
     tsconfig = resolve(api.getCwd(), 'tsconfig.json'),
     ignoreWebpackModuleDependencyWarning,
-    typescript = {}
+    typescript = { useBabel: true },
   } = opts;
 
   api.on('onChainWebpack', async (config: WebpackChain) => {
