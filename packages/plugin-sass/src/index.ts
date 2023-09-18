@@ -12,7 +12,7 @@ type CssModules = boolean | 'global' | 'local';
 interface BreezrStyleOptions {
   cwd: string;
   modules?: CssModules;
-  shouldExtract: boolean;
+  disableExtractText: boolean;
   cssPublicPath?: string;
   loader?: string;
   classNamePrefix?: string;
@@ -23,7 +23,7 @@ interface BreezrStyleOptions {
 
 function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   const {
-    shouldExtract,
+    disableExtractText,
     loader,
     loaderOptions,
     modules = false,
@@ -34,7 +34,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   // 使用 mini-css-extract-plugin 作为更好的代替方案进行 css 的抽取
   const styleLoaderOptions = {};
 
-  if (shouldExtract) {
+  if (!disableExtractText) {
     rule
       .use('extract-css-loader')
       .loader(require('mini-css-extract-plugin').loader)
@@ -94,7 +94,7 @@ function createRules(config: Chain, { lang, test }: {
   return config.module.rule(lang).test(test);
 }
 
-module.exports = (api: PluginAPI) => {
+module.exports = (api: PluginAPI, options: any) => {
   api.on('onChainWebpack', async (config: Chain, env: any) => {
     function createCssRules(lang: string, test: webpack.Condition, styleOptions: BreezrStyleOptions) {
       const baseRule = createRules(config, { lang, test });
@@ -110,7 +110,7 @@ module.exports = (api: PluginAPI) => {
         ],
       },
       // 只有在构建的时候才抽取样式
-      shouldExtract: env.isProd(),
+      disableExtractText: options.disableExtractText,
     };
 
     createCssRules('sass', { test: /\.sass$/ }, loaderOption);
