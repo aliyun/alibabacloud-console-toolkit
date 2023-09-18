@@ -191,6 +191,8 @@ export interface BreezrPresetConfig {
 
   useTypescript?: boolean;
 
+  useSass?: boolean;
+
   typescript?: {
     useBabel?: boolean,
     disableTypeChecker?: boolean;

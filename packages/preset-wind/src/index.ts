@@ -16,6 +16,7 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]);
   }
 
+  const { useTypescript, typescript, useSass } = config;
   const publicPath = args.outputPublicPath || config.outputPublicPath || '/';
 
   plugins.push(...[
@@ -108,14 +109,18 @@ export default (config: BreezrPresetConfig, args: any) => {
     }]);
   }
 
-  const { useTypescript, typescript } = config;
-
   if (useTypescript || typescript) {
     plugins.push([
       '@alicloud/console-toolkit-plugin-typescript', {
         ...config,
       }
     ]);
+  }
+
+  if (useSass) {
+    plugins.push(['@alicloud/console-toolkit-plugin-sass', {
+      ...config
+    }])
   }
 
   if (config.dll) {
