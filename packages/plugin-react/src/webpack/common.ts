@@ -12,6 +12,7 @@ import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
+import { ignoreXConsoleCSSPlugin } from './plugins/ignoreXConsoleCSS';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -79,7 +80,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     es5IncompatibleVersions = false,
     moment,
     reactRefresh,
-    postCssPlugins
+    postCssPlugins,
+    disableImportXConsoleCSS = false,
   } = options;
 
   if (!cwd) {
@@ -212,5 +214,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
   if (!moment?.disable) {
     momentPlugin(config);
+  }
+
+  if (disableImportXConsoleCSS) {
+    ignoreXConsoleCSSPlugin(config);
   }
 };

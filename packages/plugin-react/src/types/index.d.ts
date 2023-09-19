@@ -33,6 +33,7 @@ interface BreezrReactOptions {
   theme?: string | ThemeDef;
   disableAutoPrefixer?: boolean;
   postCssPlugins?: any[];
+  disableImportXConsoleCSS?: boolean;
 
   // babel-loader 配置
   babel?: Function;
