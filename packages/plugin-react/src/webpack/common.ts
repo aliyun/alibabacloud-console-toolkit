@@ -12,7 +12,6 @@ import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
-import { ignoreXConsoleCSSPlugin } from './plugins/ignoreXConsoleCSS';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -217,6 +216,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   }
 
   if (disableImportXConsoleCSS) {
-    ignoreXConsoleCSSPlugin(config);
+    config.resolve.alias.set('@alicloud/console-components/dist/xconsole.css', require.resolve('./empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var.css', require.resolve('./empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var-rc.css', require.resolve('./empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-var-rc.css', require.resolve('./empty.css'))
   }
 };
