@@ -216,9 +216,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   }
 
   if (disableImportXConsoleCSS) {
-    config.resolve.alias.set('@alicloud/console-components/dist/xconsole.css', require.resolve('./empty.css'))
-      .set('@alicloud/console-components/dist/xconsole-dark-var.css', require.resolve('./empty.css'))
-      .set('@alicloud/console-components/dist/xconsole-dark-var-rc.css', require.resolve('./empty.css'))
-      .set('@alicloud/console-components/dist/xconsole-var-rc.css', require.resolve('./empty.css'))
+    config.resolve.alias
+      .set('@alicloud/console-components/dist/xconsole.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var-rc.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-var-rc.css', require.resolve('../../tpl/empty.css'));
   }
 };
