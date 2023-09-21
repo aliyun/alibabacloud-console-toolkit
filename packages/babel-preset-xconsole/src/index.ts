@@ -21,7 +21,7 @@ export default declare((api: any, options: Partial<IOptions> = {}) => {
       windCherryPick && require.resolve('babel-plugin-wind'),
       ...createPlugins(opts),
       ...extraPlugins,
-    ],
+    ].filter(Boolean),
     presets,
   };
 });

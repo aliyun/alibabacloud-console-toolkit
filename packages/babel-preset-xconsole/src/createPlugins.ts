@@ -30,6 +30,7 @@ const createPipelineOperator = createPluginCreator(
   require('@babel/plugin-proposal-pipeline-operator'),
   (options) => options.proposal.pipelineOperator,
   createPluginOptionsGetter((options) => options.proposal.pipelineOperator, {
+    proposal: 'hack',
     // https://babeljs.io/docs/en/next/babel-plugin-proposal-pipeline-operator.html#via-babelrc-recommended
     topicToken: '^^',
   }),

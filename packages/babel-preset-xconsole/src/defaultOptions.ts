@@ -27,6 +27,9 @@ const defaultOptions: IOptions = {
   reactHotLoader: false,
   reactRefresh: false,
   windCherryPick: true,
+  presetEnv: {},
+  presetReact: {},
+  presetTypescript: {},
 };
 
 export default defaultOptions;

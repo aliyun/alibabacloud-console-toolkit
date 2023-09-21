@@ -80,6 +80,9 @@ export interface IOptions {
   reactHotLoader: boolean;
   reactRefresh: boolean;
   windCherryPick: boolean;
+  presetEnv: Record<string, any>;
+  presetReact: Record<string, any>;
+  presetTypescript: Record<string, any>;
 }
 
 export type BabelPlugin = PluginItem;

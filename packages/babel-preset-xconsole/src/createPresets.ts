@@ -22,22 +22,20 @@ export default (options: IOptions) => [
 
       spec: false,
 
-      // Works with IE 9
-      targets: {
-        ie: 9,
-        safari: 'tp',
-      },
-
       // Don't add polyfills automatically per file.
       // Polyfills should be applied on an `App` rather than a `Library`
       // https://babeljs.io/docs/en/babel-preset-env#usebuiltins
       useBuiltIns: 'entry',
+
+      ...options.presetEnv,
     },
   ],
   [
     require('@babel/preset-react').default,
     {
       development: isDevelopment(options.env),
+
+      ...options.presetReact,
     },
   ],
   options.typescript && [
@@ -46,6 +44,8 @@ export default (options: IOptions) => [
       allowNamespaces: true,
       allowDeclareFields: true,
       optimizeConstEnums: true,
+
+      ...options.presetTypescript,
     },
   ],
 ].filter(Boolean) as BabelPresets;
