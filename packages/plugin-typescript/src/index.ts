@@ -147,15 +147,24 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     const { eslint } = opts;
 
     if (!typescript.disableTypeChecker) {
+      const defaultConfig = {
+        tsconfig,
+        eslint,
+        memoryLimit: 4089,
+      }
+
+      // in high version of ForkTsCheckerWebpackPlugin, tslint is not valid option
+      if (eslint || !disableTsLint) {
+        // active when eslint is false or no tslint.json
+        // @ts-ignore
+        defaultConfig.tslint = tslintConf;
+      }
+
       config
-      .plugin('ForkTsCheckerWebpackPlugin')
-        .use(ForkTsCheckerWebpackPlugin, [{
-          tsconfig,
-          eslint,
-          memoryLimit: 4089,
-          // active when eslint is false or no tslint.json
-          tslint: !eslint && disableTsLint ? undefined: tslintConf
-        }]);
+        .plugin('ForkTsCheckerWebpackPlugin')
+          .use(ForkTsCheckerWebpackPlugin, [
+            defaultConfig
+          ]);
     }
   });
 };
