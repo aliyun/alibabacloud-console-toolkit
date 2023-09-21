@@ -5,7 +5,7 @@ import { resolve } from 'path';
 export default (config: BreezrPresetConfig, args: any) => {
   const windConfig = getWindConfig(process.cwd());
   const env = getEnv();
-  const webpack = config.webpack;
+  const { webpack: userWebpack, webpack5 } = config;
   const plugins = [];
   if (!config.disableUpdator) {
     plugins.push([
@@ -22,7 +22,7 @@ export default (config: BreezrPresetConfig, args: any) => {
   plugins.push(...[
     '@alicloud/console-toolkit-plugin-builtin',
     [
-      '@alicloud/console-toolkit-plugin-react',
+      webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-react' : '@alicloud/console-toolkit-plugin-react',
       {
         ...config,
         port: args.port || config.port || 3333,
@@ -46,11 +46,11 @@ export default (config: BreezrPresetConfig, args: any) => {
       }
     ],
     [
-      '@alicloud/console-toolkit-plugin-webpack',
+      webpack5 ? '@alicloud/console-toolkit-plugin-webpack5' : '@alicloud/console-toolkit-plugin-webpack',
       {
         webpack: (...args: any[]) => {
-          if (webpack) {
-            return webpack(args[0], config, args[1]);
+          if (userWebpack) {
+            return userWebpack(args[0], config, args[1]);
           }
           return args[0];
         },
@@ -73,7 +73,7 @@ export default (config: BreezrPresetConfig, args: any) => {
   //@ts-ignore
   if (config.mocks || windConfig.mocks) {
     plugins.push([
-      '@alicloud/console-toolkit-plugin-mocks',
+      webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-mocks' : '@alicloud/console-toolkit-plugin-mocks',
       {
         //@ts-ignore
         ...windConfig.mocks,
@@ -111,7 +111,8 @@ export default (config: BreezrPresetConfig, args: any) => {
 
   if (useTypescript || typescript) {
     plugins.push([
-      '@alicloud/console-toolkit-plugin-typescript', {
+      webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-typescript' : '@alicloud/console-toolkit-plugin-typescript',
+      {
         ...config,
       }
     ]);
@@ -145,7 +146,7 @@ export default (config: BreezrPresetConfig, args: any) => {
   if (config.ssr) {
     plugins.push(
       [
-        '@alicloud/console-toolkit-plugin-ssr',
+        webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-ssr' : '@alicloud/console-toolkit-plugin-ssr',
         {
           ...config.ssr,
           webpack: (...args: any[]) => {
@@ -168,7 +169,7 @@ export { BreezrPresetConfig } from './type';
 export const extendConfiguration = (config: BreezrPresetConfig) => {
   return {
     presets: [
-      ['@ali/breezr-preset-wind', config]
+      ['@alicloud/console-toolkit-preset-official', config]
     ],
     plugins: config.plugins,
   };

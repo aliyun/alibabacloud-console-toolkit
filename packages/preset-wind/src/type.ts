@@ -253,6 +253,11 @@ export interface BreezrPresetConfig {
   webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
 
   /**
+   * 使用 webpack5
+  */
+  webpack5?: boolean;
+
+  /**
    * mocks 相关配置，详细参见
    */
   mocks?: {
