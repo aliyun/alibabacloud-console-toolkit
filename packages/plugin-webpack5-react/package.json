@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -52,6 +52,7 @@
     "css-minimizer-webpack-plugin": "^4.1.0",
     "error-overlay-webpack-plugin": "^1.0.0",
     "es5-imcompatible-versions": "^0.1.62",
+    "file-loader": "^6.2.0",
     "fs-extra": "^11.1.1",
     "html-webpack-plugin": "^5.0.0",
     "less": "^4.0.0",
