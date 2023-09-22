@@ -1,6 +1,6 @@
 import { join } from 'path';
 import * as Chain from '@gem-mine/webpack-chain';
-
+import { existsSync } from 'fs-extra';
 import { getEnv, BuildType } from '@alicloud/console-toolkit-shared-utils';
 
 import { definePlugin } from './plugins/define';
@@ -11,9 +11,11 @@ import { PluginAPI } from '@alicloud/console-toolkit-core';
 
 export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI) => {
   const {
-    defineGlobalConstants
+    defineGlobalConstants,
+    enableCache,
+    cacheDirectory
   } = options;
-
+  const rootDir = process.cwd();
   const env = getEnv();
 
   if (!!options.sourceMap) {
@@ -48,5 +50,23 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
   config
     .optimization
       .minimize(!options.disableUglify);
+  
+  if (enableCache) {
+    const buildDependencies = [join(rootDir, 'package.json')];
 
+    if (existsSync(join(rootDir, 'config/config.js'))) {
+      buildDependencies.push(join(rootDir, 'config/config.js'));
+    } else if (existsSync(join(rootDir, 'config/config.ts'))) {
+      buildDependencies.push(join(rootDir, 'config/config.ts'));
+    }
+
+    config.cache({
+      type: 'filesystem',
+      compression: 'gzip',
+      buildDependencies: {
+        config: buildDependencies
+      },
+      cacheDirectory: cacheDirectory ? join(cacheDirectory, 'webpack') : join(rootDir, 'node_modules', 'webpack'),
+    });
+  }
 };

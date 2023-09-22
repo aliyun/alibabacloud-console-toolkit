@@ -93,6 +93,10 @@ interface BreezrReactOptions {
   moment?: {
     disable: boolean;
   };
+
+  // webpack cache
+  enableCache?: boolean;
+  cacheDirectory?: string;
 }
 
 /**
