@@ -78,7 +78,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     es5IncompatibleVersions = false,
     moment,
     reactRefresh,
-    postCssPlugins
+    postCssPlugins,
+    disableImportXConsoleCSS = false,
   } = options;
 
   if (!cwd) {
@@ -204,5 +205,12 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
   if (!moment?.disable) {
     momentPlugin(config);
+  }
+
+  if (disableImportXConsoleCSS) {
+    config.resolve.alias.set('@alicloud/console-components/dist/xconsole.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-dark-var-rc.css', require.resolve('../../tpl/empty.css'))
+      .set('@alicloud/console-components/dist/xconsole-var-rc.css', require.resolve('../../tpl/empty.css'));
   }
 };
