@@ -1,0 +1,48 @@
+{
+  "name": "@alicloud/console-toolkit-plugin-webpack5-sass",
+  "version": "1.0.0",
+  "description": "breezr plugin for sass",
+  "main": "lib/index.js",
+  "scripts": {
+    "ci": "tnpm run lint && tnpm run compile && tnpm run cov",
+    "lint": "tslint --project .",
+    "compile": "tsc -d true -p ./",
+    "watch": "tsc -watch -d true -p ./",
+    "test": "jest",
+    "cov": "jest  --coverage",
+    "prepublishOnly": "npm run compile"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@alicloud/console-toolkit-core": "^1.2.30",
+    "@types/autoprefixer": "^9.7.2",
+    "@types/chai": "^4.1.7",
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.0.4",
+    "@types/webpack": "^5.0.0",
+    "@types/webpack-chain": "^5.2.0",
+    "@types/webpackbar": "^4.0.0",
+    "chai": "^4.2.0",
+    "execa": "^2.0.4",
+    "inquirer": "^7.0.0",
+    "jest": "^24.2.0-alpha.0",
+    "nyc": "^14.1.1",
+    "typescript": "^4.9.5"
+  },
+  "dependencies": {
+    "@gem-mine/webpack-chain": "^7.0.0",
+    "autoprefixer": "^9.7.6",
+    "css-loader": "^6.0.0",
+    "fast-sass-loader": "^2.0.1",
+    "mini-css-extract-plugin": "^2.6.1",
+    "postcss-loader": "^3.0.0",
+    "style-loader": "^1.1.4",
+    "sass": "^1.67.0"
+  },
+  "peerDependencies": {
+    "webpack": ">= 5"
+  },
+  "license": "MIT"
+}
