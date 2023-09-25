@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-preset-official",
-  "version": "1.3.2",
+  "version": "1.3.3",
   "description": "console toolkit preset for console app",
   "author": "fringey <465964690@qq.com>",
   "license": "MIT",

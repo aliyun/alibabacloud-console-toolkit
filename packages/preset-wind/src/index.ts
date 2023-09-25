@@ -119,9 +119,12 @@ export default (config: BreezrPresetConfig, args: any) => {
   }
 
   if (useSass) {
-    plugins.push(['@alicloud/console-toolkit-plugin-sass', {
-      ...config
-    }])
+    plugins.push([
+      webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-sass' : '@alicloud/console-toolkit-plugin-sass',
+      {
+        ...config
+      }
+    ]);
   }
 
   if (config.dll) {
