@@ -1,12 +1,13 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-webpack5-builtins",
-	"version": "1.0.0",
+	"version": "1.0.1",
 	"description": "builtins for webpack5",
 	"files": [],
 	"dependencies": {
 		"@alicloud/console-toolkit-plugin-webpack5": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack5-mocks": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack5-react": "^1.0.0",
+		"@alicloud/console-toolkit-plugin-webpack5-sass": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack5-ssr": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack5-typescript": "^1.0.0"
 	},
