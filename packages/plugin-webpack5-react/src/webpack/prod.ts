@@ -66,7 +66,7 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
       buildDependencies: {
         config: buildDependencies
       },
-      cacheDirectory: cacheDirectory ? join(cacheDirectory, 'webpack') : join(rootDir, 'node_modules', 'webpack'),
+      cacheDirectory: cacheDirectory ? join(cacheDirectory, 'webpack') : join(rootDir, 'node_modules/.cache', 'webpack'),
     });
   }
 };
