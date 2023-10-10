@@ -11,6 +11,7 @@ export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {
       collapse_vars: false
     },
     sourceMap: !!option.sourceMap,
+    extractComments: false,
     ...option.uglifyOptions
   };
 
