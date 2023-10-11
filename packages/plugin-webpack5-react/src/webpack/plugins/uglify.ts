@@ -11,13 +11,13 @@ export function uglifyPlugin(config: Chain, option: BreezrReactOptions) {
       collapse_vars: false
     },
     sourceMap: !!option.sourceMap,
-    extractComments: false,
     ...option.uglifyOptions
   };
 
   optimization.minimizer('Terser')
     .use(TerserPlugin, [{
       parallel: true,
+      extractComments: false,
       terserOptions: uglifyOptions,
     }]);
 
