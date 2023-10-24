@@ -39,8 +39,8 @@ importers:
         specifier: ^4.6.0
         version: 4.6.0(eslint@8.29.0)
       pnpm:
-        specifier: ^7.18.1
-        version: 7.18.1
+        specifier: ^7.33.4
+        version: 7.33.4
       typescript:
         specifier: ^4.9.4
         version: 4.9.4
@@ -8647,8 +8647,8 @@ packages:
       find-up: 3.0.0
     dev: false
 
-  /pnpm@7.18.1:
-    resolution: {integrity: sha512-GulnWxFW1dej1sSiju1FlYtvWIYa35ZvbTk9F8jOo+1GgJEVdx1ObLaZCApd2I4IB+jozyNWzInEdV0hQgUq0Q==}
+  /pnpm@7.33.4:
+    resolution: {integrity: sha512-xEbf/tkwHpGM/GXq5U/sDSiE6ykLPho+o71PHNRWqkVLm6dJe4G/5Pg619Ow32ovekrr7pii5qtfamujB/+1bA==}
     engines: {node: '>=14.6'}
     hasBin: true
     dev: true
