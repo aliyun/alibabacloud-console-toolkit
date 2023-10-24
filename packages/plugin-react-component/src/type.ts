@@ -19,9 +19,42 @@ export interface IBuildOptions {
    */
   src?: string;
   /**
-   * build output path
+   * @deprecated
+   * esm output path
    */
   output?: string;
+  /**
+   * umd options
+   */
+  umd?: {
+    /**
+     * default ./dist
+     */
+    output?: string;
+    name: string;
+    /**
+     * 入口文件，默认值 src/index
+     */
+    entry?: string;
+  };
+  /**
+   * cjs options
+   */
+  cjs?: {
+    /**
+     * default ./lib
+     */
+    output?: string;
+  };
+  /**
+   * esm options
+   */
+  esm?: {
+    /**
+     * default ./esm
+     */
+    output?: string;
+  };
   /**
    * dev-server host
    */

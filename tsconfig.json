@@ -8,7 +8,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "declaration": true,
-    "lib": ["dom", "es5", "es6", "es7", "scripthost", "es2018.promise"],
+    "lib": ["dom", "es5", "es6", "es7", "es2019", "scripthost", "es2018.promise"],
     "emitDecoratorMetadata": true,
     "preserveConstEnums": true,
     "allowSyntheticDefaultImports": true,

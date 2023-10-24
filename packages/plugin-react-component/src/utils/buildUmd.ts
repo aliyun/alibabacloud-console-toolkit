@@ -1,4 +1,4 @@
-import fs from 'fs-extra';
+// import fs from 'fs-extra';
 import path from 'path';
 import glob from 'glob';
 import autoprefixer from 'autoprefixer';
@@ -14,23 +14,21 @@ import virtualPlugin from '@rollup/plugin-virtual';
 
 import type { IBuildOptions } from '../type';
 
-const moduleRegExp = (module: string) => new RegExp(`^${module}(\\/.+)*$`);
-
 export default function getRollupOptions(options: IBuildOptions) {
   const {
-    cwd, sourcemap = false, babelPlugins = [], src = 'src', esm, output,
+    cwd, sourcemap = false, babelPlugins = [], src = 'src', umd,
     globals, virtual,
   } = options;
   const rootDir = path.resolve(cwd, src);
-  const dest = path.resolve(cwd, esm?.output || output || 'esm');
+  const dest = path.resolve(cwd, umd?.output || './dist');
 
-  const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
+  // const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
   let useTypescript = false;
   let useJavascript = false;
 
   const input = Object.fromEntries(
-    glob.sync(path.join(rootDir, '/**/*[!.d].{ts,tsx,js,jsx}')).map((file) => {
+    glob.sync(path.join(rootDir, '/*[!.d].{ts,tsx,js,jsx}')).map((file) => {
       const ext = path.extname(file);
       if (ext === '.ts' || ext === '.tsx') useTypescript = true;
       if (ext === '.js' || ext === '.jsx') useJavascript = true;
@@ -45,28 +43,20 @@ export default function getRollupOptions(options: IBuildOptions) {
 
   // js ts 混用时不生成 types
   const generateTypes = !useJavascript && useTypescript;
-  const peerDeps = Object.keys(pkg.peerDependencies || {});
-  const deps = Object.keys(pkg.dependencies || {});
+  // const peerDeps = Object.keys(pkg.peerDependencies || {});
+  // const deps = Object.keys(pkg.dependencies || {});
 
   const _options: RollupOptions = {
-    input,
+    input: umd?.entry || input,
     output: {
-      format: 'es',
+      format: 'umd',
       dir: dest,
       sourcemap,
       assetFileNames: '[name][extname]',
       hoistTransitiveImports: false,
+      name: umd?.name,
       globals,
     },
-    external: [
-      '@babel/runtime',
-      'react',
-      'react-dom',
-      'react/jsx-runtime',
-      'core-js',
-      'regenerator-runtime',
-      'tslib',
-    ].concat(peerDeps).concat(deps).map(moduleRegExp),
     plugins: [
       virtual && virtualPlugin(virtual),
       styles({

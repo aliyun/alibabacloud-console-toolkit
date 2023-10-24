@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.16",
+  "version": "1.0.17",
   "description": "",
   "exports": {
     ".": {
@@ -10,7 +10,7 @@
     }
   },
   "scripts": {
-    "build": "rm -rf ./lib && tsc -b tsconfig.cjs.json tsconfig.esm.json",
+    "build": "rm -rf ./lib && rm -rf ./esm && tsc -b tsconfig.cjs.json tsconfig.esm.json",
     "prepublishOnly": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "pub": "pnpm publish"

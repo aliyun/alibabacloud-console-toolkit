@@ -18,11 +18,11 @@ const moduleRegExp = (module: string) => new RegExp(`^${module}(\\/.+)*$`);
 
 export default function getRollupOptions(options: IBuildOptions) {
   const {
-    cwd, sourcemap = false, babelPlugins = [], src = 'src', esm, output,
+    cwd, sourcemap = false, babelPlugins = [], src = 'src', cjs,
     globals, virtual,
   } = options;
   const rootDir = path.resolve(cwd, src);
-  const dest = path.resolve(cwd, esm?.output || output || 'esm');
+  const dest = path.resolve(cwd, cjs?.output || './lib');
 
   const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
@@ -51,7 +51,7 @@ export default function getRollupOptions(options: IBuildOptions) {
   const _options: RollupOptions = {
     input,
     output: {
-      format: 'es',
+      format: 'cjs',
       dir: dest,
       sourcemap,
       assetFileNames: '[name][extname]',
