@@ -8,7 +8,6 @@ import commonjs from '@rollup/plugin-commonjs';
 import babel from '@rollup/plugin-babel';
 import nodeResolve from '@rollup/plugin-node-resolve';
 import json from '@rollup/plugin-json';
-import typescript from 'rollup-plugin-typescript2';
 import styles from 'rollup-plugin-styles';
 import virtualPlugin from '@rollup/plugin-virtual';
 
@@ -75,31 +74,8 @@ export default function getRollupOptions(options: IBuildOptions) {
         extensions: ['.mjs', '.js', '.jsx', '.json', '.node', '.ts', '.jsx', '.tsx', '.cjs', '.mts', '.cts'],
       }),
       json(),
-      generateTypes && typescript({
-        cwd,
-        useTsconfigDeclarationDir: true,
-        tsconfigDefaults: {
-          compilerOptions: {
-            target: 'es5',
-            declaration: true,
-            allowJs: true,
-            jsx: 'react',
-            declarationDir: dest,
-            esModuleInterop: true,
-          },
-          include: [rootDir],
-        },
-        tsconfig: path.resolve(cwd, 'tsconfig.json'),
-        tsconfigOverride: {
-          compilerOptions: {
-            module: 'ESNext',
-            declaration: true,
-            emitDeclarationOnly: true,
-          },
-        },
-      }),
       babel({
-        babelHelpers: 'runtime',
+        babelHelpers: 'bundled',
         babelrc: false,
         configFile: false,
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'],
