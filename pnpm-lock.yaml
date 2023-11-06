@@ -434,7 +434,7 @@ importers:
         version: 10.4.13(postcss@8.4.20)
       babel-preset-breezr-wind:
         specifier: ^1.2.42
-        version: 1.2.42(react-dom@18.2.0)(react@18.2.0)
+        version: 1.2.42(react-dom@17.0.2)(react@17.0.2)
       chalk:
         specifier: ^5.2.0
         version: 5.2.0
@@ -455,10 +455,10 @@ importers:
         version: 8.4.20
       react:
         specifier: '>=16.8.0'
-        version: 18.2.0
+        version: 17.0.2
       react-dom:
         specifier: '>=16.8.0'
-        version: 18.2.0(react@18.2.0)
+        version: 17.0.2(react@17.0.2)
       rollup:
         specifier: ^3.9.1
         version: 3.9.1
@@ -479,7 +479,7 @@ importers:
         version: 0.59.0
       vite:
         specifier: ^4.0.4
-        version: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
+        version: 4.0.4(@types/node@18.11.17)
       vite-tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0(typescript@4.9.4)(vite@4.0.4)
@@ -4367,28 +4367,6 @@ packages:
       lodash: 4.17.21
       postcss-less: 1.1.5
       react-hot-loader: 4.13.1(react-dom@17.0.2)(react@17.0.2)
-      react-refresh: 0.10.0
-    transitivePeerDependencies:
-      - '@types/react'
-      - react
-      - react-dom
-      - supports-color
-    dev: false
-
-  /babel-preset-breezr-wind@1.2.42(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-z+wWdWOZDPXDGZX/SiX4ocNEZTdLhV0POk4dK9Zc76bEdUkKVKi5d43fS82D8DDfZD/d9r/0SOkkXYEg1bO92A==}
-    dependencies:
-      '@babel/core': 7.23.0
-      babel-plugin-lodash: 3.3.4
-      babel-plugin-react-css-modules: 5.2.6(@babel/core@7.23.0)
-      babel-plugin-transform-loadable-component: 1.0.14
-      babel-plugin-wind: 1.0.14
-      babel-plugin-wind-rc: 1.1.3
-      babel-preset-breezr: 1.2.43
-      less: 3.13.1
-      lodash: 4.17.21
-      postcss-less: 1.1.5
-      react-hot-loader: 4.13.1(react-dom@18.2.0)(react@18.2.0)
       react-refresh: 0.10.0
     transitivePeerDependencies:
       - '@types/react'
@@ -8621,6 +8599,7 @@ packages:
   /pify@4.0.1:
     resolution: {integrity: sha512-uB80kBFb/tfd68bVleG9T5GGsGPjJrLAUpR5PZIrhBnIaRTQRjqdJSsIKkOP6OAIFbj7GOrcudc5pNjZ+geV2g==}
     engines: {node: '>=6'}
+    requiresBuild: true
     dev: false
 
   /pirates@4.0.6:
@@ -9312,29 +9291,6 @@ packages:
       source-map: 0.7.4
     dev: false
 
-  /react-hot-loader@4.13.1(react-dom@18.2.0)(react@18.2.0):
-    resolution: {integrity: sha512-ZlqCfVRqDJmMXTulUGic4lN7Ic1SXgHAFw7y/Jb7t25GBgTR0fYAJ8uY4mrpxjRyWGWmqw77qJQGnYbzCvBU7g==}
-    engines: {node: '>= 6'}
-    peerDependencies:
-      '@types/react': ^15.0.0 || ^16.0.0 || ^17.0.0
-      react: ^15.0.0 || ^16.0.0 || ^17.0.0
-      react-dom: ^15.0.0 || ^16.0.0 || ^17.0.0
-    peerDependenciesMeta:
-      '@types/react':
-        optional: true
-    dependencies:
-      fast-levenshtein: 2.0.6
-      global: 4.4.0
-      hoist-non-react-statics: 3.3.2
-      loader-utils: 2.0.4
-      prop-types: 15.8.1
-      react: 18.2.0
-      react-dom: 18.2.0(react@18.2.0)
-      react-lifecycles-compat: 3.0.4
-      shallowequal: 1.1.0
-      source-map: 0.7.4
-    dev: false
-
   /react-is@16.13.1:
     resolution: {integrity: sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==}
 
@@ -9783,6 +9739,7 @@ packages:
   /semver@5.7.2:
     resolution: {integrity: sha512-cBznnQ9KjJqU67B52RMC65CMarK2600WFnbkcaiwWq3xy/5haFJlshgnpjovMVJ+Hff49d8GEn0b87C5pDQ10g==}
     hasBin: true
+    requiresBuild: true
 
   /semver@6.3.1:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
@@ -10737,13 +10694,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@4.9.4)
-      vite: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
+      vite: 4.0.4(@types/node@18.11.17)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: false
 
-  /vite@4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0):
+  /vite@4.0.4(@types/node@18.11.17):
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -10770,12 +10727,9 @@ packages:
     dependencies:
       '@types/node': 18.11.17
       esbuild: 0.16.17
-      less: 4.2.0
       postcss: 8.4.20
       resolve: 1.22.8
       rollup: 3.9.1
-      sass: 1.69.4
-      stylus: 0.59.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: false
