@@ -23,14 +23,9 @@ export default function getRollupOptions(options: IBuildOptions) {
 
   // const pkg = fs.readJSONSync(path.resolve(cwd, 'package.json'));
 
-  let useTypescript = false;
-  let useJavascript = false;
-
   const input = Object.fromEntries(
     glob.sync(path.join(rootDir, '/*[!.d].{ts,tsx,js,jsx}')).map((file) => {
       const ext = path.extname(file);
-      if (ext === '.ts' || ext === '.tsx') useTypescript = true;
-      if (ext === '.js' || ext === '.jsx') useJavascript = true;
 
       return [
         path.relative(rootDir, file.slice(0, file.length - ext.length)),
@@ -40,8 +35,6 @@ export default function getRollupOptions(options: IBuildOptions) {
     }),
   );
 
-  // js ts 混用时不生成 types
-  const generateTypes = !useJavascript && useTypescript;
   // const peerDeps = Object.keys(pkg.peerDependencies || {});
   // const deps = Object.keys(pkg.dependencies || {});
 
@@ -71,6 +64,8 @@ export default function getRollupOptions(options: IBuildOptions) {
         requireReturnsDefault: 'namespace',
       }),
       nodeResolve({
+        browser: true,
+        preferBuiltins: false,
         extensions: ['.mjs', '.js', '.jsx', '.json', '.node', '.ts', '.jsx', '.tsx', '.cjs', '.mts', '.cts'],
       }),
       json(),
@@ -80,7 +75,7 @@ export default function getRollupOptions(options: IBuildOptions) {
         configFile: false,
         extensions: ['.ts', '.tsx', '.js', '.jsx', '.es6', '.es', '.mjs'],
         presets: ['@babel/preset-env', '@babel/preset-react', '@babel/preset-typescript'],
-        plugins: ['@babel/plugin-transform-runtime', ...babelPlugins],
+        plugins: [...babelPlugins],
       }),
     ],
   };
