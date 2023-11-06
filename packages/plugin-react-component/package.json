@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-react-component",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "",
   "exports": {
     ".": {
@@ -40,6 +40,7 @@
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
     "vite": "^4.0.4",
+    "vite-plugin-markdown": "^2.1.0",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 import { resolve } from 'path';
 import { createServer } from 'vite';
 import tsconfigPaths from 'vite-tsconfig-paths';
+import mdPlugin, { Mode } from 'vite-plugin-markdown';
 
 import type { IBuildOptions } from './type';
 
@@ -12,9 +13,14 @@ export default async function build(options: IBuildOptions) {
       mode: 'development',
       configFile: false,
       root: resolve(options.cwd, options.demo || 'demo'),
-      plugins: [tsconfigPaths({
-        root: options.cwd,
-      })],
+      plugins: [
+        tsconfigPaths({
+          root: options.cwd,
+        }),
+        mdPlugin({
+          mode: [Mode.HTML, Mode.TOC, Mode.REACT],
+        }),
+      ],
       server: {
         host,
         port,
