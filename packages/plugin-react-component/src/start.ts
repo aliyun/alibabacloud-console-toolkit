@@ -18,7 +18,7 @@ export default async function build(options: IBuildOptions) {
           root: options.cwd,
         }),
         mdPlugin({
-          mode: [Mode.HTML, Mode.TOC, Mode.REACT],
+          mode: [Mode.HTML, Mode.TOC, Mode.REACT, Mode.MARKDOWN],
         }),
       ],
       server: {
