@@ -363,8 +363,8 @@ importers:
         specifier: ^9.1.4
         version: 9.1.4
       semver:
-        specifier: ^7.3.8
-        version: 7.3.8
+        specifier: ^7.5.2
+        version: 7.5.4
       tar:
         specifier: ^6.1.13
         version: 6.1.13
@@ -479,7 +479,7 @@ importers:
         version: 0.59.0
       vite:
         specifier: ^4.0.4
-        version: 4.0.4(@types/node@18.11.17)
+        version: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
       vite-tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0(typescript@4.9.4)(vite@4.0.4)
@@ -9745,14 +9745,6 @@ packages:
     resolution: {integrity: sha512-BR7VvDCVHO+q2xBEWskxS6DJE1qRnb7DxzUrogb71CWoSficBxYsiAGd+Kl0mmq/MprG9yArRkyrQxTO6XjMzA==}
     hasBin: true
 
-  /semver@7.3.8:
-    resolution: {integrity: sha512-NB1ctGL5rlHrPJtFDVIVzTyQylMLu9N9VICA6HSFJo8MCGVTMW6gfpicwKmmK/dAjTOrqu5l63JJOpDSrAis3A==}
-    engines: {node: '>=10'}
-    hasBin: true
-    dependencies:
-      lru-cache: 6.0.0
-    dev: false
-
   /semver@7.5.4:
     resolution: {integrity: sha512-1bCSESV6Pv+i21Hvpxp3Dx+pSD8lIPt8uVjRrxAUt/nbswYc+tK6Y2btiULjd4+fnq15PX+nqQDC7Oft7WkwcA==}
     engines: {node: '>=10'}
@@ -10694,13 +10686,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@4.9.4)
-      vite: 4.0.4(@types/node@18.11.17)
+      vite: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: false
 
-  /vite@4.0.4(@types/node@18.11.17):
+  /vite@4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0):
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -10727,9 +10719,12 @@ packages:
     dependencies:
       '@types/node': 18.11.17
       esbuild: 0.16.17
+      less: 4.2.0
       postcss: 8.4.20
       resolve: 1.22.8
       rollup: 3.9.1
+      sass: 1.69.4
+      stylus: 0.59.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: false
