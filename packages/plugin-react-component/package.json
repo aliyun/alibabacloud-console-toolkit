@@ -39,7 +39,7 @@
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
     "rollup-plugin-typescript2": "^0.34.1",
-    "vite": "^4.0.4",
+    "vite": "^4.0.5",
     "vite-tsconfig-paths": "^4.2.0"
   },
   "devDependencies": {

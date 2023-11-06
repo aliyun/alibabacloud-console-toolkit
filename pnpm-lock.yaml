@@ -478,11 +478,11 @@ importers:
         specifier: ^0.59.0
         version: 0.59.0
       vite:
-        specifier: ^4.0.4
-        version: 4.0.4(@types/node@18.11.17)
+        specifier: ^4.0.5
+        version: 4.0.5(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
       vite-tsconfig-paths:
         specifier: ^4.2.0
-        version: 4.2.0(typescript@4.9.4)(vite@4.0.4)
+        version: 4.2.0(typescript@4.9.4)(vite@4.0.5)
     devDependencies:
       '@types/babel__core':
         specifier: ^7.1.20
@@ -8794,7 +8794,7 @@ packages:
   /postcss-modules-extract-imports@1.1.0:
     resolution: {integrity: sha512-zF9+UIEvtpeqMGxhpeT9XaIevQSrBBCz9fi7SwfkmjVacsSj8DY5eFVgn+wY8I9vvdDDwK5xC8Myq4UkoLFIkA==}
     dependencies:
-      postcss: 6.0.1
+      postcss: 6.0.23
     dev: false
 
   /postcss-modules-extract-imports@1.2.1:
@@ -10683,7 +10683,7 @@ packages:
     engines: {node: '>= 0.8'}
     dev: false
 
-  /vite-tsconfig-paths@4.2.0(typescript@4.9.4)(vite@4.0.4):
+  /vite-tsconfig-paths@4.2.0(typescript@4.9.4)(vite@4.0.5):
     resolution: {integrity: sha512-jGpus0eUy5qbbMVGiTxCL1iB9ZGN6Bd37VGLJU39kTDD6ZfULTTb1bcc5IeTWqWJKiWV5YihCaibeASPiGi8kw==}
     peerDependencies:
       vite: '*'
@@ -10694,14 +10694,14 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@4.9.4)
-      vite: 4.0.4(@types/node@18.11.17)
+      vite: 4.0.5(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: false
 
-  /vite@4.0.4(@types/node@18.11.17):
-    resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
+  /vite@4.0.5(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0):
+    resolution: {integrity: sha512-7m87RC+caiAxG+8j3jObveRLqaWA/neAdCat6JAZwMkSWqFHOvg8MYe5fAQxVBRAuKAQ1S6XDh3CBQuLNbY33w==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
     peerDependencies:
@@ -10727,9 +10727,12 @@ packages:
     dependencies:
       '@types/node': 18.11.17
       esbuild: 0.16.17
+      less: 4.2.0
       postcss: 8.4.20
       resolve: 1.22.8
       rollup: 3.9.1
+      sass: 1.69.4
+      stylus: 0.59.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: false
