@@ -342,8 +342,8 @@ importers:
         specifier: ^7.18.9
         version: 7.18.9(@babel/core@7.23.0)
       axios:
-        specifier: ^1.2.2
-        version: 1.2.2
+        specifier: ^1.6.0
+        version: 1.6.0
       cac:
         specifier: ^6.7.14
         version: 6.7.14
@@ -479,7 +479,7 @@ importers:
         version: 0.59.0
       vite:
         specifier: ^4.0.4
-        version: 4.0.4(@types/node@18.11.17)
+        version: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
       vite-tsconfig-paths:
         specifier: ^4.2.0
         version: 4.2.0(typescript@4.9.4)(vite@4.0.4)
@@ -4164,8 +4164,8 @@ packages:
     engines: {node: '>= 0.4'}
     dev: true
 
-  /axios@1.2.2:
-    resolution: {integrity: sha512-bz/J4gS2S3I7mpN/YZfGFTqhXTYzRho8Ay38w2otuuDR322KzFIWm/4W2K6gIwvWaws5n+mnb7D1lN9uD+QH6Q==}
+  /axios@1.6.0:
+    resolution: {integrity: sha512-EZ1DYihju9pwVB+jg67ogm+Tmqc6JmhamRN6I4Zt8DfZu5lbcQGw3ozH9lFejSJgs/ibaef3A9PMXPLeefFGJg==}
     dependencies:
       follow-redirects: 1.15.3
       form-data: 4.0.0
@@ -10694,13 +10694,13 @@ packages:
       debug: 4.3.4
       globrex: 0.1.2
       tsconfck: 2.1.2(typescript@4.9.4)
-      vite: 4.0.4(@types/node@18.11.17)
+      vite: 4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0)
     transitivePeerDependencies:
       - supports-color
       - typescript
     dev: false
 
-  /vite@4.0.4(@types/node@18.11.17):
+  /vite@4.0.4(@types/node@18.11.17)(less@4.2.0)(sass@1.69.4)(stylus@0.59.0):
     resolution: {integrity: sha512-xevPU7M8FU0i/80DMR+YhgrzR5KS2ORy1B4xcX/cXLsvnUWvfHuqMmVU6N0YiJ4JWGRJJsLCgjEzKjG9/GKoSw==}
     engines: {node: ^14.18.0 || >=16.0.0}
     hasBin: true
@@ -10727,9 +10727,12 @@ packages:
     dependencies:
       '@types/node': 18.11.17
       esbuild: 0.16.17
+      less: 4.2.0
       postcss: 8.4.20
       resolve: 1.22.8
       rollup: 3.9.1
+      sass: 1.69.4
+      stylus: 0.59.0
     optionalDependencies:
       fsevents: 2.3.3
     dev: false
