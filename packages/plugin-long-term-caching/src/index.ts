@@ -15,7 +15,8 @@ export default (api: PluginAPI, options: PluginOptions) => {
     const opts = { ...options };
     const { longTermCaching = false, version } = opts;
 
-    if (!longTermCaching) {
+    // 如果是 ssr 构建关闭长效缓存的构建
+    if (!longTermCaching || process.env.IS_SSR === 'true') {
       return;
     }
 
