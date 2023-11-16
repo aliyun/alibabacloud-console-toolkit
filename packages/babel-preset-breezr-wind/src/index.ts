@@ -53,7 +53,7 @@ export default ((ctx: any, options: any) => {
   if (windCherryPick) {
     plugins.push(require.resolve('babel-plugin-wind'));
     plugins.push(
-      require.resolve('babel-plugin-lodash')
+      require.resolve('@sigmacomputing/babel-plugin-lodash')
     );
   }
 
