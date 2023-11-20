@@ -16,10 +16,11 @@ export default async function build(options: IBuildOptions) {
     const rollupOpts = getRollupOptions(options);
     const bundles = await rollup(rollupOpts);
 
-    bundles.write(rollupOpts.output as OutputOptions);
+    await bundles.write(rollupOpts.output as OutputOptions);
+    await bundles.close();
   } catch (e) {
     console.error('build esm failed.');
-    console.error(e);
+    throw e;
   }
 
   /**
@@ -31,10 +32,11 @@ export default async function build(options: IBuildOptions) {
     const rollupOpts = buildCJS(options);
     const bundles = await rollup(rollupOpts);
 
-    bundles.write(rollupOpts.output as OutputOptions);
+    await bundles.write(rollupOpts.output as OutputOptions);
+    await bundles.close();
   } catch (e) {
     console.error('build cjs failed.');
-    console.error(e);
+    throw e;
   }
 
   /**
@@ -47,10 +49,11 @@ export default async function build(options: IBuildOptions) {
       const rollupOpts = buildUmd(options);
       const bundles = await rollup(rollupOpts);
 
-      bundles.write(rollupOpts.output as OutputOptions);
+      await bundles.write(rollupOpts.output as OutputOptions);
+      await bundles.close();
     } catch (e) {
       console.error('build umd failed.');
-      console.error(e);
+      throw e;
     }
   }
 }

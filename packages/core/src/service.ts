@@ -160,7 +160,7 @@ export class Service implements IService {
           const opts = args.pop();
           delete opts['--'];
 
-          this.run(commandName, opts, args);
+          return this.run(commandName, opts, args);
         });
       }
     }
