@@ -12,6 +12,7 @@ import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
+import { providePlugin } from './plugins/provide';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -160,6 +161,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   });
 
   file(config, options);
+
+  providePlugin(config);
 
   // plugins
   if (!disableHtml) {
