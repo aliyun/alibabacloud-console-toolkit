@@ -131,8 +131,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactHotLoader: !disableReactHotLoader,
     reactCssModules: true,
     reactCssModulesContext: src,
-
-    // 只有在构建的时候才开启转义
+    // 只有在构建的时候才开启转义，否则 .mjs 被转义后，会导致 ReactHotLoader 中兼容 esModule 的方法失效，抛出异常：module is not defined
     es5ImcompatibleVersions: getEnv().isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
     exclude: babelExclude,
     windRc: babelPluginWindRc,
