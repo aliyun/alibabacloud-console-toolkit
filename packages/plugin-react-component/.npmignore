@@ -1,2 +1,4 @@
 src
 examples
+tsconfig.json
+tsconfig.*.json

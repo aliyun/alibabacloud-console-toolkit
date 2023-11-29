@@ -8,7 +8,7 @@ export default function (context: IContext, options: PluginOptions) {
   context.registerCommand('init <projectName>', {
     description: 'init',
     usage: '',
-  }, async (_options, args) => {
+  }, async (_options: any, args: any) => {
     const [projectName] = args || [];
 
     context.dispatchAPI('generate', {
@@ -28,14 +28,10 @@ export default function (context: IContext, options: PluginOptions) {
 
     context.emit('onBeforeBuild');
 
-    try {
-      await build({
-        ...options,
-        cwd: context.cwd,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    await build({
+      ...options,
+      cwd: context.cwd,
+    });
 
     context.emit('onAfterBuild');
   });
@@ -44,13 +40,9 @@ export default function (context: IContext, options: PluginOptions) {
     description: 'start',
     usage: '',
   }, async () => {
-    try {
-      await start({
-        ...options,
-        cwd: context.cwd,
-      });
-    } catch (e) {
-      console.error(e);
-    }
+    await start({
+      ...options,
+      cwd: context.cwd,
+    });
   });
 }
