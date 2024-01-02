@@ -27,11 +27,8 @@ export default async function build(options: IBuildOptions) {
       },
     });
 
-    await server.listen();
+  await server.listen();
 
-    server.printUrls();
-  } catch (e) {
-    console.error(e);
-  }
+  server.printUrls();
 }
 
