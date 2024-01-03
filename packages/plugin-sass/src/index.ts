@@ -4,6 +4,7 @@
 import * as path from 'path';
 import * as autoprefixer from 'autoprefixer';
 import { PluginAPI } from '@alicloud/console-toolkit-core'
+import { getEnv } from '@alicloud/console-toolkit-shared-utils';
 import * as webpack from 'webpack';
 import * as Chain from 'webpack-chain';
 
@@ -23,12 +24,15 @@ interface BreezrStyleOptions {
 
 function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   const {
-    disableExtractText,
     loader,
     loaderOptions,
     modules = false,
     sourceMap = false,
   } = options;
+
+  const disableExtractText = typeof options.disableExtractText === 'boolean'
+    ? options.disableExtractText
+    : getEnv().isDev();
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
   // 使用 mini-css-extract-plugin 作为更好的代替方案进行 css 的抽取
