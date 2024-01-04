@@ -56,6 +56,8 @@ const buildServer = async (api: PluginAPI, opts: IOption) => {
   config.target('node');
 
   config.plugin('SSRDefinePlugin').use(webpack.DefinePlugin, [{
+    // 兼容古早的浏览器环境逻辑判断，例如 debug 2.x 3.x
+    'process.type': JSON.stringify("renderer"),
     'process.env.IS_SSR':JSON.stringify(true),
   }]);
 

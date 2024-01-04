@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-ssr",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "console toolkit ssr plugin",
   "main": "lib/index.js",
   "scripts": {
