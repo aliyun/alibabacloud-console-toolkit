@@ -100,7 +100,14 @@ export class Service implements IService {
     }
 
     const { callback } = command as ICommandRegister;
-    await callback(options, rawArgs);
+
+    try {
+      await callback(options, rawArgs);
+    } catch (e: unknown) {
+      console.error((e as Error).message);
+
+      process.exit(1);
+    }
   }
 
   /**
