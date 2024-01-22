@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {

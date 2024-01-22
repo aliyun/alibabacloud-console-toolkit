@@ -22,7 +22,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
   // 使用 mini-css-extract-plugin 作为更好的代替方案进行 css 的抽取
-  const styleLoaderOptions = classNamePrefix? {
+  const styleLoaderOptions = classNamePrefix ? {
     singleton: true,
     attrs: {
       // Add a custom attr to the generated style tag to easily
@@ -104,12 +104,20 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
  * @param options
  */
 export const style = (config: Chain, options: BreezrStyleOptions) => {
-
   const {
     cwd,
     shouldExtract,
     condition = 'stable',
+    consoleOS,
+    disableConsoleOS,
+    appId,
+    classNamePrefix,
   } = options;
+
+  const {
+    disableOsCssExtends,
+  } = consoleOS || {};
+
   function createCssRules(lang: string, condition: webpack.RuleSetRule, styleOptions?: {
     loader?: string;
     loaderOptions?: Chain.LoaderOptions;
@@ -119,7 +127,8 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
 
     applyCssLoaders(baseRule, {
       ...options,
-      ...styleOptions
+      ...styleOptions,
+      classNamePrefix: !disableConsoleOS && !disableOsCssExtends && appId ? appId.replace('@ali/', 'ali-') : classNamePrefix,
     });
   }
 
@@ -164,6 +173,24 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
       .use(require('mini-css-extract-plugin'), [{
         filename: '[name].css',
         chunkFilename: '[id].css',
+        // 针对沙箱场景替换 async chunk 的文件名
+        insert: (linkTag: HTMLLinkElement) => {
+          let isConsoleOS = false;
+
+          // 判断没有关闭微应用构建且没关闭构建 .os.css 文件
+          if (!disableConsoleOS && !disableOsCssExtends) {
+            // 判断是否在沙箱环境
+            try {
+              // @ts-ignore
+              isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
+            } catch (e) {
+              // ...
+            }
+            if (isConsoleOS && disableConsoleOS) linkTag.href = linkTag.href.replace('.css', '.os.css');
+          }
+
+          document.head.appendChild(linkTag);
+        },
       }]);
   }
 };

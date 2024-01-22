@@ -1,5 +1,7 @@
 import * as Chain from '@gem-mine/webpack-chain';
 import * as Webpack from 'webpack';
+import { error } from '@alicloud/console-toolkit-shared-utils';
+
 import { createRules } from '../../../utils';
 import { BreezrReactBabelOption } from '../../../types';
 import { getPkgPath, shouldTransform } from './es5ImcompatibleVersions';
@@ -46,7 +48,13 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     useBuiltIns,
     reactRefresh = false,
     exclude = /node_modules/,
+    // deprecated options
+    useHappyPack = false,
   } = options;
+
+  if (useHappyPack) {
+    error('useHappyPack is deprecated.');
+  }
 
   const rule = createRules(config, {
     lang: 'js',

@@ -97,6 +97,16 @@ interface BreezrReactOptions {
   // webpack cache
   enableCache?: boolean;
   cacheDirectory?: string;
+
+  // consoleOS
+  appId?: string;
+  consoleOS?: {
+    cssPrefix?: string;
+    disableCssPrefix?: boolean;
+    disableOsCssExtends?: boolean;
+    enableStandaloneBundle?: boolean;
+  };
+  disableConsoleOS?: boolean;
 }
 
 /**
@@ -105,7 +115,6 @@ interface BreezrReactOptions {
 interface BreezrReactBabelOption {
   // babel 配置
   babel?: Function;
-  // useHappyPack?: boolean; // 废弃
   reactHotLoader?: boolean;
   reactCssModules?: boolean;
   reactCssModulesContext?: string;
@@ -119,6 +128,10 @@ interface BreezrReactBabelOption {
   exclude?: Webpack.RuleSetCondition;
   include?: Webpack.RuleSetCondition;
   reactRefresh?: boolean;
+  /**
+   * @deprecated
+   */
+  useHappyPack?: boolean;
 }
 
 type CssModules = boolean | 'global' | 'local';
@@ -126,7 +139,7 @@ type CssModules = boolean | 'global' | 'local';
 /**
  * style 的 options 类型
  */
-interface BreezrStyleOptions {
+interface BreezrStyleOptions extends Pick<BreezrReactOptions, 'appId' | 'consoleOS' | 'disableConsoleOS'> {
   cwd: string;
   theme?: string | ThemeDef;
   modules?: CssModules;
@@ -140,7 +153,7 @@ interface BreezrStyleOptions {
   hasPostCSSConfig?: boolean;
   disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
-  postCssPlugins?: any[]
+  postCssPlugins?: any[];
 }
 
 interface ThemeDef {
