@@ -81,6 +81,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactRefresh,
     postCssPlugins,
     disableImportXConsoleCSS = false,
+    consoleOS,
+    disableConsoleOS,
+    appId,
   } = options;
 
   if (!cwd) {
@@ -143,11 +146,13 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   });
 
   let condition: CssConditionType = 'stable';
+
   if (useLegacyCssModules) {
     condition = 'legacy';
   } else if (cssCondition) {
     condition = cssCondition;
   }
+
   style(config, {
     cwd,
     shouldExtract: !disableExtractText,
@@ -156,7 +161,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     hashPrefix,
     disableAutoPrefixer,
     classNamePrefix,
-    postCssPlugins
+    postCssPlugins,
+    consoleOS,
+    disableConsoleOS,
+    appId,
   });
 
   file(config, options);
