@@ -23,8 +23,8 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
   // 使用 mini-css-extract-plugin 作为更好的代替方案进行 css 的抽取
   const styleLoaderOptions = classNamePrefix ? {
-    singleton: true,
-    attrs: {
+    injectType: 'singletonStyleTag',
+    attributes: {
       // Add a custom attr to the generated style tag to easily
       // identify which widget the style tag belonging to.
       from: classNamePrefix
