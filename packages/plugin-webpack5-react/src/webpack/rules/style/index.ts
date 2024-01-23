@@ -174,23 +174,20 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
         filename: '[name].css',
         chunkFilename: '[id].css',
         // 针对沙箱场景替换 async chunk 的文件名
-        insert: (linkTag: HTMLLinkElement) => {
+        // 必须是没有关闭微应用构建且没关闭构建 .os.css 文件
+        insert: (!disableConsoleOS && !disableOsCssExtends) ? (linkTag: HTMLLinkElement) => {
           let isConsoleOS = false;
 
-          // 判断没有关闭微应用构建且没关闭构建 .os.css 文件
-          if (!disableConsoleOS && !disableOsCssExtends) {
-            // 判断是否在沙箱环境
-            try {
-              // @ts-ignore
-              isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
-            } catch (e) {
+          try {
+            // @ts-ignore
+            isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
+          } catch (e) {
               // ...
-            }
-            if (isConsoleOS && disableConsoleOS) linkTag.href = linkTag.href.replace('.css', '.os.css');
           }
+          if (isConsoleOS) linkTag.href = linkTag.href.replace('.css', '.os.css');
 
           document.head.appendChild(linkTag);
-        },
+        } : undefined,
       }]);
   }
 };
