@@ -38,7 +38,6 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
       .options({
         publicPath: 'auto',
         esModule: false,
-        ...styleLoaderOptions,
       });
   } else {
     rule
