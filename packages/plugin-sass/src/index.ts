@@ -110,7 +110,7 @@ module.exports = (api: PluginAPI, options: any) => {
       loader: 'fast-sass-loader',
       loaderOptions: {
         includePaths: [
-          path.resolve(__dirname, '../node_modules'),
+          path.resolve(api.getCwd(), 'node_modules')
         ],
       },
       // 只有在构建的时候才抽取样式
