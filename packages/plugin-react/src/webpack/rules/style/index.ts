@@ -99,7 +99,6 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
  * @param options
  */
 export const style = (config: Chain, options: BreezrStyleOptions) => {
-
   const {
     cwd,
     shouldExtract,
@@ -159,6 +158,21 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
       .use(require('mini-css-extract-plugin'), [{
         filename: '[name].css',
         chunkFilename: '[id].css',
+        // 针对沙箱场景替换 async chunk 的文件名
+        insert: (linkTag: HTMLLinkElement) => {
+          let isConsoleOS = false;
+
+          try {
+            // context maybe not defined
+            // @ts-ignore
+            isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
+          } catch (e) {
+            // ...
+          }
+
+          if (isConsoleOS) linkTag.href = linkTag.href.replace('.css', '.os.css');
+          document.head.appendChild(linkTag);
+        },
       }]);
   }
 };

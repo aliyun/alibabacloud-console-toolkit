@@ -135,7 +135,7 @@ interface BreezrStyleOptions {
   hasPostCSSConfig?: boolean;
   disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
-  postCssPlugins?: any[]
+  postCssPlugins?: any[];
 }
 
 interface ThemeDef {

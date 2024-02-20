@@ -1,5 +1,6 @@
 import * as Chain from 'webpack-chain';
-import * as Webpack from 'webpack';
+import * as Webpack from 'webpack'
+
 import { createRules } from '../../../utils';
 import { BreezrReactBabelOption } from '../../../types';
 import * as happypack from 'happypack';
