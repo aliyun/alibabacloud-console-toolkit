@@ -109,8 +109,6 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     condition = 'stable',
     consoleOS,
     disableConsoleOS,
-    appId,
-    classNamePrefix,
   } = options;
 
   const {
@@ -127,7 +125,6 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     applyCssLoaders(baseRule, {
       ...options,
       ...styleOptions,
-      classNamePrefix: !disableConsoleOS && !disableOsCssExtends && appId ? appId.replace('@ali/', 'ali-') : classNamePrefix,
     });
   }
 
@@ -178,6 +175,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
           let isConsoleOS = false;
 
           try {
+            // context maybe not defined
             // @ts-ignore
             isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
           } catch (e) {
