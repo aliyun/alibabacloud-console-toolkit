@@ -3,6 +3,7 @@ import { OutputOptions, rollup } from 'rollup';
 import getRollupOptions from './utils/getRollupOptions.js';
 import buildCJS from './utils/buildCJS.js';
 import buildUmd from './utils/buildUmd.js';
+import handleError from './utils/handleError.js';
 
 import type { IBuildOptions } from './type';
 
@@ -20,7 +21,7 @@ export default async function build(options: IBuildOptions) {
     await bundles.close();
   } catch (e) {
     console.error('build esm failed.');
-    throw e;
+    handleError(e as Error);
   }
 
   /**
@@ -36,7 +37,7 @@ export default async function build(options: IBuildOptions) {
     await bundles.close();
   } catch (e) {
     console.error('build cjs failed.');
-    throw e;
+    handleError(e as Error);
   }
 
   /**
@@ -53,7 +54,7 @@ export default async function build(options: IBuildOptions) {
       await bundles.close();
     } catch (e) {
       console.error('build umd failed.');
-      throw e;
+      handleError(e as Error);
     }
   }
 }
