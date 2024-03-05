@@ -81,6 +81,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactRefresh,
     postCssPlugins,
     disableImportXConsoleCSS = false,
+    consoleOS,
+    disableConsoleOS,
+    appId,
   } = options;
 
   if (!cwd) {
@@ -152,7 +155,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     hashPrefix,
     disableAutoPrefixer,
     classNamePrefix,
-    postCssPlugins
+    postCssPlugins,
+    consoleOS,
+    disableConsoleOS,
+    appId,
   });
 
   file(config, options);

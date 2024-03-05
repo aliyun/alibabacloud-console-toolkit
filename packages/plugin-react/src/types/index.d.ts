@@ -91,6 +91,16 @@ interface BreezrReactOptions {
   moment?: {
     disable: boolean;
   };
+
+  // consoleOS
+  appId?: string;
+  consoleOS?: {
+    cssPrefix?: string;
+    disableCssPrefix?: boolean;
+    disableOsCssExtends?: boolean;
+    enableStandaloneBundle?: boolean;
+  };
+  disableConsoleOS?: boolean;
 }
 
 /**
@@ -120,7 +130,7 @@ type CssModules = boolean | 'global' | 'local';
 /**
  * style 的 options 类型
  */
-interface BreezrStyleOptions {
+interface BreezrStyleOptions extends Pick<BreezrReactOptions, 'appId' | 'consoleOS' | 'disableConsoleOS'> {
   cwd: string;
   theme?: string | ThemeDef;
   modules?: CssModules;

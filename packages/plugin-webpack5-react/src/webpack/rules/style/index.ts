@@ -113,6 +113,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
 
   const {
     disableOsCssExtends,
+    disableCssPrefix
   } = consoleOS || {};
 
   function createCssRules(lang: string, condition: webpack.RuleSetRule, styleOptions?: {
@@ -171,7 +172,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
         chunkFilename: '[id].css',
         // 针对沙箱场景替换 async chunk 的文件名
         // 必须是没有关闭微应用构建且没关闭构建 .os.css 文件
-        insert: (!disableConsoleOS && !disableOsCssExtends) ? (linkTag: HTMLLinkElement) => {
+        insert: (!disableConsoleOS && !disableOsCssExtends && !disableCssPrefix) ? (linkTag: HTMLLinkElement) => {
           let isConsoleOS = false;
 
           try {

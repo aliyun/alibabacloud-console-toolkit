@@ -103,7 +103,14 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     cwd,
     shouldExtract,
     condition = 'stable',
+    consoleOS,
+    disableConsoleOS,
   } = options;
+
+  const {
+    disableOsCssExtends,
+    disableCssPrefix
+  } = consoleOS || {};
 
   function createCssRules(lang: string, test: webpack.Condition, styleOptions?: {
     loader?: string;
@@ -159,7 +166,8 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
         filename: '[name].css',
         chunkFilename: '[id].css',
         // 针对沙箱场景替换 async chunk 的文件名
-        insert: (linkTag: HTMLLinkElement) => {
+        // 必须是没有关闭微应用构建且没关闭构建 .os.css 文件
+        insert: (!disableConsoleOS && !disableOsCssExtends && !disableCssPrefix) ? (linkTag: HTMLLinkElement) => {
           let isConsoleOS = false;
 
           try {
@@ -167,12 +175,12 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
             // @ts-ignore
             isConsoleOS = !!context.__IS_CONSOLE_OS_CONTEXT__ && window !== window.parent;
           } catch (e) {
-            // ...
+              // ...
           }
-
           if (isConsoleOS) linkTag.href = linkTag.href.replace('.css', '.os.css');
+
           document.head.appendChild(linkTag);
-        },
+        } : undefined,
       }]);
   }
 };
