@@ -16,12 +16,13 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   const {
     port = 3333,
     host = 'localhost',
-    https = false,
+    https,
     defineGlobalConstants,
     noOpen,
-    disableHmr = false,
-    publicPathOnDev = false,
-    reactRefresh
+    disableHmr,
+    publicPathOnDev,
+    reactRefresh,
+    disableErrorOverlay,
   } = options;
 
   config.mode(NODE_ENV);
@@ -61,6 +62,9 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     config.devServer.hot('only')
   }
 
+  if (!disableErrorOverlay) {
+    config.devServer.client.set('overlay', false);
+  }
 
   if (reactRefresh) {
     reactRefreshPlugin(config, options)
@@ -78,6 +82,9 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
   } = options;
 
   config.devServer.allowedHosts.add('all');
+  
+  // 关闭 cache, 可能会本地修改 node_modules
+  config.cache(false);
 
   config
     .stats('errors-only')
