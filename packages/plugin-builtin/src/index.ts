@@ -7,7 +7,7 @@ import { BuiltInConfig } from './BuiltInConfig';
 
 export default function (api: PluginAPI, config: BuiltInConfig) {
   build(api, config);
-  dev(api);
+  dev(api, config);
   inspect(api);
   init(api);
 }

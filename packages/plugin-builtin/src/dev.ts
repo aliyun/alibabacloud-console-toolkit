@@ -1,10 +1,13 @@
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 import { getConfigFile } from '@alicloud/console-toolkit-core/lib/plugins/config/config';
 import * as Chain from 'webpack-chain';
+import * as Chain5 from '@gem-mine/webpack-chain';
 import { getEnv, watch } from '@alicloud/console-toolkit-shared-utils';
 
-async function server(api: PluginAPI, callback: (() => Promise<void>)[]) {
-  const chain = new Chain();
+import { BuiltInConfig } from './BuiltInConfig';
+
+async function server(api: PluginAPI, webpack5 = false, callback: (() => Promise<void>)[]) {
+  const chain = webpack5 ? new Chain5() : new Chain();
 
   for (const fn of callback) {
     await fn();
@@ -16,8 +19,8 @@ async function server(api: PluginAPI, callback: (() => Promise<void>)[]) {
   api.emit('onDevEnd', chain);
 }
 
-export default function (api: PluginAPI) {
-
+export default function (api: PluginAPI, config: BuiltInConfig) {
+  const { webpack5 } = config;
   const callback: (() => Promise<void>)[] = [];
 
   api.registerSyncAPI('registerBeforeDevStart', (fn: () => Promise<void>) => {
@@ -37,6 +40,6 @@ export default function (api: PluginAPI) {
       });
     }
 
-    await server(api, callback);
+    await server(api, webpack5, callback);
   });
 }

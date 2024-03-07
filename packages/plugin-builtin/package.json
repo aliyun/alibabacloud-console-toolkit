@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-builtin",
-  "version": "1.2.30",
+  "version": "1.3.0",
   "description": "console toolkit plugin for build-in cmd",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "watch": "tsc -watch -d true -p ./",
     "test": "jest",
     "cov": "jest  --coverage",
-    "prepare": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -22,10 +22,7 @@
     "chai": "^4.2.0",
     "jest": "^24.2.0-alpha.0",
     "nyc": "^14.1.1",
-    "ts-jest": "^24.0.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.8.0",
-    "typescript": "^3.0.3"
+    "typescript": "^4.0.0"
   },
   "dependencies": {
     "@alicloud/console-toolkit-core": "^1.2.30",
@@ -33,9 +30,9 @@
     "@alicloud/console-toolkit-plugin-generator": "^1.2.30",
     "@alicloud/console-toolkit-plugin-webpack": "^1.2.30",
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
+    "@gem-mine/webpack-chain": "^7.1.0",
     "webpack-chain": "^6.0.0"
   },
-  "author": "boelroy <boelroy@live.com>",
-  "license": "MIT",
-  "gitHead": "2f3e37686a805e56fb3a7a8a283abcf484fe8b7a"
+  "author": "",
+  "license": "MIT"
 }
