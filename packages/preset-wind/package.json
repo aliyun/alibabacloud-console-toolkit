@@ -1,18 +1,17 @@
 {
   "name": "@alicloud/console-toolkit-preset-official",
-  "version": "1.3.3",
+  "version": "1.3.4",
   "description": "console toolkit preset for console app",
   "author": "fringey <465964690@qq.com>",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
     "ci": "npm run lint && npm run compile && npm run cov",
-    "lint": "tslint --project .",
     "compile": "rimraf ./lib && tsc -d true -p ./",
     "watch": "tsc -watch -d true -p ./",
     "test": "jest",
     "cov": "jest  --coverage",
-    "prepare": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",
@@ -24,10 +23,7 @@
     "jest": "^24.2.0-alpha.0",
     "nyc": "^14.1.1",
     "rimraf": "^2.6.3",
-    "ts-jest": "^24.0.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.8.0",
-    "typescript": "^3.0.3"
+    "typescript": "^4.0.0"
   },
   "dependencies": {
     "@alicloud/console-toolkit-plugin-arms": "^1.2.50",

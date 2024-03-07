@@ -20,7 +20,12 @@ export default (config: BreezrPresetConfig, args: any) => {
   const publicPath = args.outputPublicPath || config.outputPublicPath || '/';
 
   plugins.push(...[
-    '@alicloud/console-toolkit-plugin-builtin',
+    [
+      '@alicloud/console-toolkit-plugin-builtin',
+      {
+        webpack5
+      }
+    ],
     [
       webpack5 ? '@alicloud/console-toolkit-plugin-webpack5-react' : '@alicloud/console-toolkit-plugin-react',
       {
