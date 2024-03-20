@@ -110,14 +110,14 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   config
     .context(src)
     .entry('index')
-      .add(entry)
-      .end()
+    .add(entry)
+    .end()
     .output
-      .filename(output.filename)
-      .path(outputPath)
-      .publicPath(output.publicPath)
-      .chunkFilename(output.chunkFilename)
-      .end();
+    .filename(output.filename)
+    .path(outputPath)
+    .publicPath(output.publicPath)
+    .chunkFilename(output.chunkFilename)
+    .end();
 
   config.resolve
     .extensions
@@ -178,14 +178,14 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
       // @ts-ignore
       templateParameters: (compilation, assets, assetTags, options) => {
         return {
-            compilation,
-            webpackConfig: compilation.options,
-            htmlWebpackPlugin: {
-                tags: assetTags,
-                files: assets,
-                options,
-            },
-            __dev__: getEnv().isDev()
+          compilation,
+          webpackConfig: compilation.options,
+          htmlWebpackPlugin: {
+            tags: assetTags,
+            files: assets,
+            options,
+          },
+          __dev__: getEnv().isDev()
         };
       },
     });

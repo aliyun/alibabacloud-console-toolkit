@@ -83,8 +83,21 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
 
   config.devServer.allowedHosts.add('all');
   
-  // 关闭 cache, 可能会本地修改 node_modules
-  config.cache(false);
+  /**
+   * https://github.com/webpack/webpack/issues/11612#issuecomment-705790881
+   * By default, webpack assumes that the node_modules directory,
+   * which webpack is inside of, is only modified by a package manager.
+   * Hashing and timeStamping is skipped for node_modules.
+   * Instead, only the package name and version is used for performance reasons.
+   * Symlinks (i. e. npm/yarn link) are fine.
+   * Do not edit files in node_modules directly unless you opt-out of this optimization with snapshot.managedPaths: []. 
+   * When using Yarn PnP webpack assumes that the yarn cache is immutable (which it usually is).
+   * You can opt-out of this optimization with snapshot.immutablePaths: []
+   */
+  config.snapshot({
+    managedPaths: [],
+    immutablePaths: [],
+  })
 
   config
     .stats('errors-only')
