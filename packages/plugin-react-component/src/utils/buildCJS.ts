@@ -56,6 +56,7 @@ export default function getRollupOptions(options: IBuildOptions) {
       sourcemap,
       assetFileNames: '[name][extname]',
       hoistTransitiveImports: false,
+      interop: 'auto',
       globals,
     },
     external: [
