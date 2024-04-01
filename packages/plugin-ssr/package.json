@@ -46,5 +46,5 @@
   },
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
-  "gitHead": "3246ceba508b9214dc1146828a168c80e0009094"
+  "repository": "git@github.com:aliyun/alibabacloud-console-toolkit.git"
 }
