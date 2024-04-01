@@ -31,8 +31,8 @@ export default async (api: PluginAPI, opts: IOption) => {
 
     done('ssr bundle build successfully!');
   } catch(e) {
-    error(e.toString());
-    debug('ssr', e.stack);
+    error((e as Error).toString());
+    debug('ssr', (e as Error).stack);
     exit(0);
   }
 };

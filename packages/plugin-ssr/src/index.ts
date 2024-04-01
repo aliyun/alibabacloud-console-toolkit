@@ -97,8 +97,8 @@ const ssrRender = (serverEntryPath: string,req: express.Request, res: express.Re
     res.set('Content-Type', 'text/html')
     res.write(str);
   } catch(e) {
-    res.write(e.toString());
-    res.write(e.stack);
+    res.write((e as Error).toString());
+    res.write((e as Error).stack);
   }
   res.end();
 }
