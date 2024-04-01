@@ -34,6 +34,7 @@
   "dependencies": {
     "@alicloud/console-toolkit-shared-utils": "^1.2.30",
     "@types/express": "^4.17.12",
+    "@types/mime": "^1.3.5",
     "chokidar": "^3.5.3",
     "lodash": "^4.17.11",
     "rimraf": "^3.0.0",
