@@ -145,6 +145,12 @@ const config = {
       "version": "*",
       "reason": "transform es5"
     }
+  },
+  "@antv/xflow": {
+    "^2.0.0": {
+      "version": "^2.0.0",
+      "reason": "not support es5",
+    }
   }
 };
 
