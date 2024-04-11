@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.0.21",
+  "version": "1.0.22",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -69,7 +69,8 @@
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-open-browser": "^2.0.2",
     "webpack-plugin-html-skeleton": "^1.0.14",
-    "webpackbar": "^5.0.0"
+    "webpackbar": "^5.0.0",
+    "@hot-loader/react-dom": "^16.14.0"
   },
   "peerDependencies": {
     "webpack": ">= 5"

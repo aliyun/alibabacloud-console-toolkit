@@ -9,7 +9,8 @@ export function hmrPlugin(config: Chain) {
   config
     .resolve
     .alias
-    .set('webpack/hot', resolve(webpackHotPath, '..', 'hot'));
+    .set('webpack/hot', resolve(webpackHotPath, '..', 'hot'))
+    .set('react-dom', '@hot-loader/react-dom');
 
   createPlugin(
     config,

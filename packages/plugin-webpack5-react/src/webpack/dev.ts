@@ -59,7 +59,8 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   }
 
   if (!disableHmr) {
-    config.devServer.hot('only')
+    config.devServer.hot('only');
+    config.resolve.alias.set('react-dom', '@hot-loader/react-dom');
   }
 
   if (!disableErrorOverlay) {
@@ -82,7 +83,7 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
   } = options;
 
   config.devServer.allowedHosts.add('all');
-  
+
   /**
    * https://github.com/webpack/webpack/issues/11612#issuecomment-705790881
    * By default, webpack assumes that the node_modules directory,
@@ -90,7 +91,7 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
    * Hashing and timeStamping is skipped for node_modules.
    * Instead, only the package name and version is used for performance reasons.
    * Symlinks (i. e. npm/yarn link) are fine.
-   * Do not edit files in node_modules directly unless you opt-out of this optimization with snapshot.managedPaths: []. 
+   * Do not edit files in node_modules directly unless you opt-out of this optimization with snapshot.managedPaths: [].
    * When using Yarn PnP webpack assumes that the yarn cache is immutable (which it usually is).
    * You can opt-out of this optimization with snapshot.immutablePaths: []
    */
