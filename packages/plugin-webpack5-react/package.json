@@ -70,7 +70,8 @@
     "webpack-open-browser": "^2.0.2",
     "webpack-plugin-html-skeleton": "^1.0.14",
     "webpackbar": "^5.0.0",
-    "@hot-loader/react-dom": "^16.14.0"
+    "@hot-loader/react-dom": "^16.14.0",
+    "webpack-mkcert": "^1.0.3"
   },
   "peerDependencies": {
     "webpack": ">= 5"

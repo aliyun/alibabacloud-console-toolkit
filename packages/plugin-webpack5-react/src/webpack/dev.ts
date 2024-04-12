@@ -108,6 +108,17 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
     })
     .port(port)
     .host(host)
+    .set(
+      'server',
+      https === true
+        ? 'https'
+        : https === false
+          ? 'http'
+          : {
+            type: 'https',
+            options: https,
+          }
+    )
     .https(https)
     .hot(!disableHmr)
     .historyApiFallback({

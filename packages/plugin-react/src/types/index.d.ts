@@ -1,11 +1,12 @@
 import * as Webpack from 'webpack';
+import * as https from 'https';
 
 type CssConditionType = 'legacy' | 'stable' | 'widget';
 
 interface BreezrReactOptions {
   port?: number;
   host?: string;
-  https?: boolean;
+  https?: boolean | https.ServerOptions;
   publicPathOnDev?: string;
 
   cwd?: string;
