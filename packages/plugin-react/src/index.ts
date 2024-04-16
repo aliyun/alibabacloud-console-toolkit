@@ -8,7 +8,6 @@ import {
   warn,
   info,
 } from '@alicloud/console-toolkit-shared-utils';
-import webpackMkcert from 'webpack-mkcert';
 import { chainDev } from './development';
 import { chainProd } from './production';
 import html from './html';
@@ -22,7 +21,8 @@ export default async function (api: PluginAPI, options: PluginOptions) {
     if (getEnv().isDev()) {
       info('HTTPS 已启用，生成自签名证书中……');
       try {
-        options.https = await webpackMkcert({
+        const webpackMkcert = await import('webpack-mkcert');
+        options.https = await webpackMkcert.default({
           hosts: ['localhost', '127.0.0.1'],
         });
         info('证书生成成功');
