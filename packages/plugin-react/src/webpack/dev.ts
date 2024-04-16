@@ -21,7 +21,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     defineGlobalConstants,
     noOpen,
     disableHmr = false,
-    publicPathOnDev = false,
+    publicPathOnDev = true,
     reactRefresh
   } = options;
 
@@ -54,7 +54,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   }
 
   if (publicPathOnDev) {
-    config.output.publicPath(`//${host}:${port}`);
+    config.output.publicPath(`//${host}:${port}/`);
   }
 
   if (!disableHmr) {

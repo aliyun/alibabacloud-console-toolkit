@@ -1,5 +1,6 @@
 import { Configuration, RuleSetCondition } from 'webpack';
 import { Evnrioment } from '@alicloud/console-toolkit-shared-utils';
+import * as https from 'https';
 
 interface ThemeDef {
   [key: string]: string;
@@ -33,10 +34,10 @@ export interface BreezrPresetConfig {
   host?: string;
   /**
    * dev-server 启用 https
-   * @type {Boolean}
+   * @type {Boolean | https.ServerOptions}
    * @defaults false
    */
-  https?: boolean;
+  https?: boolean | https.ServerOptions;
 
   /**
    * 开启 webpack-bundle-analyzer 来分析包大小
@@ -56,10 +57,9 @@ export interface BreezrPresetConfig {
   output?: {
     filename: string;
     path: string;
-    publicPath: string,
-    chunkFilename: string,
+    publicPath: string;
+    chunkFilename: string;
   };
-
 
   /**
    * 是否开启构建出 source-map
@@ -82,17 +82,17 @@ export interface BreezrPresetConfig {
   useLegacyCssModules?: boolean;
 
   /**
-   * 构建的 css 
+   * 构建的 css
    * @type {String}
    * @defaults ''
    */
   classNamePrefix?: string;
 
   /**
-   * 
+   *
    * @type { string | Object }
    * @defaults {}
-   * 
+   *
    * 配置主题，实际上是配 less 变量。支持对象和字符串两种类型，字符串需要指向一个返回配置的文件。比如：
    *  theme : {
    *    '@primary': '#0070cc'
@@ -169,7 +169,7 @@ export interface BreezrPresetConfig {
    * 是否在构建的时候转义内置的 es6 输出的三方库
    * 详见 https://yuque.antfin-inc.com/wind/breezr_guide/question#a8ccc89b
    */
-  es5ImcompatibleVersions?: boolean,
+  es5ImcompatibleVersions?: boolean;
 
   // file-loader 配置
   staticAssetsOutputPath?: string;
@@ -186,7 +186,7 @@ export interface BreezrPresetConfig {
    * 全局变量配置
    */
   defineGlobalConstants?: {
-    [key: string]: any,
+    [key: string]: any;
   };
 
   useTypescript?: boolean;
@@ -194,9 +194,9 @@ export interface BreezrPresetConfig {
   useSass?: boolean;
 
   typescript?: {
-    useBabel?: boolean,
+    useBabel?: boolean;
     disableTypeChecker?: boolean;
-  },
+  };
 
   htmlFileName?: string;
 
@@ -250,11 +250,15 @@ export interface BreezrPresetConfig {
   /**
    * 自定义 wepback 配置
    */
-  webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
+  webpack?: (
+    config: Configuration,
+    options: BreezrPresetConfig,
+    env: Evnrioment
+  ) => Configuration;
 
   /**
    * 使用 webpack5
-  */
+   */
   webpack5?: boolean;
 
   /**
@@ -265,10 +269,10 @@ export interface BreezrPresetConfig {
     product?: string;
     oneConsoleProductAlias?: Record<string, string>;
     uriMatch?: string;
-    pathReplace?: string,
+    pathReplace?: string;
     proxy?: any;
     disableBodyParser?: boolean;
-  }
+  };
   /**
    * 开启浏览器兼容性
    */
@@ -294,7 +298,7 @@ export interface BreezrPresetConfig {
   dll?: {
     dllOutputDir: string;
     dllLib: string[];
-  }
+  };
   /**
    * 性能优化，开启长效缓存，https://yuque.antfin-inc.com/wind/breezr_guide/gq75o4
    */
@@ -310,6 +314,10 @@ export interface BreezrPresetConfig {
 
   ssr?: {
     entry?: string;
-    webpack?: (config: Configuration, options: BreezrPresetConfig, env: Evnrioment) => Configuration;
-  }
+    webpack?: (
+      config: Configuration,
+      options: BreezrPresetConfig,
+      env: Evnrioment
+    ) => Configuration;
+  };
 }
