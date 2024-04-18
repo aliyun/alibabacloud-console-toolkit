@@ -4,34 +4,17 @@ import {
   debug,
   Evnrioment,
   BuildType,
-  getEnv,
-  warn,
-  info,
 } from '@alicloud/console-toolkit-shared-utils';
 import { chainDev } from './development';
 import { chainProd } from './production';
 import html from './html';
+import mkcert from './mkcert';
 
 export * from './development';
 export * from './production';
 
 export default async function (api: PluginAPI, options: PluginOptions) {
-  // 自动生成 https 证书
-  if (options.https === true) {
-    if (getEnv().isDev()) {
-      info('HTTPS 已启用，生成自签名证书中……');
-      try {
-        const webpackMkcert = await import('webpack-mkcert');
-        options.https = await webpackMkcert.default({
-          hosts: ['localhost', '127.0.0.1'],
-        });
-        info('证书生成成功');
-      } catch (e) {
-        warn('证书生成失败');
-        throw e;
-      }
-    }
-  }
+  await mkcert(api, options);
 
   api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
     // plugin react chain start;
