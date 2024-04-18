@@ -1,6 +1,7 @@
 import { PluginAPI, CommandArgs } from '@alicloud/console-toolkit-core';
 import { debug, getEnv, error } from '@alicloud/console-toolkit-shared-utils';
 import * as Chain from 'webpack-chain';
+import * as Chain5 from '@gem-mine/webpack-chain';
 import { BuiltInConfig } from './BuiltInConfig';
 
 const options = {
@@ -14,7 +15,7 @@ const options = {
  * @param opts
  */
 async function buildByWebpack(api: PluginAPI, opts: CommandArgs) {
-  const chain = new Chain();
+  const chain = opts.webpack5 ? new Chain5() : new Chain();
   const env = getEnv();
   api.emit('onChainWebpack', chain, env);
   await api.dispatch('webpack', { config: chain.toConfig() });
@@ -82,6 +83,7 @@ export default async function (api: PluginAPI, config: BuiltInConfig) {
         error(`can't find build engine for ${buildEngineType}`);
         return;
     }
+
     await builder(api, opts);
     api.emit('onBuildEnd');
   });

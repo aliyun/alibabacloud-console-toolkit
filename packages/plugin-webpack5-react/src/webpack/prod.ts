@@ -49,7 +49,7 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   config
     .optimization
-      .minimize(!options.disableUglify);
+    .minimize(!options.disableUglify);
   
   if (enableCache) {
     const buildDependencies = [join(rootDir, 'package.json')];
@@ -68,5 +68,11 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
       },
       cacheDirectory: cacheDirectory ? join(cacheDirectory, 'webpack') : join(rootDir, 'node_modules/.cache', 'webpack'),
     });
+
+    config.snapshot({
+      // tnpm install 生成的 link 在创建 snapshot 时会导致依赖死循环，从而导致 OOM
+      // tnpm 包目录格式: node_modules/_react@16.14.0@react
+      immutablePaths: [/^(.+?[\\/]node_modules[\\/]_.+?@.+?@.+?)[\\/]/],
+    })
   }
 };

@@ -94,6 +94,8 @@ function chainDevServer(config: Chain, options: BreezrReactOptions) {
    * Do not edit files in node_modules directly unless you opt-out of this optimization with snapshot.managedPaths: [].
    * When using Yarn PnP webpack assumes that the yarn cache is immutable (which it usually is).
    * You can opt-out of this optimization with snapshot.immutablePaths: []
+   * 
+   * 避免 webpack 将 node_modules 缓存，导致修改 node_modules 内的包代码不生效
    */
   config.snapshot({
     managedPaths: [],
