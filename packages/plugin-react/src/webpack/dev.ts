@@ -54,7 +54,7 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
   }
 
   if (publicPathOnDev) {
-    config.output.publicPath(`//${host}:${port}/`);
+    config.output.publicPath(`${protocol}://${host}:${port}/`);
   }
 
   if (!disableHmr) {
