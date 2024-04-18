@@ -56,6 +56,10 @@ export interface IBuildOptions {
     output?: string;
   };
   /**
+   * dev-server https
+   */
+  https?: boolean;
+  /**
    * dev-server host
    */
   host?: string;
