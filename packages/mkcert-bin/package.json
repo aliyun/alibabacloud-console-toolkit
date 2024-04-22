@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/mkcert-bin",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "collection of mkcert binaries",
   "main": "lib/index.js",
   "scripts": {
@@ -23,7 +23,10 @@
     "nyc": "^14.1.1",
     "typescript": "^4.9.5"
   },
-  "dependencies": {},
+  "dependencies": {
+    "@alicloud/console-toolkit-shared-utils": "workspace:^1.2.30",
+    "webpack-mkcert": "^1.0.3"
+  },
   "author": "std4453 <me@std4453.com>",
   "license": "MIT",
   "publishConfig": {

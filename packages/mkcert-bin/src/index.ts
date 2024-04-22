@@ -1,4 +1,5 @@
 import * as path from 'path';
+import { error, info } from '@alicloud/console-toolkit-shared-utils';
 
 function getPlatformIdentifier() {
   switch (`${process.platform}-${process.arch}`) {
@@ -20,7 +21,7 @@ function getPlatformIdentifier() {
     case 'darwin-amd64':
       return 'darwin-amd64';
     default:
-      return null;
+      return undefined;
   }
 }
 
@@ -30,11 +31,36 @@ export function getMkcertBin() {
   const platformIdentifier = getPlatformIdentifier();
 
   if (!platformIdentifier) {
-    return null;
+    return undefined;
   }
 
   return path.resolve(
     __dirname,
-    `../mkcert-bin/mkcert-${mkcertVersion}-${platformIdentifier}`
+    `../bin/mkcert-${mkcertVersion}-${platformIdentifier}`
   );
+}
+
+export async function mkcert2webpack(passInHttps?: boolean | { key: Buffer; cert: Buffer }) {
+  // 自动生成 https 证书
+  let https = passInHttps;
+  if (passInHttps === true) {
+    info('HTTPS 已启用，生成自签名证书中……');
+    try {
+      const webpackMkcert = await import('webpack-mkcert');
+      https = await webpackMkcert.default({
+        mkcertPath: getMkcertBin(),
+        hosts: ['localhost', '127.0.0.1'],
+      });
+      info('证书生成成功');
+    } catch (e) {
+      error('证书生成失败');
+      throw e;
+    }
+  }
+
+  if (passInHttps === undefined) {
+    console.info('现已支持自动生成 HTTPS 证书，配置 https: true 即可启用');
+  }
+
+  return https;
 }
