@@ -4,18 +4,22 @@ import {
   debug,
   Evnrioment,
   BuildType,
+  getEnv,
 } from '@alicloud/console-toolkit-shared-utils';
+import { mkcert2webpack } from '@alicloud/mkcert-bin';
 
 import { chainDev } from './development';
 import { chainProd } from './production';
 import html from './html';
-import mkcert from './mkcert';
 
 export * from './development';
 export * from './production';
 
 export default async function (api: PluginAPI, options: PluginOptions) {
-  await mkcert(api, options);
+  if (getEnv().isDev()) {
+    // 本地开发环境，注册 https 证书
+    options.https = await mkcert2webpack(options.https);
+  }
 
   api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
     // plugin react chain start;

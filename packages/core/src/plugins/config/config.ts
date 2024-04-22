@@ -48,7 +48,7 @@ const requireFile = (filePath: string) => {
     debug('core', 'require filePath %s %j', filePath, config);
     return resolveModule(config);
   } catch (e) {
-    return onError(e);
+    return onError(e as Error);
   }
 };
 
@@ -67,7 +67,9 @@ export default (api: PluginAPI, opts: PluginOptions, args: CommandArgs) => {
     if (getEnv().isDev()) {
       try {
         devConfig = require(absConfigPath.replace(/\.js$/, `.local.js`));
-      } catch(e) {}
+      } catch(e) {
+        //...
+      }
     }
 
     // 如果用户自己传入了配置, 那么使用传入的配置.

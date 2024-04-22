@@ -30,7 +30,15 @@
     "ts-jest": "^23.10.5",
     "typescript": "^3.0.3"
   },
-  "dependencies": {
-    "lerna": "^3.18.3"
+  "pnpm": {
+    "packageExtensions": {
+      "@gem-mine/webpack-chain": {
+        "dependencies": {
+          "webpack": "^5.0.0",
+          "@types/webpack": "^5.0.0",
+          "webpack-dev-server": "^5.0.0"
+        }
+      }
+    }
   }
 }

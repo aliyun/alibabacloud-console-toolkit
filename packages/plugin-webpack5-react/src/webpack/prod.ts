@@ -18,7 +18,7 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
   const rootDir = process.cwd();
   const env = getEnv();
 
-  if (!!options.sourceMap) {
+  if (options.sourceMap) {
     config.devtool('source-map');
   }
 
