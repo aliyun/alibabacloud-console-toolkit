@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.0.26",
+  "version": "1.0.27",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -71,7 +71,8 @@
     "webpack-mkcert": "^1.0.3",
     "webpack-open-browser": "^2.0.2",
     "webpack-plugin-html-skeleton": "^1.0.14",
-    "webpackbar": "^5.0.0"
+    "webpackbar": "^5.0.0",
+    "@alicloud/mkcert-bin": "^1.4.4"
   },
   "peerDependencies": {
     "webpack": ">= 5"
