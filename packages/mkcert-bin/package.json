@@ -25,5 +25,8 @@
   },
   "dependencies": {},
   "author": "std4453 <me@std4453.com>",
-  "license": "MIT"
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  }
 }
