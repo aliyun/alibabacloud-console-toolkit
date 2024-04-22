@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/mkcert-bin",
-  "version": "1.4.4",
+  "version": "1.0.0",
   "description": "collection of mkcert binaries",
   "main": "lib/index.js",
   "scripts": {
@@ -10,7 +10,7 @@
     "watch": "tsc -watch -d true -p ./",
     "test": "jest",
     "cov": "jest  --coverage",
-    "prepare": "npm run compile",
+    "prepublishOnly": "npm run compile",
     "postinstall": "node ./scripts/postinstall.js"
   },
   "devDependencies": {
@@ -21,9 +21,6 @@
     "chai": "^4.2.0",
     "jest": "^24.2.0-alpha.0",
     "nyc": "^14.1.1",
-    "ts-jest": "^24.0.0",
-    "ts-node": "^8.4.1",
-    "tslint": "^5.8.0",
     "typescript": "^4.9.5"
   },
   "dependencies": {},

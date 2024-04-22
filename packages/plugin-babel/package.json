@@ -15,7 +15,7 @@
     "test": "jest",
     "postinstall": "node scripts/link.js",
     "cov": "jest  --coverage",
-    "prepare": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "devDependencies": {
     "@types/chai": "^4.1.7",

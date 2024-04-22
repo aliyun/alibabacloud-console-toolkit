@@ -17,7 +17,7 @@
     "watch": "tsc -watch -d true -p ./",
     "test": "jest",
     "cov": "jest  --coverage",
-    "prepare": "npm run compile"
+    "prepublishOnly": "npm run compile"
   },
   "devDependencies": {
     "@types/babel__standalone": "^7.1.4",

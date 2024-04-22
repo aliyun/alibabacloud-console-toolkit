@@ -2,6 +2,7 @@
   "name": "root",
   "private": true,
   "scripts": {
+    "boot": "rm -rf node_modules && pnpm -r exec rm -rf node_modules && pnpm i",
     "ci": "lerna run lint && lerna run compile && npm run cov",
     "cov": "jest --coverage",
     "docs:build": "vuepress build docs",
