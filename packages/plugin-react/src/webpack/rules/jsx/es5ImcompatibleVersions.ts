@@ -122,7 +122,7 @@ const config = {
       "reason": "https://github.com/alibaba/hooks",
     }
   },
-  "monaco-editor/": {
+  "monaco-editor": {
     "*": {
       "version": "*",
       "reason": "https://github.com/microsoft/monaco-editor/issues/2817",
