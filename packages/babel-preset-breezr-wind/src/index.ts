@@ -45,8 +45,8 @@ export default ((ctx: any, options: any) => {
 
   if (windRc) {
     plugins.push([
-        require.resolve('babel-plugin-wind-rc'),
-        typeof windRc === 'boolean' ? {} : windRc
+      require.resolve('babel-plugin-wind-rc'),
+      typeof windRc === 'boolean' ? {} : windRc
     ]);
   }
 
@@ -75,7 +75,7 @@ export default ((ctx: any, options: any) => {
   return {
     plugins,
     presets: [
-      [require.resolve('babel-preset-breezr')],
+      [require.resolve('@alicloud/babel-preset-xconsole')],
     ],
   };
 });
