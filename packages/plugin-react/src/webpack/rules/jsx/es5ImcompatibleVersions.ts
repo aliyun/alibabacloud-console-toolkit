@@ -134,6 +134,12 @@ const config = {
       "reason": "transform es5",
     }
   },
+  "": {
+    "*": {
+      "version": "*",
+      "reason": "transform es5",
+    }
+  },
   "react-error-boundary": {
     "^4.0.0": {
       "version": "^4.0.0",
