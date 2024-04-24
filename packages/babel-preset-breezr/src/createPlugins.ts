@@ -68,7 +68,6 @@ const createLogicalAssignmentOperators = createPluginCreator(
   (options) => options.proposal.logicalAssignmentOperators
 );
 
-
 const createOptionalChaining = createPluginCreator(
   // Allows to handle many of checking a property value
   // whether intermediate nodes exist in a tree-like structure
@@ -220,13 +219,6 @@ const createJSONStrings = createPluginCreator(
   (options) => options.proposal.jsonStrings
 );
 
-const createPrivateMethods = createPluginCreator(
-  // To process valid JSON into valid ECMAScript before embedding it.
-  // https://github.com/tc39/proposal-json-superset
-  require('@babel/plugin-proposal-private-methods'),
-  (options) => ({loose: true})
-);
-
 const createPropertyMethods = createPluginCreator(
   // Proposal: Private methods and getter/setters for JavaScript classes
   // https://babeljs.io/docs/en/babel-plugin-proposal-private-methods
@@ -242,6 +234,10 @@ const createPropertyMethods = createPluginCreator(
   })
 );
 
+const createRegExpModifies = createPluginCreator(
+  require('@babel/plugin-proposal-regexp-modifiers'),
+  (options) => options.proposal.regexpModifiers
+);
 
 export default combineCreators([
   createTransformRuntime,
@@ -260,6 +256,6 @@ export default combineCreators([
   createImportMeta,
   createClassProperties,
   createJSONStrings,
-  createPrivateMethods,
   createPropertyMethods,
+  createRegExpModifies,
 ]);

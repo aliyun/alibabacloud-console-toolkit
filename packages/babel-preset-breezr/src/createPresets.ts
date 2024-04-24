@@ -7,7 +7,7 @@ export default (options: IOptions): BabelPresets => [
     {
       // Works with IE 9
       targets: {
-        ie: 9,
+        ie: 10,
         safari: 'tp',
       },
 

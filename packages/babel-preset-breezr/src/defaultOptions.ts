@@ -22,6 +22,7 @@ const defaultOptions: IOptions = {
     importMeta: true,
     classProperties: true,
     jsonStrings: true,
+    regexpModifiers: true,
   },
 };
 

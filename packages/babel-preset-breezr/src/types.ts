@@ -22,6 +22,7 @@ export interface IProposal {
   importMeta?: Proposal;
   classProperties?: Proposal;
   jsonStrings?: Proposal;
+  regexpModifiers?: Proposal;
 }
 
 export interface IOptionalOptions {
