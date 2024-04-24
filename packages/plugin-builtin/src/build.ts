@@ -69,6 +69,9 @@ export default async function (api: PluginAPI, config: BuiltInConfig) {
 
     const buildEngineType = opts.engine || config.engine || 'webpack';
     let builder = null;
+
+    if (config.webpack5) opts.webpack5 = true;
+
     switch(buildEngineType) {
       case 'webpack':
         builder = buildByWebpack;
