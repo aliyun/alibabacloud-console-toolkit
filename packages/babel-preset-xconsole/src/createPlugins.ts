@@ -45,7 +45,7 @@ const createDecorator = createPluginCreator(
   require('@babel/plugin-proposal-decorators'),
   (options) => options.proposal.decorators,
   createPluginOptionsGetter((options) => options.proposal.decorators, {
-    version: '2023-05',
+    version: 'legacy',
   }),
 );
 
