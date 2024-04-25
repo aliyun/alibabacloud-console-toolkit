@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/babel-preset-xconsole",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Babel preset used by console toolkit",
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
@@ -44,7 +44,7 @@
     "@babel/plugin-syntax-import-attributes": "^7.22.5",
     "@babel/plugin-syntax-import-meta": "^7.10.4",
     "@babel/plugin-transform-runtime": "^7.22.15",
-    "@babel/preset-env": "~7.22.20",
+    "@babel/preset-env": "^7.22.20",
     "@babel/preset-react": "^7.22.15",
     "@babel/preset-typescript": "^7.23.0",
     "@babel/runtime": "^7.23.1",
