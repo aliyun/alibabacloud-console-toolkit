@@ -3,6 +3,7 @@ import * as url from 'url';
 import * as cheerio from 'cheerio';
 import * as Chain from '@gem-mine/webpack-chain';
 import * as HtmlWebpackPlugin from 'html-webpack-plugin';
+import type { CheerioAPI } from 'cheerio';
 
 import { createPlugin } from '../../utils';
 import { HtmlData } from '../../html';
@@ -14,11 +15,9 @@ interface HtmlInjectOption {
 
 class HtmlInjectPlugin {
   private data: HtmlData;
-  private htmlXmlMode: boolean;
 
   public constructor(options: HtmlInjectOption) {
     this.data = options.data;
-    this.htmlXmlMode = options.htmlXmlMode;
   }
 
   public apply(compiler: webpack.Compiler) {
@@ -28,8 +27,10 @@ class HtmlInjectPlugin {
         // @ts-ignore
         HtmlWebpackPlugin.getHooks(compilation).beforeEmit.tapAsync('HtmlInjectPlugin', (data, callback) => {
           const $ = cheerio.load(data.html, {
-            decodeEntities: false,
-            xmlMode: this.htmlXmlMode,
+            xml: {
+              decodeEntities: false,
+              xmlMode: false,
+            }
           });
           // const dom = new JSDOM(data.html);
           // const document = dom.window.document;
@@ -68,7 +69,7 @@ class HtmlInjectPlugin {
       });
   }
 
-  private _processScripts($: CheerioStatic, publicPath: string) {
+  private _processScripts($: CheerioAPI, publicPath: string) {
     const scripts = $('script');
 
     scripts.each((index, script) => {

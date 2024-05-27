@@ -2,8 +2,9 @@ import * as webpack from 'webpack';
 import * as url from 'url';
 import * as cheerio from 'cheerio';
 import * as Chain from 'webpack-chain';
-import { createPlugin } from '../../utils';
+import type { CheerioAPI } from 'cheerio';
 
+import { createPlugin } from '../../utils';
 import { HtmlData } from '../../html';
 
 interface HtmlInjectOption {
@@ -13,11 +14,9 @@ interface HtmlInjectOption {
 
 class HtmlInjectPlugin {
   private data: HtmlData;
-  private htmlXmlMode: boolean;
 
   public constructor(options: HtmlInjectOption) {
     this.data = options.data;
-    this.htmlXmlMode = options.htmlXmlMode;
   }
 
   public apply(compiler: webpack.Compiler) {
@@ -31,8 +30,10 @@ class HtmlInjectPlugin {
         // @ts-ignore
         compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
           const $ = cheerio.load(data.html, {
-            decodeEntities: false,
-            xmlMode: this.htmlXmlMode,
+            xml: {
+              decodeEntities: false,
+              xmlMode: false,
+            }
           });
           // const dom = new JSDOM(data.html);
           // const document = dom.window.document;
@@ -71,10 +72,10 @@ class HtmlInjectPlugin {
       });
   }
 
-  private _processScripts($: CheerioStatic, publicPath: string) {
+  private _processScripts($: CheerioAPI, publicPath: string) {
     const scripts = $('script');
 
-    scripts.each((index, script) => {
+    scripts.each((_index, script) => {
       let src = script.attribs['src'];
       if (src && src.startsWith('/') && !src.startsWith('//')) {
         src = url.resolve(publicPath, src.slice(1, src.length));

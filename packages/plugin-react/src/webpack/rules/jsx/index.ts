@@ -22,16 +22,16 @@ const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
     const rule = `extraBabelInclude_${index}`;
     config.module
       .rule(rule)
-        .test(/\.m?jsx?$/)
-        .include
-          .add(include)
-          .end()
-        .use('babel-loader')
-          .loader(require.resolve('babel-loader'))
-          .options({
-            ...babelConfig,
-            sourceType: 'unambiguous'
-          });
+      .test(/\.m?jsx?$/)
+      .include
+      .add(include)
+      .end()
+      .use('babel-loader')
+      .loader(require.resolve('babel-loader'))
+      .options({
+        ...babelConfig,
+        sourceType: 'unambiguous'
+      });
   });
 };
 
@@ -59,7 +59,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
 
   if (include) {
     rule
-    .include
+      .include
       .add(include)
       .end();
   }
@@ -90,8 +90,8 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   if (useHappyPack) {
     rule
       .exclude
-        .add(exclude)
-        .end()
+      .add(exclude)
+      .end()
       .use('happypack/loader')
       .loader(require.resolve('happypack/loader'))
       .options({id: 'jsx'});
@@ -111,8 +111,8 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   } else {
     rule
       .exclude
-        .add(exclude)
-        .end()
+      .add(exclude)
+      .end()
       .use('babel-loader')
       .loader(require.resolve('babel-loader'))
       .options(babelConfig);
