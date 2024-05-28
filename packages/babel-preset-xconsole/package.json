@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/babel-preset-xconsole",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "description": "Babel preset used by console toolkit",
   "main": "lib/index.js",
   "author": "boelroy <boelroy@live.com>",
@@ -49,6 +49,7 @@
     "@babel/preset-typescript": "^7.23.0",
     "@babel/runtime": "^7.23.1",
     "@bloomberg/record-tuple-polyfill": "^0.0.4",
+    "babel-plugin-module-resolver": "^5.0.2",
     "babel-plugin-wind": "^1.0.14",
     "core-js": "3.33.0",
     "lodash": "^4.17.21",

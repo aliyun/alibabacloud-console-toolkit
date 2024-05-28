@@ -11,7 +11,7 @@ export default declare((api: any, options: Partial<IOptions> = {}) => {
   const presets = createPresets(opts);
   const {
     plugins: extraPlugins, reactHotLoader, reactRefresh, env,
-    windCherryPick,
+    windCherryPick, moduleResolver
   } = opts;
 
   return {
@@ -19,6 +19,10 @@ export default declare((api: any, options: Partial<IOptions> = {}) => {
       reactHotLoader && env !== 'production' && !reactRefresh && require.resolve('react-hot-loader/babel'),
       reactRefresh && env !== 'production' && require.resolve('react-refresh/babel'),
       windCherryPick && require.resolve('babel-plugin-wind'),
+      moduleResolver && [
+        'module-resolver',
+        moduleResolver,
+      ],
       ...createPlugins(opts),
       ...extraPlugins,
     ].filter(Boolean),

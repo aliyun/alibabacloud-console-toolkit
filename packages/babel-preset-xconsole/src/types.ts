@@ -83,6 +83,7 @@ export interface IOptions {
   presetEnv: Record<string, any>;
   presetReact: Record<string, any>;
   presetTypescript: Record<string, any>;
+  moduleResolver?: Record<string, any>;
 }
 
 export type BabelPlugin = PluginItem;
