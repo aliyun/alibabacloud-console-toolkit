@@ -103,7 +103,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   if (!disablePolyfill) {
     config
       .entry('index')
-      .add(require.resolve('babel-polyfill'));
+      .add(require.resolve('core-js'));
   }
 
   // entry

@@ -16,7 +16,7 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   const env = getEnv();
 
-  if (!!options.sourceMap) {
+  if (options.sourceMap) {
     config.devtool('source-map');
   }
 
@@ -47,6 +47,5 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
 
   config
     .optimization
-      .minimize(!options.disableUglify);
-
+    .minimize(!options.disableUglify);
 };
