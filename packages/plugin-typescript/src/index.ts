@@ -56,19 +56,13 @@ export default (api: PluginAPI, opts: PluginOptions) => {
   api.on('onChainWebpack', async (config: WebpackChain) => {
     config
       .entry('index')
-        .clear()
-        .add('./index')
-        .end()
+      .clear()
+      .add('./index')
+      .end()
       .resolve
-        .extensions
-        .merge(['.js', '.jsx', '.ts', '.tsx'])
-        .end();
-    
-    if (!opts.disablePolyfill) {
-      config
-      .entry('index')
-      .prepend(require.resolve('babel-polyfill'));
-    }
+      .extensions
+      .merge(['.js', '.jsx', '.ts', '.tsx'])
+      .end();
 
     if (!tsconfig || !existsSync(tsconfig)) {
       warn(
@@ -127,13 +121,13 @@ export default (api: PluginAPI, opts: PluginOptions) => {
         
         config
           .plugin('HappypackTs')
-            .use(Happypack, [{
-              id: 'ts',
-              loaders: [{
-                loader: require.resolve('babel-loader'),
-                options: babelOption
-              }]
-            }]);
+          .use(Happypack, [{
+            id: 'ts',
+            loaders: [{
+              loader: require.resolve('babel-loader'),
+              options: babelOption
+            }]
+          }]);
       } else {
         addLoader({
           loader: require.resolve('babel-loader'),
@@ -162,9 +156,9 @@ export default (api: PluginAPI, opts: PluginOptions) => {
 
       config
         .plugin('ForkTsCheckerWebpackPlugin')
-          .use(ForkTsCheckerWebpackPlugin, [
-            defaultConfig
-          ]);
+        .use(ForkTsCheckerWebpackPlugin, [
+          defaultConfig
+        ]);
     }
   });
 };
