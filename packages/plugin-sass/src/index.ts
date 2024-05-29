@@ -20,6 +20,7 @@ interface BreezrStyleOptions {
   loaderOptions?: any;
   sourceMap?: boolean;
   hasPostCSSConfig?: boolean;
+  postCssPlugins?: any;
 }
 
 function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
@@ -28,6 +29,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     loaderOptions,
     modules = false,
     sourceMap = false,
+    postCssPlugins = [],
   } = options;
 
   const disableExtractText = typeof options.disableExtractText === 'boolean'
@@ -70,16 +72,18 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     .use('postcss-loader')
     .loader('postcss-loader')
     .options({
-      ident: 'postcss',
-      plugins: () => [
-        autoprefixer({
-          // @ts-ignore
-          overrideBrowserslist: [
-            '> 0%',
-            'not ie <= 9',
-          ],
-        }),
-      ],
+      postcssOptions: {
+        plugins: [
+          autoprefixer({
+            // @ts-ignore
+            overrideBrowserslist: [
+              '> 0%',
+              'not ie <= 9',
+            ],
+          }),
+          ...postCssPlugins,
+        ]
+      }
     });
 
   // style loader, eg: less, scss
