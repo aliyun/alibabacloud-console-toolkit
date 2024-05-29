@@ -22,9 +22,9 @@
       // "noUnusedParameters": true,  /* Report errors on unused parameters. */
   },
   "exclude": [
-      "test",
-      "node_modules",
-      "lib"
+    "test",
+    "node_modules",
+    "lib"
   ]
 }
 

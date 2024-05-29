@@ -16,7 +16,6 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     sourceMap = false,
     classNamePrefix,
     hashPrefix = '',
-    disableAutoPrefixer = false,
     postCssPlugins = [],
   } = options;
 
@@ -71,17 +70,18 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     .use('postcss-loader')
     .loader(require.resolve('postcss-loader'))
     .options({
-      ident: 'postcss',
-      plugins: () => disableAutoPrefixer ? [] : [
-        autoprefixer({
-          // @ts-ignore
-          overrideBrowserslist: [
-            '> 0%',
-            'not ie <= 9',
-          ],
-        }),
-        ...postCssPlugins,
-      ]
+      postcssOptions: {
+        plugins: [
+          autoprefixer({
+            // @ts-ignore
+            overrideBrowserslist: [
+              '> 0%',
+              'not ie <= 9',
+            ],
+          }),
+          ...postCssPlugins,
+        ]
+      }
     });
 
   // style loader, eg: less, scss
