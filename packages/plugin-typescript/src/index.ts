@@ -15,7 +15,7 @@ const getBabelOption = (opts: PluginOptions) => {
   const {
     reactHotLoader,
     reactRefresh,
-    babelPlugins,
+    babelPlugins = [],
   } = opts;
 
   return {
@@ -24,7 +24,8 @@ const getBabelOption = (opts: PluginOptions) => {
         require.resolve('@alicloud/babel-preset-xconsole'),
         {
           reactHotLoader,
-          reactRefresh
+          reactRefresh,
+          typescript: true,
         }
       ]
     ],
