@@ -7,7 +7,7 @@ export default (options: IOptions) => [
     {
       bugfixes: true,
 
-      corejs: '3.32.2',
+      corejs: '3.37',
 
       // To avoid user to override browsers supports with custom configuration
       // which includes searching for any browserslist files
@@ -25,7 +25,9 @@ export default (options: IOptions) => [
       // Don't add polyfills automatically per file.
       // Polyfills should be applied on an `App` rather than a `Library`
       // https://babeljs.io/docs/en/babel-preset-env#usebuiltins
-      useBuiltIns: 'entry',
+      useBuiltIns: options.useBuiltIns ?? 'entry',
+
+      shippedProposals: true,
 
       ...options.presetEnv,
     },

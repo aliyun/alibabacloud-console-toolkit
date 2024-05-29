@@ -11,7 +11,7 @@ export default declare((api: any, options: Partial<IOptions> = {}) => {
   const presets = createPresets(opts);
   const {
     plugins: extraPlugins, reactHotLoader, reactRefresh, env,
-    windCherryPick, moduleResolver
+    windCherryPick, moduleResolver,
   } = opts;
 
   return {
