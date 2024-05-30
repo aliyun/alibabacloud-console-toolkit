@@ -13,6 +13,7 @@ import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
 import { providePlugin } from './plugins/provide';
+import { ModuleFederationPlugin } from './plugins/mf';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -84,6 +85,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     consoleOS,
     disableConsoleOS,
     appId,
+    mf,
   } = options;
 
   if (!cwd) {
@@ -108,7 +110,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   if (!disablePolyfill) {
     config
       .entry('index')
-      .add(require.resolve('@babel/polyfill'));
+      .add(require.resolve('core-js'));
   }
 
   // entry
@@ -215,6 +217,37 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
   if (!moment?.disable) {
     momentPlugin(config);
+  }
+
+  if (mf) {
+    ModuleFederationPlugin(config, {
+      name: appId || 'app',
+      shareScope: 'alfa-shared',
+      shared: {
+        react: {
+          eager: false,
+          requiredVersion: '16.14.0',
+          singleton: true,
+        },
+        'react-dom': {
+          eager: false,
+          requiredVersion: '16.14.0',
+          singleton: true,
+        },
+        'moment': {
+          eager: false,
+          requiredVersion: '2.29.1',
+          singleton: true,
+        },
+        'prop-types': {
+          eager: false,
+          requiredVersion: '15.7.2',
+          // shareKey: 'shared-react',
+          singleton: true,
+          // shareScope: 'shared-alfa-runtime',
+        },
+      },
+    });
   }
 
   if (disableImportXConsoleCSS) {
