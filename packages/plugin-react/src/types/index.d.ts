@@ -49,6 +49,7 @@ interface BreezrReactOptions {
   babelPluginWindIntl?: boolean;
   babelPluginWindCherryPick?: boolean;
   useThreads?: boolean;
+  // @deprecated happyPack is no longer maintained
   useHappyPack?: boolean;
 
   // 拼写错误，为了兼容一起的
@@ -110,7 +111,6 @@ interface BreezrReactOptions {
 interface BreezrReactBabelOption {
   // babel 配置
   babel?: Function;
-  useHappyPack?: boolean;
   reactHotLoader?: boolean;
   reactCssModules?: boolean;
   reactCssModulesContext?: string;
@@ -124,6 +124,8 @@ interface BreezrReactBabelOption {
   exclude?: Webpack.RuleSetCondition;
   include?: Webpack.RuleSetCondition;
   reactRefresh?: boolean;
+  // @deprecated happyPack is no longer maintained
+  useHappyPack?: boolean;
 }
 
 type CssModules = boolean | 'global' | 'local';
