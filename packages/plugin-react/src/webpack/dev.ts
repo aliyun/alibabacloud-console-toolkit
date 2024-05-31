@@ -1,17 +1,46 @@
 import * as Chain from 'webpack-chain';
 import { getEnv } from '@alicloud/console-toolkit-shared-utils';
+import { PluginAPI } from '@alicloud/console-toolkit-core';
 
 import { definePlugin } from './plugins/define';
 import { openBrowserPlugin } from './plugins/openBrowser';
 import { hmrPlugin } from './plugins/hmr';
 import { reactRefreshPlugin } from './plugins/reactRefresh';
 import { common } from './common';
-
 import { BreezrReactOptions } from '../types';
 
-import { PluginAPI } from '@alicloud/console-toolkit-core';
-
 const NODE_ENV = 'development';
+
+function chainDevServer(config: Chain, options: BreezrReactOptions) {
+  const {
+    port = 3333,
+    host = 'localhost',
+    https = false,
+    disableHmr,
+  } = options;
+
+  config
+    .devServer
+    .stats('errors-only')
+    .headers({
+      'Access-Control-Allow-Origin': '*',
+    })
+    .disableHostCheck(true)
+    .port(port)
+    .host(host)
+    .https(https)
+    .hot(!disableHmr)
+    .inline(!disableHmr)
+    .historyApiFallback({
+      rewrites: [
+        {
+          from: /^(?!\/build|)/,
+          to: 'index.html',
+        },
+      ]
+    })
+    .end();
+}
 
 export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) => {
   const {
@@ -20,9 +49,9 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     https = false,
     defineGlobalConstants,
     noOpen,
-    disableHmr = false,
+    disableHmr,
     publicPathOnDev = true,
-    reactRefresh
+    reactRefresh,
   } = options;
 
   config.mode(NODE_ENV);
@@ -61,41 +90,9 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     hmrPlugin(config);
   }
 
-
   if (reactRefresh) {
     reactRefreshPlugin(config, options)
   }
 
   chainDevServer(config, options);
 };
-
-function chainDevServer(config: Chain, options: BreezrReactOptions) {
-  const {
-    port = 3333,
-    host = 'localhost',
-    https = false,
-    disableHmr,
-  } = options;
-
-  config
-    .devServer
-    .stats('errors-only')
-    .headers({
-      'Access-Control-Allow-Origin': '*',
-    })
-    .disableHostCheck(true)
-    .port(port)
-    .host(host)
-    .https(https)
-    .hot(!disableHmr)
-    .inline(!disableHmr)
-    .historyApiFallback({
-      rewrites: [
-        {
-          from: /^(?!\/build|)/,
-          to: 'index.html',
-        },
-      ]
-    })
-    .end();
-}

@@ -35,8 +35,8 @@ const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
 
 export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   const {
-    reactHotLoader = false,
-    reactCssModules = false,
+    reactHotLoader,
+    reactCssModules,
     reactCssModulesContext,
     reactCssModulesResolvePath,
     windRc,
@@ -45,7 +45,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     es5ImcompatibleVersions,
     include,
     useBuiltIns,
-    reactRefresh = false,
+    reactRefresh,
     exclude = /node_modules/,
   } = options;
 

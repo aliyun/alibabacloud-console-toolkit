@@ -19,6 +19,7 @@ export default async function (api: PluginAPI, options: PluginOptions) {
   if (getEnv().isDev()) {
     // 本地开发环境，注册 https 证书
     options.https = await mkcert2webpack(options.https);
+    options.reactRefresh = options.reactRefresh ?? true;
   }
 
   api.on('onChainWebpack', async (config: Chain, env: Evnrioment) => {
