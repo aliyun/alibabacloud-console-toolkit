@@ -131,9 +131,14 @@ export interface BreezrPresetConfig {
   /**
    * dev-server 构建成功时不打开浏览器
    * @type {Boolean}
-   * @defaults false
+   * @defaults true
    */
   disableReactHotLoader?: boolean;
+
+  /**
+   * 开启 react-refresh
+   */
+  reactRefresh?: boolean;
 
   /**
    * 排除 babel 编译

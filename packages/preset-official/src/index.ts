@@ -16,6 +16,20 @@ export default (config: BreezrPresetConfig, args: any) => {
   const env = getEnv();
   const { webpack: userWebpack, webpack5 } = config;
   const plugins = [];
+
+  // dev 模式下，强制开启 babel
+  if (env.isDev()) {
+    config.typescript = {
+      ...config.typescript,
+      useBabel: true,
+    }
+  }
+
+  // 禁用 react-hot-reload
+  config.disableReactHotLoader = true;
+  // 开启 react-refresh
+  config.reactRefresh = true;
+
   if (!config.disableUpdator) {
     plugins.push([
       '@alicloud/console-toolkit-plugin-updator', {
