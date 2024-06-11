@@ -3,7 +3,7 @@ import { existsSync } from 'fs';
 import * as WebpackChain from 'webpack-chain';
 import * as ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import { PluginAPI, PluginOptions } from '@alicloud/console-toolkit-core';
-import { warn } from '@alicloud/console-toolkit-shared-utils';
+import { getEnv, warn } from '@alicloud/console-toolkit-shared-utils';
 import * as IgnoreNotFoundExportPlugin from "ignore-not-found-export-webpack-plugin";
 
 interface ILoader {
@@ -14,7 +14,7 @@ interface ILoader {
 const getBabelOption = (opts: PluginOptions) => {
   const {
     reactHotLoader,
-    reactRefresh,
+    reactRefresh = true,
     babelPlugins = [],
   } = opts;
 
@@ -26,6 +26,7 @@ const getBabelOption = (opts: PluginOptions) => {
           reactHotLoader,
           reactRefresh,
           typescript: true,
+          env: getEnv().isDev() ? 'development' : 'production',
         }
       ]
     ],
