@@ -2,6 +2,15 @@ import { getWindConfig, getEnv } from '@alicloud/console-toolkit-shared-utils';
 import { BreezrPresetConfig } from './type';
 import { resolve } from 'path';
 
+/**
+ * 获取场景，pc 或 mobile
+ */
+function getScene(config: BreezrPresetConfig) {
+  if (config.mobile === true) return 'mobile';
+
+  return 'pc';
+}
+
 export default (config: BreezrPresetConfig, args: any) => {
   const windConfig = getWindConfig(process.cwd());
   const env = getEnv();
@@ -17,7 +26,7 @@ export default (config: BreezrPresetConfig, args: any) => {
   }
 
   const { useTypescript, typescript, useSass } = config;
-  const publicPath = args.outputPublicPath || config.outputPublicPath || '/';
+  const publicPath = args.outputPublicPath || config.outputPublicPath;
 
   plugins.push(...[
     [
@@ -64,7 +73,7 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]
   ]);
 
-  if (!args.outputPublicPath) {
+  if (!publicPath) {
     plugins.push(
       [
         '@alicloud/console-toolkit-plugin-cdn',
@@ -95,7 +104,8 @@ export default (config: BreezrPresetConfig, args: any) => {
 
   if (config.oneConsole) {
     plugins.push([ '@alicloud/console-toolkit-plugin-oneconsole', {
-      ...config
+      ...config,
+      scene: getScene(config)
     }]);
   }
 
@@ -104,13 +114,6 @@ export default (config: BreezrPresetConfig, args: any) => {
       armsId: config.armsId,
       oneConsole: config.oneConsole,
       aemId: config.aemId,
-    }]);
-  }
-
-  if (config.consoleBase === true || (typeof config.consoleBase === 'object' && !config.consoleBase.disabled)) {
-    plugins.push([ '@alicloud/console-toolkit-plugin-console-base', {
-      product: config.product,
-      oneConsole: config.oneConsole
     }]);
   }
 

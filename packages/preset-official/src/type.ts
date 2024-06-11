@@ -289,6 +289,11 @@ export interface BreezrPresetConfig {
   consoleBase?: boolean | { disabled: boolean };
 
   /**
+   * 是否是移动端
+   */
+  mobile?: boolean;
+
+  /**
    * 监控相关配置，详细参见 https://yuque.antfin-inc.com/wind/breezr_guide/zydbd8
    */
   armsId?: string;
