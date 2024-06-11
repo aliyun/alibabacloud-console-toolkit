@@ -63,19 +63,18 @@ export default ((ctx: any, options: any) => {
     );
   }
 
-  // 如果是 reactRefresh 打开的情况 就关闭 react-hot-loader
-  if (reactHotLoader && env !== 'production' && !reactRefresh) {
-    plugins.unshift(require.resolve('react-hot-loader/babel'));
-  }
-
-  if (reactRefresh && env !== 'production') {
-    plugins.unshift(require.resolve('react-refresh/babel'));
-  }
-
   return {
     plugins,
     presets: [
-      [require.resolve('@alicloud/babel-preset-xconsole')],
+      [
+        require.resolve('@alicloud/babel-preset-xconsole'),
+        {
+          reactHotLoader,
+          reactRefresh,
+          env: env !== 'production' ? 'development' : 'production',
+          typescript: false,
+        }
+      ],
     ],
   };
 });
