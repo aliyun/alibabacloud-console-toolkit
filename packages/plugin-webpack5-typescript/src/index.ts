@@ -60,7 +60,7 @@ export default (api: PluginAPI, opts: PluginOptions) => {
     if (!opts.disablePolyfill) {
       config
         .entry('index')
-        .prepend(require.resolve('babel-polyfill'));
+        .prepend(require.resolve('core-js'));
     }
 
     if (!tsconfig || !existsSync(tsconfig)) {

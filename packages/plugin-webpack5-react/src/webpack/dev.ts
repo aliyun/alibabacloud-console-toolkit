@@ -79,9 +79,8 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
     https,
     defineGlobalConstants,
     noOpen,
-    disableHmr,
     publicPathOnDev = true,
-    reactRefresh,
+    reactRefresh = true,
     disableErrorOverlay,
   } = options;
 
@@ -116,11 +115,6 @@ export const dev = (config: Chain, options: BreezrReactOptions, api: PluginAPI) 
 
   if (publicPathOnDev) {
     config.output.publicPath(`${protocol}://${host}:${port}/`);
-  }
-
-  if (!disableHmr) {
-    config.devServer.hot('only');
-    config.resolve.alias.set('react-dom', '@hot-loader/react-dom');
   }
 
   if (disableErrorOverlay) {
