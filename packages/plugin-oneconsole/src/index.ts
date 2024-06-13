@@ -28,9 +28,9 @@ export default (api: PluginAPI, options: PluginOptions) => {
   const enableConsoleBase = consoleBase === true || (typeof consoleBase === 'object' && !consoleBase.disabled);
   
   api.dispatchSync('addHtmlPrescript', mountDom);
+  api.dispatchSync('addHtmlHeadScript', headerScript);
 
   if (scene === 'pc') {
-    api.dispatchSync('addHtmlHeadScript', headerScript);
     // deprecated
     api.dispatchSync('addHtmlHeadScript', '<meta data-type="oneconsole.console_theme"/>');
     if (enableConsoleBase) api.dispatchSync('addHtmlScript', consoleBaseScript);
