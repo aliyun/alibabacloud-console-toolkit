@@ -18,7 +18,7 @@ export default (config: BreezrPresetConfig, args: any) => {
   const plugins = [];
 
   // dev 模式下，强制开启 babel
-  if (env.isDev()) {
+  if (env.isDev() && config.useTypescript || config.typescript) {
     config.typescript = {
       ...config.typescript,
       useBabel: true,
