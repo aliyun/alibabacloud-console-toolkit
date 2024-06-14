@@ -197,7 +197,7 @@ export function runServer(
 
     ['SIGINT', 'SIGTERM'].forEach((signal: string) => {
       process.on(signal as Signals, () => {
-        server.close(() => {
+        server.stop().then(() => {
           process.exit();
         });
       });

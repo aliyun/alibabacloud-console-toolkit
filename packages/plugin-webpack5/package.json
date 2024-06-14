@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "console toolkit plugin for webpack engine",
   "author": "fringey <465964690@qq.com>",
   "license": "MIT",
