@@ -125,6 +125,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     .path(outputPath)
     .publicPath(output.publicPath)
     .chunkFilename(output.chunkFilename)
+    .libraryTarget(output.libraryTarget)
     .end();
 
   config.resolve
