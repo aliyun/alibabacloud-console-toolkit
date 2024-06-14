@@ -169,11 +169,7 @@ export function webpackConfigure(
     }
   }
 
-  // @ts-ignore
   return webpackMerge.merge(_chain.toConfig(), configByUser);
-  // _chain.merge(configByUser);
-
-  // return _chain;
 }
 
 export function createServer(

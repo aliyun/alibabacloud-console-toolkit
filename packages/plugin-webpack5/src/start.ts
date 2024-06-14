@@ -22,7 +22,7 @@ export default async (api: PluginAPI, opts: PluginAPIOpt, beforeServerMiddleWare
 
   const { devServerOpt } = opts;
 
-  const devServerConfig: webpackDevServer.Configuration = Object.assign({}, devServer, devServerOpt);
+  const devServerConfig = Object.assign({}, devServer, devServerOpt) as webpackDevServer.Configuration;
 
   // const originBefore = devServerConfig.before;
   // devServerConfig.before = (app, server, compiler) => {
