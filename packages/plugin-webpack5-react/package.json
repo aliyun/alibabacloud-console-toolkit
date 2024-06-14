@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -60,7 +60,7 @@
     "mini-css-extract-plugin": "^2.6.1",
     "pkg-up": "^3.1.0",
     "postcss-less": "^6.0.0",
-    "postcss-loader": "^7.0.1",
+    "postcss-loader": "^8.0.1",
     "react-hot-loader": "^4.7.1",
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",
