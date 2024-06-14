@@ -63,7 +63,6 @@
     "postcss": "^8.0.0",
     "postcss-less": "^3.1.2",
     "postcss-loader": "^4.0.0",
-    "react-hot-loader": "^4.7.1",
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",
     "style-loader": "^0.23.1",

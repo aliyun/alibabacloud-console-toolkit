@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-react",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "console toolkit plugin for base react app",
   "main": "lib/index.js",
   "scripts": {
@@ -40,7 +40,6 @@
     "@babel/core": "^7.3.3",
     "@babel/polyfill": "^7.12.1",
     "@gem-mine/webpack-chain": "^7.0.0",
-    "@hot-loader/react-dom": "^16.14.0",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.1",
     "assert": "^1.4.1",
     "autoprefixer": "^9.6.0",
@@ -61,7 +60,6 @@
     "pkg-up": "^3.1.0",
     "postcss-less": "^6.0.0",
     "postcss-loader": "^8.0.1",
-    "react-hot-loader": "^4.7.1",
     "semver": "^7.3.2",
     "simple-progress-webpack-plugin": "^1.1.2",
     "style-loader": "^3.0.0",
