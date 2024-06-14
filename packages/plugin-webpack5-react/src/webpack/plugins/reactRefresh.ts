@@ -8,6 +8,8 @@ export function reactRefreshPlugin(config: Chain, options: { [key: string]: any 
     config,
     'ReactRefreshPlugin',
     ReactRefreshPlugin,
-    {}
+    {
+      overlay: false
+    }
   );
 }
