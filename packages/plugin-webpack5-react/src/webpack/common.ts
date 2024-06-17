@@ -14,7 +14,6 @@ import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
 import { providePlugin } from './plugins/provide';
 import { ModuleFederationPlugin } from './plugins/mf';
-import { getDepInfo } from '../utils';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -223,15 +222,10 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   }
 
   if (mf) {
-    const deps = mf.sharedOS || ['react', 'react-dom', 'prop-types', 'moment', 'lodash', 'dayjs'];
-    const shared = deps.reduce<Record<string, any>>((acc, name) => {
-      const requiredVersion = getDepInfo(name).version;
-
-      if (!requiredVersion) return acc;
-
+    const shared = mf.sharedOS?.reduce<Record<string, any>>((acc, [name, version]) => {
       acc[name] = {
         eager: false,
-        requiredVersion,
+        requiredVersion: version,
         singleton: true,
       };
 
