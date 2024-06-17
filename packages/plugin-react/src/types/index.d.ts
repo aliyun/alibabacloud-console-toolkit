@@ -35,6 +35,7 @@ interface BreezrReactOptions {
   disableAutoPrefixer?: boolean;
   postCssPlugins?: any[];
   disableImportXConsoleCSS?: boolean;
+  tailwindcss?: any;
 
   // babel-loader 配置
   babel?: Function;

@@ -84,6 +84,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     consoleOS,
     disableConsoleOS,
     appId,
+    tailwindcss,
   } = options;
 
   if (!cwd) {
@@ -156,6 +157,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     disableAutoPrefixer,
     classNamePrefix,
     postCssPlugins,
+    tailwindcss,
     consoleOS,
     disableConsoleOS,
     appId,
