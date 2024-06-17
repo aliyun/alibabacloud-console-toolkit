@@ -80,7 +80,9 @@ interface BreezrReactOptions {
   htmlXmlMode?: boolean;
   htmInject?: boolean;
   htmlScriptLoading?: 'defer' | 'block' | 'module';
-  mf?: boolean;
+  mf?: {
+    sharedOS?: string[];
+  };
 
   // experiment
   experiment?: {

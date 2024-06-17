@@ -14,6 +14,7 @@ import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
 import { providePlugin } from './plugins/provide';
 import { ModuleFederationPlugin } from './plugins/mf';
+import { getDepInfo } from '../utils';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -222,33 +223,25 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   }
 
   if (mf) {
+    const deps = mf.sharedOS || ['react', 'react-dom', 'prop-types', 'moment', 'lodash', 'dayjs'];
+    const shared = deps.reduce<Record<string, any>>((acc, name) => {
+      const requiredVersion = getDepInfo(name).version;
+
+      if (!requiredVersion) return acc;
+
+      acc[name] = {
+        eager: false,
+        requiredVersion,
+        singleton: true,
+      };
+
+      return acc;
+    }, {});
+
     ModuleFederationPlugin(config, {
       name: appId || 'app',
       shareScope: 'alfa-shared',
-      shared: {
-        react: {
-          eager: false,
-          requiredVersion: '16.14.0',
-          singleton: true,
-        },
-        'react-dom': {
-          eager: false,
-          requiredVersion: '16.14.0',
-          singleton: true,
-        },
-        'moment': {
-          eager: false,
-          requiredVersion: '2.29.1',
-          singleton: true,
-        },
-        'prop-types': {
-          eager: false,
-          requiredVersion: '15.7.2',
-          // shareKey: 'shared-react',
-          singleton: true,
-          // shareScope: 'shared-alfa-runtime',
-        },
-      },
+      shared,
     });
   }
 

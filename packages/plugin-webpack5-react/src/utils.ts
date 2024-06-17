@@ -1,3 +1,4 @@
+import * as path from 'path';
 import * as _ from 'lodash';
 import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
@@ -36,9 +37,21 @@ export function createRules(config: Chain, { lang, test, include, exclude }: {
   return chain;
 }
 
-
 export function createPlugin<O = any>(config: Chain, name: string, plugin: Chain.PluginClass<any>, options?: O) {
   return config
     .plugin(name)
     .use(plugin, [options]);
+}
+
+/**
+ * 获取依赖 package.json 信息
+ * @param name 包名
+ * @param cwd 执行路径
+ * @returns package.json 内容
+ */
+export function getDepInfo(name: string, cwd?: string) {
+  const requirePath = require.resolve(name, { paths: cwd ? [cwd] : []});
+  const pkgPath = path.resolve(requirePath, 'package.json');
+  
+  return require(pkgPath);
 }
