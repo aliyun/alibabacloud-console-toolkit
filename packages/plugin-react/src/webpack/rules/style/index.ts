@@ -1,4 +1,5 @@
 import * as autoprefixer from 'autoprefixer';
+import * as tailwindcss from 'tailwindcss';
 import * as Chain from 'webpack-chain';
 import * as webpack from 'webpack';
 
@@ -17,6 +18,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     classNamePrefix,
     hashPrefix = '',
     postCssPlugins = [],
+    tailwindcss: tailwindcssConfig = {},
   } = options;
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
@@ -59,6 +61,21 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     };
   }
 
+  postCssPlugins.unshift(autoprefixer({
+    // @ts-ignore
+    overrideBrowserslist: [
+      '> 0%',
+      'not ie <= 9',
+    ],
+  }));
+
+  // add tailwindcss plugin
+  if (tailwindcssConfig.config) {
+    postCssPlugins.unshift(tailwindcss({
+      config: tailwindcssConfig.config,
+    }));
+  }
+
   // css loader
   rule
     .use('css-loader')
@@ -71,16 +88,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     .loader(require.resolve('postcss-loader'))
     .options({
       postcssOptions: {
-        plugins: [
-          autoprefixer({
-            // @ts-ignore
-            overrideBrowserslist: [
-              '> 0%',
-              'not ie <= 9',
-            ],
-          }),
-          ...postCssPlugins,
-        ]
+        plugins: postCssPlugins,
       }
     });
 

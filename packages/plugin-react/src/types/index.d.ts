@@ -149,6 +149,9 @@ interface BreezrStyleOptions extends Pick<BreezrReactOptions, 'appId' | 'console
   disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
   postCssPlugins?: any[];
+  tailwindcss?: {
+    config?: string;
+  };
 }
 
 interface ThemeDef {
