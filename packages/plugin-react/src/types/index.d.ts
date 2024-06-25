@@ -44,6 +44,7 @@ interface BreezrReactOptions {
   disableExtractText?: boolean;
   disableUglify?: boolean;
   disableReactHotLoader?: boolean;
+  babelInclude?: Webpack.RuleSetCondition;
   babelExclude?: Webpack.RuleSetCondition;
   babelPluginWindRc?: boolean;
   babelUseBuiltIns?: boolean;

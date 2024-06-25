@@ -5,6 +5,19 @@ import { createRules } from '../../../utils';
 import { BreezrReactBabelOption } from '../../../types';
 import { getPkgPath, shouldTransform } from './es5ImcompatibleVersions';
 
+const getIncludePath = (include?: Webpack.RuleSetCondition) => {
+  if (include instanceof RegExp) {
+    return include;
+  }
+
+  if (typeof include === 'string') {
+    if (include.startsWith('/')) return include;
+    return require.resolve(include, { paths: [process.cwd()] })
+  }
+
+  return include;
+};
+
 const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
   const extraBabelIncludes = [
     (a: string) => {
@@ -57,7 +70,7 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
   if (include) {
     rule
       .include
-      .add(include)
+      .add(getIncludePath(include) as Webpack.RuleSetCondition)
       .end();
   }
   
