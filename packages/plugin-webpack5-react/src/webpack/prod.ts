@@ -45,12 +45,13 @@ export const prod = (config: Chain, options: BreezrReactOptions, api: PluginAPI)
    * TODO: dynamicBundle, bundleAnalyzer
    */
 
-  uglifyPlugin(config, options);
+  if (!options.disableUglify) {
+    uglifyPlugin(config, options);
+    config
+      .optimization
+      .minimize(!options.disableUglify);
+  }
 
-  config
-    .optimization
-    .minimize(!options.disableUglify);
-  
   if (enableCache) {
     const buildDependencies = [join(rootDir, 'package.json')];
 

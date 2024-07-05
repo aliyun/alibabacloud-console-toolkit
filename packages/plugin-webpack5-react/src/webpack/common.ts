@@ -227,10 +227,17 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
         eager: false,
         requiredVersion: version,
         singleton: true,
+        strictVersion: true,
       };
 
       return acc;
     }, {});
+
+    config.optimization.splitChunks.merge({
+      cacheGroups: {
+        defaultVendors: false,
+      }
+    });
 
     ModuleFederationPlugin(config, {
       name: appId || 'app',
