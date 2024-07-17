@@ -148,6 +148,7 @@ export interface BreezrPresetConfig {
    * @defaults /node_modules/
    */
   babelExclude?: RuleSetCondition;
+  babelInclude?: RuleSetCondition;
 
   babelUseBuiltIns?: boolean;
 
