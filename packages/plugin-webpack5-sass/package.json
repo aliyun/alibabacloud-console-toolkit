@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-webpack5-sass",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "breezr plugin for sass",
   "main": "lib/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "css-loader": "^6.0.0",
     "fast-sass-loader": "^2.0.1",
     "mini-css-extract-plugin": "^2.6.1",
-    "postcss-loader": "^3.0.0",
+    "postcss-loader": "^8.0.0",
     "style-loader": "^1.1.4",
     "sass": "^1.67.0"
   },
