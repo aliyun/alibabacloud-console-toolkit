@@ -1,6 +1,6 @@
 {
 	"name": "@alicloud/console-toolkit-plugin-webpack5-builtins",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "builtins for webpack5",
 	"files": [],
 	"dependencies": {
@@ -9,7 +9,9 @@
     "@alicloud/console-toolkit-plugin-webpack5-react": "^1.0.0",
 		"@alicloud/console-toolkit-plugin-webpack5-sass": "^1.0.0",
     "@alicloud/console-toolkit-plugin-webpack5-ssr": "^1.0.0",
-    "@alicloud/console-toolkit-plugin-webpack5-typescript": "^1.0.0"
+    "@alicloud/console-toolkit-plugin-webpack5-typescript": "^1.0.0",
+		"postcss": "^8.0.0",
+		"postcss-loader": "^8.0.0"
 	},
 	"author": "fringey <465964690@qq.com>",
 	"publishConfig": {
