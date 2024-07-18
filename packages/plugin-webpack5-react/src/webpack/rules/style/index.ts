@@ -1,3 +1,4 @@
+import * as path from 'path';
 import * as autoprefixer from 'autoprefixer';
 import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
@@ -132,8 +133,14 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
   const lessLoaderOptions = {
     lessOptions: {
       javascriptEnabled: true,
-      modifyVars: options.theme ? normalizeTheme(options.theme, {cwd}) : {}
+      modifyVars: options.theme ? normalizeTheme(options.theme, { cwd }) : {}
     }
+  };
+
+  const sassLoaderOptions = {
+    includePaths: [
+      path.resolve(cwd, 'node_modules')
+    ],
   };
 
   createCssRules('css', { test: /\.css$/ });
@@ -162,6 +169,18 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     loader: 'less-loader',
     loaderOptions: lessLoaderOptions,
     modules: true,
+  });
+
+  // .sass
+  createCssRules('sass', { test: /\.sass$/ }, {
+    loader: 'fast-sass-loader',
+    loaderOptions: sassLoaderOptions,
+  });
+
+  // .scss
+  createCssRules('scss', { test: /\.scss$/ }, {
+    loader: 'fast-sass-loader',
+    loaderOptions: sassLoaderOptions,
   });
 
   if (shouldExtract) {
