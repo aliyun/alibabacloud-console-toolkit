@@ -87,6 +87,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     disableConsoleOS,
     appId,
     mf,
+    useSass,
   } = options;
 
   if (!cwd) {
@@ -169,6 +170,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     consoleOS,
     disableConsoleOS,
     appId,
+    useSass
   });
 
   file(config, options);

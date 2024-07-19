@@ -110,6 +110,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     condition = 'stable',
     consoleOS,
     disableConsoleOS,
+    useSass
   } = options;
 
   const {
@@ -171,17 +172,20 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     modules: true,
   });
 
-  // .sass
-  createCssRules('sass', { test: /\.sass$/ }, {
-    loader: 'fast-sass-loader',
-    loaderOptions: sassLoaderOptions,
-  });
+  // 为了保持和历史逻辑一致，必须在 useSass 开启后再处理
+  if (useSass) {
+    // .sass
+    createCssRules('sass', { test: /\.sass$/ }, {
+      loader: 'fast-sass-loader',
+      loaderOptions: sassLoaderOptions,
+    });
 
-  // .scss
-  createCssRules('scss', { test: /\.scss$/ }, {
-    loader: 'fast-sass-loader',
-    loaderOptions: sassLoaderOptions,
-  });
+    // .scss
+    createCssRules('scss', { test: /\.scss$/ }, {
+      loader: 'fast-sass-loader',
+      loaderOptions: sassLoaderOptions,
+    });
+  }
 
   if (shouldExtract) {
     // NOTE there 'extract-css' used by breezr-plugin-long-term-caching

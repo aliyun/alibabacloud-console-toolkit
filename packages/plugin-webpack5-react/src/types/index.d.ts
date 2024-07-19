@@ -35,6 +35,7 @@ interface BreezrReactOptions {
   disableAutoPrefixer?: boolean;
   postCssPlugins?: any[];
   disableImportXConsoleCSS?: boolean;
+  useSass?: boolean;
 
   // babel-loader 配置
   babel?: Function;
@@ -158,6 +159,7 @@ interface BreezrStyleOptions extends Pick<BreezrReactOptions, 'appId' | 'console
   disableAutoPrefixer?: boolean;
   condition?: CssConditionType;
   postCssPlugins?: any[];
+  useSass?: boolean;
 }
 
 interface ThemeDef {
