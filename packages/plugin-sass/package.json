@@ -1,6 +1,6 @@
 {
   "name": "@alicloud/console-toolkit-plugin-sass",
-  "version": "2.0.7",
+  "version": "2.0.8",
   "description": "breezr plugin for sass",
   "main": "lib/index.js",
   "scripts": {

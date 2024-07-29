@@ -122,6 +122,8 @@ module.exports = (api: PluginAPI, options: any) => {
     };
 
     createCssRules('sass', { test: /\.sass$/ }, loaderOption);
+    createCssRules('sass-scoped', { test: /\.(module|scoped)\.sass$/ }, { ...loaderOption, modules: true });
     createCssRules('scss', { test: /\.scss$/ }, loaderOption);
+    createCssRules('scss-scoped', { test: /\.(module|scoped)\.scss$/ }, { ...loaderOption, modules: true });
   });
 };
