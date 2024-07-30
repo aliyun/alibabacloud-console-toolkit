@@ -21,6 +21,7 @@ interface BreezrStyleOptions {
   sourceMap?: boolean;
   hasPostCSSConfig?: boolean;
   postCssPlugins?: any;
+  exclude?: any;
 }
 
 function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
@@ -30,6 +31,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     modules = false,
     sourceMap = false,
     postCssPlugins = [],
+    exclude,
   } = options;
 
   const disableExtractText = typeof options.disableExtractText === 'boolean'
@@ -39,6 +41,10 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
   // 使用 mini-css-extract-plugin 作为更好的代替方案进行 css 的抽取
   const styleLoaderOptions = {};
+
+  if (exclude) {
+    rule.exclude.add(exclude);
+  }
 
   if (!disableExtractText) {
     rule
@@ -97,7 +103,8 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
 
 function createRules(config: Chain, { lang, test }: {
   lang: string,
-  test: webpack.Condition
+  test: webpack.Condition,
+  exclude?: webpack.Condition
 }) {
   return config.module.rule(lang).test(test);
 }
@@ -121,9 +128,9 @@ module.exports = (api: PluginAPI, options: any) => {
       disableExtractText: options.disableExtractText,
     };
 
-    createCssRules('sass', { test: /\.sass$/ }, loaderOption);
+    createCssRules('sass', { test: /\.sass$/ }, { ...loaderOption, exclude: /\.(module|scoped)\.sass$/ });
     createCssRules('sass-scoped', { test: /\.(module|scoped)\.sass$/ }, { ...loaderOption, modules: true });
-    createCssRules('scss', { test: /\.scss$/ }, loaderOption);
+    createCssRules('scss', { test: /\.scss$/ }, { ...loaderOption, exclude: /\.(module|scoped)\.scss$/ });
     createCssRules('scss-scoped', { test: /\.(module|scoped)\.scss$/ }, { ...loaderOption, modules: true });
   });
 };
