@@ -149,10 +149,16 @@ const config = {
   "@hpcc-js/wasm": {
     "*": {
       "version": "*",
-      "reason": "transform es5"
+      "reason": "not support es5"
     }
   },
   "@antv/xflow": {
+    "^2.0.0": {
+      "version": "^2.0.0",
+      "reason": "not support es5",
+    }
+  },
+  "@ant-design/fast-color": {
     "^2.0.0": {
       "version": "^2.0.0",
       "reason": "not support es5",
