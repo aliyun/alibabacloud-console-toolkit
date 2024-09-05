@@ -1,6 +1,6 @@
 ## CHANGELOG
 
-### 1.3.9
+### 1.3.10
 
 - FIX: merge user output options when pass config to plugin-react
 
