@@ -39,7 +39,7 @@ export default (config: BreezrPresetConfig, args: any) => {
     ]);
   }
 
-  const { useTypescript, typescript, useSass } = config;
+  const { useTypescript, typescript, useSass, output } = config;
   const publicPath = args.outputPublicPath || config.outputPublicPath;
 
   plugins.push(...[
@@ -57,6 +57,7 @@ export default (config: BreezrPresetConfig, args: any) => {
         host: args.host || config.host || 'localhost',
         analyze: args.analyze || config.analyze || false,
         output: {
+          ...output,
           publicPath
         },
       }
