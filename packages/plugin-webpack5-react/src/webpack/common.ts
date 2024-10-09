@@ -96,6 +96,9 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     return;
   }
 
+  const env = getEnv();
+  const [, version = ''] = env.gitBranch?.split('/') || [];
+
   // @ts-ignore
   if (options.useHappyPack) {
     error('don\'t support useHappyPack');
@@ -140,7 +143,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     reactCssModules: true,
     reactCssModulesContext: src,
     // 只有在构建的时候才开启转义，否则 .mjs 被转义后，会导致 ReactHotLoader 中兼容 esModule 的方法失效，抛出异常：module is not defined
-    es5ImcompatibleVersions: getEnv().isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
+    es5ImcompatibleVersions: env.isProd() && (es5ImcompatibleVersions || es5IncompatibleVersions),
     exclude: babelExclude,
     windRc: babelPluginWindRc,
     useBuiltIns: babelUseBuiltIns,
@@ -189,7 +192,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
       inject: htmInject,
       scriptLoading: options.htmlScriptLoading ? options.htmlScriptLoading : 'blocking',
       templateParameters: {
-        __dev__: getEnv().isDev()
+        __dev__: env.isDev(),
+        __version__: version,
       },
     });
     htmlInjectPlugin(config, {
@@ -198,7 +202,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     });
   }
   
-  if (analyze && !getEnv().isCloudBuild()) {
+  if (analyze && !env.isCloudBuild()) {
     analyzerPlugin(config);
   }
 
