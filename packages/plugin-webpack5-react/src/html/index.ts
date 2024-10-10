@@ -1,4 +1,3 @@
-import { isArray } from 'util';
 import { PluginAPI } from '@alicloud/console-toolkit-core';
 
 type HtmlDataKey = 'head' | 'metas' | 'styles' | 'headscripts' | 'prescripts' | 'scripts';
@@ -27,7 +26,7 @@ export default function(api: PluginAPI) {
 
   const addToData = (name: HtmlDataKey) => (data: string) => {
     const field = htmlData[name];
-    if (isArray(field)) {
+    if (Array.isArray(field) && !field.includes(data)) {
       field.push(data);
     } else {
       // @ts-ignore
