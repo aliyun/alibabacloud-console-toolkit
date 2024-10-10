@@ -26,8 +26,8 @@ export default function(api: PluginAPI) {
 
   const addToData = (name: HtmlDataKey) => (data: string) => {
     const field = htmlData[name];
-    if (Array.isArray(field) && !field.includes(data)) {
-      field.push(data);
+    if (Array.isArray(field)) {
+      if (!field.includes(data)) field.push(data);
     } else {
       // @ts-ignore
       htmlData[name] = data;
