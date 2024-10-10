@@ -1,13 +1,11 @@
 {
   "name": "@alicloud/console-toolkit-preset-component",
-  "version": "1.2.62",
+  "version": "1.2.63",
   "description": "console toolkit preset for component",
   "author": "boelroy <boelroy@live.com>",
   "license": "MIT",
   "main": "lib/index.js",
   "scripts": {
-    "ci": "npm run lint && npm run compile && npm run cov",
-    "lint": "tslint --project .",
     "compile": "rimraf ./lib && tsc -d true -p ./",
     "watch": "tsc -watch -d true -p ./",
     "test": "jest",
@@ -27,7 +25,7 @@
     "ts-jest": "^24.0.0",
     "ts-node": "^8.4.1",
     "tslint": "^5.8.0",
-    "typescript": "^3.0.3"
+    "typescript": "^4.9.5"
   },
   "dependencies": {
     "@alicloud/console-toolkit-core": "^1.2.30",
@@ -55,6 +53,5 @@
     "babel-plugin-transform-remove-imports": "^1.0.8",
     "babel-preset-breezr": "^1.2.42",
     "rollup-plugin-auto-external": "^2.0.0"
-  },
-  "gitHead": "4355343290e864d49e0da79f826f9e0f6f3a76e8"
+  }
 }

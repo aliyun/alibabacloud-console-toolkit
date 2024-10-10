@@ -129,6 +129,14 @@ export default (config: IOption, cmdArgs: any) => {
     ],
 
     [
+      require.resolve('@alicloud/console-toolkit-plugin-sass'),
+      {
+        src: './src/',
+        lib: babelOutputDir,
+      },
+    ],
+
+    [
       require.resolve('@alicloud/console-toolkit-plugin-storybook'),
       {
         webpackConfigPaths: [
