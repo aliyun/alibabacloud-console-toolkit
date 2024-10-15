@@ -9,14 +9,17 @@ import { HtmlData } from '../../html';
 
 interface HtmlInjectOption {
   data: HtmlData;
-  htmlXmlMode: boolean;
+  htmlXmlMode?: boolean;
+  cors?: boolean;
 }
 
 class HtmlInjectPlugin {
   private data: HtmlData;
+  private cors: boolean;
 
   public constructor(options: HtmlInjectOption) {
     this.data = options.data;
+    this.cors = !!options.cors;
   }
 
   public apply(compiler: webpack.Compiler) {
@@ -24,9 +27,30 @@ class HtmlInjectPlugin {
       'HtmlInjectPlugin',
       (compilation) => {
         // @ts-ignore
+        if (this.cors && compilation.hooks.htmlWebpackPluginAlterAssetTags) {
+          // @ts-ignore
+          compilation.hooks.htmlWebpackPluginAlterAssetTags.tap("HtmlInjectPlugin", (htmlPluginData, callback) => {
+            if (htmlPluginData.body?.length) {
+              htmlPluginData.body.forEach((tag: any) => {
+                if (tag.tagName === 'script') {
+                  tag.attributes.crossorigin = 'anonymous';
+                }
+              });
+            }
+
+            if (typeof callback === 'function') {
+              callback(null, htmlPluginData); 
+            } else {
+              return htmlPluginData;
+            }
+          });
+        }
+
+        // @ts-ignore
         if (!compilation.hooks.htmlWebpackPluginAfterHtmlProcessing) {
           return;
         }
+
         // @ts-ignore
         compilation.hooks.htmlWebpackPluginBeforeHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
           const $ = cheerio.load(data.html, {
@@ -85,7 +109,7 @@ class HtmlInjectPlugin {
   }
 }
 
-export function htmlInjectPlugin(config: Chain, options: { [key: string]: any }) {
+export function htmlInjectPlugin(config: Chain, options: HtmlInjectOption) {
   createPlugin(
     config,
     'HtmlInjectPlugin',

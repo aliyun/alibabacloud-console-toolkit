@@ -14,6 +14,7 @@ import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
 import { providePlugin } from './plugins/provide';
 import { ModuleFederationPlugin } from './plugins/mf';
+import { HtmlData } from '../html';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -76,6 +77,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     analyze = false,
     hashPrefix = '',
     htmInject = true,
+    htmlScriptCORS,
+    htmlScriptPriority,
     disableAutoPrefixer = false,
     es5ImcompatibleVersions = false,
     es5IncompatibleVersions = false,
@@ -182,7 +185,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
   // plugins
   if (!disableHtml) {
-    const htmlData = api.dispatchSync('getHtmlData');
+    const htmlData = api.dispatchSync<HtmlData>('getHtmlData');
 
     htmlPlugin(config, {
       minify: { // 压缩HTML文件
@@ -199,6 +202,8 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     htmlInjectPlugin(config, {
       data: htmlData,
       htmlXmlMode,
+      cors: htmlScriptCORS,
+      priority: htmlScriptPriority,
     });
   }
   

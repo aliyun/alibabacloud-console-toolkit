@@ -81,6 +81,8 @@ interface BreezrReactOptions {
   htmlXmlMode?: boolean;
   htmInject?: boolean;
   htmlScriptLoading?: 'defer' | 'block' | 'module';
+  htmlScriptCORS?: boolean;
+  htmlScriptPriority?: 'high' | 'low' | 'auto';
   mf?: {
     sharedOS?: [string, string][];
   };

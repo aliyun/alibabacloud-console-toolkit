@@ -12,6 +12,7 @@ import { analyzerPlugin } from './plugins/analyzer';
 import { htmlInjectPlugin } from './plugins/htmlInject';
 import { BreezrReactOptions, CssConditionType } from '../types';
 import { momentPlugin } from './plugins/moment';
+import { HtmlData } from '../html';
 
 const defaultOptions = {
   cwd: process.cwd(),
@@ -86,6 +87,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     disableConsoleOS,
     appId,
     tailwindcss,
+    htmlScriptCORS
   } = options;
 
   if (!cwd) {
@@ -169,7 +171,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
 
   // plugins
   if (!disableHtml) {
-    const htmlData = api.dispatchSync('getHtmlData');
+    const htmlData = api.dispatchSync<HtmlData>('getHtmlData');
 
     htmlPlugin(config, {
       minify: { // 压缩HTML文件
@@ -196,6 +198,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
     htmlInjectPlugin(config, {
       data: htmlData,
       htmlXmlMode,
+      cors: htmlScriptCORS,
     });
   }
   
