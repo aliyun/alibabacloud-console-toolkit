@@ -133,10 +133,27 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     });
   }
 
+  // 兼容 less-loader v5 配置
+  const {
+    lessOptions,
+    prependData,
+    appendData,
+    sourceMap,
+    implementation,
+    ...restLessLoaderOptions
+  } = options.lessLoaderOptions;
+
   const lessLoaderOptions = {
-    ...options.lessLoaderOptions,
-    javascriptEnabled: true,
-    modifyVars: options.theme ? normalizeTheme(options.theme, {cwd}) : {}
+    lessOptions:  typeof lessOptions === 'function' ? lessOptions : {
+      javascriptEnabled: true,
+      modifyVars: (options.theme ? normalizeTheme(options.theme, {cwd}) : {}),
+      ...lessOptions,
+      ...restLessLoaderOptions,
+    },
+    prependData,
+    appendData,
+    sourceMap,
+    implementation
   };
 
   createCssRules('css', /\.css$/);
