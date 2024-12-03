@@ -141,7 +141,7 @@ export const style = (config: Chain, options: BreezrStyleOptions) => {
     sourceMap,
     implementation,
     ...restLessLoaderOptions
-  } = options.lessLoaderOptions;
+  } = options.lessLoaderOptions || {};
 
   const lessLoaderOptions = {
     lessOptions:  typeof lessOptions === 'function' ? lessOptions : {
