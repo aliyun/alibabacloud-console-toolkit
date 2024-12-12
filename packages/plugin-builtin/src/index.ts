@@ -8,6 +8,6 @@ import { BuiltInConfig } from './BuiltInConfig';
 export default function (api: PluginAPI, config: BuiltInConfig) {
   build(api, config);
   dev(api, config);
-  inspect(api);
+  inspect(api, config);
   init(api);
 }
