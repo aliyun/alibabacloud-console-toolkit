@@ -6,18 +6,28 @@ import { createRules } from '../../../utils';
 import { BreezrReactBabelOption } from '../../../types';
 import { getPkgPath, shouldTransform } from './es5ImcompatibleVersions';
 
-const addEs5ImcompatibleVersions = (config: Chain, babelConfig: any) => {
-  const extraBabelIncludes = [
-    (a: string) => {
-      if (!a.includes('node_modules')) {
+const addEs5IncompatibleVersions = (config: Chain, babelConfig: any, es5: boolean, extraInclude?: Webpack.RuleSetCondition) => {
+  const extraBabelIncludes: Webpack.RuleSetCondition = [];
+
+  if (es5) {
+    extraBabelIncludes.push((path: string) => {
+      if (!path.includes('node_modules')) {
         return false;
       }
-      const pkgPath = getPkgPath(a);
+      const pkgPath = getPkgPath(path);
       return shouldTransform(pkgPath);
+    })
+  }
+  
+  if (extraInclude) {
+    if (typeof extraInclude === 'string' && !extraInclude.startsWith('/')) {
+      extraBabelIncludes.push(require.resolve(extraInclude, { paths: [process.cwd()] }));
+    } else {
+      extraBabelIncludes.push(extraInclude);
     }
-  ];
+  }
 
-  extraBabelIncludes.forEach((include: Webpack.RuleSetConditionAbsolute, index: number) => {
+  extraBabelIncludes.forEach((include: Webpack.RuleSetCondition, index: number) => {
     const rule = `extraBabelInclude_${index}`;
     config.module
       .rule(rule)
@@ -61,12 +71,12 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     test: /\.jsx?$/
   });
 
-  if (include) {
-    rule
-      .include
-      .add(include)
-      .end();
-  }
+  // if (include) {
+  //   rule
+  //     .include
+  //     .add(include)
+  //     .end();
+  // }
   
   let babelConfig = options.babelOption ? options.babelOption : {
     presets: [
@@ -99,7 +109,5 @@ export const jsx = (config: Chain, options: BreezrReactBabelOption) => {
     .loader(require.resolve('babel-loader'))
     .options(babelConfig);
 
-  if (es5ImcompatibleVersions) {
-    addEs5ImcompatibleVersions(config, babelConfig);
-  }
+    addEs5IncompatibleVersions(config, babelConfig, !!es5ImcompatibleVersions, include);
 };
