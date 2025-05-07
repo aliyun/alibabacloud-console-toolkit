@@ -17,6 +17,7 @@ export const file = (config: Chain, options: BreezrReactOptions) => {
   });
 
   rule
+    .type('javascript/auto')
     .use('url-loader')
     .loader(require.resolve('url-loader'))
     .options({
