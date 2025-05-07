@@ -173,6 +173,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
   if (!disableHtml) {
     const htmlData = api.dispatchSync<HtmlData>('getHtmlData');
 
+    // generate index.html
     htmlPlugin(config, {
       minify: { // 压缩HTML文件
         removeComments: true, // 移除HTML中的注释
@@ -195,6 +196,7 @@ export const common = (config: Chain, options: BreezrReactOptions = defaultOptio
         };
       },
     });
+
     htmlInjectPlugin(config, {
       data: htmlData,
       htmlXmlMode,

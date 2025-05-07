@@ -1,5 +1,7 @@
 import * as webpack from 'webpack';
 import * as url from 'url';
+import * as fs from 'fs-extra';
+import * as path from 'path';
 import * as cheerio from 'cheerio';
 import * as Chain from 'webpack-chain';
 import type { CheerioAPI } from 'cheerio';
@@ -91,6 +93,17 @@ class HtmlInjectPlugin {
           this._processScripts($, publicPath);
 
           data.html = $.html();
+          callback();
+        });
+
+        // @ts-ignore
+        compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
+          if (data.html) {
+            const oneHtmlPath = path.resolve(compiler.options.output?.path || '', 'one.html');
+            fs.ensureFileSync(oneHtmlPath);
+            fs.writeFileSync(oneHtmlPath, data.html.replace(/\.alicdn.com/g, '.{{{MAIN_RESOURCE_CDN}}}.com'));
+          } 
+  
           callback();
         });
       });
