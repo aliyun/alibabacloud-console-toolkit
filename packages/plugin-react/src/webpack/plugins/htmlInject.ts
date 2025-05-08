@@ -101,7 +101,7 @@ class HtmlInjectPlugin {
           if (data.html) {
             const oneHtmlPath = path.resolve(compiler.options.output?.path || '', 'one.html');
             fs.ensureFileSync(oneHtmlPath);
-            fs.writeFileSync(oneHtmlPath, data.html.replace(/\.alicdn.com/g, '.{{{MAIN_RESOURCE_CDN}}}.com'));
+            fs.writeFileSync(oneHtmlPath, data.html.replace(/\.alicdn.com/g, '.{{{MAIN_RESOURCE_CDN}}}'));
           } 
   
           callback();
