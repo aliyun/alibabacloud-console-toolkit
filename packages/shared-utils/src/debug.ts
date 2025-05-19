@@ -1,4 +1,4 @@
-import * as d from 'debug';
+import d from 'debug';
 
 const PREFIX = 'breezr';
 
@@ -9,7 +9,6 @@ const loggerMap: {
 export const debug = (tag: string, format: any, ...args: any[]) => {
   const namespace = `${PREFIX}:${tag}`;
   if (!loggerMap[namespace]) {
-    // @ts-ignore
     loggerMap[namespace] = d(namespace);
   }
 
