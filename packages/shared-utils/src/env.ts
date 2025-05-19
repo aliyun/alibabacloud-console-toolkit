@@ -1,3 +1,4 @@
+import parser from 'yargs-parser';
 import { Evnrioment, BuildType } from "./type";
 
 export function getEnv(): Evnrioment {
@@ -91,6 +92,9 @@ export function getEnv(): Evnrioment {
     default:
   }
 
+  const buildArgvParsed = parser(process.env.BUILD_ARGV_STR || '');
+  const publishEnv = buildArgvParsed['def_publish_env'];
+
   return {
     gitGroup,
     gitProject,
@@ -105,6 +109,7 @@ export function getEnv(): Evnrioment {
     workingDir,
     buildEnv,
     buildType,
+    publishEnv,
     isProd () {
       return (buildType & BuildType.Prod) > 0;
     },

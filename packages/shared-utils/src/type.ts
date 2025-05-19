@@ -32,6 +32,7 @@ export interface Evnrioment {
   workingDir?: string;
   buildEnv?: string;
   buildType: BuildType;
+  publishEnv?: string; // daily or prod
   isProd: () => boolean;
   isDev: () => boolean;
   isCloudBuild: () => boolean;
