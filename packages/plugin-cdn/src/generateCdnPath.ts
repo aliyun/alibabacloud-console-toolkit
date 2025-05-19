@@ -12,6 +12,7 @@ export function generateCdnPath(env: Evnrioment) {
     gitGroup,
     gitProject,
     publishType = PublishType.NORMAL,
+    publishEnv,
   } = env;
 
   if (!gitBranch || !isValidBranch(gitBranch)) {
@@ -19,7 +20,7 @@ export function generateCdnPath(env: Evnrioment) {
   }
 
   const [, version] = gitBranch.split('/');
-  const host = '//g.alicdn.com';
+  const host = publishEnv === 'daily' ? '//dev.g.alicdn.com' : '//g.alicdn.com';
   const paths = [host, gitGroup, gitProject];
 
   if (publishType === PublishType.NORMAL) {
