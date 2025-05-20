@@ -100,8 +100,11 @@ class HtmlInjectPlugin {
         compilation.hooks.htmlWebpackPluginAfterHtmlProcessing.tapAsync('HtmlInjectPlugin', (data, callback) => {
           if (data.html) {
             const oneHtmlPath = path.resolve(compiler.options.output?.path || '', 'one.html');
+            const idptHtmlPath = path.resolve(compiler.options.output?.path || '', 'idpt.html');
             fs.ensureFileSync(oneHtmlPath);
+            fs.ensureFileSync(idptHtmlPath);
             fs.writeFileSync(oneHtmlPath, data.html.replace(/\.alicdn.com/g, '.{{{MAIN_RESOURCE_CDN}}}'));
+            fs.writeFileSync(idptHtmlPath, data.html.replace(/dev\.g\.alicdn\.com/g, 'dev-g.{{{MAIN_RESOURCE_CDN}}}').replace(/\.alicdn.com/g, '.{{{MAIN_RESOURCE_CDN}}}'));
           } 
   
           callback();
