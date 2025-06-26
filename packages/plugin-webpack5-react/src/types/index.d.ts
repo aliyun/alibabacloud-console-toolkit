@@ -36,6 +36,7 @@ interface BreezrReactOptions {
   postCssPlugins?: any[];
   disableImportXConsoleCSS?: boolean;
   useSass?: boolean;
+  tailwindcss?: any;
 
   // babel-loader 配置
   babel?: Function;
@@ -163,6 +164,9 @@ interface BreezrStyleOptions extends Pick<BreezrReactOptions, 'appId' | 'console
   condition?: CssConditionType;
   postCssPlugins?: any[];
   useSass?: boolean;
+  tailwindcss?: {
+    config?: string;
+  };
 }
 
 interface ThemeDef {

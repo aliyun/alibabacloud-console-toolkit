@@ -1,5 +1,6 @@
 import * as path from 'path';
 import * as autoprefixer from 'autoprefixer';
+import * as tailwindcss from 'tailwindcss';
 import * as Chain from '@gem-mine/webpack-chain';
 import * as webpack from 'webpack';
 
@@ -19,6 +20,7 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
     hashPrefix = '',
     disableAutoPrefixer = false,
     postCssPlugins = [],
+    tailwindcss: tailwindcssConfig = {},
   } = options;
 
   // extract-text-webpack-plugin 在 webpack 4 中用作提取 css 的时候存在问题
@@ -78,6 +80,13 @@ function applyCssLoaders(rule: Chain.Rule, options: BreezrStyleOptions) {
         'not ie <= 9',
       ],
     }))
+  }
+
+  // add tailwindcss plugin
+  if (tailwindcssConfig.config) {
+    postCssPlugins.unshift(tailwindcss({
+      config: tailwindcssConfig.config,
+    }));
   }
 
   rule
